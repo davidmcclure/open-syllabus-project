@@ -1,0 +1,33 @@
+
+
+from setuptools import setup, find_packages
+
+
+setup(
+
+    name='osp',
+    version='0.1.0',
+    description='Metadata extraction for the Open Syllabus Project.',
+    url='https://github.com/overview/osp',
+    license='Apache',
+    author='David McClure',
+    author_email='davidwilliammcclure@gmail.com',
+    packages=find_packages(),
+
+    scripts=[
+        'bin/ospinst',
+        'bin/osploc',
+    ],
+
+    install_requires=[
+        'tldextract',
+        'geopy',
+        'redis',
+        'rq',
+        'rq-dashboard',
+        'click',
+        'psycopg2',
+        'peewee',
+    ]
+
+)

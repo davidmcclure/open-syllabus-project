@@ -1,0 +1,9 @@
+ipython==2.3.1
+tldextract==1.5.1
+geopy==1.6.0
+redis==2.10.3
+rq==0.4.6
+rq-dashboard==0.3.4
+click==2.5
+psycopg2==2.5.4
+peewee==2.4.4
