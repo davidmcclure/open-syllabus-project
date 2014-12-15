@@ -1,3 +1,5 @@
 # Open Syllabus Project
 
-File management and metadata extraction utilities. Read about the **[Open Syllabus Project](http://opensyllabusproject.org)**.
+Utilities for file management and metadata extraction.
+
+Read about the **[Open Syllabus Project](http://opensyllabusproject.org)**.

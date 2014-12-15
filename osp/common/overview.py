@@ -2,6 +2,9 @@
 
 import os
 import requests
+import json
+
+from base64 import urlsafe_b64encode as b64
 
 
 class Overview:
@@ -15,8 +18,36 @@ class Overview:
         :param key: The API key.
         """
 
+        # Set the URL and API token.
         self.key = key if key else os.environ['OSP_API_KEY']
         self.url = os.environ['OSP_API_URL'].rstrip('/')
+
+        # Initialize the session.
+        self.overview = requests.Session()
+        self.overview.headers.update(self.headers)
+
+
+    @property
+    def headers(self):
+
+        """
+        Build the shared header.
+        """
+
+        token = (self.key+':x-auth-token').encode('ascii')
+        value = b64(token).decode('utf-8')
+
+        return {'Authorization': 'Basic '+value}
+
+
+    @property
+    def store_state_url(self):
+
+        """
+        Store state API endpoint.
+        """
+
+        return self.url+'/store/state'
 
 
     def put_store_state(self, state):
@@ -27,7 +58,7 @@ class Overview:
         :param state: The new state.
         """
 
-        pass
+        return self.overview.put(self.store_state_url, json=state)
 
 
     def get_store_state(self):
