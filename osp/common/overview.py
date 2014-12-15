@@ -40,6 +40,10 @@ class Overview:
         return {'Authorization': 'Basic '+value}
 
 
+    # URL builders:
+    # -------------
+
+
     def documents_url(self, set_id):
         return self.url+'/document-sets/'+str(set_id)+'/documents'
 
@@ -65,6 +69,10 @@ class Overview:
     @property
     def document_objects_url(self):
         return self.url+'/store/document-objects'
+
+
+    # API wrappers:
+    # -------------
 
 
     def get_documents(self, set_id):
