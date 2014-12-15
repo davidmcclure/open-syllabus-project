@@ -60,6 +60,17 @@ class Overview:
         return self.url+'/store/objects'
 
 
+    def store_object_url(self, id):
+
+        """
+        Individual store object API endpoint.
+
+        :param id: The object id.
+        """
+
+        return self.store_objects_url+'/'+str(id)
+
+
     def put_store_state(self, state):
 
         """
@@ -99,7 +110,7 @@ class Overview:
         :param id: The object id.
         """
 
-        pass
+        return self.overview.get(self.store_object_url(id)).json()
 
 
     def delete_store_object(self, id):
@@ -110,4 +121,4 @@ class Overview:
         :param id: The object id.
         """
 
-        pass
+        return self.overview.delete(self.store_object_url(id)).ok
