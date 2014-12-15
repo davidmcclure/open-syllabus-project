@@ -45,7 +45,7 @@ class Syllabus:
 
 
     @property
-    def segment(self):
+    def segment_name(self):
 
         """
         Get the name of the parent segment.
@@ -55,13 +55,13 @@ class Syllabus:
 
 
     @property
-    def corpus_path(self):
+    def relative_path(self):
 
         """
         Get the file path relative to the corpus.
         """
 
-        return self.segment+'/'+self.file_name
+        return self.segment_name+'/'+self.file_name
 
 
     @property
