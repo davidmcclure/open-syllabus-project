@@ -1,6 +1,22 @@
 
 
+import os
+import requests
+
+
 class Overview:
+
+
+    def __init__(self, key=None):
+
+        """
+        Set the store state.
+
+        :param key: The API key.
+        """
+
+        self.key = key if key else os.environ['OSP_API_KEY']
+        self.url = os.environ['OSP_API_URL'].rstrip('/')
 
 
     def put_store_state(self, state):
