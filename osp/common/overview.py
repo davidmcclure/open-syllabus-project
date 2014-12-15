@@ -67,7 +67,7 @@ class Overview:
         Retrieve the store state.
         """
 
-        pass
+        return self.overview.get(self.store_state_url).json()
 
 
     def put_store_object(self, i_long, i_string, json):
