@@ -2,7 +2,7 @@
 
 import datetime
 
-from osp.locations.models.base import BaseModel
+from osp.common.models.base import BaseModel
 from osp.institutions.models.institution import Institution
 from peewee import *
 
@@ -19,6 +19,7 @@ class DocToInst(BaseModel):
     def select_current(cls):
 
         """
+        TODO: Break off into base class.
         Select the current associations.
         """
 

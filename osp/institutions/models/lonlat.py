@@ -2,7 +2,7 @@
 
 import datetime
 
-from osp.institutions.models.base import BaseModel
+from osp.common.models.base import BaseModel
 from osp.institutions.models.institution import Institution
 from peewee import *
 

@@ -4,7 +4,7 @@
 import click
 import csv
 
-from osp.institutions.models.base import database
+from osp.common.models.base import database
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode

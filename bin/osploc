@@ -5,7 +5,7 @@ import os
 import click
 import csv
 
-from osp.locations.models.base import database
+from osp.common.models.base import database
 from osp.locations.models.doc_to_inst import DocToInst
 from osp.locations.jobs.locate import locate
 from osp.institutions.models.institution import Institution

@@ -2,15 +2,34 @@
 
 import datetime
 
-from osp.institutions.models.base import BaseModel
-from peewee import *
 from playhouse.postgres_ext import *
+from osp.common.models.base import BaseModel
+from peewee import *
 
 
 class Institution(BaseModel):
 
 
     metadata = HStoreField()
+
+
+    @classmethod
+    def join_metadata(cls, metadata):
+
+        """
+        TODO: Break off into base class.
+        Join on the most recent rows from a metadata table.
+
+        :param Model metadata: The metadata model.
+        """
+
+        return (
+            cls
+            .select(cls, metadata)
+            .distinct([cls.id])
+            .join(metadata, JOIN_LEFT_OUTER)
+            .order_by(cls.id, metadata.created.desc())
+        )
 
 
     @property
