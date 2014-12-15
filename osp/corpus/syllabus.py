@@ -35,13 +35,33 @@ class Syllabus:
 
 
     @property
-    def uid(self):
+    def file_name(self):
 
         """
-        Get a unique identifier for the document.
+        Get the file name of the document.
         """
 
         return os.path.basename(self.path)
+
+
+    @property
+    def segment(self):
+
+        """
+        Get the name of the parent segment.
+        """
+
+        return os.path.split(os.path.dirname(self.path))[-1]
+
+
+    @property
+    def corpus_path(self):
+
+        """
+        Get the file path relative to the corpus.
+        """
+
+        return self.segment+'/'+self.file_name
 
 
     @property
