@@ -75,15 +75,18 @@ class Overview:
     # -------------
 
 
-    def get_documents(self, set_id):
+    def list_documents(self, set_id, params={}):
 
         """
         Get a list of documents.
 
         :param set_id: The document set ID.
+        :param params: Query parameters.
         """
 
-        return self.overview.get(self.documents_url(set_id)).json()
+        return self.overview.get(
+            self.documents_url(set_id), params=params
+        ).json()
 
 
     def get_document(self, set_id, doc_id):
@@ -129,7 +132,7 @@ class Overview:
         return self.overview.post(self.objects_url, json=obj).json()
 
 
-    def get_objects(self):
+    def list_objects(self):
 
         """
         Get all store objects.
