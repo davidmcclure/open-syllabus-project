@@ -40,45 +40,54 @@ class Overview:
         return {'Authorization': 'Basic '+value}
 
 
+    def documents_url(self, set_id):
+        return self.url+'/document-sets/'+str(set_id)+'/documents'
+
+
+    def document_url(self, set_id, doc_id):
+        return self.documents_url(set_id)+'/'+str(doc_id)
+
+
     @property
     def state_url(self):
-
-        """
-        Store state API endpoint.
-        """
-
         return self.url+'/store/state'
 
 
     @property
     def objects_url(self):
-
-        """
-        Store objects API endpoint.
-        """
-
         return self.url+'/store/objects'
 
 
     def object_url(self, id):
-
-        """
-        Individual store object API endpoint.
-
-        :param id: The object id.
-        """
-
         return self.objects_url+'/'+str(id)
 
 
     @property
     def document_objects_url(self):
-
-        """
-        Store document->objects API endpoint.
-        """
-
         return self.url+'/store/document-objects'
+
+
+    def get_documents(self, set_id):
+
+        """
+        Get a list of documents.
+
+        :param set_id: The document set ID.
+        """
+
+        return self.overview.get(self.documents_url(set_id)).json()
+
+
+    def get_document(self, set_id, doc_id):
+
+        """
+        Get a list of documents.
+
+        :param set_id: The document set ID.
+        :param doc_id: The document ID.
+        """
+
+        return self.overview.get(self.document_url(set_id, doc_id)).json()
 
 
     def put_state(self, state):
