@@ -50,6 +50,16 @@ class Overview:
         return self.url+'/store/state'
 
 
+    @property
+    def store_objects_url(self):
+
+        """
+        Store objects API endpoint.
+        """
+
+        return self.url+'/store/objects'
+
+
     def put_store_state(self, state):
 
         """
@@ -70,17 +80,15 @@ class Overview:
         return self.overview.get(self.store_state_url).json()
 
 
-    def put_store_object(self, i_long, i_string, json):
+    def post_store_object(self, obj):
 
         """
         Set a store object
 
-        :param i_long: An indexed numeric field.
-        :param i_string: An indexed string field.
-        :param json: JSON for the object.
+        :param obj: A store object (or array of objects).
         """
 
-        pass
+        return self.overview.post(self.store_objects_url, json=obj).json()
 
 
     def get_store_object(self, id):
