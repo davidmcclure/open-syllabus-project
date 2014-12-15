@@ -122,3 +122,25 @@ class Overview:
         """
 
         return self.overview.delete(self.store_object_url(id)).ok
+
+
+    def post_document_objects(self, links):
+
+        """
+        Create object->document links.
+
+        :param links: An array of [docId, objId] pairs.
+        """
+
+        pass
+
+
+    def delete_document_objects(self, links):
+
+        """
+        Create object->document links.
+
+        :param links: An array of [docId, objId] pairs.
+        """
+
+        pass
