@@ -26,8 +26,6 @@ class Segment:
 
         """
         Get a list of all syllabus file names.
-
-        @returns: The list of file names.
         """
 
         names = []
@@ -46,8 +44,6 @@ class Segment:
 
         """
         How many syllabi are contained in the segment?
-
-        @returns: The file count.
         """
 
         return len(self.file_names)

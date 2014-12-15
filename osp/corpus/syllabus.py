@@ -155,8 +155,6 @@ class Syllabus:
 
         """
         Get the parsed domain of the syllabus' URL.
-
-        @returns: tldextract `ExtractResult`.
         """
 
         # Get the last `http://` group.
@@ -173,8 +171,6 @@ class Syllabus:
         """
         Get the registered domain of the syllabus' URL. Eg:
         http://www.yale.edu/syllabus.pdf -> yale.edu
-
-        @returns: The registered domain.
         """
 
         return self.parsed_domain.registered_domain

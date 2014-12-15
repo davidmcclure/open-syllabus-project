@@ -26,8 +26,6 @@ class Corpus:
 
         """
         How many syllabi are contained in the entire corpus?
-
-        @returns: The file count.
         """
 
         count = 0

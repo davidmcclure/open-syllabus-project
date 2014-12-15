@@ -33,7 +33,7 @@ def locate(path):
 
         # Write the association.
         doc2inst = DocToInst(
-            institution=match, document=syllabus.uid
+            institution=match, document=syllabus.relative_path
         )
 
         doc2inst.save()
