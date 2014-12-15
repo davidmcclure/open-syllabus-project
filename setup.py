@@ -7,7 +7,7 @@ setup(
 
     name='osp',
     version='0.1.0',
-    description='Metadata extraction for the Open Syllabus Project.',
+    description='OSP file management and metadata extraction.',
     url='https://github.com/overview/osp',
     license='Apache',
     author='David McClure',
