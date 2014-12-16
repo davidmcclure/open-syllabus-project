@@ -41,9 +41,12 @@ def insert_institutions(in_file):
 
     reader = csv.DictReader(in_file)
 
+    rows = []
     for row in reader:
-        inst = Institution(metadata=row)
-        inst.save()
+        rows.append({'metadata': row})
+
+    with database.transaction():
+        Institution.insert_many(rows).execute()
 
 
 @cli.command()
