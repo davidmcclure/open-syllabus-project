@@ -33,8 +33,9 @@ def queue_document_registration():
     Queue jobs to insert documents in the database.
     """
 
-    # TODO: Make env-configurable.
-    queue = Queue('osp-corpus', connection=StrictRedis())
+    # TODO: ENV-ify.
+    queue = Queue(connection=StrictRedis())
     corpus = Corpus(os.environ['OSP_CORPUS'])
 
-    print(corpus.file_count)
+    for syllabus in corpus.syllabi():
+        print(syllabus.relative_path)

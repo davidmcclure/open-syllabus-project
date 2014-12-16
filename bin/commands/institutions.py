@@ -55,8 +55,8 @@ def queue_geocoding():
     :param in_file: A handle on the input CSV.
     """
 
-    # TODO: Make env-configurable.
-    queue = Queue('osp-inst', connection=StrictRedis())
+    # TODO: ENV-ify.
+    queue = Queue(connection=StrictRedis())
 
     for inst in Institution.select().iterator():
         queue.enqueue(geocode, inst.id, inst.geocoding_query)

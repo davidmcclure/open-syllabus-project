@@ -39,7 +39,7 @@ def queue_location():
     """
 
     # TODO: ENV-ify.
-    queue = Queue('osp-loc', connection=StrictRedis())
+    queue = Queue(connection=StrictRedis())
     corpus = Corpus(os.environ['OSP_CORPUS'])
 
     for syllabus in corpus.syllabi():
