@@ -99,7 +99,7 @@ class Overview:
 
         return self.overview.get(
             self.documents_url(set_id), params=params
-        ).json()
+        )
 
 
     def get_document(self, set_id, doc_id):
