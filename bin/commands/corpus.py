@@ -27,7 +27,7 @@ def init_db():
 
 
 @cli.command()
-def queue_document_registration():
+def queue_document_insertions():
 
     """
     Queue jobs to insert documents in the database.
@@ -38,4 +38,4 @@ def queue_document_registration():
     corpus = Corpus(os.environ['OSP_CORPUS'])
 
     for syllabus in corpus.syllabi():
-        print(syllabus.relative_path)
+        queue.enqueue(insert, syllabus.relative_path)
