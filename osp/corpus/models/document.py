@@ -8,7 +8,7 @@ class Document(BaseModel):
 
 
     path = CharField(unique=True)
-    stored_id = CharField(null=True)
+    stored_id = BigIntegerField(null=True)
 
 
     class Meta:
