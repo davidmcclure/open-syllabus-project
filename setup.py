@@ -24,6 +24,7 @@ setup(
         'click',
         'psycopg2',
         'peewee',
+        'clint',
     ]
 
 )
