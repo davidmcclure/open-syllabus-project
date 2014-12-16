@@ -11,6 +11,7 @@ class Institution(BaseModel):
 
 
     metadata = HStoreField()
+    stored_id = BigIntegerField(null=True)
 
 
     @classmethod

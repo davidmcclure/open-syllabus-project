@@ -41,15 +41,16 @@ def insert_documents():
 
 
 @cli.command()
-def write_overview_ids():
+def pull_overview_ids():
 
     """
     Copy document ids from Overview.
     """
 
+    id = os.environ['OSP_DOC_SET_ID']
     ov = Overview.from_env()
 
-    for o_doc in ov.list_documents(5).json()['items']:
+    for o_doc in ov.list_documents(id).json()['items']:
 
         # Get the local document row.
         e_doc = Document.get(Document.path==o_doc['title'])

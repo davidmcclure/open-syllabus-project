@@ -66,7 +66,8 @@ def queue_geocoding():
 
 
 @cli.command()
-def write_store_objects():
+@click.option('--page', default=100)
+def write_store_objects(page):
 
     """
     DEV: Write store objects into Overview.
@@ -91,7 +92,20 @@ def write_store_objects():
             'json': inst.metadata
         })
 
-    ov.post_object(objects)
+    # Write the objects in pages.
+    for i in range(0, len(objects), page):
+        ov.post_object(objects[i:i+page])
+
+
+@cli.command()
+def pull_overview_ids():
+
+    """
+    Copy document ids from Overview.
+    """
+
+    ov = Overview.from_env()
+    print(ov.list_objects().json())
 
 
 @cli.command()
