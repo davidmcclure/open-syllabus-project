@@ -98,7 +98,7 @@ class Overview:
         :param doc_id: The document ID.
         """
 
-        return self.overview.get(self.document_url(set_id, doc_id)).json()
+        return self.overview.get(self.document_url(set_id, doc_id))
 
 
     def put_state(self, state):
@@ -118,7 +118,7 @@ class Overview:
         Retrieve the store state.
         """
 
-        return self.overview.get(self.state_url).json()
+        return self.overview.get(self.state_url)
 
 
     def post_object(self, obj):
@@ -129,7 +129,7 @@ class Overview:
         :param obj: A store object (or array of objects).
         """
 
-        return self.overview.post(self.objects_url, json=obj).json()
+        return self.overview.post(self.objects_url, json=obj)
 
 
     def list_objects(self):
@@ -138,7 +138,7 @@ class Overview:
         Get all store objects.
         """
 
-        return self.overview.get(self.objects_url).json()
+        return self.overview.get(self.objects_url)
 
 
     def get_object(self, id):
@@ -149,7 +149,7 @@ class Overview:
         :param id: The object id.
         """
 
-        return self.overview.get(self.object_url(id)).json()
+        return self.overview.get(self.object_url(id))
 
 
     def delete_object(self, id):
@@ -160,7 +160,7 @@ class Overview:
         :param id: The object id.
         """
 
-        return self.overview.delete(self.object_url(id)).ok
+        return self.overview.delete(self.object_url(id))
 
 
     def post_document_objects(self, links):
@@ -173,7 +173,7 @@ class Overview:
 
         return self.overview.post(
             self.document_objects_url, json=links
-        ).json()
+        )
 
 
     def delete_document_objects(self, links):
@@ -186,4 +186,4 @@ class Overview:
 
         return self.overview.delete(
             self.document_objects_url, json=links
-        ).ok
+        )

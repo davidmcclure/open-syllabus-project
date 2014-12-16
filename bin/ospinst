@@ -5,6 +5,7 @@ import click
 import csv
 
 from osp.common.models.base import database
+from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode
@@ -63,11 +64,40 @@ def queue_geocoding():
 
 
 @ospinst.command()
+def write_store_objects():
+
+    """
+    DEV: Write store objects into Overview.
+    """
+
+    ov = Overview()
+
+    # Join the coordinates.
+    query = Institution.join_metadata(LonLat)
+
+    objects = []
+    for inst in query.naive().iterator():
+
+        inst.metadata.update({
+            'Longitude': inst.lon,
+            'Latitude': inst.lat
+        })
+
+        objects.append({
+            'indexedLong': None,
+            'indexedString': inst.metadata['Institution_Name'],
+            'json': inst.metadata
+        })
+
+    ov.post_object(objects)
+
+
+@ospinst.command()
 @click.argument('out_path', type=click.Path())
 def make_csv(out_path):
 
     """
-    Generate a CSV file.
+    DEV: Generate a CSV file.
 
     :param in_file: A path for the new CSV file.
     """
