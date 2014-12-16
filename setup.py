@@ -13,11 +13,7 @@ setup(
     author='David McClure',
     author_email='davidwilliammcclure@gmail.com',
     packages=find_packages(),
-
-    scripts=[
-        'bin/ospinst',
-        'bin/osploc',
-    ],
+    scripts=['bin/osp'],
 
     install_requires=[
         'tldextract',

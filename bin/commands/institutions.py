@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 
 import click
@@ -15,11 +14,11 @@ from peewee import *
 
 
 @click.group()
-def ospinst():
+def cli():
     pass
 
 
-@ospinst.command()
+@cli.command()
 def init_db():
 
     """
@@ -30,7 +29,7 @@ def init_db():
     database.create_tables([Institution, LonLat])
 
 
-@ospinst.command()
+@cli.command()
 @click.argument('in_file', type=click.File('rt'))
 def insert_institutions(in_file):
 
@@ -47,7 +46,7 @@ def insert_institutions(in_file):
         inst.save()
 
 
-@ospinst.command()
+@cli.command()
 def queue_geocoding():
 
     """
@@ -63,7 +62,7 @@ def queue_geocoding():
         queue.enqueue(geocode, inst.id, inst.geocoding_query)
 
 
-@ospinst.command()
+@cli.command()
 def write_store_objects():
 
     """
@@ -92,7 +91,7 @@ def write_store_objects():
     ov.post_object(objects)
 
 
-@ospinst.command()
+@cli.command()
 @click.argument('out_path', type=click.Path())
 def make_csv(out_path):
 
@@ -121,7 +120,3 @@ def make_csv(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
-
-
-if __name__ == '__main__':
-    ospinst()

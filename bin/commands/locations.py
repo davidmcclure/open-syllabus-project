@@ -1,4 +1,3 @@
-#!/usr/bin/env python
 
 
 import os
@@ -17,11 +16,11 @@ from peewee import *
 
 
 @click.group()
-def osploc():
+def cli():
     pass
 
 
-@osploc.command()
+@cli.command()
 def init_db():
 
     """
@@ -32,7 +31,7 @@ def init_db():
     database.create_tables([DocToInst])
 
 
-@osploc.command()
+@cli.command()
 def queue_location():
 
     """
@@ -47,7 +46,7 @@ def queue_location():
         queue.enqueue(locate, syllabus.path)
 
 
-@osploc.command()
+@cli.command()
 @click.argument('out_path', type=click.Path())
 def make_csv(out_path):
 
@@ -83,7 +82,3 @@ def make_csv(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
-
-
-if __name__ == '__main__':
-    osploc()
