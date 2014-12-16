@@ -10,17 +10,30 @@ from base64 import urlsafe_b64encode as b64
 class Overview:
 
 
-    def __init__(self, key=None):
+    @classmethod
+    def from_env(cls):
 
         """
-        Set the store state.
-
-        :param key: The API key.
+        Get an instance from the ENV params.
         """
 
-        # Set the URL and API token.
-        self.key = key if key else os.environ['OSP_API_KEY']
-        self.url = os.environ['OSP_API_URL'].rstrip('/')
+        return cls(
+            os.environ['OSP_API_URL'],
+            os.environ['OSP_API_TOKEN']
+        )
+
+
+    def __init__(self, url, token):
+
+        """
+        Initialize the session, set headers.
+
+        :param url: The API url.
+        :param token: The API token.
+        """
+
+        self.url = url.rstrip('/')
+        self.token = token
 
         # Initialize the session.
         self.overview = requests.Session()
@@ -34,7 +47,7 @@ class Overview:
         Build the shared header.
         """
 
-        token = (self.key+':x-auth-token').encode('ascii')
+        token = (self.token+':x-auth-token').encode('ascii')
         value = b64(token).decode('utf-8')
 
         return {'Authorization': 'Basic '+value}

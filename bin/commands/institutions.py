@@ -69,7 +69,7 @@ def write_store_objects():
     DEV: Write store objects into Overview.
     """
 
-    ov = Overview()
+    ov = Overview.from_env()
 
     # Join the coordinates.
     query = Institution.join_metadata(LonLat)
