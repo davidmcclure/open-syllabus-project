@@ -21,8 +21,6 @@ def geocode(iid, q):
     g = coder.geocode(q, timeout=10)
 
     # Write the coordinate.
-    lonlat = LonLat(
+    LonLat.create(
         institution=iid, lon=g.longitude, lat=g.latitude
     )
-
-    lonlat.save()
