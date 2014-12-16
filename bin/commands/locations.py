@@ -40,9 +40,8 @@ def queue_location():
 
     # TODO: ENV-ify.
     queue = Queue(connection=StrictRedis())
-    corpus = Corpus(os.environ['OSP_CORPUS'])
 
-    for syllabus in corpus.syllabi():
+    for syllabus in Corpus.from_env().syllabi():
         queue.enqueue(locate, syllabus.path)
 
 

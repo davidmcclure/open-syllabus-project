@@ -9,6 +9,16 @@ from functools import lru_cache
 class Corpus:
 
 
+    @classmethod
+    def from_env(cls):
+
+        """
+        Get an instance for the ENV-defined corpus.
+        """
+
+        return cls(os.environ['OSP_CORPUS'])
+
+
     def __init__(self, path):
 
         """

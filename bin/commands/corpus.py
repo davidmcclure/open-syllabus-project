@@ -31,10 +31,8 @@ def insert_documents():
     Insert documents in the database.
     """
 
-    corpus = Corpus(os.environ['OSP_CORPUS'])
-
     docs = []
-    for syllabus in corpus.syllabi():
+    for syllabus in Corpus.from_env().syllabi():
         docs.append({'path': syllabus.relative_path})
 
     with database.transaction():
