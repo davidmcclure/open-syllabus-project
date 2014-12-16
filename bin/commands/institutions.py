@@ -66,7 +66,7 @@ def queue_geocoding():
 
 
 @cli.command()
-@click.option('--page', default=100)
+@click.option('--page', default=50)
 def write_store_objects(page):
 
     """
@@ -76,7 +76,7 @@ def write_store_objects(page):
     ov = Overview.from_env()
 
     # Join the coordinates.
-    query = Institution.join_metadata(LonLat)
+    query = Institution.join_lonlats()
 
     objects = []
     for inst in query.naive().iterator():
@@ -87,7 +87,7 @@ def write_store_objects(page):
         })
 
         objects.append({
-            'indexedLong': None,
+            'indexedLong': inst.id,
             'indexedString': inst.metadata['Institution_Name'],
             'json': inst.metadata
         })
@@ -105,7 +105,15 @@ def pull_overview_ids():
     """
 
     ov = Overview.from_env()
-    print(ov.list_objects().json())
+
+    for obj in ov.list_objects().json():
+
+        # Get the local institution row.
+        inst = Institution.get(Institution.id==obj['indexedLong'])
+
+        # Write the Overview id.
+        inst.stored_id = obj['id']
+        inst.save();
 
 
 @cli.command()

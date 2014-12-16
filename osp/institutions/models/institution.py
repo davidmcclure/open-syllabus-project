@@ -15,21 +15,20 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def join_metadata(cls, metadata):
+    def join_lonlats(cls):
 
         """
-        TODO: Break off into base class.
-        Join on the most recent rows from a metadata table.
-
-        :param Model metadata: The metadata model.
+        Join on the most recent lon/lats.
         """
+
+        from osp.institutions.models.lonlat import LonLat
 
         return (
             cls
-            .select(cls, metadata)
+            .select(cls, LonLat.lon, LonLat.lat)
             .distinct([cls.id])
-            .join(metadata, JOIN_LEFT_OUTER)
-            .order_by(cls.id, metadata.created.desc())
+            .join(LonLat, JOIN_LEFT_OUTER)
+            .order_by(cls.id, LonLat.created.desc())
         )
 
 

@@ -19,15 +19,14 @@ class DocToInst(BaseModel):
     def select_current(cls):
 
         """
-        TODO: Break off into base class.
         Select the current associations.
         """
 
         return (
-            DocToInst
-            .select(DocToInst)
-            .distinct([DocToInst.document])
-            .order_by(DocToInst.document, DocToInst.created.desc())
+            cls
+            .select(cls)
+            .distinct([cls.document])
+            .order_by(cls.document, cls.created.desc())
         )
 
 
