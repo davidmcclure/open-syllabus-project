@@ -6,8 +6,6 @@ import click
 from osp.common.models.base import database
 from osp.corpus.models.document import Document
 from osp.corpus.corpus import Corpus
-from rq import Queue
-from redis import StrictRedis
 
 
 @click.group()
@@ -27,15 +25,17 @@ def init_db():
 
 
 @cli.command()
-def queue_document_insertions():
+def insert_documents():
 
     """
-    Queue jobs to insert documents in the database.
+    Insert documents in the database.
     """
 
-    # TODO: ENV-ify.
-    queue = Queue(connection=StrictRedis())
     corpus = Corpus(os.environ['OSP_CORPUS'])
 
+    docs = []
     for syllabus in corpus.syllabi():
-        queue.enqueue(insert, syllabus.relative_path)
+        docs.append({'path': syllabus.relative_path})
+
+    with database.transaction():
+        Document.insert_many(docs).execute()
