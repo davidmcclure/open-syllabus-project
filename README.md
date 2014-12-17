@@ -29,3 +29,9 @@ Commands:
   institutions
   locations
 ```
+
+## Usage
+
+Before you do anything, create a local Postgres database with `createdb osp`.  This database is used as a holding ground to store metadata before it gets pushed into Overview.
+
+### `osp corpus`
