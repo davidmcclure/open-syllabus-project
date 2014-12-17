@@ -3,6 +3,7 @@
 import os
 import tldextract
 import re
+import magic
 
 from contextlib import contextmanager
 from functools import lru_cache
@@ -140,13 +141,23 @@ class Syllabus:
 
 
     @property
-    def mime_type(self):
+    def file_type(self):
 
         """
         The mime type of the file.
         """
 
         return self.metadata(4)
+
+
+    @property
+    def libmagic_file_type(self):
+
+        """
+        Parse the file type with libmagic.
+        """
+
+        return magic.from_file(self.path, mime=True)
 
 
     @property

@@ -2,7 +2,6 @@
 
 import os
 import click
-import magic
 
 from osp.common.models.base import database
 from osp.common.overview import Overview
@@ -78,8 +77,7 @@ def file_type_counts():
 
     counts = Counter()
     for s in progress.bar(corpus.syllabi(), expected_size=size):
-        mime = magic.from_file(s.path, mime=True)
-        counts[mime] += 1
+        counts[s.libmagic_file_type] += 1
 
     t = PrettyTable(['Mime Type', 'Doc Count'])
     t.align['Mime Type'] = 'l'
