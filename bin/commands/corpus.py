@@ -52,14 +52,18 @@ def pull_overview_ids():
     id = os.environ['OSP_DOC_SET_ID']
     ov = Overview.from_env()
 
-    for o_doc in ov.list_documents(id).json()['items']:
+    # Query for documents.
+    docs = ov.list_documents(id).json()['items']
 
-        # Get the local document row.
-        e_doc = Document.get(Document.path==o_doc['title'])
+    for o_doc in progress.bar(docs):
 
-        # Write the Overview id.
-        e_doc.stored_id = o_doc['id']
-        e_doc.save()
+        query = (
+            Document
+            .update(stored_id=o_doc['id'])
+            .where(Document.path==o_doc['title'])
+        )
+
+        query.execute()
 
 
 @cli.command()
@@ -69,14 +73,11 @@ def file_type_counts():
     Print a list of file type -> count.
     """
 
-    corpus = Corpus.from_env()
-    size = corpus.file_count
-
     click.echo('Reading mime types...')
 
     # Count up the file types.
     counts = Counter()
-    for s in progress.bar(corpus.syllabi(), expected_size=size):
+    for s in Corpus.from_env().cli_syllabi():
         counts[s.libmagic_file_type] += 1
 
     # Print an ASCII table.
