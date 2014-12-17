@@ -90,27 +90,27 @@ def make_csv(out_path):
     """
 
     out_file = open(out_path, 'w')
+    cols = ['doc', 'lon', 'lat']
 
     # CSV writer:
-    cols = ['document', 'longitude', 'latitude']
     writer = csv.DictWriter(out_file, cols)
 
-    # Get current doc->inst links.
-    current = DocToInst.select_current()
+    query = (
+        DocToInst
+        .select(DocToInst, LonLat.lon, LonLat.lat)
+        .join(Institution)
+        .join(LonLat)
+        .distinct([DocToInst.document])
+        .order_by(DocToInst.document, LonLat.created.desc())
+    )
 
     rows = []
-    for doc in current.naive().iterator():
-
-        lonlat = (
-            doc.institution.lonlats
-            .order_by(LonLat.created.desc())
-            .first()
-        )
+    for d2i in query.naive().iterator():
 
         rows.append({
-            'document': doc.document,
-            'latitude': lonlat.lat,
-            'longitude': lonlat.lon
+            'doc': d2i.document,
+            'lon': d2i.lon,
+            'lat': d2i.lat
         })
 
     writer.writeheader()

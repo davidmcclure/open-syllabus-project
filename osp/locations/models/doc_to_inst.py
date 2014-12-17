@@ -15,20 +15,5 @@ class DocToInst(BaseModel):
     document    = CharField()
 
 
-    @classmethod
-    def select_current(cls):
-
-        """
-        Select the current associations.
-        """
-
-        return (
-            cls
-            .select(cls)
-            .distinct([cls.document])
-            .order_by(cls.document, cls.created.desc())
-        )
-
-
     class Meta:
         db_table = 'document_to_institution'
