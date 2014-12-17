@@ -10,6 +10,7 @@ from osp.corpus.models.document import Document
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
+from clint.textui import progress
 
 
 @click.group()
@@ -71,9 +72,12 @@ def file_type_counts():
     """
 
     corpus = Corpus.from_env()
+    size = corpus.file_count
+
+    click.echo('Reading mime types...')
 
     counts = Counter()
-    for s in corpus.syllabi():
+    for s in progress.bar(corpus.syllabi(), expected_size=size):
         counts[s.mime_type] += 1
 
     t = PrettyTable(['Mime Type', 'Doc Count'])
