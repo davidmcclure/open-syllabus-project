@@ -23,6 +23,7 @@ setup(
         'rq-dashboard',
         'click',
         'psycopg2',
+        'python-magic',
         'peewee',
     ]
 
