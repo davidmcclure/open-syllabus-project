@@ -86,3 +86,14 @@ def file_type_counts():
         t.add_row([mime.decode('utf-8'), count])
 
     click.echo(t)
+
+
+@cli.command()
+def file_count():
+
+    """
+    Print the total number of files in the corpus.
+    """
+
+    corpus = Corpus.from_env()
+    click.echo(corpus.file_count)

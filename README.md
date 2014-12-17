@@ -1,6 +1,6 @@
 # Open Syllabus Project
 
-This repository contains a collection of packages and command line utilities for interacting with the OSP corpus, extracting metadata, and loading information into Overview.
+This repository contains a collection of packages and command line utilities for interacting with the OSP corpus, extracting metadata, and loading data into Overview.
 
 Read about the **[Open Syllabus Project](http://opensyllabusproject.org)**.
 
@@ -16,7 +16,9 @@ The easiest way to get started is to install the package in `develop` mode:
 
 1. Install the package with `python setup.py develop`.
 
-Now, run `osp`, and you should get the top-level help output:
+1. Create a local Postgres database with `createdb osp`. This database is used as a holding ground to store metadata before it gets pushed into Overview.
+
+Everything is bundled up under a top-level `osp` executable. Run `osp`, and you should get the default help output:
 
 ```bash
 Usage: osp [OPTIONS] COMMAND [ARGS]...
@@ -32,4 +34,4 @@ Commands:
 
 ## Usage
 
-First, create a local Postgres database with `createdb osp`. This database is used as a holding ground to store metadata before it gets pushed into Overview.
+Everything is bunled under the o
