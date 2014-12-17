@@ -78,12 +78,13 @@ def file_type_counts():
 
     counts = Counter()
     for s in progress.bar(corpus.syllabi(), expected_size=size):
-        counts[s.mime_type] += 1
+        mime = magic.from_file(s.path, mime=True)
+        counts[mime] += 1
 
     t = PrettyTable(['Mime Type', 'Doc Count'])
     t.align['Mime Type'] = 'l'
 
     for mime, count in counts.most_common():
-        t.add_row([mime, count])
+        t.add_row([mime.decode('utf-8'), count])
 
     click.echo(t)
