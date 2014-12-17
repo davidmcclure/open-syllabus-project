@@ -39,6 +39,9 @@ def insert_institutions(in_file):
     :param in_file: A handle on the input CSV.
     """
 
+    if Institution.select().count():
+        click.confirm('Already inserted. Continue?', abort=True)
+
     reader = csv.DictReader(in_file)
 
     rows = []
