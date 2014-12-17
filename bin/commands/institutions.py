@@ -8,6 +8,7 @@ from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode
+from clint.textui import progress
 from rq import Queue
 from redis import StrictRedis
 from peewee import *
@@ -109,14 +110,15 @@ def pull_overview_ids():
 
     ov = Overview.from_env()
 
-    for obj in ov.list_objects().json():
+    for obj in progress.bar(ov.list_objects().json()):
 
-        # Get the local institution row.
-        inst = Institution.get(Institution.id==obj['indexedLong'])
+        query = (
+            Institution
+            .update(stored_id=obj['id'])
+            .where(Institution.id==obj['indexedLong'])
+        )
 
-        # Write the Overview id.
-        inst.stored_id = obj['id']
-        inst.save();
+        query.execute()
 
 
 @cli.command()
@@ -130,20 +132,20 @@ def make_csv(out_path):
     """
 
     out_file = open(out_path, 'w')
+    cols = ['name', 'lon', 'lat']
 
     # CSV writer:
-    cols = ['name', 'longitude', 'latitude']
     writer = csv.DictWriter(out_file, cols)
 
     # Join the coordinates.
-    query = Institution.join_metadata(LonLat)
+    query = Institution.join_lonlats()
 
     rows = []
     for inst in query.naive().iterator():
         rows.append({
             'name': inst.metadata['Institution_Name'],
-            'latitude': inst.lat,
-            'longitude': inst.lon
+            'lon': inst.lon,
+            'lat': inst.lat
         })
 
     writer.writeheader()
