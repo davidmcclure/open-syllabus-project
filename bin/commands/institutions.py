@@ -150,3 +150,24 @@ def make_csv(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
+
+
+@cli.command()
+def institution_count():
+
+    """
+    How many institutions are registered locally?
+    """
+
+    click.echo(Institution.select().count())
+
+
+@cli.command()
+def store_object_count():
+
+    """
+    How many institutions are loaded into Overview?
+    """
+
+    ov = Overview.from_env()
+    click.echo(len(ov.list_objects().json()))
