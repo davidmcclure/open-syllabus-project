@@ -92,7 +92,7 @@ def file_type_counts():
 def file_count():
 
     """
-    Print the total number of files in the corpus.
+    Print the total number of files.
     """
 
     corpus = Corpus.from_env()

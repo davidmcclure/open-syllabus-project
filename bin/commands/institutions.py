@@ -70,7 +70,7 @@ def queue_geocoding():
 def write_store_objects(page):
 
     """
-    DEV: Write store objects into Overview.
+    Write store objects into Overview.
     """
 
     ov = Overview.from_env()
@@ -121,7 +121,7 @@ def pull_overview_ids():
 def make_csv(out_path):
 
     """
-    DEV: Generate a CSV file.
+    Generate a CSV file.
 
     :param in_file: A path for the new CSV file.
     """
