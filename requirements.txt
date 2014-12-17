@@ -8,4 +8,3 @@ click==2.5
 psycopg2==2.5.4
 peewee==2.4.4
 requests==2.5.0
-clint==0.4.1

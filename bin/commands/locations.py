@@ -52,7 +52,7 @@ def queue_location_matching():
 def write_document_objects(page):
 
     """
-    DEV: Write document objects into Overview.
+    Write document objects into Overview.
     """
 
     ov = Overview.from_env()
@@ -84,7 +84,7 @@ def write_document_objects(page):
 def make_csv(out_path):
 
     """
-    DEV: Generate a CSV file.
+    Generate a CSV file.
 
     :param in_file: A path for the new CSV file.
     """
