@@ -66,7 +66,7 @@ First, let's get coordinates for each US-accredited institution.
 
 1. Run `osp institutions insert_institutions data/institutions.csv` to create a database row for each accredited institution.
 
-1. With Redis running, run `osp queue_geocoding`. This queues up a request to the MapQuest geocoding API for each institution, managed by the RQ job queue library.
+1. With Redis running, run `osp queue_geocoding`. This queues up a request to the MapQuest geocoding API for each institution, managed by the [RQ](http://python-rq.org) job queue library.
 
 1. Open up a new terminal tab, reactivate the Python virtual environment we created for the project, and run `rq-dashboard`, and hit `http://0.0.0.0:9181` in a browser.
 
