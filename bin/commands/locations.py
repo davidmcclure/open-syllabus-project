@@ -34,7 +34,7 @@ def init_db():
 
 
 @cli.command()
-def queue_location():
+def queue_location_matching():
 
     """
     Queue institution matching tasks in the worker.
@@ -57,19 +57,26 @@ def write_document_objects(page):
 
     ov = Overview.from_env()
 
-    # Select the current values.
-    query = DocToInst.select_current()
+    iid = Institution.stored_id.alias('iid')
+    did = Document.stored_id.alias('did')
+
+    query = (
+        DocToInst
+        .select(iid, did)
+        .join(Institution)
+        .join(Document, on=(DocToInst.document==Document.path))
+        .where(~(Document.stored_id >> None))
+        .distinct([DocToInst.document])
+        .order_by(DocToInst.document, DocToInst.created.desc())
+    )
 
     objects = []
     for d2i in query.naive().iterator():
-
-        # Get the document.
-        doc = Document.get(Document.path==d2i.document)
-        objects.append([doc.id, d2i.institution.id])
+        objects.append([d2i.did, d2i.iid])
 
     # Write the objects in pages.
     for i in range(0, len(objects), page):
-        ov.post_document_object(objects[i:i+page])
+        r = ov.post_document_objects(objects[i:i+page])
 
 
 @cli.command()
