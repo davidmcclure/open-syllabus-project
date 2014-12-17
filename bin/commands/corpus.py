@@ -8,6 +8,8 @@ from osp.common.models.base import database
 from osp.common.overview import Overview
 from osp.corpus.models.document import Document
 from osp.corpus.corpus import Corpus
+from collections import Counter
+from prettytable import PrettyTable
 
 
 @click.group()
@@ -70,5 +72,14 @@ def file_type_counts():
 
     corpus = Corpus.from_env()
 
+    counts = Counter()
     for s in corpus.syllabi():
-        print(magic.from_file(s.path, mime=True))
+        counts[s.mime_type] += 1
+
+    t = PrettyTable(['Mime Type', 'Doc Count'])
+    t.align['Mime Type'] = 'l'
+
+    for mime, count in counts.most_common():
+        t.add_row([mime, count])
+
+    click.echo(t)

@@ -25,6 +25,8 @@ setup(
         'psycopg2',
         'python-magic',
         'peewee',
+        'clint',
+        'prettytable',
     ]
 
 )
