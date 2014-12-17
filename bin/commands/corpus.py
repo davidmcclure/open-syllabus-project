@@ -2,6 +2,7 @@
 
 import os
 import click
+import magic
 
 from osp.common.models.base import database
 from osp.common.overview import Overview
@@ -58,3 +59,16 @@ def pull_overview_ids():
         # Write the Overview id.
         e_doc.stored_id = o_doc['id']
         e_doc.save()
+
+
+@cli.command()
+def file_type_counts():
+
+    """
+    Print a list of file type -> count.
+    """
+
+    corpus = Corpus.from_env()
+
+    for s in corpus.syllabi():
+        print(magic.from_file(s.path, mime=True))
