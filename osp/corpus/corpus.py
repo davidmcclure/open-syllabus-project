@@ -4,6 +4,7 @@ import os
 
 from osp.corpus.segment import Segment
 from functools import lru_cache
+from clint.textui import progress
 
 
 class Corpus:
@@ -75,3 +76,14 @@ class Corpus:
         for segment in self.segments():
             for syllabus in segment.syllabi():
                 yield syllabus
+
+
+    def cli_syllabi(self):
+
+        """
+        Wrap the syllabi iterator in a progress bar.
+        """
+
+        n = self.file_count
+        for syllabus in progress.bar(self.syllabi(), expected_size=n):
+            yield syllabus

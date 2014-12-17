@@ -35,12 +35,9 @@ def insert_documents():
     Insert documents in the database.
     """
 
-    docs = []
-    for syllabus in Corpus.from_env().syllabi():
-        docs.append({'path': syllabus.relative_path})
-
-    with database.transaction():
-        Document.insert_many(docs).execute()
+    for s in Corpus.from_env().cli_syllabi():
+        if not Document.exists(s.relative_path):
+            Document.create(path=s.relative_path)
 
 
 @cli.command()
