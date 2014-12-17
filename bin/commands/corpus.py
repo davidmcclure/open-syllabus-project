@@ -36,8 +36,10 @@ def insert_documents():
     """
 
     for s in Corpus.from_env().cli_syllabi():
-        if not Document.exists(s.relative_path):
-            Document.create(path=s.relative_path)
+        try:
+            with database.transaction():
+                Document.create(path=s.relative_path)
+        except: pass
 
 
 @cli.command()
@@ -72,10 +74,12 @@ def file_type_counts():
 
     click.echo('Reading mime types...')
 
+    # Count up the file types.
     counts = Counter()
     for s in progress.bar(corpus.syllabi(), expected_size=size):
         counts[s.libmagic_file_type] += 1
 
+    # Print an ASCII table.
     t = PrettyTable(['Mime Type', 'Doc Count'])
     t.align['Mime Type'] = 'l'
 
