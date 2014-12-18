@@ -9,7 +9,6 @@ from osp.corpus.models.document import Document
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
-from clint.textui import progress
 
 
 @click.group()
@@ -55,7 +54,7 @@ def pull_overview_ids():
     # Query for documents.
     docs = ov.list_documents(id).json()['items']
 
-    for o_doc in progress.bar(docs):
+    for o_doc in docs:
 
         query = (
             Document

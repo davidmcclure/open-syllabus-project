@@ -8,7 +8,6 @@ from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode
-from clint.textui import progress
 from rq import Queue
 from redis import StrictRedis
 from peewee import *
@@ -110,7 +109,7 @@ def pull_overview_ids():
 
     ov = Overview.from_env()
 
-    for obj in progress.bar(ov.list_objects().json()):
+    for obj in ov.list_objects().json():
 
         query = (
             Institution
