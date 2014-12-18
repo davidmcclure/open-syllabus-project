@@ -51,7 +51,7 @@ def pull_overview_ids():
     id = os.environ['OSP_DOC_SET_ID']
     ov = Overview.from_env()
 
-    # Query for documents.
+    # TODO: Stream docs.
     docs = ov.list_documents(id).json()['items']
 
     for o_doc in docs:
