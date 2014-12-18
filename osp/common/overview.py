@@ -194,13 +194,17 @@ class Overview:
         )
 
 
-    def get_document_object_counts(self):
+    def get_document_object_counts(self, params={}):
 
         """
         For each store object, get the number of referenced docs.
+
+        :param params: Query parameters.
         """
 
-        return self.overview.get(self.document_object_counts_url)
+        return self.overview.get(
+            self.document_object_counts_url, params=params
+        )
 
 
     def delete_document_objects(self, links):
