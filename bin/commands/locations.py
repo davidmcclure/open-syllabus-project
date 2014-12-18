@@ -43,7 +43,7 @@ def queue_location_matching():
     # TODO: ENV-ify.
     queue = Queue(connection=StrictRedis())
 
-    for syllabus in Corpus.from_env().syllabi():
+    for syllabus in Corpus.from_env().cli_syllabi():
         queue.enqueue(locate, syllabus.path)
 
 

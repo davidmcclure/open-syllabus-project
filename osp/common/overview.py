@@ -84,6 +84,11 @@ class Overview:
         return self.url+'/store/document-objects'
 
 
+    @property
+    def document_object_counts_url(self):
+        return self.document_objects_url+'/count-by-object'
+
+
     # API wrappers:
     # -------------
 
@@ -189,10 +194,19 @@ class Overview:
         )
 
 
+    def get_document_object_counts(self):
+
+        """
+        For each store object, get the number of referenced docs.
+        """
+
+        return self.overview.get(self.document_object_counts_url)
+
+
     def delete_document_objects(self, links):
 
         """
-        Create object->document links.
+        Delete object->document links.
 
         :param links: An array of [docId, objId] pairs.
         """
