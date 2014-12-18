@@ -18,6 +18,8 @@ The easiest way to get started is to install the package in `develop` mode:
 
 1. Create a local Postgres database with `createdb osp`. This database is used as a holding ground to store metadata before it gets pushed into Overview.
 
+1. Install the `hstore` extension on the database with `psql osp`, `CREATE EXTENSION hstore;`.
+
 1. Set a `OSP_CORPUS` env variable with a local path to the OSP corpus.
 
 Run `osp`, and you should get the default help output:
@@ -64,9 +66,11 @@ First, let's get coordinates for each US-accredited institution.
 
 1. Run `osp institutions init_db` to install the `intitution` and `institution_lonlat` tables.
 
+1. Set a `MAPQUEST_KEY` ENV variable with a MapQuest API key.
+
 1. Run `osp institutions insert_institutions data/institutions.csv` to create a database row for each accredited institution.
 
-1. With Redis running, run `osp queue_geocoding`. This queues up a request to the MapQuest geocoding API for each institution, managed by the [RQ](http://python-rq.org) job queue library.
+1. With Redis running, run `osp institutions queue_geocoding`. This queues up a request to the MapQuest geocoding API for each institution, managed by the [RQ](http://python-rq.org) job queue library.
 
 1. Open up a new terminal tab, reactivate the Python virtual environment we created for the project, and run `rq-dashboard`, and hit `http://0.0.0.0:9181` in a browser.
 
