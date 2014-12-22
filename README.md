@@ -66,7 +66,7 @@ First, let's get coordinates for each US-accredited institution.
 
 1. Run `osp institutions init_db` to install the `intitution` and `institution_lonlat` tables.
 
-1. Set a `MAPQUEST_KEY` ENV variable with a MapQuest API key.
+1. Set a `MAPQUEST_KEY` environment variable with a MapQuest API key.
 
 1. Run `osp institutions insert_institutions data/institutions.csv` to create a database row for each accredited institution.
 
