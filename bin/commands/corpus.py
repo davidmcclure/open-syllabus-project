@@ -66,30 +66,6 @@ def pull_overview_ids():
 
 
 @cli.command()
-def file_type_counts():
-
-    """
-    Print a list of file type -> count.
-    """
-
-    click.echo('Reading mime types...')
-
-    # Count up the file types.
-    counts = Counter()
-    for s in Corpus.from_env().cli_syllabi():
-        counts[s.libmagic_file_type] += 1
-
-    # Print an ASCII table.
-    t = PrettyTable(['Mime Type', 'Doc Count'])
-    t.align['Mime Type'] = 'l'
-
-    for mime, count in counts.most_common():
-        t.add_row([mime.decode('utf-8'), count])
-
-    click.echo(t)
-
-
-@cli.command()
 def file_count():
 
     """
