@@ -2,6 +2,9 @@
 
 import click
 import multiprocessing as mp
+import os
+
+from circus import get_arbiter
 
 
 @click.group()
@@ -17,4 +20,10 @@ def work(n):
     Spin up workers.
     """
 
-    click.echo(n)
+    workers = {'cmd': os.environ['OSP_WORKER'], 'numprocesses': n}
+    arbiter = get_arbiter([workers])
+
+    try:
+        arbiter.start()
+    finally:
+        arbiter.stop()

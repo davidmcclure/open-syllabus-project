@@ -11,3 +11,4 @@ python-magic
 requests
 clint
 prettytable
+circus
