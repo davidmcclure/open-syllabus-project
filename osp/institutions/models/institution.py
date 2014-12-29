@@ -14,24 +14,6 @@ class Institution(BaseModel):
     stored_id = BigIntegerField(null=True)
 
 
-    @classmethod
-    def join_lonlats(cls):
-
-        """
-        Join on the most recent lon/lats.
-        """
-
-        from osp.institutions.models.lonlat import LonLat
-
-        return (
-            cls
-            .select(cls, LonLat.lon, LonLat.lat)
-            .distinct([cls.id])
-            .join(LonLat, JOIN_LEFT_OUTER)
-            .order_by(cls.id, LonLat.created.desc())
-        )
-
-
     @property
     def geocoding_query(self):
 
