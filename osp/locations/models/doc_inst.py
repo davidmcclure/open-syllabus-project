@@ -7,7 +7,7 @@ from osp.institutions.models.institution import Institution
 from peewee import *
 
 
-class DocToInst(BaseModel):
+class DocInst(BaseModel):
 
 
     created     = DateTimeField(default=datetime.datetime.now)
@@ -16,4 +16,4 @@ class DocToInst(BaseModel):
 
 
     class Meta:
-        db_table = 'document_to_institution'
+        db_table = 'document_institution'

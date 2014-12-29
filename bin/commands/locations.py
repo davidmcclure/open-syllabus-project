@@ -6,7 +6,7 @@ import csv
 
 from osp.common.models.base import database
 from osp.common.overview import Overview
-from osp.locations.models.doc_to_inst import DocToInst
+from osp.locations.models.doc_inst import DocInst
 from osp.locations.jobs.locate import locate
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
@@ -30,7 +30,7 @@ def init_db():
     """
 
     database.connect()
-    database.create_tables([DocToInst])
+    database.create_tables([DocInst])
 
 
 @cli.command()
@@ -61,13 +61,13 @@ def write_document_objects(page):
     did = Document.stored_id.alias('did')
 
     query = (
-        DocToInst
+        DocInst
         .select(iid, did)
         .join(Institution)
-        .join(Document, on=(DocToInst.document==Document.path))
+        .join(Document, on=(DocInst.document==Document.path))
         .where(~(Document.stored_id >> None))
-        .distinct([DocToInst.document])
-        .order_by(DocToInst.document, DocToInst.created.desc())
+        .distinct([DocInst.document])
+        .order_by(DocInst.document, DocInst.created.desc())
     )
 
     objects = []
@@ -96,12 +96,12 @@ def make_csv(out_path):
     writer = csv.DictWriter(out_file, cols)
 
     query = (
-        DocToInst
-        .select(DocToInst, LonLat.lon, LonLat.lat)
+        DocInst
+        .select(DocInst, LonLat.lon, LonLat.lat)
         .join(Institution)
         .join(LonLat)
-        .distinct([DocToInst.document])
-        .order_by(DocToInst.document, LonLat.created.desc())
+        .distinct([DocInst.document])
+        .order_by(DocInst.document, LonLat.created.desc())
     )
 
     rows = []
