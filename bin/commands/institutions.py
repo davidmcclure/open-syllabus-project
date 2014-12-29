@@ -8,6 +8,7 @@ from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode
+from osp.locations.models.doc_inst import DocInst
 from rq import Queue
 from redis import StrictRedis
 from peewee import *
@@ -78,8 +79,14 @@ def write_objects(page):
 
     ov = Overview.from_env()
 
-    # Join the coordinates.
-    query = Institution.join_lonlats()
+    query = (
+        Institution
+        .select(Institution, LonLat.lon, LonLat.lat)
+        .join(LonLat)
+        .join(DocInst, on=(Institution.id==DocInst.institution))
+        .distinct([Institution.id])
+        .order_by(Institution.id, LonLat.created.desc())
+    )
 
     objects = []
     for inst in query.naive().iterator():
