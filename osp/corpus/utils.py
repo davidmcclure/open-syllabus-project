@@ -16,3 +16,14 @@ def requires_attr(attr):
             else: return None
         return wrapper
     return decorator
+
+
+def int_to_dir(i):
+
+    """
+    Convert an integer offset to a segment directory name.
+
+    :param i: The integer.
+    """
+
+    return hex(i)[2:].zfill(3)
