@@ -8,6 +8,7 @@ from osp.common.models.base import database
 from osp.common.overview import Overview
 from osp.locations.models.doc_inst import DocInst
 from osp.locations.jobs.locate import locate
+from osp.locations.queries import document_objects
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.corpus.corpus import Corpus
@@ -57,21 +58,8 @@ def write_document_objects(page):
 
     ov = Overview.from_env()
 
-    iid = Institution.stored_id.alias('iid')
-    did = Document.stored_id.alias('did')
-
-    query = (
-        DocInst
-        .select(iid, did)
-        .join(Institution)
-        .join(Document, on=(DocInst.document==Document.path))
-        .where(~(Document.stored_id >> None))
-        .distinct([DocInst.document])
-        .order_by(DocInst.document, DocInst.created.desc())
-    )
-
     objects = []
-    for d2i in query.naive().iterator():
+    for d2i in document_objects().naive().iterator():
         objects.append([d2i.did, d2i.iid])
 
     # Write the objects in pages.
