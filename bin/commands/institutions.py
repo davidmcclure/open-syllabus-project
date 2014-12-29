@@ -70,7 +70,7 @@ def queue_geocoding():
 
 @cli.command()
 @click.option('--page', default=50)
-def write_store_objects(page):
+def write_objects(page):
 
     """
     Write store objects into Overview.
@@ -162,7 +162,7 @@ def institution_count():
 
 
 @cli.command()
-def store_object_count():
+def object_count():
 
     """
     How many institutions are loaded into Overview?
