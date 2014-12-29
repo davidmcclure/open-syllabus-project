@@ -79,14 +79,7 @@ def write_objects(page):
 
     ov = Overview.from_env()
 
-    query = (
-        Institution
-        .select(Institution, LonLat.lon, LonLat.lat)
-        .join(LonLat)
-        .join(DocInst, on=(Institution.id==DocInst.institution))
-        .distinct([Institution.id])
-        .order_by(Institution.id, LonLat.created.desc())
-    )
+    query = Institution.join_lonlats()
 
     objects = []
     for inst in query.naive().iterator():
