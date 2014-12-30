@@ -10,8 +10,6 @@ from osp.corpus.jobs.mime_type import mime_type
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
-from rq import Queue
-from redis import StrictRedis
 
 
 @click.group()
