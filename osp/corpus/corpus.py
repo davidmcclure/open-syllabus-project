@@ -24,7 +24,7 @@ class Corpus:
     def __init__(self, path, s1=0, s2=4095):
 
         """
-        Initialize the segment reader.
+        Set the path and segment boundaries.
 
         :param path: A relative path to the corpus.
         :param s1: The first segment.
@@ -58,6 +58,8 @@ class Corpus:
         """
 
         for s in range(self.s1, self.s2):
+
+            # Only yield segment if the path exists.
             path = os.path.join(self.path, int_to_dir(s))
             if os.path.exists(path): yield Segment(path)
 
