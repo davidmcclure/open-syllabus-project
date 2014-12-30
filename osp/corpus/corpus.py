@@ -58,7 +58,8 @@ class Corpus:
         """
 
         for s in range(self.s1, self.s2):
-            yield Segment(os.path.join(self.path, int_to_dir(s)))
+            path = os.path.join(self.path, int_to_dir(s))
+            if os.path.exists(path): yield Segment(path)
 
 
     def file_paths(self):

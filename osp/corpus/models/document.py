@@ -1,5 +1,6 @@
 
 
+from playhouse.postgres_ext import *
 from osp.common.models.base import BaseModel
 from peewee import *
 
