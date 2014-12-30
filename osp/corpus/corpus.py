@@ -59,8 +59,10 @@ class Corpus:
 
         for s in range(self.s1, self.s2):
 
-            # Only yield segment if the path exists.
+            # Get the segment directory path.
             path = os.path.join(self.path, int_to_dir(s))
+
+            # Only yield segment if the path exists.
             if os.path.exists(path): yield Segment(path)
 
 

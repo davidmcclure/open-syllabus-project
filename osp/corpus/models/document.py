@@ -13,17 +13,5 @@ class Document(BaseModel):
     metadata = HStoreField(null=True)
 
 
-    @classmethod
-    def exists(cls, path):
-
-        """
-        Does a row for a given path exist?
-
-        :param path: The corpus-relative path.
-        """
-
-        return cls.select().where(cls.path==path).exists()
-
-
     class Meta:
         db_name = 'document'
