@@ -10,9 +10,9 @@ from peewee import *
 class DocInst(BaseModel):
 
 
-    created     = DateTimeField(default=datetime.datetime.now)
+    created = DateTimeField(default=datetime.datetime.now)
     institution = ForeignKeyField(Institution)
-    document    = CharField()
+    document = CharField()
 
 
     class Meta:
