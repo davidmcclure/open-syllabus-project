@@ -45,20 +45,6 @@ def insert_documents():
 
 
 @cli.command()
-def queue_mimetypes():
-
-    """
-    Queue mime type extraction jobs.
-    """
-
-    # TODO: ENV-ify.
-    queue = Queue(connection=StrictRedis())
-
-    for syllabus in Corpus.from_env().cli_syllabi():
-        queue.enqueue(mime_type, syllabus.path)
-
-
-@cli.command()
 def pull_overview_ids():
 
     """
