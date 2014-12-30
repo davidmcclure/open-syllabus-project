@@ -6,9 +6,12 @@ import click
 from osp.common.models.base import database
 from osp.common.overview import Overview
 from osp.corpus.models.document import Document
+from osp.corpus.jobs.mime_type import mime_type
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
+from rq import Queue
+from redis import StrictRedis
 
 
 @click.group()
@@ -39,6 +42,20 @@ def insert_documents():
             with database.transaction():
                 Document.create(path=s.relative_path)
         except: pass
+
+
+@cli.command()
+def queue_mimetypes():
+
+    """
+    Queue mime type extraction jobs.
+    """
+
+    # TODO: ENV-ify.
+    queue = Queue(connection=StrictRedis())
+
+    for syllabus in Corpus.from_env().cli_syllabi():
+        queue.enqueue(mime_type, syllabus.path)
 
 
 @cli.command()

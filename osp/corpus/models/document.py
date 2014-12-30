@@ -8,9 +8,8 @@ from peewee import *
 class Document(BaseModel):
 
 
-    path = CharField(unique=True)
     stored_id = BigIntegerField(null=True)
-    metadata = HStoreField(null=True)
+    path = CharField(unique=True)
 
 
     class Meta:
