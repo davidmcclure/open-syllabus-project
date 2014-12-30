@@ -10,8 +10,8 @@ from peewee import *
 class Institution(BaseModel):
 
 
-    metadata = HStoreField()
     stored_id = BigIntegerField(null=True)
+    metadata = HStoreField()
 
 
     @property
