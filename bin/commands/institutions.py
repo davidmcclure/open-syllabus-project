@@ -8,7 +8,7 @@ from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode
-from osp.institutions.queries import join_lonlats
+from osp.institutions.queries import store_objects
 from osp.locations.models.doc_inst import DocInst
 from rq import Queue
 from redis import StrictRedis
@@ -80,7 +80,7 @@ def write_objects(page):
     ov = Overview.from_env()
 
     objects = []
-    for inst in join_lonlats().naive().iterator():
+    for inst in store_objects().naive().iterator():
 
         inst.metadata.update({
             'Longitude': inst.lon,
@@ -102,7 +102,7 @@ def write_objects(page):
 def pull_overview_ids():
 
     """
-    Copy document ids from Overview.
+    Copy store object ids from Overview.
     """
 
     ov = Overview.from_env()

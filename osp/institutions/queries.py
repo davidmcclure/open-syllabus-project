@@ -1,20 +1,24 @@
 
 
+from osp.locations.models.doc_inst import DocInst
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from peewee import *
 
 
-def join_lonlats():
+def store_objects():
 
     """
-    Join the most recent lon-lat values onto the institutions.
+    Join lonlats, and just select institutions that have been matched with a
+    document in the corpus.
     """
 
     return (
         Institution
         .select(Institution, LonLat.lon, LonLat.lat)
         .distinct([Institution.id])
-        .join(LonLat, JOIN_LEFT_OUTER)
+        .join(LonLat)
+        .switch(Institution)
+        .join(DocInst)
         .order_by(Institution.id, LonLat.created.desc())
     )
