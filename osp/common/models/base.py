@@ -1,13 +1,15 @@
 
 
+from redis import StrictRedis
 from playhouse.postgres_ext import PostgresqlExtDatabase
 from peewee import *
 
 
 # TODO: Make env-configurable.
-database = PostgresqlExtDatabase('osp')
+postgres = PostgresqlExtDatabase('osp')
+redis = StrictRedis()
 
 
 class BaseModel(Model):
     class Meta:
-        database = database
+        database = postgres

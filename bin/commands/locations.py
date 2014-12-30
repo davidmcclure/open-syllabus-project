@@ -4,7 +4,7 @@ import os
 import click
 import csv
 
-from osp.common.models.base import database
+from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.locations.models.doc_inst import DocInst
 from osp.locations.jobs.locate import locate
@@ -30,8 +30,8 @@ def init_db():
     Create the database tables.
     """
 
-    database.connect()
-    database.create_tables([DocInst])
+    postgres.connect()
+    postgres.create_tables([DocInst])
 
 
 @cli.command()
@@ -41,8 +41,7 @@ def queue_location_matching():
     Queue institution matching tasks in the worker.
     """
 
-    # TODO: ENV-ify.
-    queue = Queue(connection=StrictRedis())
+    queue = Queue(connection=redis)
 
     for syllabus in Corpus.from_env().cli_syllabi():
         queue.enqueue(locate, syllabus.path)

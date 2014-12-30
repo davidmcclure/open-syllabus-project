@@ -3,7 +3,7 @@
 import os
 import click
 
-from osp.common.models.base import database
+from osp.common.models.base import postgres
 from osp.common.overview import Overview
 from osp.corpus.models.document import Document
 from osp.corpus.jobs.mime_type import mime_type
@@ -24,8 +24,8 @@ def init_db():
     Create the database tables.
     """
 
-    database.connect()
-    database.create_tables([Document])
+    postgres.connect()
+    postgres.create_tables([Document])
 
 
 @cli.command()
@@ -37,7 +37,7 @@ def insert_documents():
 
     for s in Corpus.from_env().cli_syllabi():
         try:
-            with database.transaction():
+            with postgres.transaction():
                 Document.create(path=s.relative_path)
         except: pass
 

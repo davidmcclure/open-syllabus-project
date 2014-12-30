@@ -3,7 +3,7 @@
 import click
 import csv
 
-from osp.common.models.base import database
+from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
@@ -27,8 +27,8 @@ def init_db():
     Create the database tables.
     """
 
-    database.connect()
-    database.create_tables([Institution, LonLat])
+    postgres.connect()
+    postgres.create_tables([Institution, LonLat])
 
 
 @cli.command()
@@ -50,7 +50,7 @@ def insert_institutions(in_file):
     for row in reader:
         rows.append({'metadata': row})
 
-    with database.transaction():
+    with postgres.transaction():
         Institution.insert_many(rows).execute()
 
 
@@ -63,8 +63,7 @@ def queue_geocoding():
     :param in_file: A handle on the input CSV.
     """
 
-    # TODO: ENV-ify.
-    queue = Queue(connection=StrictRedis())
+    queue = Queue(connection=redis)
 
     for inst in Institution.select().iterator():
         queue.enqueue(geocode, inst.id, inst.geocoding_query)
