@@ -10,7 +10,7 @@ class Document(BaseModel):
 
     path = CharField(unique=True)
     stored_id = BigIntegerField(null=True)
-    metadata = HStoreField()
+    metadata = HStoreField(null=True)
 
 
     @classmethod
