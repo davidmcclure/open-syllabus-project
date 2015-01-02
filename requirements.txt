@@ -12,3 +12,4 @@ requests
 clint
 prettytable
 circus
+ijson

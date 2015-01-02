@@ -2,9 +2,10 @@
 
 import os
 import requests
-import json
+import ijson
 
 from base64 import urlsafe_b64encode as b64
+from jsonstream.pyjsonstream import JSONStream
 
 
 class Overview:
@@ -105,6 +106,25 @@ class Overview:
         return self.overview.get(
             self.documents_url(set_id), params=params
         )
+
+
+    def stream_documents(self, set_id, params={}):
+
+        """
+        Stream all documents.
+
+        :param set_id: The document set ID.
+        :param params: Query parameters.
+        """
+
+        params.update({'stream': 'true'})
+
+        request = self.overview.get(
+            self.documents_url(set_id), params=params, stream=True
+        )
+
+        for doc in ijson.items(request.raw, 'items.item'):
+            yield doc
 
 
     def get_document(self, set_id, doc_id):

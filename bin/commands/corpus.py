@@ -6,7 +6,6 @@ import click
 from osp.common.models.base import postgres
 from osp.common.overview import Overview
 from osp.corpus.models.document import Document
-from osp.corpus.jobs.mime_type import mime_type
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
@@ -52,10 +51,7 @@ def pull_overview_ids():
     id = os.environ['OSP_DOC_SET_ID']
     ov = Overview.from_env()
 
-    # TODO: Stream docs.
-    docs = ov.list_documents(id).json()['items']
-
-    for o_doc in docs:
+    for o_doc in ov.stream_documents(id):
 
         query = (
             Document
