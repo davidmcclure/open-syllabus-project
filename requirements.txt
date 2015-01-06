@@ -12,4 +12,6 @@ requests
 clint
 prettytable
 circus
+beautifulsoup4
 ijson
+pypdf2

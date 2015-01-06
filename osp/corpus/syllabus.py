@@ -3,11 +3,12 @@
 import os
 import tldextract
 import re
+import PyPDF2
 import magic
 
+import osp.corpus.utils as utils
 from contextlib import contextmanager
 from functools import lru_cache
-from osp.corpus.utils import requires_attr
 
 
 class Syllabus:
@@ -158,11 +159,11 @@ class Syllabus:
         Parse the file type with libmagic.
         """
 
-        return magic.from_file(self.path, mime=True)
+        return magic.from_file(self.path, mime=True).decode('utf-8')
 
 
     @property
-    @requires_attr('url')
+    @utils.requires_attr('url')
     def parsed_domain(self):
 
         """
@@ -177,7 +178,7 @@ class Syllabus:
 
 
     @property
-    @requires_attr('url')
+    @utils.requires_attr('url')
     def registered_domain(self):
 
         """
@@ -195,4 +196,12 @@ class Syllabus:
         Extract the plain text.
         """
 
-        pass
+        ft = self.libmagic_file_type
+
+        with self.open() as f:
+
+            if ft == 'text/plain':
+                return f.read()
+
+            elif ft == 'text/html':
+                return utils.html_to_text(f.read())

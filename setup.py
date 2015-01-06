@@ -27,6 +27,9 @@ setup(
         'peewee',
         'clint',
         'prettytable',
+        'circus',
+        'beautifulsoup4',
+        'ijson',
     ]
 
 )

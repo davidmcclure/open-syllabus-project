@@ -1,5 +1,7 @@
 
 
+from bs4 import BeautifulSoup
+
 
 def requires_attr(attr):
 
@@ -27,3 +29,20 @@ def int_to_dir(i):
     """
 
     return hex(i)[2:].zfill(3)
+
+
+def html_to_text(html, exclude=['script', 'style']):
+
+    """
+    Convert HTML to text.
+
+    :param html: The raw HTML.
+    """
+
+    soup = BeautifulSoup(html)
+
+    # Stript excluded tags.
+    for script in soup(exclude):
+        script.extract()
+
+    return soup.get_text()
