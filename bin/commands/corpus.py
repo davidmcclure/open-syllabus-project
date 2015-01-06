@@ -8,7 +8,9 @@ from osp.common.overview import Overview
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Format
+from osp.corpus.models.text import Text
 from osp.corpus.jobs.read_format import read_format
+from osp.corpus.jobs.read_text import read_text
 from collections import Counter
 from prettytable import PrettyTable
 from osp.corpus import queries
@@ -28,7 +30,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Document, Format], safe=True)
+    postgres.create_tables([Document, Format, Text], safe=True)
 
 
 @cli.command()
@@ -77,6 +79,19 @@ def queue_read_format():
 
     for syllabus in Corpus.from_env().cli_syllabi():
         queue.enqueue(read_format, syllabus.path)
+
+
+@cli.command()
+def queue_read_text():
+
+    """
+    Queue text extraction tasks in the worker.
+    """
+
+    queue = Queue(connection=redis)
+
+    for syllabus in Corpus.from_env().cli_syllabi():
+        queue.enqueue(read_text, syllabus.path)
 
 
 @cli.command()

@@ -190,6 +190,7 @@ class Syllabus:
 
 
     @property
+    @lru_cache()
     def text(self):
 
         """
