@@ -63,4 +63,4 @@ def write_document_objects(page):
 
     # Write the objects in pages.
     for i in range(0, len(objects), page):
-        r = ov.post_document_objects(objects[i:i+page])
+        ov.post_document_objects(objects[i:i+page])
