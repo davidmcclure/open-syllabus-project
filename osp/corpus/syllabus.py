@@ -151,6 +151,7 @@ class Syllabus:
 
 
     @property
+    @lru_cache()
     def libmagic_file_type(self):
 
         """
@@ -185,3 +186,13 @@ class Syllabus:
         """
 
         return self.parsed_domain.registered_domain
+
+
+    @property
+    def text(self):
+
+        """
+        Extract the plain text.
+        """
+
+        pass

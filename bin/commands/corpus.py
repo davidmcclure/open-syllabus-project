@@ -67,17 +67,6 @@ def pull_overview_ids():
 
 
 @cli.command()
-def file_count():
-
-    """
-    Print the total number of files.
-    """
-
-    corpus = Corpus.from_env()
-    click.echo(corpus.file_count)
-
-
-@cli.command()
 def queue_format_extraction():
 
     """
@@ -104,3 +93,14 @@ def format_counts():
         t.add_row([c.file_format, c.count])
 
     click.echo(t)
+
+
+@cli.command()
+def file_count():
+
+    """
+    Print the total number of files.
+    """
+
+    corpus = Corpus.from_env()
+    click.echo(corpus.file_count)
