@@ -6,6 +6,7 @@ import click
 from osp.common.models.base import postgres
 from osp.common.overview import Overview
 from osp.corpus.models.document import Document
+from osp.corpus.models.mimetype import Mimetype
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
@@ -24,7 +25,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Document])
+    postgres.create_tables([Document, Mimetype])
 
 
 @cli.command()
