@@ -5,12 +5,13 @@ import click
 
 from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
+from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.file_format import FileFormat
 from osp.corpus.jobs.read_format import read_format
-from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
+from osp.corpus import queries
 from rq import Queue
 
 
@@ -87,3 +88,14 @@ def queue_format_extraction():
 
     for syllabus in Corpus.from_env().cli_syllabi():
         queue.enqueue(read_format, syllabus.path)
+
+
+@cli.command()
+def format_counts():
+
+    """
+    Print a table of file format -> count.
+    """
+
+    for count in queries.format_counts().naive().iterator():
+        print(count)

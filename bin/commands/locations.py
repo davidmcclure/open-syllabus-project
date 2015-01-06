@@ -8,7 +8,7 @@ from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.locations.models.doc_inst import DocInst
 from osp.locations.jobs.locate import locate
-from osp.locations.queries import document_objects
+from osp.locations import queries
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.corpus.corpus import Corpus
@@ -58,7 +58,7 @@ def write_document_objects(page):
     ov = Overview.from_env()
 
     objects = []
-    for d2i in document_objects().naive().iterator():
+    for d2i in queries.document_objects().naive().iterator():
         objects.append([d2i.did, d2i.iid])
 
     # Write the objects in pages.

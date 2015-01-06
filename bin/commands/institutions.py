@@ -8,7 +8,7 @@ from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import LonLat
 from osp.institutions.jobs.geocode import geocode
-from osp.institutions.queries import store_objects
+from osp.institutions import queries
 from osp.locations.models.doc_inst import DocInst
 from rq import Queue
 from peewee import *
@@ -79,7 +79,7 @@ def write_objects(page):
     ov = Overview.from_env()
 
     objects = []
-    for inst in store_objects().naive().iterator():
+    for inst in queries.store_objects().naive().iterator():
 
         inst.metadata.update({
             'Longitude': inst.lon,
