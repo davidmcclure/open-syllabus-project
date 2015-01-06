@@ -31,7 +31,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([DocInst])
+    postgres.create_tables([DocInst], safe=True)
 
 
 @cli.command()

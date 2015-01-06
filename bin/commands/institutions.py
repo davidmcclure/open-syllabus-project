@@ -28,7 +28,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Institution, LonLat])
+    postgres.create_tables([Institution, LonLat], safe=True)
 
 
 @cli.command()

@@ -25,7 +25,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Document, Mimetype])
+    postgres.create_tables([Document, Mimetype], safe=True)
 
 
 @cli.command()
