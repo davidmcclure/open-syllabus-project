@@ -32,7 +32,7 @@ class Syllabus:
         Get an open file handler to the syllabus.
         """
 
-        with open(self.path, 'r') as syllabus:
+        with open(self.path, 'rb') as syllabus:
             yield syllabus
 
 
@@ -203,5 +203,8 @@ class Syllabus:
             if ft == 'text/plain':
                 return f.read()
 
-            elif ft == 'text/html':
+            elif ft in ['text/html', 'application/xml']:
                 return utils.html_to_text(f.read())
+
+            elif ft == 'application/pdf':
+                return utils.pdf_to_text(f)

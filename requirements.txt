@@ -14,4 +14,5 @@ prettytable
 circus
 beautifulsoup4
 ijson
+python-docx
 pypdf2

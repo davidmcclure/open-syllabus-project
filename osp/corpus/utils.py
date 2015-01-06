@@ -1,6 +1,7 @@
 
 
 from bs4 import BeautifulSoup
+from PyPDF2 import PdfFileReader
 
 
 def requires_attr(attr):
@@ -37,6 +38,7 @@ def html_to_text(html, exclude=['script', 'style']):
     Convert HTML to text.
 
     :param html: The raw HTML.
+    :param exclude: An array of tags to exclude.
     """
 
     soup = BeautifulSoup(html)
@@ -46,3 +48,20 @@ def html_to_text(html, exclude=['script', 'style']):
         script.extract()
 
     return soup.get_text()
+
+
+def pdf_to_text(pdf):
+
+    """
+    Convert HTML to text.
+
+    :param pdf: A PDF file handle.
+    """
+
+    reader = PdfFileReader(pdf)
+
+    pages = []
+    for page in reader.pages:
+        pages.append(page.extractText())
+
+    return ' '.join(pages)

@@ -30,6 +30,7 @@ setup(
         'circus',
         'beautifulsoup4',
         'ijson',
+        'pypdf2',
     ]
 
 )
