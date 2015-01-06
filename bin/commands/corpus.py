@@ -3,13 +3,15 @@
 import os
 import click
 
-from osp.common.models.base import postgres
+from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.corpus.models.document import Document
-from osp.corpus.models.mimetype import Mimetype
+from osp.corpus.models.file_format import FileFormat
+from osp.corpus.jobs.read_format import read_format
 from osp.corpus.corpus import Corpus
 from collections import Counter
 from prettytable import PrettyTable
+from rq import Queue
 
 
 @click.group()
@@ -25,7 +27,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Document, Mimetype], safe=True)
+    postgres.create_tables([Document, FileFormat], safe=True)
 
 
 @cli.command()
@@ -72,3 +74,16 @@ def file_count():
 
     corpus = Corpus.from_env()
     click.echo(corpus.file_count)
+
+
+@cli.command()
+def queue_format_extraction():
+
+    """
+    Queue format extraction tasks in the worker.
+    """
+
+    queue = Queue(connection=redis)
+
+    for syllabus in Corpus.from_env().cli_syllabi():
+        queue.enqueue(read_format, syllabus.path)

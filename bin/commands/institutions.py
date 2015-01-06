@@ -11,7 +11,6 @@ from osp.institutions.jobs.geocode import geocode
 from osp.institutions.queries import store_objects
 from osp.locations.models.doc_inst import DocInst
 from rq import Queue
-from redis import StrictRedis
 from peewee import *
 
 

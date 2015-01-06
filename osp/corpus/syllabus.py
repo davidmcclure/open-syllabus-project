@@ -16,7 +16,7 @@ class Syllabus:
     def __init__(self, path):
 
         """
-        Initialize the syllabus reader.
+        Initialize a syllabus reader.
 
         :param path: The syllabus path.
         """
