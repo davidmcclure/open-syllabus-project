@@ -1,7 +1,7 @@
 
 
 from peewee import *
-from osp.corpus.models.file_format import FileFormat
+from osp.corpus.models.format import Format
 
 
 def format_counts():
@@ -10,12 +10,12 @@ def format_counts():
     Map unique file formats to document counts.
     """
 
-    count = fn.Count(FileFormat.id)
+    count = fn.Count(Format.id)
 
     return (
-        FileFormat
-        .select(FileFormat.file_format, count.alias('count'))
-        .distinct(FileFormat.document)
-        .group_by(FileFormat.file_format)
+        Format
+        .select(Format.format, count.alias('count'))
+        .distinct(Format.document)
+        .group_by(Format.format)
         .order_by(count.desc())
     )

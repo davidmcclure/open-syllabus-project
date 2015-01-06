@@ -7,7 +7,7 @@ from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
-from osp.corpus.models.file_format import FileFormat
+from osp.corpus.models.format import Format
 from osp.corpus.jobs.read_format import read_format
 from collections import Counter
 from prettytable import PrettyTable
@@ -28,7 +28,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Document, FileFormat], safe=True)
+    postgres.create_tables([Document, Format], safe=True)
 
 
 @cli.command()
@@ -67,7 +67,7 @@ def pull_overview_ids():
 
 
 @cli.command()
-def queue_format_extraction():
+def queue_read_format():
 
     """
     Queue format extraction tasks in the worker.
@@ -90,7 +90,7 @@ def format_counts():
     t.align = 'l'
 
     for c in queries.format_counts().naive().iterator():
-        t.add_row([c.file_format, c.count])
+        t.add_row([c.format, c.count])
 
     click.echo(t)
 
