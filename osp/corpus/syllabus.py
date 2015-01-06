@@ -194,7 +194,7 @@ class Syllabus:
     def text(self):
 
         """
-        Extract the plain text.
+        Extract the raw plain text.
         """
 
         ft = self.libmagic_file_type
@@ -209,3 +209,15 @@ class Syllabus:
 
             elif ft == 'application/pdf':
                 return utils.pdf_to_text(f)
+
+
+    @property
+    @lru_cache()
+    def unbroken_text(self):
+
+        """
+        Get rid of linebreaks in the raw text.
+        """
+
+        lines = [line for line in self.text.splitlines() if line]
+        return ' '.join(lines)

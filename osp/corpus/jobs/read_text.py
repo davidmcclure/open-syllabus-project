@@ -17,6 +17,6 @@ def read_text(path):
     if syllabus.text:
 
         Text.create(
-            text=syllabus.text,
+            text=syllabus.unbroken_text,
             document=syllabus.relative_path
         )
