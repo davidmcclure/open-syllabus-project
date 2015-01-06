@@ -97,5 +97,10 @@ def format_counts():
     Print a table of file format -> count.
     """
 
-    for count in queries.format_counts().naive().iterator():
-        print(count)
+    t = PrettyTable(['File Type', 'Doc Count'])
+    t.align = 'l'
+
+    for c in queries.format_counts().naive().iterator():
+        t.add_row([c.file_format, c.count])
+
+    click.echo(t)

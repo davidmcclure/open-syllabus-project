@@ -10,4 +10,12 @@ def format_counts():
     Map unique file formats to document counts.
     """
 
-    pass
+    count = fn.Count(FileFormat.id)
+
+    return (
+        FileFormat
+        .select(FileFormat.file_format, count.alias('count'))
+        .distinct(FileFormat.document)
+        .group_by(FileFormat.file_format)
+        .order_by(count.desc())
+    )
