@@ -1,6 +1,6 @@
 
 
-from osp.corpus.dates.date import Date
+from osp.dates.models.dateutil_parse import DateutilParse
 
 
 def dateutil_parse(path, depth):
