@@ -3,7 +3,7 @@
 import click
 
 from osp.common.models.base import postgres, redis
-from osp.dates.models.date import Date
+from osp.dates.models.dateutil_parse import DateutilParse
 
 
 @click.group()
@@ -19,16 +19,15 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([Date], safe=True)
+    postgres.create_tables([DateutilParse], safe=True)
 
 
 @cli.command()
-@click.argument('job')
-@click.argument('gen')
-def queue(job, gen):
+@click.option('--depth', default=500)
+def queue_dateutil_parse(depth):
 
     """
-    Queue date extraction tasks.
+    Queue the dateutil `parse` extractor.
     """
 
-    print(job, gen)
+    pass
