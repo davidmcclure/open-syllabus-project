@@ -20,3 +20,15 @@ def init_db():
 
     postgres.connect()
     postgres.create_tables([Date], safe=True)
+
+
+@cli.command()
+@click.argument('job')
+@click.argument('gen')
+def queue(job, gen):
+
+    """
+    Queue date extraction tasks.
+    """
+
+    print(job, gen)
