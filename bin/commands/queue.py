@@ -20,7 +20,7 @@ def work(n):
     Spin up workers.
     """
 
-    workers = {'cmd': os.environ['OSP_WORKER'], 'numprocesses': n}
+    workers = {'cmd': os.environ['OSP_WORKER']+' dateutil', 'numprocesses': n}
     arbiter = get_arbiter([workers])
 
     try:

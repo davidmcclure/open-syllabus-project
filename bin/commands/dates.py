@@ -33,7 +33,7 @@ def queue_dateutil_parse(depth):
     Queue the dateutil `parse` extractor.
     """
 
-    queue = Queue(connection=redis)
+    queue = Queue('dateutil', connection=redis)
 
     for text in document_texts().naive().iterator():
         queue.enqueue(dateutil_parse, text.document, text.text, depth)
