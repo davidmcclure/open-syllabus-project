@@ -36,7 +36,3 @@ class Institution(BaseModel):
 
         if i_street and i_city and i_state:
             return ' '.join([i_street, i_city, i_state])
-
-
-    class Meta:
-        db_name = 'institution'
