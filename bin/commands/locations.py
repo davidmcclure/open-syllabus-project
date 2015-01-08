@@ -6,7 +6,7 @@ import csv
 
 from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
-from osp.locations.models.doc_inst import DocInst
+from osp.locations.models.document_institution import DocumentInstitution
 from osp.locations.jobs.locate import locate
 from osp.locations import queries
 from osp.institutions.models.institution import Institution
@@ -30,7 +30,7 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([DocInst], safe=True)
+    postgres.create_tables([DocumentInstitution], safe=True)
 
 
 @cli.command()

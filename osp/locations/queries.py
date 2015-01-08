@@ -2,8 +2,10 @@
 
 from osp.corpus.models.document import Document
 from osp.institutions.models.institution import Institution
-from osp.locations.models.doc_inst import DocInst
 from peewee import *
+
+from osp.locations.models.document_institution \
+    import DocumentInstitution as DocInst
 
 
 def document_objects():
@@ -22,5 +24,8 @@ def document_objects():
         .join(Document, on=(DocInst.document==Document.path))
         .where(~(Document.stored_id >> None))
         .distinct([DocInst.document])
-        .order_by(DocInst.document, DocInst.created.desc())
+        .order_by(
+            DocInst.document,
+            DocInst.created.desc()
+        )
     )

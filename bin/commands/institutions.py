@@ -9,7 +9,7 @@ from osp.institutions.models.institution import Institution
 from osp.institutions.models.institution_lonlat import InstitutionLonlat
 from osp.institutions.jobs.geocode import geocode
 from osp.institutions import queries
-from osp.locations.models.doc_inst import DocInst
+from osp.locations.models.document_institution import DocumentInstitution
 from rq import Queue
 from peewee import *
 
