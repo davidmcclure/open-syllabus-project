@@ -81,7 +81,13 @@ def write_objects(page):
     objects = []
     for inst in queries.store_objects().naive().iterator():
 
-        inst.metadata.update({
+        json = { k: inst.metadata[k] for k in [
+            'Institution_Name',
+            'Campus_Name',
+            'Institution_Web_Address'
+        ]}
+
+        json.update({
             'Longitude': inst.lon,
             'Latitude': inst.lat
         })
@@ -89,7 +95,7 @@ def write_objects(page):
         objects.append({
             'indexedLong': inst.id,
             'indexedString': inst.metadata['Institution_Name'],
-            'json': inst.metadata
+            'json': json
         })
 
     # Write the objects in pages.

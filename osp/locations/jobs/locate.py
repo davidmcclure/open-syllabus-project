@@ -31,7 +31,6 @@ def locate(path):
 
     if match:
 
-        # Write the association.
         DocInst.create(
             institution=match, document=syllabus.relative_path
         )
