@@ -26,6 +26,7 @@ def locate(path):
         Institution
         .select()
         .where(Institution.metadata['Institution_Web_Address'] ** (q))
+        .order_by(Institution.id)
         .first()
     )
 
