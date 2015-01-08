@@ -30,7 +30,10 @@ def init_db():
     """
 
     postgres.connect()
-    postgres.create_tables([DocumentInstitution], safe=True)
+
+    postgres.create_tables([
+        DocumentInstitution
+    ], safe=True)
 
 
 @cli.command()
