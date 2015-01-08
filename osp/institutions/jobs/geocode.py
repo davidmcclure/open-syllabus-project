@@ -3,7 +3,7 @@
 import os
 
 from geopy.geocoders import MapQuest
-from osp.institutions.models.institution_lonlat import Institution_LonLat
+from osp.institutions.models.lonlat import Institution_LonLat
 
 
 def geocode(iid, q):

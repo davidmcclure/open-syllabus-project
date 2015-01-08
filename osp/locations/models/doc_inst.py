@@ -9,7 +9,6 @@ from peewee import *
 
 class Document_Institution(BaseModel):
 
-
     created = DateTimeField(default=datetime.datetime.now)
     institution = ForeignKeyField(Institution)
     document = CharField()

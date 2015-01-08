@@ -1,7 +1,7 @@
 
 
 from peewee import *
-from osp.corpus.models.document_format import Document_Format
+from osp.corpus.models.format import Document_Format
 
 
 def format_counts():

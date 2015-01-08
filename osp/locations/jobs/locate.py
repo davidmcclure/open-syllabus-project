@@ -2,7 +2,7 @@
 
 from osp.corpus.syllabus import Syllabus
 from osp.institutions.models.institution import Institution
-from osp.locations.models.document_institution import Document_Institution
+from osp.locations.models.doc_inst import Document_Institution
 
 
 def locate(path):

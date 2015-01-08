@@ -1,7 +1,7 @@
 
 
 from osp.corpus.syllabus import Syllabus
-from osp.corpus.models.document_format import Document_Format
+from osp.corpus.models.format import Document_Format
 
 
 def read_format(path):

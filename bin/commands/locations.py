@@ -6,7 +6,7 @@ import csv
 
 from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
-from osp.locations.models.document_institution import Document_Institution
+from osp.locations.models.doc_inst import Document_Institution
 from osp.locations.jobs.locate import locate
 from osp.locations import queries
 from osp.institutions.models.institution import Institution

@@ -2,10 +2,9 @@
 
 from osp.corpus.models.document import Document
 from osp.institutions.models.institution import Institution
+from osp.locations.models.doc_inst import Document_Institution as DocInst
 from peewee import *
 
-from osp.locations.models.document_institution \
-    import Document_Institution as DocInst
 
 
 def document_objects():

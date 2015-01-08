@@ -1,7 +1,7 @@
 
 
 from osp.corpus.syllabus import Syllabus
-from osp.corpus.models.document_text import Document_Text
+from osp.corpus.models.text import Document_Text
 
 
 def read_text(path):

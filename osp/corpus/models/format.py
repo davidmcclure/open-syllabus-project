@@ -8,7 +8,6 @@ from peewee import *
 
 class Document_Format(BaseModel):
 
-
     created = DateTimeField(default=datetime.datetime.now)
     document = CharField()
     format = CharField()
