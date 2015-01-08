@@ -3,7 +3,7 @@
 import os
 
 from geopy.geocoders import MapQuest
-from osp.institutions.models.lonlat import LonLat
+from osp.institutions.models.institution_lonlat import InstitutionLonlat
 
 
 def geocode(iid, q):
@@ -21,6 +21,6 @@ def geocode(iid, q):
     g = coder.geocode(q, timeout=10)
 
     # Write the coordinate.
-    LonLat.create(
+    InstitutionLonlat.create(
         institution=iid, lon=g.longitude, lat=g.latitude
     )

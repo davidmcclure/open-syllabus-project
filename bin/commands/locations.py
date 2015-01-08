@@ -10,7 +10,6 @@ from osp.locations.models.doc_inst import DocInst
 from osp.locations.jobs.locate import locate
 from osp.locations import queries
 from osp.institutions.models.institution import Institution
-from osp.institutions.models.lonlat import LonLat
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from rq import Queue

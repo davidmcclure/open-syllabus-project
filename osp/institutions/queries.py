@@ -2,7 +2,7 @@
 
 from osp.locations.models.doc_inst import DocInst
 from osp.institutions.models.institution import Institution
-from osp.institutions.models.lonlat import LonLat
+from osp.institutions.models.institution_lonlat import InstitutionLonlat
 from peewee import *
 
 
@@ -15,10 +15,17 @@ def store_objects():
 
     return (
         Institution
-        .select(Institution, LonLat.lon, LonLat.lat)
+        .select(
+            Institution,
+            InstitutionLonlat.lon,
+            InstitutionLonlat.lat
+        )
         .distinct([Institution.id])
-        .join(LonLat)
+        .join(InstitutionLonlat)
         .switch(Institution)
         .join(DocInst)
-        .order_by(Institution.id, LonLat.created.desc())
+        .order_by(
+            Institution.id,
+            InstitutionLonlat.created.desc()
+        )
     )

@@ -7,14 +7,10 @@ from osp.institutions.models.institution import Institution
 from peewee import *
 
 
-class LonLat(BaseModel):
+class InstitutionLonlat(BaseModel):
 
 
     created = DateTimeField(default=datetime.datetime.now)
-    institution = ForeignKeyField(Institution, related_name='lonlats')
+    institution = ForeignKeyField(Institution)
     lon = DecimalField()
     lat = DecimalField()
-
-
-    class Meta:
-        db_table = 'institution_lonlat'
