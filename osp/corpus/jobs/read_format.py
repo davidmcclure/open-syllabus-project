@@ -1,7 +1,7 @@
 
 
 from osp.corpus.syllabus import Syllabus
-from osp.corpus.models.document_format import DocumentFormat
+from osp.corpus.models.document_format import Document_Format
 
 
 def read_format(path):
@@ -14,7 +14,7 @@ def read_format(path):
 
     syllabus = Syllabus(path)
 
-    DocumentFormat.create(
+    Document_Format.create(
         format=syllabus.libmagic_file_type,
         document=syllabus.relative_path
     )

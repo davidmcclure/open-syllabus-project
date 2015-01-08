@@ -6,7 +6,7 @@ from osp.common.models.base import BaseModel
 from peewee import *
 
 
-class DocumentFormat(BaseModel):
+class Document_Format(BaseModel):
 
 
     created = DateTimeField(default=datetime.datetime.now)

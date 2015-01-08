@@ -4,10 +4,10 @@ from osp.institutions.models.institution import Institution
 from peewee import *
 
 from osp.institutions.models.institution_lonlat \
-    import InstitutionLonlat as LonLat
+    import Institution_LonLat as LonLat
 
 from osp.locations.models.document_institution \
-    import DocumentInstitution as DocInst
+    import Document_Institution as DocInst
 
 
 def store_objects():

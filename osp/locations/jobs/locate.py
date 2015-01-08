@@ -2,7 +2,7 @@
 
 from osp.corpus.syllabus import Syllabus
 from osp.institutions.models.institution import Institution
-from osp.locations.models.document_institution import DocumentInstitution
+from osp.locations.models.document_institution import Document_Institution
 
 
 def locate(path):
@@ -32,6 +32,6 @@ def locate(path):
 
     if match:
 
-        DocumentInstitution.create(
+        Document_Institution.create(
             institution=match, document=syllabus.relative_path
         )

@@ -7,8 +7,8 @@ from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
-from osp.corpus.models.document_format import DocumentFormat
-from osp.corpus.models.document_text import DocumentText
+from osp.corpus.models.document_format import Document_Format
+from osp.corpus.models.document_text import Document_Text
 from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
 from collections import Counter
@@ -33,8 +33,8 @@ def init_db():
 
     postgres.create_tables([
         Document,
-        DocumentFormat,
-        DocumentText
+        Document_Format,
+        Document_Text
     ], safe=True)
 
 

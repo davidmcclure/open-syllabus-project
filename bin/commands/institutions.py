@@ -6,7 +6,7 @@ import csv
 from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
-from osp.institutions.models.institution_lonlat import InstitutionLonlat
+from osp.institutions.models.institution_lonlat import Institution_LonLat
 from osp.institutions.jobs.geocode import geocode
 from osp.institutions import queries
 from rq import Queue
@@ -29,7 +29,7 @@ def init_db():
 
     postgres.create_tables([
         Institution,
-        InstitutionLonlat
+        Institution_LonLat
     ], safe=True)
 
 

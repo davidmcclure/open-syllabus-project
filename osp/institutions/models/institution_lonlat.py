@@ -7,7 +7,7 @@ from osp.institutions.models.institution import Institution
 from peewee import *
 
 
-class InstitutionLonlat(BaseModel):
+class Institution_LonLat(BaseModel):
 
 
     created = DateTimeField(default=datetime.datetime.now)

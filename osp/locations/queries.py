@@ -5,7 +5,7 @@ from osp.institutions.models.institution import Institution
 from peewee import *
 
 from osp.locations.models.document_institution \
-    import DocumentInstitution as DocInst
+    import Document_Institution as DocInst
 
 
 def document_objects():
