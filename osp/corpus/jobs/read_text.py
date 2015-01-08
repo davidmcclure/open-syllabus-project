@@ -1,7 +1,7 @@
 
 
 from osp.corpus.syllabus import Syllabus
-from osp.corpus.models.text import Text
+from osp.corpus.models.document_text import DocumentText
 
 
 def read_text(path):
@@ -16,7 +16,7 @@ def read_text(path):
 
     if syllabus.text:
 
-        Text.create(
+        DocumentText.create(
             text=syllabus.unbroken_text,
             document=syllabus.relative_path
         )
