@@ -127,8 +127,12 @@ def search(q, size, start):
 
     term = Terminal()
 
-    # Print results.
+    # Total hits.
+    hits = str(results['hits']['total'])+' docs'
+    click.echo(term.standout_cyan(hits))
+
+    # Hit highlights.
     for hit in results['hits']['hits']:
-        click.echo(term.bold(hit['fields']['path'][0]))
+        click.echo('\n'+term.underline(hit['fields']['path'][0]))
         for hl in hit['highlight']['body']:
             click.echo(hl)
