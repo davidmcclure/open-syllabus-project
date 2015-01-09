@@ -10,3 +10,4 @@
   roles:
     - postgres
     - elasticsearch
+    - redis

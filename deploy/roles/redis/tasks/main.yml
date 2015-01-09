@@ -1,0 +1,17 @@
+---
+
+- name: Add the Redis PPA
+  apt_repository:
+    repo: ppa:chris-lea/redis-server
+    update_cache: yes
+
+- name: Install Redis
+  apt:
+    pkg: redis-server
+    state: latest
+    update_cache: yes
+
+- name: Check that Redis is running
+  service:
+    name: redis-server
+    state: running
