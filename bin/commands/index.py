@@ -17,7 +17,7 @@ def cli():
 
 
 @cli.command()
-def create_index():
+def create():
 
     """
     Create the index.
@@ -41,7 +41,7 @@ def create_index():
 
 
 @cli.command()
-def delete_index():
+def delete():
 
     """
     Delete the index.
@@ -51,10 +51,10 @@ def delete_index():
 
 
 @cli.command()
-def count_docs():
+def count():
 
     """
-    Count documents in the index.
+    Count documents.
     """
 
     click.echo(es.count('osp', 'syllabus')['count'])
@@ -62,7 +62,7 @@ def count_docs():
 
 @cli.command()
 @click.option('--page', default=10000)
-def index_docs(page):
+def insert(page):
 
     """
     Index documents.
@@ -79,7 +79,7 @@ def index_docs(page):
         )
     )
 
-    # Iterate over the page offsets.
+    # Iterate over pages.
     pages = math.ceil(query.count()/page)
     for p in bar(range(1, pages+1)):
 
