@@ -1,6 +1,0 @@
----
-
-- name: Add the Python PPA
-  apt_repository:
-    repo: ppa:fkrull/deadsnakes
-    update_cache: yes

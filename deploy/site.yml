@@ -2,5 +2,6 @@
 
 - name: Configure an OSP worker instance.
   hosts: workers
+  sudo: True
   roles:
-    - python
+    - postgres
