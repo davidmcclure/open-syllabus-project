@@ -31,6 +31,7 @@ setup(
         'beautifulsoup4',
         'ijson',
         'pypdf2',
+        'elasticsearch',
     ]
 
 )
