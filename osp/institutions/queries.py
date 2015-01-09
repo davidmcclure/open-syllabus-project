@@ -17,15 +17,15 @@ def store_objects():
         Institution
         .select(
             Institution,
-            Lonlat.lon,
-            Lonlat.lat
+            LonLat.lon,
+            LonLat.lat
         )
         .distinct([Institution.id])
-        .join(Lonlat)
+        .join(LonLat)
         .switch(Institution)
         .join(DocInst)
         .order_by(
             Institution.id,
-            Lonlat.created.desc()
+            LonLat.created.desc()
         )
     )
