@@ -115,8 +115,8 @@ def search(q, size):
             }
         },
         'highlight': {
-            'pre_tags': ['***'],
-            'post_tags': ['***'],
+            'pre_tags': ['\033[1m'],
+            'post_tags': ['\033[0m'],
             'fields': {
                 'body': {}
             }
