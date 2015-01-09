@@ -1,11 +1,13 @@
 
 
 import click
+import math
 
 from osp.common.models.base import elasticsearch as es
 from osp.corpus.models.text import Document_Text as DocText
-from clint.textui import progress
+from elasticsearch.helpers import bulk
 from clint.textui import colored
+from clint.textui.progress import bar
 from blessings import Terminal
 
 
@@ -59,7 +61,8 @@ def count_docs():
 
 
 @cli.command()
-def index_docs():
+@click.option('--page', default=10000)
+def index_docs(page):
 
     """
     Index documents.
@@ -76,16 +79,21 @@ def index_docs():
         )
     )
 
-    size = query.count()
+    # Iterate over the page offsets.
+    pages = math.ceil(query.count()/page)
+    for p in bar(range(1, pages+1)):
 
-    for doc in progress.bar(
-        query.naive().iterator(),
-        expected_size=size):
+        paginated = query.paginate(p, page).iterator()
 
-        es.index('osp', 'syllabus', {
-            'path': doc.document,
-            'body': doc.text
-        })
+        docs = []
+        for doc in paginated:
+            docs.append({
+                'path': doc.document,
+                'body': doc.text
+            })
+
+        # Bulk-index the page.
+        bulk(es, docs, index='osp', doc_type='syllabus')
 
 
 @cli.command()
@@ -97,6 +105,7 @@ def search(q, size):
     Search documents.
     """
 
+    # Query ES.
     results = es.search('osp', 'syllabus', {
         'size': size,
         'fields': ['path'],
@@ -116,6 +125,7 @@ def search(q, size):
 
     term = Terminal()
 
+    # Print results.
     for hit in results['hits']['hits']:
         click.echo(term.bold(hit['fields']['path'][0]))
         for hl in hit['highlight']['body']:
