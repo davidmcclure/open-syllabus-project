@@ -1,3 +1,6 @@
 [submodule "deploy/roles/postgres"]
 	path = deploy/roles/postgres
 	url = https://github.com/ANXS/postgresql.git
+[submodule "deploy/roles/elasticsearch"]
+	path = deploy/roles/elasticsearch
+	url = git://github.com/traackr/ansible-elasticsearch.git
