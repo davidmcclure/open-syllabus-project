@@ -6,19 +6,20 @@ from geopy.geocoders import MapQuest
 from osp.institutions.models.lonlat import Institution_LonLat
 
 
-def geocode(iid, q):
+def geocode(iid, key, query):
 
     """
     Geocode a query, write the lon/lat to Postgres.
 
     :param int iid: The institution id.
-    :param str q: The query for the geocoder.
+    :param str key: A MapQuest API key.
+    :param str query: The query for the geocoder.
     """
 
-    coder = MapQuest(os.environ['MAPQUEST_KEY'])
+    coder = MapQuest(key)
 
     # Geocode.
-    g = coder.geocode(q, timeout=10)
+    g = coder.geocode(query, timeout=10)
 
     # Write the coordinate.
     Institution_LonLat.create(

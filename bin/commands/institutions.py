@@ -1,5 +1,6 @@
 
 
+import os
 import click
 import csv
 
@@ -66,9 +67,10 @@ def queue_geocoding():
     """
 
     queue = Queue(connection=redis)
+    key = os.environ['MAPQUEST_KEY']
 
     for inst in Institution.select().iterator():
-        queue.enqueue(geocode, inst.id, inst.geocoding_query)
+        queue.enqueue(geocode, inst.id, key, inst.geocoding_query)
 
 
 @cli.command()
