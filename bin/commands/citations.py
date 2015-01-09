@@ -2,7 +2,8 @@
 
 import click
 
-from elasticsearch import Elasticsearch
+from osp.common.models.base import elasticsearch as es
+from osp.corpus.models.text import Document_Text
 
 
 @click.group()
@@ -14,11 +15,8 @@ def cli():
 def init_index():
 
     """
-    Initialize the Elasticsearch index.
+    Initialize the index.
     """
-
-    # TODO: Env-ify.
-    es = Elasticsearch()
 
     es.indices.create('osp', {
         'mappings': {
@@ -35,3 +33,13 @@ def init_index():
             }
         }
     })
+
+
+@cli.command()
+def count_docs():
+
+    """
+    Count documents in the index.
+    """
+
+    click.echo(es.count('osp', 'syllabus')['count'])
