@@ -9,8 +9,8 @@ from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
-from osp.corpus.jobs.format import read_format
-from osp.corpus.jobs.text import read_text
+from osp.corpus.jobs.read_format import read_format
+from osp.corpus.jobs.read_text import read_text
 from collections import Counter
 from prettytable import PrettyTable
 from osp.corpus import queries
