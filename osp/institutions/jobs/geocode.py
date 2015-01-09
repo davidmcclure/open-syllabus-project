@@ -23,5 +23,7 @@ def geocode(iid, key, query):
 
     # Write the coordinate.
     Institution_LonLat.create(
-        institution=iid, lon=g.longitude, lat=g.latitude
+        institution=iid,
+        lat=g.latitude,
+        lon=g.longitude
     )

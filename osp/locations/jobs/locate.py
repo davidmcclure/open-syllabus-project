@@ -33,5 +33,6 @@ def locate(path):
     if match:
 
         Document_Institution.create(
-            institution=match, document=syllabus.relative_path
+            institution=match,
+            document=syllabus.relative_path
         )
