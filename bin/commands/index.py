@@ -99,7 +99,8 @@ def insert(page):
 @cli.command()
 @click.argument('q')
 @click.option('--size', default=10)
-def search(q, size):
+@click.option('--start', default=0)
+def search(q, size, start):
 
     """
     Search documents.
@@ -108,6 +109,7 @@ def search(q, size):
     # Query ES.
     results = es.search('osp', 'syllabus', {
         'size': size,
+        'from': start,
         'fields': ['path'],
         'query': {
             'query_string': {
