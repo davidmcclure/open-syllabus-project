@@ -1,0 +1,6 @@
+---
+
+- name: Configure an OSP worker instance.
+  hosts: workers
+  roles:
+    - python
