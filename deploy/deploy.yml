@@ -1,0 +1,7 @@
+---
+
+- name: Deploy the OSP code.
+  hosts: workers
+
+  roles:
+    - osp

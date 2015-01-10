@@ -1,0 +1,11 @@
+---
+
+- name: Install dependencies
+  apt:
+    pkg: "{{ item }}"
+    state: latest
+  with_items:
+    - git
+    - python-virtualenv
+    - libpq-dev
+    - python-dev

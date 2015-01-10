@@ -1,0 +1,5 @@
+---
+
+osp_repo: https://github.com/overview/osp.git
+osp_branch: master
+osp_dest: /home/ubuntu/osp
