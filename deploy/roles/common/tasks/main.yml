@@ -1,6 +1,6 @@
 ---
 
-- name: Install dependencies
+- name: Install apt packages
   apt:
     pkg: "{{ item }}"
     update_cache: yes
@@ -13,3 +13,9 @@
     - python3-dev
     - libxslt1-dev
     - libxml2-dev
+
+- name: Install pip packages
+  pip:
+    name: "{{ item }}"
+  with_items:
+    - supervisor
