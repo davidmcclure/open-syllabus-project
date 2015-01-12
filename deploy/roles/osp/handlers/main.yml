@@ -1,5 +1,7 @@
 ---
 
-- name: reread supervisord
+- name: restart supervisor
   sudo: True
-  command: supervisorctl reread
+  service:
+    name: supervisor
+    state: restarted
