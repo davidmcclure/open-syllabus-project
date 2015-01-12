@@ -3,5 +3,8 @@
 - name: Deploy the OSP code.
   hosts: workers
 
+  vars_files:
+    - vars/osp.yml
+
   roles:
     - osp
