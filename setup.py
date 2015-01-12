@@ -16,6 +16,7 @@ setup(
     scripts=['bin/osp'],
 
     install_requires=[
+        'ipython',
         'tldextract',
         'geopy',
         'redis',
@@ -23,15 +24,18 @@ setup(
         'rq-dashboard',
         'click',
         'psycopg2',
-        'python-magic',
         'peewee',
+        'python-magic',
+        'requests',
         'clint',
         'prettytable',
         'circus',
         'beautifulsoup4',
-        'ijson',
+        'jsonstream',
         'pypdf2',
         'elasticsearch',
+        'blessings',
+        'flask',
     ]
 
 )
