@@ -1,0 +1,5 @@
+
+[program:osp-workers]
+command={{ osp_dest }}/env/bin/rqworker
+process_name=%(program_name)s_%(process_num)02d
+numprocs={{ osp_num_workers }}

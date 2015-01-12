@@ -1,0 +1,8 @@
+---
+
+- name: Push the Supervisor configuration
+  sudo: True
+  template:
+    src: osp.conf.j2
+    dest: '{{ osp_supervisor_conf_dir }}/osp.conf'
+  notify: reread supervisord
