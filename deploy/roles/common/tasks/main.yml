@@ -3,9 +3,13 @@
 - name: Install dependencies
   apt:
     pkg: "{{ item }}"
+    update_cache: yes
     state: latest
   with_items:
     - git
     - python-virtualenv
+    - python3-setuptools
     - libpq-dev
-    - python-dev
+    - python3-dev
+    - libxslt1-dev
+    - libxml2-dev

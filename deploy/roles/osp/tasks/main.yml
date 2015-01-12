@@ -25,6 +25,6 @@
     chdir: "{{ osp_dest }}"
 
 - name: Install the CLI suite
-  command: python3 setup.py develop
+  command: env/bin/python3 setup.py develop
   args:
     chdir: "{{ osp_dest }}"
