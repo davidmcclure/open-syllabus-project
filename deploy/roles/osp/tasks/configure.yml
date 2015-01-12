@@ -3,6 +3,11 @@
 - name: Push the Supervisor configuration
   sudo: True
   template:
-    src: osp.conf.j2
-    dest: '{{ osp_supervisor_conf_dir }}/osp.conf'
+    src: '{{ item }}.conf.j2'
+    dest: '{{ osp_supervisor_conf_dir }}/{{ item }}.conf'
   notify: reread supervisord
+  with_items:
+    - osp
+    - rq
+  tags:
+    - supervisor
