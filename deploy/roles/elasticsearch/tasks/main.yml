@@ -15,3 +15,30 @@
     pkg: oracle-java7-installer
     state: latest
     update_cache: yes
+
+- name: Create group
+  group:
+    name: '{{ es_group }}'
+
+- name: Create user
+  user:
+    name: '{{ es_user }}'
+    group: '{{ es_group }}'
+    createhome: no
+
+- name: Download the Debian package
+  get_url:
+    url: '{{ es_url }}/elasticsearch-{{ es_version }}.deb'
+    dest: /tmp/elasticsearch-{{ es_version }}.deb
+    mode: 0440
+
+- name: Install the package
+  shell: dpkg -i /tmp/elasticsearch-{{ es_version }}.deb
+
+- name: Chown the installation
+  file:
+    path: /usr/share/elasticsearch
+    state: directory
+    owner: '{{ es_user }}'
+    group: '{{ es_group }}'
+    recurse: yes

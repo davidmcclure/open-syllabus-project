@@ -1,0 +1,7 @@
+---
+
+es_user: elasticsearch
+es_group: elasticsearch
+
+es_url: https://download.elasticsearch.org/elasticsearch/elasticsearch
+es_version: 1.4.1
