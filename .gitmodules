@@ -4,6 +4,3 @@
 [submodule "deploy/roles/elasticsearch"]
 	path = deploy/roles/elasticsearch
 	url = git://github.com/traackr/ansible-elasticsearch.git
-[submodule "deploy/roles/supervisord"]
-	path = deploy/roles/supervisord
-	url = https://github.com/zenoamaro/ansible-supervisord.git
