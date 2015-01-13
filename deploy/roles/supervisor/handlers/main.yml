@@ -1,0 +1,4 @@
+---
+
+- name: supervisorctl reread
+  shell: /usr/bin/supervisorctl reread

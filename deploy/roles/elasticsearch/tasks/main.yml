@@ -22,8 +22,8 @@
 
 - name: Create user
   user:
-    name: '{{ es_user }}'
     group: '{{ es_group }}'
+    name: '{{ es_user }}'
     createhome: no
 
 - name: Download the Debian package
