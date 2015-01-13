@@ -4,11 +4,8 @@
   sudo: True
   hosts: workers
 
-  vars_files:
-    - vars/elasticsearch.yml
-
   roles:
-    - common
-    - postgres
+    #- common
+    #- postgres
     - elasticsearch
-    - redis
+    #- redis
