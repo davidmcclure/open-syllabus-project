@@ -12,4 +12,3 @@
     - postgres
     - elasticsearch
     - redis
-    - supervisord

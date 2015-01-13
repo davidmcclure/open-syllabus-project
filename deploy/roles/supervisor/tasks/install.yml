@@ -1,0 +1,6 @@
+---
+
+- name: Install Supervisor
+  apt:
+    name: supervisor
+    state: latest

@@ -2,4 +2,5 @@
 env
 *.egg-info
 
+deploy/.vagrant
 deploy/hosts
