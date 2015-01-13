@@ -1,6 +1,6 @@
 ---
 
-- name: Install apt packages
+- name: Install generic dependencies
   apt:
     pkg: "{{ item }}"
     update_cache: yes
