@@ -35,6 +35,7 @@ setup(
         'pypdf2',
         'elasticsearch',
         'blessings',
+        'ijson',
         'flask',
     ]
 
