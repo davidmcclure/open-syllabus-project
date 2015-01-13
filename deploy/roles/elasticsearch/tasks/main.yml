@@ -42,3 +42,12 @@
     owner: '{{ es_user }}'
     group: '{{ es_group }}'
     recurse: yes
+
+- name: Apply the configuration
+  notify: restart elasticsearch
+  template:
+    src: elasticsearch.yml.j2
+    dest: /etc/elasticsearch.yml
+    owner: '{{ es_user }}'
+    group: '{{ es_group }}'
+    mode: 0644
