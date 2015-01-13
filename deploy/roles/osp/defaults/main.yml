@@ -1,8 +1,5 @@
 ---
 
-osp_user: osp
-osp_group: osp
-
 osp_repo: https://github.com/overview/osp.git
 osp_branch: master
-osp_dest: /usr/local/src/osp
+osp_src: /usr/local/src/osp

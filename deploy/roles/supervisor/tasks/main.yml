@@ -5,11 +5,3 @@
     pkg: supervisor
     state: latest
     update_cache: yes
-
-- name: Apply program configurations
-  notify: supervisorctl reread
-  template:
-    src: '{{ item }}.conf.j2'
-    dest: /etc/supervisor/conf.d/{{ item }}.conf
-  with_items:
-    - osp
