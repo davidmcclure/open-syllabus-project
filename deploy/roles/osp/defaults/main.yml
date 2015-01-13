@@ -4,7 +4,3 @@
 osp_repo: https://github.com/overview/osp.git
 osp_branch: master
 osp_dest: /home/ubuntu/osp
-
-# Supervisor:
-osp_supervisor_conf_dir: /etc/supervisor/conf.d
-osp_num_workers: 8

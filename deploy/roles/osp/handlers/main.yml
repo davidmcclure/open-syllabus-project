@@ -1,7 +1,0 @@
----
-
-- name: restart supervisor
-  sudo: True
-  service:
-    name: supervisor
-    state: restarted

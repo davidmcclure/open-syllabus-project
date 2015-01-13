@@ -1,4 +1,3 @@
 ---
 
 - include: deploy.yml
-- include: configure.yml
