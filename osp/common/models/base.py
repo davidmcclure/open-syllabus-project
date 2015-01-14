@@ -6,13 +6,17 @@ from redis import StrictRedis
 from playhouse.postgres_ext import PostgresqlExtDatabase
 from peewee import *
 from elasticsearch import Elasticsearch
+from osp.common.config import config
 
 
-# TODO: Make env-configurable.
-postgres = PostgresqlExtDatabase('osp', user='postgres')
-redis = StrictRedis()
-elasticsearch = Elasticsearch()
+# POSTGRES
+postgres = PostgresqlExtDatabase('osp', **config['postgres'])
 
+# REDIS
+redis = StrictRedis(**config['redis'])
+
+# ELASTICSEARCH
+elasticsearch = Elasticsearch([config['elasticsearch']])
 
 
 class BaseModel(Model):

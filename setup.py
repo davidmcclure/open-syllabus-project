@@ -36,7 +36,8 @@ setup(
         'elasticsearch',
         'blessings',
         'ijson',
-        'flask',
+        'anyconfig',
+        'PyYAML',
     ]
 
 )
