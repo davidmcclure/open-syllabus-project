@@ -3,3 +3,7 @@
 osp_repo: https://github.com/overview/osp.git
 osp_branch: master
 osp_src: /home/{{ ansible_ssh_user }}/osp
+
+osp_profile:
+  - . osp/env/bin/activate
+  - export OSP_CORPUS=/osp/repository

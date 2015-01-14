@@ -28,7 +28,8 @@
   args:
     chdir: "{{ osp_src }}"
 
-- name: Activate the virtualenv on login
+- name: Configure .profile
   lineinfile:
     dest: /home/{{ ansible_ssh_user }}/.profile
-    line: . osp/env/bin/activate
+    line: '{{ item }}'
+  with_items: osp_profile
