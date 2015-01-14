@@ -1,0 +1,6 @@
+
+[defaults]
+remote_user = vagrant
+private_key_file = ~/.vagrant.d/insecure_private_key
+hostfile = .vagrant/provisioners/ansible/inventory/vagrant_ansible_inventory
+nocows = true

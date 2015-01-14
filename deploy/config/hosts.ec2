@@ -1,6 +1,3 @@
 
 [workers]
 changeme.compute-1.amazonaws.com
-
-[workers:vars]
-ansible_ssh_user = ubuntu

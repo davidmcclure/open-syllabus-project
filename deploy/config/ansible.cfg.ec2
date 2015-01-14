@@ -1,0 +1,4 @@
+
+[defaults]
+remote_user = ubuntu
+hostfile = hosts
