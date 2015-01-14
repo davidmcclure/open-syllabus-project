@@ -7,7 +7,7 @@ from elasticsearch import Elasticsearch
 
 
 # TODO: Make env-configurable.
-postgres = PostgresqlExtDatabase('osp')
+postgres = PostgresqlExtDatabase('osp', user='postgres')
 redis = StrictRedis()
 elasticsearch = Elasticsearch()
 
