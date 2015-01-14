@@ -1,0 +1,19 @@
+---
+
+- name: Install nginx
+  apt:
+    pkg: nginx
+    update_cache: yes
+    state: latest
+
+- name: Push up the configuration
+  template:
+    src: osp
+    dest: /etc/nginx/sites-available/osp
+
+- name: Enable the configuration
+  notify: restart nginx
+  file:
+    src: /etc/nginx/sites-available/osp
+    dest: /etc/nginx/sites-enabled/osp
+    state: link

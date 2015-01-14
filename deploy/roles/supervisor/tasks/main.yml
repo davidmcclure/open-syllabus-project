@@ -3,5 +3,5 @@
 - name: Install Supervisor
   apt:
     pkg: supervisor
-    state: latest
     update_cache: yes
+    state: latest
