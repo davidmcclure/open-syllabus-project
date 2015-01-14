@@ -1,0 +1,7 @@
+---
+
+postgresql_ext_install_contrib: yes
+
+postgresql_databases:
+  - name: osp
+    hstore: yes

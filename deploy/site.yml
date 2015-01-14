@@ -4,10 +4,12 @@
   sudo: yes
   hosts: workers
 
+  vars_files:
+    - vars/postgres.yml
+
   roles:
     - common
     - postgres
     - elasticsearch
     - redis
     - supervisor
-    - nginx
