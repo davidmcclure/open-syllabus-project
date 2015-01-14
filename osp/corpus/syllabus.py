@@ -220,4 +220,4 @@ class Syllabus:
         """
 
         lines = [line for line in self.text.splitlines() if line]
-        return ' '.join(lines).encode('utf-8')
+        return ' '.join(lines)
