@@ -1,7 +1,7 @@
 ---
 
 - name: Configure an OSP worker instance.
-  sudo: True
+  sudo: yes
   hosts: workers
 
   roles:

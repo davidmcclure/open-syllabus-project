@@ -4,3 +4,4 @@ env
 
 deploy/.vagrant
 deploy/hosts
+deploy/ansible.cfg

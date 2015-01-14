@@ -1,8 +1,8 @@
 ---
 
 - name: Deploy the OSP code.
-  hosts: workers
   sudo: yes
+  hosts: workers
 
   vars_files:
     - vars/osp.yml
