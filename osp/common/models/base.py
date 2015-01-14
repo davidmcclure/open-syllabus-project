@@ -9,11 +9,7 @@ from elasticsearch import Elasticsearch
 
 
 # TODO: Make env-configurable.
-postgres = PostgresqlExtDatabase(
-    'osp', user=os.getenv('OSP_PG_USER')
-)
-
-# TODO: Make env-configurable.
+postgres = PostgresqlExtDatabase('osp', user='postgres')
 redis = StrictRedis()
 elasticsearch = Elasticsearch()
 
