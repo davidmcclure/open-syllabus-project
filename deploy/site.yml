@@ -1,6 +1,6 @@
 ---
 
-- name: Configure an OSP worker instance.
+- name: Configure an OSP worker instance
   sudo: yes
   hosts: workers
 

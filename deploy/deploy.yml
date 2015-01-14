@@ -1,6 +1,6 @@
 ---
 
-- name: Deploy the OSP code.
+- name: Deploy the OSP code
   sudo: yes
   hosts: workers
 
