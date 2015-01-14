@@ -27,3 +27,8 @@
   command: env/bin/python3 setup.py develop
   args:
     chdir: "{{ osp_src }}"
+
+- name: Activate the virtualenv on login
+  lineinfile:
+    dest: /home/{{ ansible_ssh_user }}/.profile
+    line: . osp/env/bin/activate
