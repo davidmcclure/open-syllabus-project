@@ -1,0 +1,12 @@
+---
+
+- name: Install nginx
+  apt:
+    pkg: nginx
+    update_cache: yes
+    state: latest
+
+- name: Push up the configuration
+  template:
+    src: default
+    dest: /etc/nginx/sites-enabled/default

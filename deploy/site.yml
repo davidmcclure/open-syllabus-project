@@ -8,8 +8,9 @@
     - vars/postgres.yml
 
   roles:
-    - common
-    - postgres
-    - elasticsearch
-    - redis
-    - supervisor
+    #- common
+    #- postgres
+    #- elasticsearch
+    #- redis
+    #- supervisor
+    - nginx
