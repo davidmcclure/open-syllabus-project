@@ -1,0 +1,9 @@
+---
+
+- name: Apply nginx configurations
+  notify: reload nginx
+  template:
+    src: nginx/{{ item }}.j2
+    dest: /etc/nginx/sites-enabled/{{ item }}
+  with_items:
+    - rq-dashboard

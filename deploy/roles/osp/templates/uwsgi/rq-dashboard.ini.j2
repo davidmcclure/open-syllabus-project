@@ -1,0 +1,9 @@
+
+[uwsgi]
+
+base = {{ osp_src }}
+module = osp.web.dashboard
+home = %(base)/env
+pythonpath = %(base)
+callable = app
+socket = 127.0.0.1:4242

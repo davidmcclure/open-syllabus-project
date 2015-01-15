@@ -1,0 +1,14 @@
+---
+
+- name: Create the uWSGI config directory
+  file:
+    path: '{{ osp_uwsgi_config }}'
+    state: directory
+
+- name: Apply uWSGI configurations
+  notify: reload supervisor
+  template:
+    src: uwsgi/{{ item }}.ini.j2
+    dest: '{{ osp_uwsgi_config }}/{{ item }}.ini'
+  with_items:
+    - rq-dashboard

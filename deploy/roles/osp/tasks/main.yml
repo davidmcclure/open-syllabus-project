@@ -1,4 +1,6 @@
 ---
 
 - include: deploy.yml
-- include: config.yml
+- include: nginx.yml
+- include: uwsgi.yml
+- include: supervisor.yml
