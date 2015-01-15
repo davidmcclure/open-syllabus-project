@@ -9,4 +9,5 @@ from rq_dashboard import RQDashboard
 app = Flask(__name__)
 RQDashboard(app)
 
-app.run(port=os.getenv('RQ_PORT', 5000))
+if __name__ == '__main__':
+    app.run()

@@ -6,7 +6,7 @@
     update_cache: yes
     state: latest
 
-- name: Push up the configuration
+- name: Apply the configuration
   template:
     src: default
     dest: /etc/nginx/sites-enabled/default
