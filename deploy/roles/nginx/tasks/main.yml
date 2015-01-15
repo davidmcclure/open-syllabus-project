@@ -8,5 +8,5 @@
 
 - name: Apply the configuration
   template:
-    src: default
-    dest: /etc/nginx/sites-enabled/default
+    src: rq-dashboard
+    dest: /etc/nginx/sites-enabled/rq-dashboard
