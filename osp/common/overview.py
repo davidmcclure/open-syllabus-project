@@ -6,6 +6,7 @@ import ijson
 
 from base64 import urlsafe_b64encode as b64
 from jsonstream.pyjsonstream import JSONStream
+from osp.common.config import config
 
 
 class Overview:
@@ -19,8 +20,8 @@ class Overview:
         """
 
         return cls(
-            os.environ['OSP_API_URL'],
-            os.environ['OSP_API_TOKEN']
+            config['overview']['api_url'],
+            config['overview']['api_token']
         )
 
 

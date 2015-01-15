@@ -3,6 +3,7 @@
 import os
 import click
 
+from osp.common.config import config
 from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.corpus.corpus import Corpus
@@ -59,7 +60,7 @@ def pull_overview_ids():
     Copy document ids from Overview.
     """
 
-    id = os.environ['OSP_DOC_SET_ID']
+    id = config['overview']['doc_set']
     ov = Overview.from_env()
 
     for o_doc in ov.stream_documents(id):

@@ -2,6 +2,7 @@
 
 import os
 
+from osp.common.config import config
 from osp.corpus.segment import Segment
 from osp.corpus.utils import int_to_dir
 from functools import lru_cache
@@ -18,7 +19,7 @@ class Corpus:
         Get an instance for the ENV-defined corpus.
         """
 
-        return cls(os.environ['OSP_CORPUS'])
+        return cls(config['osp']['corpus'])
 
 
     def __init__(self, path):

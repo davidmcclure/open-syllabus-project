@@ -4,6 +4,7 @@ import click
 import multiprocessing as mp
 import os
 
+from osp.common.config import config
 from circus import get_arbiter
 
 
@@ -20,7 +21,7 @@ def work(n):
     Spin up workers.
     """
 
-    workers = {'cmd': os.environ['OSP_WORKER'], 'numprocesses': n}
+    workers = {'cmd': config['osp']['worker'], 'numprocesses': n}
     arbiter = get_arbiter([workers])
 
     try:

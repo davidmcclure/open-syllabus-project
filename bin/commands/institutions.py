@@ -4,6 +4,7 @@ import os
 import click
 import csv
 
+from osp.common.config import config
 from osp.common.models.base import postgres, redis
 from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
@@ -67,7 +68,7 @@ def queue_geocoding():
     """
 
     queue = Queue(connection=redis)
-    key = os.environ['MAPQUEST_KEY']
+    key = config['mapquest']['api_key']
 
     for inst in Institution.select().iterator():
         queue.enqueue(geocode, inst.id, key, inst.geocoding_query)

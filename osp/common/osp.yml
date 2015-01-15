@@ -1,6 +1,19 @@
 ---
 
-# Default OSP configuration. Copy to /etc/osp/osp.yml
+# Default configuration. Override at:
+#
+# /etc/osp/osp.yml
+# ~/osp.yml
+# ./osp.yml
+
+osp:
+  corpus: /osp/repository
+  worker: rqworker
+
+overview:
+  api_url: https://www.overviewproject.org/api/v1
+  api_token: token
+  doc_set: 1
 
 postgres:
   host: localhost
@@ -16,3 +29,6 @@ redis:
 elasticsearch:
   host: localhost
   port: 9200
+
+mapquest:
+  api_key: key
