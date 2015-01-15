@@ -6,5 +6,3 @@ osp_src: /home/{{ ansible_ssh_user }}/osp
 
 osp_profile:
   - . osp/env/bin/activate
-  - export OSP_CORPUS=/osp/repository
-  - export OSP_PG_USER=postgres
