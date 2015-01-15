@@ -5,8 +5,3 @@
     pkg: nginx
     update_cache: yes
     state: latest
-
-- name: Apply the configuration
-  template:
-    src: rq-dashboard
-    dest: /etc/nginx/sites-enabled/rq-dashboard
