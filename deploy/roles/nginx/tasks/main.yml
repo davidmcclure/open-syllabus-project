@@ -5,3 +5,8 @@
     pkg: nginx
     update_cache: yes
     state: latest
+
+- name: Remove the default configuration
+  file:
+    path: /etc/nginx/sites-enabled/default
+    state: absent
