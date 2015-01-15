@@ -20,3 +20,4 @@ blessings
 ijson
 anyconfig
 PyYAML
+uwsgi

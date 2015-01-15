@@ -38,6 +38,7 @@ setup(
         'ijson',
         'anyconfig',
         'PyYAML',
+        'uwsgi',
     ]
 
 )
