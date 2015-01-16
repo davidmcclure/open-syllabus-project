@@ -198,19 +198,25 @@ class Syllabus:
         Extract the raw plain text.
         """
 
-        text = ''
         ft = self.libmagic_file_type
 
+        text = ''
         with self.open() as f:
 
+            # Plaintext:
             if ft == 'text/plain':
                 text = f.read()
 
+            # HTML/XML:
             elif ft in ['text/html', 'application/xml']:
                 text = utils.html_to_text(f.read())
 
+            # PDF:
             elif ft == 'application/pdf':
                 text = utils.pdf_to_text(f)
+
+            # Office, etc:
+            else: text = utils.other_to_text(self.path)
 
         return (
             text

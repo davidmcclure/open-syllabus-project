@@ -1,5 +1,7 @@
 
 
+import subprocess
+
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfFileReader
 
@@ -65,3 +67,14 @@ def pdf_to_text(pdf):
         pages.append(page.extractText())
 
     return ' '.join(pages)
+
+
+def other_to_text(path):
+
+    """
+    Convert a proprietary format with LibreOffice.
+
+    :param path: The file path.
+    """
+
+    return path
