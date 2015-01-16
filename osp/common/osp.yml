@@ -7,7 +7,7 @@
 # ./osp.yml
 
 osp:
-  corpus: /osp/repository
+  corpus: XXX
   worker: XXX
 
 overview:
