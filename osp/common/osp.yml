@@ -8,12 +8,12 @@
 
 osp:
   corpus: /osp/repository
-  worker: rqworker
+  worker: XXX
 
 overview:
   api_url: https://www.overviewproject.org/api/v1
-  api_token: token
-  doc_set: 1
+  api_token: XXX
+  doc_set: XXX
 
 postgres:
   host: localhost
@@ -31,4 +31,4 @@ elasticsearch:
   port: 9200
 
 mapquest:
-  api_key: key
+  api_key: XXX
