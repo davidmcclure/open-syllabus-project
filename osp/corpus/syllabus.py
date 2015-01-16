@@ -5,6 +5,7 @@ import tldextract
 import re
 import PyPDF2
 import magic
+import re
 
 import osp.corpus.utils as utils
 from contextlib import contextmanager
@@ -226,5 +227,4 @@ class Syllabus:
         Get rid of linebreaks in the raw text.
         """
 
-        lines = [line for line in self.text.splitlines() if line]
-        return ' '.join(lines)
+        return re.sub('\s{2,}', ' ', self.text)
