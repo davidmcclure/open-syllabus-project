@@ -215,18 +215,15 @@ class Syllabus:
             elif ft == 'application/pdf':
                 text = utils.pdf_to_text(f)
 
-            # LibreOffice for everything else:
-            else:
-                text = utils.office_to_text(self.path)
+            # Everything else:
+            else: text = utils.office_to_text(self.path)
 
-        if text:
-
-            # Scrub out unicode.
-            text = (
-                text
-                .encode('ascii', 'ignore')
-                .decode('utf-8')
-            )
+        # Scrub unicode.
+        if text: text = (
+            text
+            .encode('ascii', 'ignore')
+            .decode('utf-8')
+        )
 
         return text
 
