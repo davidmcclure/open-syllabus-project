@@ -1,6 +1,8 @@
 
 
+import os
 import subprocess
+import tempfile
 
 from osp.common.config import config
 from bs4 import BeautifulSoup
@@ -70,19 +72,25 @@ def pdf_to_text(pdf):
     return ' '.join(pages)
 
 
-def other_to_text(path):
+def office_to_text(path):
 
     """
-    Convert a proprietary format with LibreOffice.
+    Convert to plaintext with LibreOffice.
 
     :param path: The file path.
     """
 
-    return subprocess.check_output([
-        config['unoconv']['python'],
-        config['unoconv']['path'],
-        '-f',
-        'txt',
-        '--stdout',
+    td = tempfile.mkdtemp()
+
+    # Shell out to LibreOffice.
+    subprocess.call([
+        config['libre_office']['path'],
+        '--headless',
+        '--convert-to', 'txt:Text',
+        '--outdir', td,
         path
     ])
+
+    # Read the text out of the file.
+    tf = os.path.join(td, os.path.basename(path)+'.txt')
+    with open(tf, 'r') as f: return f.read()

@@ -15,7 +15,7 @@ overview:
   api_token: XXX
   doc_set: XXX
 
-unoconv:
+libre_office:
   path: XXX
 
 postgres:

@@ -215,8 +215,8 @@ class Syllabus:
             elif ft == 'application/pdf':
                 text = utils.pdf_to_text(f)
 
-            # Office, etc:
-            else: text = utils.other_to_text(self.path)
+            # LibreOffice for everything else:
+            else: text = utils.office_to_text(self.path)
 
         return (
             text
