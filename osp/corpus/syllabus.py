@@ -216,7 +216,8 @@ class Syllabus:
                 text = utils.pdf_to_text(f)
 
             # Everything else:
-            else: text = utils.office_to_text(self.path)
+            else:
+                text = utils.office_to_text(self.path)
 
         # Scrub unicode.
         if text: text = (
