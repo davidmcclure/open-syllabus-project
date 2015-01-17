@@ -200,7 +200,7 @@ class Syllabus:
 
         ft = self.libmagic_file_type
 
-        text = ''
+        text = None
         with self.open() as f:
 
             # Plaintext:
@@ -216,17 +216,24 @@ class Syllabus:
                 text = utils.pdf_to_text(f)
 
             # LibreOffice for everything else:
-            else: text = utils.office_to_text(self.path)
+            else:
+                text = utils.office_to_text(self.path)
 
-        return (
-            text
-            .encode('ascii', 'ignore')
-            .decode('utf-8')
-        )
+        if text:
+
+            # Scrub out unicode.
+            text = (
+                text
+                .encode('ascii', 'ignore')
+                .decode('utf-8')
+            )
+
+        return text
 
 
     @property
     @lru_cache()
+    @utils.requires_attr('text')
     def unbroken_text(self):
 
         """

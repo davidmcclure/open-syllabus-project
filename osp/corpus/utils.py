@@ -91,6 +91,10 @@ def office_to_text(path):
         path
     ])
 
-    # Read the text out of the file.
-    tf = os.path.join(td, os.path.basename(path)+'.txt')
-    with open(tf, 'r') as f: return f.read()
+    try:
+
+        # Read the text ouf of the file.
+        tf = os.path.join(td, os.path.basename(path)+'.txt')
+        with open(tf, 'r') as f: return f.read()
+
+    except: pass
