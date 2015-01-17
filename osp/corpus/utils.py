@@ -2,6 +2,7 @@
 
 import subprocess
 
+from osp.common.config import config
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfFileReader
 
@@ -77,4 +78,11 @@ def other_to_text(path):
     :param path: The file path.
     """
 
-    return path
+    return subprocess.check_output([
+        config['unoconv']['python'],
+        config['unoconv']['path'],
+        '-f',
+        'txt',
+        '--stdout',
+        path
+    ])
