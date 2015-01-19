@@ -16,6 +16,8 @@ files = [
 
 ]
 
+anyconfig.set_loglevel('WARNING')
+
 config = anyconfig.load(
     files,
     merge=anyconfig.MS_DICTS,
