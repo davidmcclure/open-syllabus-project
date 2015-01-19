@@ -3,8 +3,8 @@
 import os
 
 from osp.common.config import config
-from osp.citations.hlbd.segment import Segment
-from osp.citations.hlbd.utils import groups
+from osp.citations.hlom.segment import Segment
+from osp.citations.hlom.utils import groups
 
 
 class Dataset:

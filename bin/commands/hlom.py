@@ -3,8 +3,8 @@
 import click
 
 from osp.common.models.base import postgres, redis
-from osp.citations.hlbd.models.record import HLBD_Record
-from osp.citations.hlbd.dataset import Dataset
+from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.dataset import Dataset
 
 
 @click.group()
@@ -22,7 +22,7 @@ def init_db():
     postgres.connect()
 
     postgres.create_tables([
-        HLBD_Record
+        HLOM_Record
     ], safe=True)
 
 
