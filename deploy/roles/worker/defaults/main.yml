@@ -1,7 +1,0 @@
----
-
-worker_image: ami-9eaa1cf6
-worker_instance_type: t2.micro
-worker_subnet_id: '{{ lookup("env", "OSP_SUBNET_ID") }}'
-worker_region: us-east-1
-worker_count: 1

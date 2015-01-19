@@ -1,7 +1,0 @@
----
-
-- name: Provision a worker instance
-  hosts: localhost
-
-  roles:
-    - worker

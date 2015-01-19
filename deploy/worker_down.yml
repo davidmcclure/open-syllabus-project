@@ -1,0 +1,4 @@
+---
+
+- name: Tear down a worker instance
+  hosts: 127.0.0.1

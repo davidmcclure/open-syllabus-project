@@ -1,0 +1,27 @@
+---
+
+- name: Provision a worker instance
+  hosts: 127.0.0.1
+
+  vars:
+    worker_image: ami-9eaa1cf6
+    worker_instance_type: t2.micro
+    worker_subnet_id: '{{ lookup("env", "OSP_SUBNET_ID") }}'
+    worker_region: us-east-1
+    worker_count: 1
+
+  tasks:
+
+    - name: Spin up an instance
+      ec2:
+        image: '{{ worker_image }}'
+        instance_type: '{{ worker_instance_type }}'
+        vpc_subnet_id: '{{ worker_subnet_id }}'
+        region: '{{ worker_region }}'
+        count_tag: osp-worker
+        exact_count: '{{ worker_count }}'
+        group: osp-worker
+        assign_public_ip: yes
+
+    - name: Attach the OSP corpus volume
+    - name: Attach the OSP data volume
