@@ -27,19 +27,3 @@
   command: env/bin/python3 setup.py develop
   args:
     chdir: "{{ osp_src }}"
-
-- name: Configure .profile
-  lineinfile:
-    dest: /home/{{ ansible_ssh_user }}/.profile
-    line: '{{ item }}'
-  with_items: osp_profile
-
-- name: Create the OSP config directory
-  file:
-    path: /etc/osp
-    state: directory
-
-- name: Apply the OSP config
-  template:
-    src: osp.yml.j2
-    dest: /etc/osp/osp.yml
