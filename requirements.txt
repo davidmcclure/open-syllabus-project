@@ -21,4 +21,4 @@ ijson
 anyconfig
 PyYAML
 uwsgi
-boto
+pymarc

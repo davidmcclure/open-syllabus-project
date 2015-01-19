@@ -10,9 +10,12 @@ osp:
   corpus: XXX
   worker: XXX
 
+hlbd:
+  corpus: XXX
+
 overview:
-  api_url: https://www.overviewproject.org/api/v1
   api_token: XXX
+  api_url: https://www.overviewproject.org/api/v1
   doc_set: XXX
 
 libreoffice:

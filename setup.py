@@ -39,7 +39,7 @@ setup(
         'anyconfig',
         'PyYAML',
         'uwsgi',
-        'boto',
+        'pymarc',
     ]
 
 )
