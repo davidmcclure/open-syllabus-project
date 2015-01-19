@@ -1,0 +1,12 @@
+---
+
+- name: Spin up an instance
+  ec2:
+    image: '{{ worker_image }}'
+    instance_type: '{{ worker_instance_type }}'
+    vpc_subnet_id: '{{ worker_subnet_id }}'
+    region: '{{ worker_region }}'
+    count_tag: osp-worker
+    exact_count: '{{ worker_count }}'
+    group: osp-worker
+    assign_public_ip: yes

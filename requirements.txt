@@ -21,3 +21,4 @@ ijson
 anyconfig
 PyYAML
 uwsgi
+boto
