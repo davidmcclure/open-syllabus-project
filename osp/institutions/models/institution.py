@@ -2,9 +2,9 @@
 
 import datetime
 
-from playhouse.postgres_ext import *
 from osp.common.models.base import BaseModel
 from peewee import *
+from playhouse.postgres_ext import *
 
 
 class Institution(BaseModel):

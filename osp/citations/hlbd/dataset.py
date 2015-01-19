@@ -1,6 +1,10 @@
 
 
+import os
+
+from osp.common.config import config
 from osp.citations.hlbd.segment import Segment
+from osp.citations.hlbd.utils import groups
 
 
 class Dataset:
@@ -46,3 +50,16 @@ class Dataset:
         for segment in self.segments():
             for record in segment.records():
                 yield record
+
+
+    def grouped_records(self, n):
+
+        """
+        Generate groups of N records.
+
+        :param n: The group length.
+        """
+
+        for segment in self.segments():
+            for group in groups(segment.records(), n):
+                yield group
