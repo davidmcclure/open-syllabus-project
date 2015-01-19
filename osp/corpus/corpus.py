@@ -25,7 +25,7 @@ class Corpus:
     def __init__(self, path):
 
         """
-        Set the path and segment boundaries.
+        Set the corpus path.
 
         :param path: A relative path to the corpus.
         """
