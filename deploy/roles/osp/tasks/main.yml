@@ -1,5 +1,6 @@
 ---
 
+- include: install.yml
 - include: deploy.yml
 - include: nginx.yml
 - include: uwsgi.yml
