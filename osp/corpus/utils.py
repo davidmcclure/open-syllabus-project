@@ -84,7 +84,7 @@ def office_to_text(path):
 
     # Shell out to LibreOffice.
     subprocess.call([
-        config['libre_office']['path'],
+        config['libreoffice']['path'],
         '--headless',
         '--convert-to', 'txt:Text',
         '--outdir', td,

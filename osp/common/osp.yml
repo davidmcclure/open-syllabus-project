@@ -15,7 +15,7 @@ overview:
   api_token: XXX
   doc_set: XXX
 
-libre_office:
+libreoffice:
   path: XXX
 
 postgres:
