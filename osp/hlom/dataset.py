@@ -17,7 +17,7 @@ class Dataset:
         Get an instance for the ENV-defined corpus.
         """
 
-        return cls(config['hlbd']['corpus'])
+        return cls(config['hlom']['corpus'])
 
 
     def __init__(self, path):
