@@ -36,14 +36,14 @@ def insert_records(n):
 
     dataset = Dataset.from_env()
 
-    i = 1
+    i = 0
     for group in dataset.grouped_records(n):
 
         rows = []
         for record in group:
             rows.append({
                 'control_number': record['001'],
-                'record': record.as_dict()
+                'record': record.as_marc()
             })
 
         HLOM_Record.insert_many(rows).execute()
