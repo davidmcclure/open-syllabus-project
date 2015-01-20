@@ -27,7 +27,7 @@ def init_db():
 
 
 @cli.command()
-@click.option('--n', default=1000)
+@click.option('--n', default=10000)
 def insert_records(n):
 
     """
@@ -36,6 +36,17 @@ def insert_records(n):
 
     dataset = Dataset.from_env()
 
-    # TODO|dev
+    i = 1
     for group in dataset.grouped_records(n):
-        print(group)
+
+        rows = []
+        for record in group:
+            rows.append({
+                'control_number': record['001'],
+                'record': record.as_dict()
+            })
+
+        HLOM_Record.insert_many(rows).execute()
+
+        i += 1
+        click.echo(i*n)
