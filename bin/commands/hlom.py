@@ -1,6 +1,7 @@
 
 
 import click
+import sys
 
 from osp.common.models.base import postgres, redis
 from osp.citations.hlom.models.record import HLOM_Record
@@ -48,14 +49,15 @@ def insert_records(n):
             # Just records with title/author.
             if record.title() and record.author():
                 rows.append({
-                    'control_number': record['001'],
+                    'control_number': record['001'].format_field(),
                     'record': record.as_marc()
                 })
 
         HLOM_Record.insert_many(rows).execute()
 
         i += 1
-        click.echo(i*n)
+        sys.stdout.write('\r'+str(i*n))
+        sys.stdout.flush()
 
 
 @cli.command()
