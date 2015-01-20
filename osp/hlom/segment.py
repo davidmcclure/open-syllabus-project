@@ -26,6 +26,6 @@ class Segment:
         """
 
         with open(self.path, 'rb') as fh:
-            reader = MARCReader(fh)
+            reader = MARCReader(fh, utf8_handling='ignore')
             for record in reader:
                 yield record
