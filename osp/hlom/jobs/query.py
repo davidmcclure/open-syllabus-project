@@ -20,14 +20,12 @@ def query(control_number):
 
     # Hydrate a MARC record.
     record = Record(data=bytes(marc.record))
-    title = record.title()
-    author = record.author()
 
-    # Break if not title or author.
-    if title is None or author is None: return
-
-    # Strip reserved chars.
-    query = sanitize_query(title+' '+author)
+    # Construct an ES query.
+    query = sanitize_query(' '.join([
+        record.title(),
+        record.author()
+    ]))
 
     results = es.search('osp', 'syllabus', {
         'fields': ['path'],
@@ -41,8 +39,8 @@ def query(control_number):
         }
     })
 
-    # TODO|dev
+    # TODO: Write the links.
     hits = results['hits']['total']
-    if (hits > 0):
+    if hits > 0:
         print(query)
         print(hits)

@@ -100,7 +100,8 @@ def insert(page):
 @click.argument('q')
 @click.option('--size', default=10)
 @click.option('--start', default=0)
-def search(q, size, start):
+@click.option('--slop', default=10)
+def search(q, size, start, slop):
 
     """
     Search documents.
@@ -115,7 +116,7 @@ def search(q, size, start):
             'match_phrase': {
                 'body': {
                     'query': q,
-                    'slop': 10
+                    'slop': slop
                 }
             }
         },

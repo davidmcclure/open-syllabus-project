@@ -42,10 +42,13 @@ def insert_records(n):
 
         rows = []
         for record in group:
-            rows.append({
-                'control_number': record['001'],
-                'record': record.as_marc()
-            })
+
+            # Just records with title/author.
+            if record.title() and record.author():
+                rows.append({
+                    'control_number': record['001'],
+                    'record': record.as_marc()
+                })
 
         HLOM_Record.insert_many(rows).execute()
 
@@ -62,8 +65,8 @@ def queue_queries():
 
     dataset = Dataset.from_env()
 
-    for record in dataset.records():
-        query(record['001'])
+    for record in HLOM_Record.select().naive().iterator():
+        query(record.control_number)
 
         #q = record.title()
         #if q and record.author():
