@@ -1,6 +1,7 @@
 
 
 import itertools
+import re
 
 
 def groups(iterable, n):
@@ -17,3 +18,19 @@ def groups(iterable, n):
         group = tuple(itertools.islice(it, n))
         if not group: return
         yield group
+
+
+def sanitize_query(query):
+
+    """
+    Scrub out Elasticsearch-reserved characters:
+    + - && || ! ( ) { } [ ] ^ " ~ * ? : \ /
+
+    :param query: The query string.
+    """
+
+    return re.sub(
+        '[\+\-\&\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/]',
+        '',
+        query
+    )

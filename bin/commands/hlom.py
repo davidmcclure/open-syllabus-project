@@ -4,6 +4,7 @@ import click
 
 from osp.common.models.base import postgres, redis
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom.dataset import Dataset
 
 
@@ -62,9 +63,10 @@ def queue_queries():
     dataset = Dataset.from_env()
 
     for record in dataset.records():
+        query(record['001'])
 
-        q = record.title()
-        if q and record.author():
-            q += str(record.author())
+        #q = record.title()
+        #if q and record.author():
+            #q += str(record.author())
 
-        click.echo(q)
+        #click.echo(q)

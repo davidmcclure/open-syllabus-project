@@ -9,5 +9,5 @@ from playhouse.postgres_ext import *
 
 class HLOM_Record(BaseModel):
 
-    control_number = CharField()
-    record = TextField()
+    control_number = CharField(unique=True)
+    record = BlobField()
