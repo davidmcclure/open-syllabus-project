@@ -20,20 +20,29 @@ def query(control_number):
 
     # Hydrate a MARC record.
     record = Record(data=bytes(marc.record))
+    title = record.title()
+    author = record.author()
 
-    # Form the query.
-    query = record.title()
-    if query and record.author():
-        query += str(record.author())
+    # Break if not title or author.
+    if title is None or author is None: return
+
+    # Strip reserved chars.
+    query = sanitize_query(title+' '+author)
 
     results = es.search('osp', 'syllabus', {
         'fields': ['path'],
         'query': {
-            'query_string': {
-                'query': sanitize_query(query)
+            'match_phrase': {
+                'body': {
+                    'query': query,
+                    'slop': 10
+                }
             }
         }
     })
 
-    print(sanitize_query(query))
-    print(results['hits']['total'])
+    # TODO|dev
+    hits = results['hits']['total']
+    if (hits > 0):
+        print(query)
+        print(hits)

@@ -112,8 +112,11 @@ def search(q, size, start):
         'from': start,
         'fields': ['path'],
         'query': {
-            'query_string': {
-                'query': q
+            'match_phrase': {
+                'body': {
+                    'query': q,
+                    'slop': 10
+                }
             }
         },
         'highlight': {
