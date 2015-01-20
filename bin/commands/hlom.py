@@ -4,6 +4,7 @@ import click
 
 from osp.common.models.base import postgres, redis
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom.dataset import Dataset
 
@@ -23,7 +24,8 @@ def init_db():
     postgres.connect()
 
     postgres.create_tables([
-        HLOM_Record
+        HLOM_Record,
+        HLOM_Citation
     ], safe=True)
 
 
