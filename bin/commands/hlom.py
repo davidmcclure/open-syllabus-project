@@ -8,6 +8,7 @@ from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom.dataset import Dataset
+from rq import Queue
 
 
 @click.group()
@@ -67,13 +68,7 @@ def queue_queries():
     Queue citation extraction queries.
     """
 
-    dataset = Dataset.from_env()
+    queue = Queue(connection=redis)
 
     for record in HLOM_Record.select().naive().iterator():
-        query(record.control_number)
-
-        #q = record.title()
-        #if q and record.author():
-            #q += str(record.author())
-
-        #click.echo(q)
+        queue.enqueue(query, record.control_number)
