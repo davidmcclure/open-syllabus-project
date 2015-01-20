@@ -50,3 +50,21 @@ def insert_records(n):
 
         i += 1
         click.echo(i*n)
+
+
+@cli.command()
+def queue_queries():
+
+    """
+    Queue citation extraction queries.
+    """
+
+    dataset = Dataset.from_env()
+
+    for record in dataset.records():
+
+        q = record.title()
+        if q and record.author():
+            q += str(record.author())
+
+        click.echo(q)
