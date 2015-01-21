@@ -14,7 +14,7 @@ def ext_semester(path):
     :param str path: The document path.
     """
 
-    text = document_text(path)
+    text = document_text(path).text
 
     pattern = re.compile(r'''
         (?P<semester>fall|winter|spring|summer)

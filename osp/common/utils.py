@@ -3,7 +3,7 @@
 import math
 
 
-def paginate(query, n):
+def paginate_query(query, n):
 
     """
     Paginate through all rows in a query result.

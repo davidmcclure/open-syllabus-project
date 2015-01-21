@@ -30,11 +30,27 @@ def document_text(path):
     :param path: A corpus-relative document path.
     """
 
-    query = (
+    return (
         Document_Text
         .select()
         .where(Document_Text.document==path)
         .order_by(Document_Text.created.desc())
+        .first()
     )
 
-    return query.first().text
+
+def all_document_texts():
+
+    """
+    Get the most recently-extracted texts for all documents.
+    """
+
+    return (
+        Document_Text
+        .select()
+        .distinct(Document_Text.document)
+        .order_by(
+            Document_Text.document,
+            Document_Text.created.desc()
+        )
+    )
