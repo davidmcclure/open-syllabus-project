@@ -19,15 +19,18 @@ def ext_semester(path):
     pattern = re.compile(r'''
         (?P<semester>fall|winter|spring|summer)
         \s+
-        (?P<year>\d{4}|\d{2})
+        (?P<year>\d{4})
     ''', re.I+re.X)
 
-    matches = [m.groupdict() for m in re.finditer(pattern, text)]
+    matches = [m for m in re.finditer(pattern, text)]
 
     if len(matches):
 
+        match = matches[0]
+
         Document_Semester.create(
             document=path,
-            semester=matches[0]['semester'].lower(),
-            year=matches[0]['year']
+            offset=match.start(),
+            semester=match.group('semester').lower(),
+            year=match.group('year')
         )

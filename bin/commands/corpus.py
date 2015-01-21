@@ -75,6 +75,32 @@ def pull_overview_ids():
 
 
 @cli.command()
+def queue_read_format():
+
+    """
+    Queue format extraction tasks in the worker.
+    """
+
+    queue = Queue(connection=redis)
+
+    for syllabus in Corpus.from_env().cli_syllabi():
+        queue.enqueue(read_format, syllabus.path)
+
+
+@cli.command()
+def queue_read_text():
+
+    """
+    Queue text extraction tasks in the worker.
+    """
+
+    queue = Queue(connection=redis)
+
+    for syllabus in Corpus.from_env().cli_syllabi():
+        queue.enqueue(read_text, syllabus.path)
+
+
+@cli.command()
 def format_counts():
 
     """
@@ -99,29 +125,3 @@ def file_count():
 
     corpus = Corpus.from_env()
     click.echo(corpus.file_count)
-
-
-@cli.command()
-def queue_read_format():
-
-    """
-    Queue format extraction tasks in the worker.
-    """
-
-    queue = Queue(connection=redis)
-
-    for syllabus in Corpus.from_env().cli_syllabi():
-        queue.enqueue(read_format, syllabus.path)
-
-
-@cli.command()
-def queue_read_text():
-
-    """
-    Queue text extraction tasks in the worker.
-    """
-
-    queue = Queue(connection=redis)
-
-    for syllabus in Corpus.from_env().cli_syllabi():
-        queue.enqueue(read_text, syllabus.path)

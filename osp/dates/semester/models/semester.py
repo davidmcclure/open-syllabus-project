@@ -10,5 +10,6 @@ class Document_Semester(BaseModel):
 
     created = DateTimeField(default=datetime.datetime.now)
     document = CharField()
+    offset = IntegerField()
     year = IntegerField()
     semester = CharField()

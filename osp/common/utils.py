@@ -14,6 +14,6 @@ def paginate_query(query, n):
 
     page_count = math.ceil(query.count()/n)
 
-    for page in range(page_count):
+    for page in range(1, page_count+1):
         for row in query.paginate(page, n).naive().iterator():
             yield row
