@@ -20,7 +20,7 @@ def ext_semester(path):
         (?P<semester>fall|winter|spring|summer)
         \s+
         (?P<year>\d{4}|\d{2})
-        ''', re.I+re.X)
+    ''', re.I+re.X)
 
     matches = [m.groupdict() for m in re.finditer(pattern, text)]
 
