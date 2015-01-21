@@ -22,7 +22,7 @@ def format_counts():
     )
 
 
-def get_document_text(path):
+def document_text(path):
 
     """
     Get the most recently-extracted text for a document.
