@@ -25,3 +25,13 @@ def init_db():
     postgres.create_tables([
         Document_Semester
     ], safe=True)
+
+
+@cli.command()
+def queue_semester_extraction():
+
+    """
+    Queue semester extraction queries.
+    """
+
+    pass
