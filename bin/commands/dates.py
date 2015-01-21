@@ -4,6 +4,7 @@ import click
 import math
 
 from osp.common.models.base import postgres, redis
+from osp.common.utils import paginate_query
 from osp.corpus.models.text import Document_Text
 from osp.dates.semester.models.semester import Document_Semester
 from osp.dates.semester.jobs.ext_semester import ext_semester
@@ -50,9 +51,5 @@ def queue(n):
         )
     )
 
-    # Get the number of pages.
-    page_count = math.ceil(query.count()/n)
-
-    for page in range(page_count):
-        for text in query.paginate(page, n).naive().iterator():
-            queue.enqueue(ext_semester, text.document)
+    for text in paginate_query(query, n):
+        queue.enqueue(ext_semester, text.document)
