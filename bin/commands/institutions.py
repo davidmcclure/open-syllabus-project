@@ -127,3 +127,29 @@ def pull_overview_ids():
         )
 
         query.execute()
+
+
+@cli.command()
+@click.argument('out_path', type=click.Path())
+def write_csv(out_path):
+
+    """
+    Generate a CSV file.
+    """
+
+    out_file = open(out_path, 'w')
+
+    # CSV writer.
+    cols = ['name', 'longitude', 'latitude']
+    writer = csv.DictWriter(out_file, cols)
+
+    rows = []
+    for inst in queries.csv_rows().naive().iterator():
+        rows.append({
+            'name': inst.metadata['Institution_Name'],
+            'latitude': inst.lat,
+            'longitude': inst.lon
+        })
+
+    writer.writeheader()
+    writer.writerows(rows)
