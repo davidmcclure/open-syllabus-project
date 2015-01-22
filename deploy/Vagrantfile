@@ -72,15 +72,26 @@ Vagrant.configure(2) do |config|
   config.vm.network :public_network
   config.ssh.insert_key = false
 
-  config.vm.define "worker" do |worker|
+  config.vm.define "server" do |worker|
     worker.vm.box = "ubuntu/trusty64"
-    worker.vm.network :forwarded_port, host: 4567, guest: 80
+    worker.vm.network :forwarded_port, host: 4001, guest: 80
+  end
+
+  config.vm.define "worker1" do |worker|
+    worker.vm.box = "ubuntu/trusty64"
+    worker.vm.network :forwarded_port, host: 4002, guest: 80
   end
 
   config.vm.provision "ansible" do |ansible|
-    ansible.playbook = "config.yml"
+
+    ansible.playbook = "vagrant.yml"
     ansible.extra_vars = { "ansible_ssh_user" => "vagrant" }
-    ansible.groups = { "workers" => ["worker"] }
+
+    ansible.groups = {
+      "servers" => ["server"],
+      "workers" => ["worker1"]
+    }
+
   end
 
 end
