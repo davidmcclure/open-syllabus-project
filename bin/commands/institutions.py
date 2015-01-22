@@ -71,7 +71,8 @@ def queue_geocoding():
     key = config['mapquest']['api_key']
 
     for inst in Institution.select().iterator():
-        queue.enqueue(geocode, inst.id, key, inst.geocoding_query)
+        query = inst.geocoding_query
+        if query:queue.enqueue(geocode, inst.id, key, query)
 
 
 @cli.command()

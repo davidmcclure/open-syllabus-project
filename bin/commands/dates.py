@@ -8,6 +8,8 @@ from osp.common.utils import paginate_query
 from osp.corpus.queries import all_document_texts
 from osp.dates.semester.models.semester import Document_Semester
 from osp.dates.semester.jobs.ext_semester import ext_semester
+from osp.dates.semester import queries
+from prettytable import PrettyTable
 from rq import Queue
 
 
@@ -42,3 +44,19 @@ def queue(n):
 
     for text in paginate_query(all_document_texts(), n):
         queue.enqueue(ext_semester, text.document)
+
+
+@cli.command()
+def semester_counts():
+
+    """
+    Print a table of semester -> count.
+    """
+
+    t = PrettyTable(['Year', 'Semester', 'Doc Count'])
+    t.align = 'l'
+
+    for c in queries.semester_counts().naive().iterator():
+        t.add_row([c.year, c.semester, c.count])
+
+    click.echo(t)
