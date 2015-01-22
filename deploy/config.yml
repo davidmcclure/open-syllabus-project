@@ -5,6 +5,7 @@
   hosts: workers
 
   vars_files:
+    - vars/elasticsearch.yml
     - vars/postgres.yml
 
   roles:

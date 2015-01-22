@@ -46,8 +46,8 @@
 - name: Apply the configuration
   notify: restart elasticsearch
   template:
-    src: elasticsearch.yml.j2
-    dest: /etc/elasticsearch.yml
+    src: elasticsearch.j2
+    dest: /etc/default/elasticsearch
     owner: '{{ es_user }}'
     group: '{{ es_group }}'
     mode: 0644
