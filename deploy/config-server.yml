@@ -1,0 +1,14 @@
+---
+
+- name: Configure an OSP worker instance
+  sudo: yes
+  hosts: servers
+
+  vars_files:
+    - vars/elasticsearch.yml
+    - vars/postgres.yml
+
+  roles:
+    - common
+    - elasticsearch
+    - postgres
