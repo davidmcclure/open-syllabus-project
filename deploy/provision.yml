@@ -1,7 +1,8 @@
 ---
 
 - name: Provision a worker set
-  hosts: 127.0.0.1
+  hosts: localhost
+  gather_facts: False
 
   vars_files:
     - vars/ec2.yml

@@ -2,7 +2,7 @@
 
 - name: Configure an OSP worker instance
   sudo: yes
-  hosts: workers
+  hosts: tag_osp_worker
 
   vars_files:
     - vars/elasticsearch.yml

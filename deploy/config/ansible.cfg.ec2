@@ -1,4 +1,4 @@
 
 [defaults]
 remote_user = ubuntu
-hostfile = hosts
+hostfile = ec2.py
