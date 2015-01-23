@@ -1,17 +1,11 @@
 
 
-from flask import Flask, Blueprint
-import flask_restful
+from flask import Flask, Blueprint, request
 
 
-blueprint = Blueprint('corpus', __name__)
-api = flask_restful.Api(blueprint)
+corpus = Blueprint('corpus', __name__)
 
 
-class TextApi(flask_restful.Resource):
-
-    def get(self):
-        return {'osp': 'text'}
-
-
-api.add_resource(TextApi, '/text')
+@corpus.route('/text', methods=['POST'])
+def test():
+    pass

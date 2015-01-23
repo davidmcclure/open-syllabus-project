@@ -4,7 +4,7 @@ import os
 
 from flask import Flask
 from rq_dashboard import RQDashboard
-from osp.corpus.api import blueprint as corpus
+from osp.corpus.api import corpus
 
 
 # RQ dashboard:

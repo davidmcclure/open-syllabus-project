@@ -41,7 +41,6 @@ setup(
         'uwsgi',
         'pymarc',
         'flask',
-        'flask-restful',
     ]
 
 )
