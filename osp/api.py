@@ -16,5 +16,10 @@ RQDashboard(app)
 app.register_blueprint(corpus, url_prefix='/corpus')
 
 
+@app.route('/ping')
+def ping():
+    return 'pong'
+
+
 if __name__ == '__main__':
     app.run()
