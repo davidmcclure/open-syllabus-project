@@ -1,10 +1,12 @@
 ---
 
 - name: Apply Supervisor configurations
-  notify: reload supervisor
   template:
     src: supervisor/{{ item }}.conf.j2
     dest: /etc/supervisor/conf.d/{{ item }}.conf
   with_items:
     - osp-workers
     - osp-api
+
+- name: reload supervisor
+  shell: supervisorctl reload
