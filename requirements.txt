@@ -22,3 +22,5 @@ anyconfig
 PyYAML
 uwsgi
 pymarc
+flask
+flask-restful

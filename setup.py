@@ -40,6 +40,8 @@ setup(
         'PyYAML',
         'uwsgi',
         'pymarc',
+        'flask',
+        'flask-restful',
     ]
 
 )
