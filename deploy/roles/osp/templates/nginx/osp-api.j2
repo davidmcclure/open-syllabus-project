@@ -6,7 +6,7 @@ server {
   charset utf-8;
 
   location / {
-    try_files $uri @rq;
+    try_files $uri @osp;
   }
 
   location @osp {
