@@ -11,4 +11,4 @@
     src: uwsgi/{{ item }}.ini.j2
     dest: '{{ osp_uwsgi_config }}/{{ item }}.ini'
   with_items:
-    - rq-dashboard
+    - osp-api

@@ -9,7 +9,7 @@ server {
     try_files $uri @rq;
   }
 
-  location @rq {
+  location @osp {
     include uwsgi_params;
     uwsgi_pass 127.0.0.1:4242;
   }

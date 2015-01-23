@@ -6,5 +6,5 @@
     src: supervisor/{{ item }}.conf.j2
     dest: /etc/supervisor/conf.d/{{ item }}.conf
   with_items:
-    - rq-dashboard
     - osp-workers
+    - osp-api
