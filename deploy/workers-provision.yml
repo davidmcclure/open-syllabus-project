@@ -3,31 +3,12 @@
 - name: Provision a worker set
   hosts: localhost
   gather_facts: False
+  sudo_user: ubuntu
 
   vars_files:
     - vars/ec2.yml
 
   tasks:
-
-    - name: Start the data server
-      register: servers
-      ec2:
-
-        image: '{{ ec2_image }}'
-        instance_type: '{{ ec2_server_instance_type }}'
-        vpc_subnet_id: '{{ ec2_subnet_id }}'
-        group: osp-worker
-        region: '{{ ec2_region }}'
-        assign_public_ip: yes
-        keypair: '{{ ec2_keypair }}'
-        wait: yes
-
-        exact_count: 1
-        instance_tags:
-          Name: osp-server
-          osp: server
-        count_tag:
-          osp: server
 
     - name: Start the workers
       register: workers
@@ -49,7 +30,7 @@
         count_tag:
           osp: worker
 
-    - name: Attach the OSP corpus
+    - name: Attach the OSP volume
       ec2_vol:
         instance: '{{ item.id }}'
         snapshot: '{{ ec2_osp_snapshot }}'
