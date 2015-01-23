@@ -1,4 +1,0 @@
-
-[defaults]
-remote_user = ubuntu
-hostfile = ec2.py
