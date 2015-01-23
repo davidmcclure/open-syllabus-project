@@ -33,3 +33,13 @@ def ping():
             click.echo(term.green('pong'))
         else:
             click.echo(term.red(str(code)))
+
+
+@cli.command()
+def queue_text_extraction():
+
+    """
+    Queue text extraction.
+    """
+
+    pass

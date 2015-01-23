@@ -6,7 +6,6 @@ import math
 from osp.common.models.base import elasticsearch as es
 from osp.corpus.models.text import Document_Text as DocText
 from elasticsearch.helpers import bulk
-from clint.textui import colored
 from clint.textui.progress import bar
 from blessings import Terminal
 
