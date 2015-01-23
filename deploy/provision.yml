@@ -1,0 +1,36 @@
+---
+
+- name: Provision a worker set
+  hosts: 127.0.0.1
+
+  vars_files:
+    - vars/ec2.yml
+
+  tasks:
+
+    - name: Spin up the workers
+      register: workers
+      ec2:
+
+        image: '{{ ec2_worker_image }}'
+        instance_type: '{{ ec2_worker_instance_type }}'
+        vpc_subnet_id: '{{ ec2_subnet_id }}'
+        group: osp-worker
+        region: '{{ ec2_region }}'
+        assign_public_ip: yes
+        keypair: '{{ ec2_keypair }}'
+        wait: yes
+
+        exact_count: '{{ ec2_worker_count }}'
+        instance_tags:
+          osp: worker
+        count_tag:
+          osp: worker
+
+    - name: Attach the OSP corpus
+      ec2_vol:
+        instance: '{{ item.id }}'
+        snapshot: '{{ ec2_osp_snapshot }}'
+        region: '{{ ec2_region }}'
+        volume_size: 1 # Unused, Ansible bug workaround.
+      with_items: workers.instances
