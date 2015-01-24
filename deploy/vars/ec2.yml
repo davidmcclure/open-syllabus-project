@@ -6,5 +6,5 @@ ec2_keypair: '{{ lookup("env", "OSP_KEYPAIR") }}'
 ec2_osp_snapshot: '{{ lookup("env", "OSP_CORPUS_SNAPSHOT") }}'
 ec2_image: ami-9eaa1cf6
 
-ec2_worker_instance_type: t2.micro
+ec2_worker_instance_type: m3.xlarge
 ec2_worker_count: 2

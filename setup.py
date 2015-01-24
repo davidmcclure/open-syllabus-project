@@ -40,6 +40,7 @@ setup(
         'PyYAML',
         'uwsgi',
         'pymarc',
+        'boto',
         'flask',
     ]
 

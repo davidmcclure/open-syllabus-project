@@ -27,3 +27,8 @@
   command: env/bin/python3 setup.py develop
   args:
     chdir: "{{ osp_src }}"
+
+- name: Create database tables
+  command: osp {{ item }} init_db
+  with_items:
+    - corpus
