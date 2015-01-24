@@ -27,7 +27,7 @@ class Inventory:
         ips = []
         for r in self.conn.get_all_reservations():
             for i in r.instances:
-                if i.tags.get('osp', False) == 'worker':
+                if i.tags.get('osp', False) == 'worker' and i.ip_address:
                     ips.append(i.ip_address)
 
         return ips
