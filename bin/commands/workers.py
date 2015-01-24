@@ -3,6 +3,7 @@
 import click
 import requests
 
+from osp.common.utils import partitions
 from osp.common.inventory import Inventory
 from blessings import Terminal
 
@@ -47,3 +48,14 @@ def queue_text_extraction():
         'http://127.0.0.1:5001',
         'http://127.0.0.1:5002'
     ]
+
+    ps = partitions(len(ips))
+
+    for i, ip in enumerate(ips):
+
+        r = requests.post(ip+'/corpus/text', params={
+            's1': ps[i][0],
+            's2': ps[i][1]
+        })
+
+        print(r.text)
