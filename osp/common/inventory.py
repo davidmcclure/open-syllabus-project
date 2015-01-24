@@ -31,3 +31,13 @@ class Inventory:
                     ips.append(i.ip_address)
 
         return ips
+
+
+    @property
+    def worker_urls(self):
+
+        """
+        Get a list of worker URLs.
+        """
+
+        return ['http://'+ip for ip in self.worker_ips]

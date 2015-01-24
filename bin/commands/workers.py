@@ -23,13 +23,14 @@ def ping():
     Ping the workers.
     """
 
-    for ip in Inventory().worker_ips:
+    for ip in Inventory().worker_urls:
 
         # Hit /ping.
-        r = requests.get('http://'+ip+'/ping')
-        code = r.status_code
+        r = requests.get(ip+'/ping')
 
+        code = r.status_code
         click.echo(ip)
+
         if code == 200:
             click.echo(term.green('pong'))
         else:
@@ -37,25 +38,29 @@ def ping():
 
 
 @cli.command()
-def queue_text_extraction():
+def queue_text():
 
     """
     Queue text extraction.
     """
 
-    # TODO|dev
-    ips = [
-        'http://127.0.0.1:5001',
-        'http://127.0.0.1:5002'
-    ]
-
-    ps = partitions(len(ips))
+    urls = Inventory().worker_urls
+    pts = partitions(len(urls))
 
     for i, ip in enumerate(ips):
 
-        r = requests.post(ip+'/corpus/text', params={
-            's1': ps[i][0],
-            's2': ps[i][1]
-        })
+        s1 = pts[i][0]
+        s2 = pts[i][1]
 
-        print(r.text)
+        r = requests.post(
+            ip+'/corpus/text',
+            params={'s1': s1, 's2': s2 }
+        )
+
+        code = r.status_code
+        click.echo(ip)
+
+        if code == 200:
+            click.echo(term.green(str(s1)+'-'+str(s2)))
+        else:
+            click.echo(term.red(str(code)))
