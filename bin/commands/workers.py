@@ -44,12 +44,7 @@ def status():
     List the number of pending jobs for each worker.
     """
 
-    urls = [
-        'http://localhost:5001',
-        'http://localhost:5002'
-    ]
-
-    for url in urls:
+    for url in Inventory().worker_urls:
 
         # Load rq-dashboard.
         r = requests.get(url+'/rq/queues.json')
