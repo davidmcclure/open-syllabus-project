@@ -23,18 +23,44 @@ def ping():
     Ping the workers.
     """
 
-    for ip in Inventory().worker_urls:
+    for url in Inventory().worker_urls:
 
         # Hit /ping.
-        r = requests.get(ip+'/ping')
+        r = requests.get(url+'/ping')
 
         code = r.status_code
-        click.echo(ip)
+        click.echo(url)
 
         if code == 200:
             click.echo(term.green('pong'))
         else:
             click.echo(term.red(str(code)))
+
+
+@cli.command()
+def status():
+
+    """
+    List the number of pending jobs for each worker.
+    """
+
+    urls = [
+        'http://localhost:5001',
+        'http://localhost:5002'
+    ]
+
+    for url in urls:
+
+        # Load rq-dashboard.
+        r = requests.get(url+'/rq/queues.json')
+
+        # Find the default queue.
+        for queue in r.json()['queues']:
+            if queue['name'] == 'default':
+
+                click.echo(url)
+                click.echo(term.green(str(queue['count'])))
+                break
 
 
 @cli.command()
@@ -47,18 +73,19 @@ def queue_text():
     urls = Inventory().worker_urls
     pts = partitions(len(urls))
 
-    for i, ip in enumerate(ips):
+    for i, url in enumerate(urls):
 
         s1 = pts[i][0]
         s2 = pts[i][1]
 
+        # Post the boundaries.
         r = requests.post(
-            ip+'/corpus/text',
+            url+'/corpus/text',
             params={'s1': s1, 's2': s2 }
         )
 
         code = r.status_code
-        click.echo(ip)
+        click.echo(url)
 
         if code == 200:
             click.echo(term.green(str(s1)+'-'+str(s2)))
