@@ -17,6 +17,24 @@ class Inventory:
         self.conn = ec2.connect_to_region(os.environ['OSP_REGION'])
 
 
+    def ips_by_tag(self, key, value):
+
+        """
+        Get a list of IP addresses by tag.
+
+        :param key: The tag key.
+        :param value: The tag value.
+        """
+
+        ips = []
+        for r in self.conn.get_all_reservations():
+            for i in r.instances:
+                if i.tags.get(key, False) == value and i.ip_address:
+                    ips.append(i.ip_address)
+
+        return ips
+
+
     @property
     def worker_ips(self):
 
@@ -24,13 +42,7 @@ class Inventory:
         Get a list of worker IP addresses.
         """
 
-        ips = []
-        for r in self.conn.get_all_reservations():
-            for i in r.instances:
-                if i.tags.get('osp', False) == 'worker' and i.ip_address:
-                    ips.append(i.ip_address)
-
-        return ips
+        return self.ips_by_tag('osp', 'worker')
 
 
     @property
