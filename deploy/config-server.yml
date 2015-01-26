@@ -1,0 +1,11 @@
+---
+
+- name: Configure an OSP server
+  sudo: yes
+  hosts: tag_osp_server
+
+  vars_files:
+    - vars/postgres.yml
+
+  roles:
+    - postgres

@@ -10,6 +10,26 @@
 
   tasks:
 
+    - name: Start the data server
+      register: servers
+      ec2:
+
+        image: '{{ ec2_image }}'
+        instance_type: '{{ ec2_server_instance_type }}'
+        vpc_subnet_id: '{{ ec2_subnet_id }}'
+        group: osp-worker
+        region: '{{ ec2_region }}'
+        assign_public_ip: yes
+        keypair: '{{ ec2_keypair }}'
+        wait: yes
+
+        exact_count: '{{ ec2_server_count }}'
+        instance_tags:
+          Name: osp-server
+          osp: server
+        count_tag:
+          osp: server
+
     - name: Start the workers
       register: workers
       ec2:
@@ -36,4 +56,6 @@
         snapshot: '{{ ec2_osp_snapshot }}'
         region: '{{ ec2_region }}'
         volume_size: 1 # Unused, Ansible bug workaround.
-      with_items: workers.instances
+      with_flattened:
+        - workers.instances
+        - servers.instances

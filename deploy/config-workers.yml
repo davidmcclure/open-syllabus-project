@@ -1,6 +1,6 @@
 ---
 
-- name: Configure an OSP worker instance
+- name: Configure an OSP worker set
   sudo: yes
   hosts: tag_osp_worker
 
