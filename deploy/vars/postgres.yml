@@ -2,6 +2,22 @@
 
 postgresql_ext_install_contrib: yes
 
+postgresql_listen_addresses:
+  - '*'
+
+postgresql_pg_hba_custom:
+  - type: host
+    database: osp
+    user: all
+    address: all
+    method: md5
+    comment: ''
+
 postgresql_databases:
   - name: osp
     hstore: yes
+
+postgresql_user_privileges:
+  - name: osp
+    db: osp
+    priv: 'ALL'

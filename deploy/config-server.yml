@@ -5,6 +5,7 @@
   hosts: tag_osp_server
 
   vars_files:
+    - vars/passwords.yml
     - vars/postgres.yml
 
   roles:

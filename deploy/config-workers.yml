@@ -5,6 +5,7 @@
   hosts: tag_osp_worker
 
   vars_files:
+    - vars/passwords.yml
     - vars/elasticsearch.yml
     - vars/postgres.yml
 
