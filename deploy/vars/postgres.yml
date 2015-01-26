@@ -17,6 +17,10 @@ postgresql_databases:
   - name: osp
     hstore: yes
 
+postgresql_users:
+  - name: osp
+    pass: '{{ osp_password }}'
+
 postgresql_user_privileges:
   - name: osp
     db: osp
