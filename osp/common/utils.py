@@ -32,7 +32,7 @@ def partitions(n, total=4095):
 
     bounds = []
     for i1 in range(0, total, plen):
-        i2 = i1+plen-1 if i1+plen-1 < total else total
+        i2 = i1+plen-1 if i1+plen < total else total
         bounds.append((i1, i2))
 
     return bounds
