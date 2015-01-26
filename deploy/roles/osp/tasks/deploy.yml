@@ -2,33 +2,34 @@
 
 - name: Update the OSP source code
   git:
-    repo: "{{ osp_repo }}"
-    version: "{{ osp_branch }}"
-    dest: "{{ osp_src }}"
+    repo: '{{ osp_repo }}'
+    version: '{{ osp_branch }}'
+    dest: '{{ osp_src }}'
 
 - name: Check if a virtualenv exists
   register: env
   stat:
-    path: "{{ osp_src }}/env"
+    path: '{{ osp_src }}/env'
 
 # pyvenv is broken on Ubuntu 14.04.
 - name: Create a Python 3 virtualenv, if necessary
   when: env.stat.isdir is not defined
   command: virtualenv --python=/usr/bin/python3.4 env
   args:
-    chdir: "{{ osp_src }}"
+    chdir: '{{ osp_src }}'
 
 - name: Install pip dependencies
   command: env/bin/pip3 install -r requirements.txt
   args:
-    chdir: "{{ osp_src }}"
+    chdir: '{{ osp_src }}'
 
 - name: Install the CLI suite
   command: env/bin/python3 setup.py develop
   args:
-    chdir: "{{ osp_src }}"
+    chdir: '{{ osp_src }}'
 
-- name: Create database tables
-  command: osp {{ item }} init_db
-  with_items:
-    - corpus
+- name: Create OSP tables
+  command: env/bin/osp {{ item }} init_db
+  with_items: osp_db_modules
+  args:
+    chdir: '{{ osp_src }}'

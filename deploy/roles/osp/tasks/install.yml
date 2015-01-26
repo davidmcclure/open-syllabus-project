@@ -9,7 +9,7 @@
 
 - name: Install dependencies
   apt:
-    pkg: "{{ item }}"
+    pkg: '{{ item }}'
     update_cache: yes
     state: latest
   with_items:
@@ -34,5 +34,5 @@
 
 - name: Apply the OSP config
   template:
-    src: osp.yml.j2
+    src: osp/osp.yml.j2
     dest: /etc/osp/osp.yml
