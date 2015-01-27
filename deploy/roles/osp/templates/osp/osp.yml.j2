@@ -5,7 +5,7 @@ osp:
   worker: /home/{{ ansible_ssh_user }}/osp/env/bin/rqworker
 
 postgres:
-  host: localhost
+  host: {{ osp_data_host }}
   port: 5432
   user: osp
   password: '{{ osp_password }}'

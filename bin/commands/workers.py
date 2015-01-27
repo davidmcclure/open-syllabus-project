@@ -49,13 +49,16 @@ def status():
         # Load rq-dashboard.
         r = requests.get(url+'/rq/queues.json')
 
-        # Find the default queue.
+        click.echo(url)
         for queue in r.json()['queues']:
-            if queue['name'] == 'default':
 
-                click.echo(url)
+            # Pending jobs:
+            if queue['name'] == 'default':
                 click.echo(term.green(str(queue['count'])))
-                break
+
+            # Failed jobs:
+            if queue['name'] == 'failed':
+                click.echo(term.red(str(queue['count'])))
 
 
 @cli.command()
