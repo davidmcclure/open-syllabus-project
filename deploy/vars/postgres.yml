@@ -1,8 +1,6 @@
 ---
 
 postgresql_ext_install_contrib: yes
-postgresql_data_directory: /osp/extraction/postgresql
-postgresql_cluster_reset: yes
 
 postgresql_listen_addresses:
   - '*'

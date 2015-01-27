@@ -1,4 +1,4 @@
 ---
 
 osp_branch: master
-#osp_numprocs: 30
+osp_numprocs: 4
