@@ -1,3 +1,4 @@
 ---
 
 osp_data_host: '{{ lookup("env", "OSP_DATA_HOST") }}'
+osp_init_db: no

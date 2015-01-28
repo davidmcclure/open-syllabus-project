@@ -29,6 +29,7 @@
     chdir: '{{ osp_src }}'
 
 - name: Create OSP tables
+  when: osp_init_db
   command: env/bin/osp {{ item }} init_db
   with_items: osp_db_modules
   args:

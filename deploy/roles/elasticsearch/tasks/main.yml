@@ -16,16 +16,6 @@
     state: latest
     update_cache: yes
 
-- name: Create group
-  group:
-    name: '{{ es_group }}'
-
-- name: Create user
-  user:
-    group: '{{ es_group }}'
-    name: '{{ es_user }}'
-    createhome: no
-
 - name: Download the Debian package
   get_url:
     url: '{{ es_url }}/elasticsearch-{{ es_version }}.deb'
@@ -35,19 +25,9 @@
 - name: Install the package
   shell: dpkg -i /tmp/elasticsearch-{{ es_version }}.deb
 
-- name: Chown the installation
-  file:
-    path: /usr/share/elasticsearch
-    state: directory
-    owner: '{{ es_user }}'
-    group: '{{ es_group }}'
-    recurse: yes
-
 - name: Apply the configuration
   notify: restart elasticsearch
   template:
     src: elasticsearch.j2
     dest: /etc/default/elasticsearch
-    owner: '{{ es_user }}'
-    group: '{{ es_group }}'
     mode: 0644
