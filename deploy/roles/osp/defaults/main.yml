@@ -12,3 +12,7 @@ osp_profile:
 osp_db_modules:
   - corpus
   - hlom
+
+tika_download_url: http://mirrors.sonic.net/apache/tika/tika-server-1.7.jar
+tika_path: /etc/tika
+tika_jar: tika-server-1.7.jar

@@ -1,6 +1,11 @@
 ---
 
+- name: Create the Tika directory
+  file:
+    path: '{{ tika_path }}'
+    state: directory
+
 - name: Download the Tika .jar
   get_url:
     url: '{{ tika_download_url }}'
-    dest: '{{ tika_src }}'
+    dest: '{{ tika_path }}/{{ tika_jar }}'
