@@ -1,6 +1,6 @@
 ---
 
-ec2_region: '{{ lookup("env", "OSP_REGION") }}'
+ec2_region: us-east-1
 ec2_subnet_id: '{{ lookup("env", "OSP_SUBNET_ID") }}'
 ec2_keypair: '{{ lookup("env", "OSP_KEYPAIR") }}'
 ec2_osp_snapshot: '{{ lookup("env", "OSP_CORPUS_SNAPSHOT") }}'
