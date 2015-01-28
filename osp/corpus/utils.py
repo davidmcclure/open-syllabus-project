@@ -2,7 +2,7 @@
 
 import os
 import subprocess
-import tempfile
+import requests
 
 from osp.common.config import config
 from bs4 import BeautifulSoup
@@ -72,18 +72,22 @@ def pdf_to_text(pdf):
     return ' '.join(pages)
 
 
-def office_to_text(path):
+def office_to_text(data):
 
     """
     Convert to plaintext with LibreOffice.
 
-    :param path: The file path.
+    :param data: The raw file data.
     """
 
-    text = subprocess.check_output([
-        'java', '-jar',
-        config['tika']['path'],
-        '-t', path
-    ])
+    headers = {
+        'Accept': 'text/plain'
+    }
 
-    return text.decode('ascii', 'ignore')
+    r = requests.put(
+        config['tika']['server'],
+        data=data,
+        headers=headers
+    )
+
+    return r.text

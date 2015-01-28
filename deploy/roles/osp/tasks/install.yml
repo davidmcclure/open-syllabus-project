@@ -12,7 +12,6 @@
     - libpq-dev
     - libxslt1-dev
     - libxml2-dev
-    - libreoffice
 
 - name: Configure .profile
   lineinfile:

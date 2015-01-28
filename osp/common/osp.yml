@@ -19,7 +19,7 @@ overview:
   doc_set: XXX
 
 tika:
-  path: XXX
+  server: XXX
 
 postgres:
   host: localhost

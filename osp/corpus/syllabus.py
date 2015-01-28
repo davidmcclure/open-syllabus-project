@@ -217,7 +217,7 @@ class Syllabus:
 
             # Everything else:
             else:
-                text = utils.office_to_text(self.path)
+                text = utils.office_to_text(f.read())
 
         # Scrub unicode.
         if text: text = (
