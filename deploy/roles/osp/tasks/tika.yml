@@ -1,0 +1,6 @@
+---
+
+- name: Download the Tika .jar
+  get_url:
+    url: '{{ tika_download_url }}'
+    dest: '{{ tika_src }}'

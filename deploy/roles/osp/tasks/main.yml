@@ -1,6 +1,7 @@
 ---
 
 - include: install.yml
+- include: tika.yml
 - include: deploy.yml
 - include: nginx.yml
 - include: uwsgi.yml

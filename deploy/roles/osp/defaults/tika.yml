@@ -1,0 +1,4 @@
+---
+
+tika_download_url: http://mirrors.sonic.net/apache/tika/tika-server-1.7.jar
+tika_src: /etc/tika/tika-server.jar
