@@ -18,7 +18,7 @@ overview:
   api_url: https://www.overviewproject.org/api/v1
   doc_set: XXX
 
-libreoffice:
+tika:
   path: XXX
 
 postgres:

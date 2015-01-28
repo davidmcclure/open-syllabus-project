@@ -80,21 +80,10 @@ def office_to_text(path):
     :param path: The file path.
     """
 
-    td = tempfile.mkdtemp()
-
-    # Shell out to LibreOffice.
-    subprocess.call([
-        config['libreoffice']['path'],
-        '--headless',
-        '--convert-to', 'txt:Text',
-        '--outdir', td,
-        path
+    text = subprocess.check_output([
+        'java', '-jar',
+        config['tika']['path'],
+        '-t', path
     ])
 
-    try:
-
-        # Read the text ouf of the file.
-        tf = os.path.join(td, os.path.basename(path)+'.txt')
-        with open(tf, 'r') as f: return f.read()
-
-    except: pass
+    return text.decode('ascii', 'ignore')
