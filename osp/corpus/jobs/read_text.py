@@ -38,3 +38,8 @@ def queue_read_text(s1, s2):
 
     for syllabus in Corpus.from_env(s1=s1, s2=s2).syllabi():
         queue.enqueue(read_text, syllabus.path)
+
+
+def queue(s1, s2):
+    queue = Queue(connection=redis)
+    queue.enqueue(queue_read_text, s1, s2, timeout=3600)
