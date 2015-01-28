@@ -11,6 +11,12 @@
     state: latest
     update_cache: yes
 
+- name: Apply the configuration
+  notify: restart redis
+  template:
+    src: redis.conf.j2
+    dest: /etc/redis/redis.conf
+
 - name: Check that Redis is running
   service:
     name: redis-server
