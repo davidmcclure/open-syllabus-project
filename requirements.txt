@@ -21,6 +21,7 @@ ijson
 anyconfig
 PyYAML
 uwsgi
-pymarc
 boto
 flask
+
+-e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
