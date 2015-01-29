@@ -54,7 +54,8 @@ def insert_records(n):
                     'record': record.as_marc()
                 })
 
-        HLOM_Record.insert_many(rows).execute()
+        if rows:
+            HLOM_Record.insert_many(rows).execute()
 
         i += 1
         sys.stdout.write('\r'+str(i*n))
