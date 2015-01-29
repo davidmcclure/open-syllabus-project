@@ -48,7 +48,7 @@ def insert_records(n):
         for record in group:
 
             # Just records with title/author.
-            if record.title() and record.author():
+            if record and record.title() and record.author():
                 rows.append({
                     'control_number': record['001'].format_field(),
                     'record': record.as_marc()

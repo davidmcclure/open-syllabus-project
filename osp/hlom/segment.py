@@ -29,8 +29,8 @@ class Segment:
 
             reader = MARCReader(
                 fh,
-                ascii_handling='replace',
-                utf8_handling='replace'
+                ascii_handling='ignore',
+                utf8_handling='ignore'
             )
 
             for record in reader:
