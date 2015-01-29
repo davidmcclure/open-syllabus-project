@@ -1,4 +1,4 @@
 ---
 
 osp_branch: harvest
-osp_numprocs: 4
+osp_numprocs: 8
