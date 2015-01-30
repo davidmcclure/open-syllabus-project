@@ -25,11 +25,11 @@ def create():
     es.indices.create('osp', {
         'mappings': {
             'syllabus': {
+                '_id': {
+                    'index': 'not_analyzed',
+                    'store': True
+                },
                 'properties': {
-                    'path': {
-                        'type': 'string',
-                        'index': 'not_analyzed'
-                    },
                     'body': {
                         'type': 'string'
                     }
@@ -87,7 +87,7 @@ def insert(page):
         docs = []
         for doc in paginated:
             docs.append({
-                'path': doc.document,
+                '_id': doc.document,
                 'body': doc.text
             })
 
@@ -110,7 +110,7 @@ def search(q, size, start, slop):
     results = es.search('osp', 'syllabus', {
         'size': size,
         'from': start,
-        'fields': ['path'],
+        'fields': [],
         'query': {
             'match_phrase': {
                 'body': {
@@ -136,6 +136,6 @@ def search(q, size, start, slop):
 
     # Hit highlights.
     for hit in results['hits']['hits']:
-        click.echo('\n'+term.underline(hit['fields']['path'][0]))
+        click.echo('\n'+term.underline(hit['_id']))
         for hl in hit['highlight']['body']:
             click.echo(hl)

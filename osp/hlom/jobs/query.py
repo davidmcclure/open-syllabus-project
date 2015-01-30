@@ -30,7 +30,7 @@ def query(control_number):
 
     # Execute the query.
     results = es.search('osp', 'syllabus', {
-        'fields': ['path'],
+        'fields': [],
         'query': {
             'match_phrase': {
                 'body': {
@@ -46,7 +46,7 @@ def query(control_number):
         citations = []
         for hit in results['hits']['hits']:
             citations.append({
-                'document': hit['fields']['path'],
+                'document': hit['_id'],
                 'record': control_number
             })
 
