@@ -62,14 +62,15 @@ def status():
 
 
 @cli.command()
-def queue_text():
+@click.option('--total', default=4095)
+def queue_text(total):
 
     """
     Queue text extraction.
     """
 
     urls = Inventory().worker_urls
-    pts = partitions(4095, len(urls))
+    pts = partitions(total, len(urls))
 
     for i, url in enumerate(urls):
 
@@ -87,5 +88,36 @@ def queue_text():
 
         if code == 200:
             click.echo(term.green(str(s1)+'-'+str(s2)))
+        else:
+            click.echo(term.red(str(code)))
+
+
+@cli.command()
+@click.option('--total', default=10526523)
+def queue_hlom(total):
+
+    """
+    Queue HLOM citation extraction.
+    """
+
+    urls = Inventory().worker_urls
+    pts = partitions(total, len(urls))
+
+    for i, url in enumerate(urls):
+
+        id1 = pts[i][0]
+        id2 = pts[i][1]
+
+        # Post the boundaries.
+        r = requests.post(
+            url+'/hlom/query',
+            params={'id1': id1, 'id2': id2 }
+        )
+
+        code = r.status_code
+        click.echo(url)
+
+        if code == 200:
+            click.echo(term.green(str(id1)+'-'+str(id2)))
         else:
             click.echo(term.red(str(code)))

@@ -10,7 +10,7 @@ corpus = Blueprint('corpus', __name__)
 
 
 @corpus.route('/text', methods=['POST'])
-def test():
+def text():
 
     s1 = int(request.args['s1'])
     s2 = int(request.args['s2'])

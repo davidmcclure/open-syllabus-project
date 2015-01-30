@@ -9,8 +9,8 @@ from rq import Queue
 hlom = Blueprint('hlom', __name__)
 
 
-@corpus.route('/query', methods=['POST'])
-def test():
+@hlom.route('/query', methods=['POST'])
+def query():
 
     id1 = int(request.args['id1'])
     id2 = int(request.args['id2'])
