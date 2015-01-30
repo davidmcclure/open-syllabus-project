@@ -1,7 +1,4 @@
 *.pyc
 env
 *.egg-info
-
-deploy/.vagrant
-deploy/hosts
-deploy/ansible.cfg
+*.sql
