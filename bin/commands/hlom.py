@@ -73,3 +73,21 @@ def queue_queries():
 
     for record in HLOM_Record.select().naive().iterator():
         queue.enqueue(query, record.control_number)
+
+
+@cli.command()
+@click.option('--n', default=10000)
+def count(n):
+
+    """
+    DEV: Count the records.
+    """
+
+    dataset = Dataset.from_env()
+
+    i = 0
+    for group in dataset.grouped_records(n):
+        i += 1
+        sys.stdout.write('\r'+str(i*n))
+        sys.stdout.flush()
+
