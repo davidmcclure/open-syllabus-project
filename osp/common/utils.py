@@ -19,19 +19,20 @@ def paginate_query(query, n):
             yield row
 
 
-def partitions(n, total=4095):
+def partitions(total, n, start=0):
 
     """
     Get start/stop boundaries for N partitions.
 
-    :param n: The number of partitions.
     :param total: The total number of objects.
+    :param n: The number of partitions.
+    :param start: The number to start from.
     """
 
     plen = math.ceil(total/n)
 
     bounds = []
-    for i1 in range(0, total, plen):
+    for i1 in range(start, total, plen):
         i2 = i1+plen-1 if i1+plen < total else total
         bounds.append((i1, i2))
 

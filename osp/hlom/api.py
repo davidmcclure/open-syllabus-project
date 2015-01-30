@@ -6,7 +6,7 @@ from flask import Flask, Blueprint, request
 from rq import Queue
 
 
-corpus = Blueprint('hlom', __name__)
+hlom = Blueprint('hlom', __name__)
 
 
 @corpus.route('/query', methods=['POST'])

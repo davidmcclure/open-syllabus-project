@@ -69,7 +69,7 @@ def queue_text():
     """
 
     urls = Inventory().worker_urls
-    pts = partitions(len(urls))
+    pts = partitions(4095, len(urls))
 
     for i, url in enumerate(urls):
 
