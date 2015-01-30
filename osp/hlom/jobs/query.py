@@ -7,17 +7,15 @@ from osp.citations.hlom.utils import sanitize_query
 from pymarc.record import Record
 
 
-def query(control_number):
+def query(id):
 
     """
     Query a MARC record against the OSP corpus.
 
-    :param str control_number: The MARC identifier.
+    :param id: The hlom_record row id.
     """
 
-    marc = HLOM_Record.get(
-        HLOM_Record.control_number == control_number
-    )
+    marc = HLOM_Record.get(HLOM_Record.id==id)
 
     # Hydrate a MARC record.
     record = Record(data=bytes(marc.record))
@@ -52,3 +50,18 @@ def query(control_number):
 
         # Write the citation links.
         HLOM_Citation.insert_many(citations).execute()
+
+
+def queue_queries(id1, id2):
+
+    """
+    Queue HLOM query tasks in the worker.
+
+    :param id1: The first id.
+    :param id2: The last id.
+    """
+
+    queue = Queue(connection=redis)
+
+    for i in range(id1, id2+1):
+        queue.enqueue(query, i)
