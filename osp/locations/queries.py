@@ -6,7 +6,6 @@ from osp.locations.models.doc_inst import Document_Institution as DocInst
 from peewee import *
 
 
-
 def document_objects():
 
     """

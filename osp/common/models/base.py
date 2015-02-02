@@ -10,7 +10,7 @@ from osp.common.config import config
 
 
 # POSTGRES
-postgres = PostgresqlExtDatabase('osp', **config['postgres'])
+postgres = PostgresqlExtDatabase(**config['postgres'])
 
 # REDIS
 redis = StrictRedis(**config['redis'])
