@@ -10,8 +10,8 @@ from osp.common.config import config
 
 
 # POSTGRES
-pg_local  = PostgresqlExtDatabase(**config['postgres']['local'])
-pg_remote = PostgresqlExtDatabase(**config['postgres']['remote'])
+pg_worker = PostgresqlExtDatabase(**config['postgres']['worker'])
+pg_server = PostgresqlExtDatabase(**config['postgres']['server'])
 
 # REDIS
 redis = StrictRedis(**config['redis'])
@@ -20,11 +20,11 @@ redis = StrictRedis(**config['redis'])
 elasticsearch = Elasticsearch([config['elasticsearch']])
 
 
-class LocalModel(Model):
+class WorkerModel(Model):
     class Meta:
-        database = pg_local
+        database = pg_worker
 
 
-class RemoteModel(Model):
+class ServerModel(Model):
     class Meta:
-        database = pg_remote
+        database = pg_server

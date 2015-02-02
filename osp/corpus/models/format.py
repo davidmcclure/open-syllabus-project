@@ -2,11 +2,11 @@
 
 import datetime
 
-from osp.common.models.base import LocalModel
+from osp.common.models.base import WorkerModel
 from peewee import *
 
 
-class Document_Format(LocalModel):
+class Document_Format(WorkerModel):
 
     created = DateTimeField(default=datetime.datetime.now)
     document = CharField()
