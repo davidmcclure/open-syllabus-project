@@ -20,6 +20,11 @@ redis = StrictRedis(**config['redis'])
 elasticsearch = Elasticsearch([config['elasticsearch']])
 
 
-class BaseModel(Model):
+class LocalModel(Model):
     class Meta:
         database = pg_local
+
+
+class RemoteModel(Model):
+    class Meta:
+        database = pg_remote

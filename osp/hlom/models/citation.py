@@ -2,11 +2,11 @@
 
 import datetime
 
-from osp.common.models.base import BaseModel
+from osp.common.models.base import LocalModel
 from peewee import *
 
 
-class HLOM_Citation(BaseModel):
+class HLOM_Citation(LocalModel):
 
     document = CharField()
     record = CharField()

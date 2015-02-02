@@ -1,11 +1,11 @@
 
 
-from osp.common.models.base import BaseModel
+from osp.common.models.base import LocalModel
 from peewee import *
 from playhouse.postgres_ext import *
 
 
-class HLOM_Record(BaseModel):
+class HLOM_Record(LocalModel):
 
     control_number = CharField(unique=True)
     record = BlobField()
