@@ -1,6 +1,7 @@
 ---
 
 postgresql_ext_install_contrib: yes
+postgresql_data_directory: /osp/data/postgresql
 
 postgresql_listen_addresses:
   - '*'
