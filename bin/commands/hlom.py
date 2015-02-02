@@ -3,7 +3,7 @@
 import click
 import sys
 
-from osp.common.models.base import postgres, redis
+from osp.common.models.base import pg_local, redis
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
@@ -23,9 +23,9 @@ def init_db():
     Create the database tables.
     """
 
-    postgres.connect()
+    pg_local.connect()
 
-    postgres.create_tables([
+    pg_local.create_tables([
         HLOM_Record,
         HLOM_Citation
     ], safe=True)

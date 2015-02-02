@@ -10,7 +10,8 @@ from osp.common.config import config
 
 
 # POSTGRES
-postgres = PostgresqlExtDatabase(**config['postgres'])
+pg_local  = PostgresqlExtDatabase(**config['postgres']['local'])
+pg_remote = PostgresqlExtDatabase(**config['postgres']['remote'])
 
 # REDIS
 redis = StrictRedis(**config['redis'])
@@ -21,4 +22,4 @@ elasticsearch = Elasticsearch([config['elasticsearch']])
 
 class BaseModel(Model):
     class Meta:
-        database = postgres
+        database = pg_local

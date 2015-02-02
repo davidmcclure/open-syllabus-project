@@ -5,7 +5,7 @@ import click
 import csv
 
 from osp.common.config import config
-from osp.common.models.base import postgres, redis
+from osp.common.models.base import pg_local, redis
 from osp.common.overview import Overview
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import Institution_LonLat
@@ -27,9 +27,9 @@ def init_db():
     Create the database tables.
     """
 
-    postgres.connect()
+    pg_local.connect()
 
-    postgres.create_tables([
+    pg_local.create_tables([
         Institution,
         Institution_LonLat
     ], safe=True)
@@ -54,7 +54,7 @@ def insert_institutions(in_file):
     for row in reader:
         rows.append({'metadata': row})
 
-    with postgres.transaction():
+    with pg_local.transaction():
         Institution.insert_many(rows).execute()
 
 

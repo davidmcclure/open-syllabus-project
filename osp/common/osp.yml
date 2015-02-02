@@ -22,11 +22,20 @@ tika:
   server: XXX
 
 postgres:
-  database: osp
-  host: localhost
-  port: 5432
-  user: postgres
-  password:
+
+  local:
+    database: osp
+    host: localhost
+    port: 5432
+    user: postgres
+    password:
+
+  remote:
+    database: XXX
+    host: XXX
+    port: 5432
+    user: XXX
+    password:
 
 redis:
   host: localhost

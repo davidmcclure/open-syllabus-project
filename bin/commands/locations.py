@@ -4,7 +4,7 @@ import os
 import click
 import csv
 
-from osp.common.models.base import postgres, redis
+from osp.common.models.base import pg_local, redis
 from osp.common.overview import Overview
 from osp.locations.models.doc_inst import Document_Institution
 from osp.locations.jobs.locate import locate
@@ -29,9 +29,9 @@ def init_db():
     Create the database tables.
     """
 
-    postgres.connect()
+    pg_local.connect()
 
-    postgres.create_tables([
+    pg_local.create_tables([
         Document_Institution
     ], safe=True)
 

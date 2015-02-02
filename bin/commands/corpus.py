@@ -4,7 +4,7 @@ import os
 import click
 
 from osp.common.config import config
-from osp.common.models.base import postgres, redis
+from osp.common.models.base import pg_local, redis
 from osp.common.overview import Overview
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
@@ -30,9 +30,9 @@ def init_db():
     Create the database tables.
     """
 
-    postgres.connect()
+    pg_local.connect()
 
-    postgres.create_tables([
+    pg_local.create_tables([
         Document,
         Document_Format,
         Document_Text
@@ -48,7 +48,7 @@ def insert_documents():
 
     for s in Corpus.from_env().cli_syllabi():
         try:
-            with postgres.transaction():
+            with pg_local.transaction():
                 Document.create(path=s.relative_path)
         except: pass
 
