@@ -2,6 +2,7 @@
 
 import click
 import sys
+import csv
 
 from osp.common.models.base import pg_worker, pg_server, redis
 from osp.citations.hlom.models.record import HLOM_Record
@@ -9,6 +10,7 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
+from pymarc.record import Record
 from prettytable import PrettyTable
 from rq import Queue
 
@@ -82,17 +84,34 @@ def queue_queries():
 
 
 @cli.command()
-@click.option('--n', default=10000)
-def stats(n):
+@click.argument('out_path', type=click.Path())
+def write_csv(out_path):
 
     """
-    TODO|dev.
+    Write a CSV with title/author -> count.
     """
 
-    t = PrettyTable(['Text', 'Count'])
-    t.align = 'l'
+    out_file = open(out_path, 'w')
 
+    # CSV writer.
+    cols = ['title', 'author', 'count']
+    writer = csv.DictWriter(out_file, cols)
+
+    rows = []
     for c in queries.text_counts().naive().iterator():
-        t.add_row([c.record, c.count])
 
-    click.echo(t)
+        marc = HLOM_Record.get(
+            HLOM_Record.control_number==c.record
+        )
+
+        # Hydrate a MARC record.
+        record = Record(data=bytes(marc.record))
+
+        rows.append({
+            'title': record.title(),
+            'author': record.author(),
+            'count': c.count
+        })
+
+    writer.writeheader()
+    writer.writerows(rows)
