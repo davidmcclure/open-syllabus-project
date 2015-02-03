@@ -1,0 +1,13 @@
+---
+
+- name: Poke Elasticsearch
+  sudo: yes
+  hosts:
+    - tag_osp_worker
+
+  tasks:
+
+    - name: Restart Elasticsearch
+      service:
+        name: elasticsearch
+        state: restarted
