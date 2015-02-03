@@ -85,10 +85,10 @@ def queue_queries():
 
 @cli.command()
 @click.argument('out_path', type=click.Path())
-def write_csv(out_path):
+def text_counts_csv(out_path):
 
     """
-    Write a CSV with title/author -> count.
+    Write a CSV with text -> assignment count.
     """
 
     out_file = open(out_path, 'w')
@@ -115,6 +115,32 @@ def write_csv(out_path):
             'author': marc.author(),
             'count': c.count,
             'subjects': ','.join(subjects)
+        })
+
+    writer.writeheader()
+    writer.writerows(rows)
+
+
+@cli.command()
+@click.argument('out_path', type=click.Path())
+def syllabus_counts_csv(out_path):
+
+    """
+    Write a CSV with syllabus -> citation count.
+    """
+
+    out_file = open(out_path, 'w')
+
+    # CSV writer.
+    cols = ['document', 'count']
+    writer = csv.DictWriter(out_file, cols)
+
+    rows = []
+    for c in queries.syllabus_counts().naive().iterator():
+
+        rows.append({
+            'document': c.document,
+            'count': c.count
         })
 
     writer.writeheader()
