@@ -6,8 +6,10 @@ import sys
 from osp.common.models.base import pg_worker, pg_server, redis
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom.dataset import Dataset
+from osp.citations.hlom.jobs.query import query
+from osp.citations.hlom import queries
+from prettytable import PrettyTable
 from rq import Queue
 
 
@@ -81,17 +83,16 @@ def queue_queries():
 
 @cli.command()
 @click.option('--n', default=10000)
-def count(n):
+def stats(n):
 
     """
-    DEV: Count the records.
+    TODO|dev.
     """
 
-    dataset = Dataset.from_env()
+    t = PrettyTable(['Text', 'Count'])
+    t.align = 'l'
 
-    i = 0
-    for group in dataset.grouped_records(n):
-        i += 1
-        sys.stdout.write('\r'+str(i*n))
-        sys.stdout.flush()
+    for c in queries.text_counts().naive().iterator():
+        t.add_row([c.record, c.count])
 
+    click.echo(t)

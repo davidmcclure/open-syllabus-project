@@ -46,10 +46,11 @@ def status():
 
     for url in Inventory().worker_urls:
 
+        click.echo(url)
+
         # Load rq-dashboard.
         r = requests.get(url+'/rq/queues.json')
 
-        click.echo(url)
         for queue in r.json()['queues']:
 
             # Pending jobs:
@@ -59,6 +60,27 @@ def status():
             # Failed jobs:
             if queue['name'] == 'failed':
                 click.echo(term.red(str(queue['count'])))
+
+
+@cli.command()
+def requeue():
+
+    """
+    Requeue all tasks in all workers.
+    """
+
+    for url in Inventory().worker_urls:
+
+        # Hit /ping.
+        r = requests.post(url+'/rq/requeue-all')
+
+        code = r.status_code
+        click.echo(url)
+
+        if code == 200:
+            click.echo(term.green(str(code)))
+        else:
+            click.echo(term.red(str(code)))
 
 
 @cli.command()

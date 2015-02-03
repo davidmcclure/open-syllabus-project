@@ -10,4 +10,4 @@ ec2_server_instance_type: c4.4xlarge
 ec2_server_count: 1
 
 ec2_worker_instance_type: c4.4xlarge
-ec2_worker_count: 2
+ec2_worker_count: 20
