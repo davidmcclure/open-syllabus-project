@@ -4,7 +4,7 @@ import click
 import math
 
 from osp.common.models.base import elasticsearch as es
-from osp.corpus.models.text import Document_Text as DocText
+from osp.corpus.queries import all_document_texts
 from elasticsearch.helpers import bulk
 from clint.textui.progress import bar
 from blessings import Terminal
@@ -78,15 +78,7 @@ def insert(page):
     """
 
     # TODO: Use a job queue?
-    query = (
-        DocText
-        .select()
-        .distinct([DocText.document])
-        .order_by(
-            DocText.document,
-            DocText.created.desc()
-        )
-    )
+    query = all_document_texts()
 
     # Iterate over pages.
     pages = math.ceil(query.count()/page)

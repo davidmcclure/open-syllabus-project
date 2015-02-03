@@ -94,23 +94,27 @@ def write_csv(out_path):
     out_file = open(out_path, 'w')
 
     # CSV writer.
-    cols = ['title', 'author', 'count']
+    cols = ['title', 'author', 'count', 'subjects']
     writer = csv.DictWriter(out_file, cols)
 
     rows = []
     for c in queries.text_counts().naive().iterator():
 
-        marc = HLOM_Record.get(
+        row = HLOM_Record.get(
             HLOM_Record.control_number==c.record
         )
 
         # Hydrate a MARC record.
-        record = Record(data=bytes(marc.record))
+        marc = Record(data=bytes(row.record))
+
+        # Gather subject field values.
+        subjects = [s.format_field() for s in marc.subjects()]
 
         rows.append({
-            'title': record.title(),
-            'author': record.author(),
-            'count': c.count
+            'title': marc.title(),
+            'author': marc.author(),
+            'count': c.count,
+            'subjects': ','.join(subjects)
         })
 
     writer.writeheader()
