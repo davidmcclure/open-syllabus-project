@@ -23,10 +23,6 @@
         keypair: '{{ ec2_keypair }}'
         wait: yes
 
-        volumes:
-          - device_name: /dev/sda1
-            volume_size: 100
-
         exact_count: '{{ ec2_server_count }}'
         instance_tags:
           Name: osp-server

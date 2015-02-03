@@ -28,7 +28,8 @@ def query(id):
     ]))
 
     # Execute the query.
-    results = es.search('osp', 'syllabus', {
+    # TODO: Debug the read timeouts.
+    results = es.search('osp', 'syllabus', timeout=30, body={
         'fields': [],
         'query': {
             'match_phrase': {
