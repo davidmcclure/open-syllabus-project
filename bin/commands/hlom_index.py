@@ -4,13 +4,15 @@ import math
 import click
 import re
 
-from osp.common.models.base import elasticsearch as es
+from osp.common.models.base import redis, elasticsearch as es
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.jobs.index import index
 from elasticsearch.helpers import bulk
 from pymarc import Record
 from clint.textui.progress import bar
 from blessings import Terminal
+from rq import Queue
 
 
 @click.group()
@@ -82,54 +84,19 @@ def count():
 
 
 @cli.command()
-@click.option('--page', default=10000)
-def insert(page):
+@click.option('--n', default=10000)
+def queue_insert(n):
 
     """
     Index documents.
     """
 
+    queue = Queue(connection=redis)
     query = HLOM_Record.select()
-    pages = math.ceil(query.count()/page)
+    pages = math.ceil(query.count()/n)
 
-    for p in bar(range(1, pages+1)):
-
-        # Paginate the base query.
-        paginated = query.paginate(p, page).iterator()
-
-        docs = []
-        for row in paginated:
-
-            # Hydrate a MARC record.
-            marc = Record(
-                data=bytes(row.record),
-                ascii_handling='ignore',
-                utf8_handling='ignore'
-            )
-
-            # Get raw subject/notes values.
-            subjects = [s.format_field() for s in marc.subjects()]
-            notes = [n.format_field() for n in marc.notes()]
-
-            # Try to get the pubyear as an int.
-            pubyear = marc.pubyear()
-            if pubyear:
-                digits = re.search('\d+', marc.pubyear())
-                if digits:
-                    pubyear = int(digits.group(0))
-
-            docs.append({
-                '_id': row.control_number,
-                'title': marc.title(),
-                'author': marc.author(),
-                'publisher': marc.publisher(),
-                'pubyear': pubyear,
-                'subjects': subjects,
-                'notes': notes
-            })
-
-        # Bulk-index the page.
-        bulk(es, docs, index='hlom', doc_type='record')
+    for page in range(1, pages+1):
+        queue.enqueue(index, page, n, timeout=600)
 
 
 @cli.command()
