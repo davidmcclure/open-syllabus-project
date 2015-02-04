@@ -17,8 +17,11 @@ def index(page_number, records_per_page):
     :param records_per_page: Records in the page.
     """
 
-    page = HLOM_Record.select().paginate(
-        page_number, records_per_page
+    page = (
+        HLOM_Record
+        .select()
+        .paginate(page_number, records_per_page)
+        .order_by(HLOM_Record.id)
     )
 
     docs = []
