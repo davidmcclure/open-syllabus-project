@@ -72,6 +72,16 @@ def delete():
 
 
 @cli.command()
+def count():
+
+    """
+    Count documents.
+    """
+
+    click.echo(es.count('hlom', 'record')['count'])
+
+
+@cli.command()
 @click.option('--page', default=10000)
 def insert(page):
 
