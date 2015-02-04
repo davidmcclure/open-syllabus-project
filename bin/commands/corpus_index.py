@@ -50,16 +50,6 @@ def delete():
 
 
 @cli.command()
-def optimize():
-
-    """
-    Optimize the index.
-    """
-
-    es.indices.optimize('osp')
-
-
-@cli.command()
 def count():
 
     """
