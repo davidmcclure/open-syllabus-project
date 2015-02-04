@@ -67,7 +67,6 @@ def insert(page):
     Index documents.
     """
 
-    # TODO: Use a job queue?
     query = all_document_texts()
 
     # Iterate over pages.
@@ -98,7 +97,6 @@ def search(q, size, start, slop):
     Search documents.
     """
 
-    # Query ES.
     results = es.search('osp', 'syllabus', {
         'size': size,
         'from': start,
