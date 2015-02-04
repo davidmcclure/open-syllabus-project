@@ -85,7 +85,7 @@ def queue_queries():
 
 @cli.command()
 @click.argument('out_path', type=click.Path())
-def text_counts_csv(out_path):
+def csv_text_counts(out_path):
 
     """
     Write a CSV with text -> assignment count.
@@ -123,7 +123,7 @@ def text_counts_csv(out_path):
 
 @cli.command()
 @click.argument('out_path', type=click.Path())
-def syllabus_counts_csv(out_path):
+def csv_syllabus_counts(out_path):
 
     """
     Write a CSV with syllabus -> citation count.

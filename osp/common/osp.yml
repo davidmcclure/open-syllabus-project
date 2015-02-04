@@ -23,14 +23,14 @@ tika:
 
 postgres:
 
-  local:
+  worker:
     database: osp
     host: localhost
     port: 5432
     user: postgres
     password:
 
-  remote:
+  server:
     database: XXX
     host: XXX
     port: 5432
