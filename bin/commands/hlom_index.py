@@ -123,12 +123,7 @@ def search(q, size, start, slop):
             'pre_tags': ['\033[1m'],
             'post_tags': ['\033[0m'],
             'fields': {
-                'title': {},
-                'author': {},
-                'publisher': {},
-                'pubyear': {},
-                'subjects': {},
-                'notes': {}
+                '*': {}
             }
         }
     })
