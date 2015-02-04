@@ -35,19 +35,12 @@ def index(page_number, records_per_page):
         subjects = [s.format_field() for s in marc.subjects()]
         notes = [n.format_field() for n in marc.notes()]
 
-        # Try to get the pubyear as an int.
-        pubyear = marc.pubyear()
-        if pubyear:
-            digits = re.search('\d+', marc.pubyear())
-            if digits:
-                pubyear = int(digits.group(0))
-
         docs.append({
             '_id': row.control_number,
             'title': marc.title(),
             'author': marc.author(),
             'publisher': marc.publisher(),
-            'pubyear': pubyear,
+            'pubyear': marc.pubyear(),
             'subjects': subjects,
             'notes': notes
         })

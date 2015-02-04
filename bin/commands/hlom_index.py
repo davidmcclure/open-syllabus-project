@@ -45,7 +45,7 @@ def create():
                         'type': 'string'
                     },
                     'pubyear': {
-                        'type': 'integer'
+                        'type': 'string'
                     },
                     'lists': {
                         'properties': {
