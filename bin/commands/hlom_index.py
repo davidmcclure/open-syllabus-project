@@ -123,7 +123,12 @@ def search(q, size, start, slop):
             'pre_tags': ['\033[1m'],
             'post_tags': ['\033[0m'],
             'fields': {
-                'title': {}
+                'title': {},
+                'author': {},
+                'publisher': {},
+                'pubyear': {},
+                'subjects': {},
+                'notes': {}
             }
         }
     })
@@ -139,6 +144,6 @@ def search(q, size, start, slop):
 
         if 'highlight' in hit:
             click.echo('\n'+term.underline(hit['_id']))
-            for snippets in hit['highlight'].values():
+            for field, snippets in hit['highlight'].items():
                 for snippet in snippets:
-                    click.echo(snippet)
+                    click.echo(field+': '+snippet)
