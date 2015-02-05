@@ -1,6 +1,7 @@
 
 
 import os
+import logging
 
 from redis import StrictRedis
 from playhouse.postgres_ext import PostgresqlExtDatabase
@@ -18,6 +19,9 @@ redis = StrictRedis(**config['redis'])
 
 # ELASTICSEARCH
 elasticsearch = Elasticsearch([config['elasticsearch']])
+
+# Clobber the CURL logging.
+logging.getLogger('elasticsearch.trace').propagate = False
 
 
 class WorkerModel(Model):

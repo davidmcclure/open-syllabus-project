@@ -3,11 +3,13 @@
 import click
 import math
 
-from osp.common.models.base import elasticsearch as es
+from osp.common.models.base import redis, elasticsearch as es
+from osp.corpus.jobs.index import index
 from osp.corpus.queries import all_document_texts
 from elasticsearch.helpers import bulk
 from clint.textui.progress import bar
 from blessings import Terminal
+from rq import Queue
 
 
 @click.group()
@@ -60,30 +62,19 @@ def count():
 
 
 @cli.command()
-@click.option('--page', default=10000)
-def insert(page):
+@click.option('--n', default=1000)
+def queue_insert(n):
 
     """
     Index documents.
     """
 
+    queue = Queue(connection=redis)
     query = all_document_texts()
+    pages = math.ceil(query.count()/n)
 
-    # Iterate over pages.
-    pages = math.ceil(query.count()/page)
-    for p in bar(range(1, pages+1)):
-
-        paginated = query.paginate(p, page).iterator()
-
-        docs = []
-        for doc in paginated:
-            docs.append({
-                '_id': doc.document,
-                'body': doc.text
-            })
-
-        # Bulk-index the page.
-        bulk(es, docs, index='osp', doc_type='syllabus')
+    for page in range(1, pages+1):
+        queue.enqueue(index, page, n, timeout=600)
 
 
 @cli.command()

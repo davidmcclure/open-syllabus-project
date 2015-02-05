@@ -3,7 +3,7 @@
 import re
 
 from osp.citations.hlom.models.record import HLOM_Record
-from osp.common.models.base import redis, elasticsearch as es
+from osp.common.models.base import elasticsearch as es
 from pymarc.record import Record
 from elasticsearch.helpers import bulk
 
