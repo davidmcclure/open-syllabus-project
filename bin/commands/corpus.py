@@ -150,8 +150,9 @@ def truncated_csv(out_path, frag_len, page_len):
     query = Document_Text.select()
     pages = paginate_query_cli(query, page_len)
 
-    rows = []
     for page in pages:
+
+        rows = []
         for row in page.iterator():
 
             # Truncate the text.
@@ -163,4 +164,4 @@ def truncated_csv(out_path, frag_len, page_len):
                 'text': fragment
             })
 
-    writer.writerows(rows)
+        writer.writerows(rows)
