@@ -10,7 +10,6 @@ from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.jobs.index import index
 from elasticsearch.helpers import bulk
 from pymarc import Record
-from clint.textui.progress import bar
 from blessings import Terminal
 from rq import Queue
 

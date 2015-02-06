@@ -7,7 +7,6 @@ from osp.common.models.base import redis, elasticsearch as es
 from osp.corpus.jobs.index import index
 from osp.corpus.queries import all_document_texts
 from elasticsearch.helpers import bulk
-from clint.textui.progress import bar
 from blessings import Terminal
 from rq import Queue
 

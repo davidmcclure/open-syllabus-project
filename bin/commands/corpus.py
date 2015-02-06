@@ -2,10 +2,12 @@
 
 import os
 import click
+import csv
 
 from osp.common.config import config
 from osp.common.models.base import pg_worker, redis
 from osp.common.overview import Overview
+from osp.common.utils import paginate_query
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
@@ -14,6 +16,7 @@ from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
 from collections import Counter
 from prettytable import PrettyTable
+from clint.textui.progress import bar
 from osp.corpus import queries
 from rq import Queue
 
@@ -125,3 +128,41 @@ def file_count():
 
     corpus = Corpus.from_env()
     click.echo(corpus.file_count)
+
+
+@cli.command()
+@click.argument('out_path', type=click.Path())
+@click.option('--frag_len', default=500)
+@click.option('--page_len', default=10000)
+def truncated_csv(out_path, frag_len, page_len):
+
+    """
+    Write a CSV with truncated document texts.
+    """
+
+    out_file = open(out_path, 'w')
+
+    # CSV writer.
+    cols = ['id', 'title', 'text']
+    writer = csv.DictWriter(out_file, cols)
+
+    query = Document_Text.select()
+    count = query.count()
+
+    # Page through the table.
+    paginated = paginate_query(query, page_len)
+
+    rows = []
+    for row in bar(paginated, expected_size=count):
+
+        # Truncate the text.
+        fragment = row.text[:frag_len]
+
+        rows.append({
+            'id': row.document,
+            'title': row.document,
+            'text': fragment
+        })
+
+    writer.writeheader()
+    writer.writerows(rows)
