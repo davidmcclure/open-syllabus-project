@@ -95,6 +95,6 @@ class Corpus:
         Wrap the syllabi iterator in a progress bar.
         """
 
-        n = self.file_count
-        for syllabus in bar(self.syllabi(), expected_size=n):
+        size = self.file_count
+        for syllabus in bar(self.syllabi(), expected_size=size):
             yield syllabus

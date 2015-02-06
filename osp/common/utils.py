@@ -2,11 +2,13 @@
 
 import math
 
+from clint.textui.progress import bar
 
-def paginate_query(query, n):
+
+def paginate_query_cli(query, n):
 
     """
-    Paginate through all rows in a query result.
+    Yield page queries from a base query.
 
     :param query: A query instance.
     :param n: The number of rows per page.
@@ -14,9 +16,8 @@ def paginate_query(query, n):
 
     page_count = math.ceil(query.count()/n)
 
-    for page in range(1, page_count+1):
-        for row in query.paginate(page, n).naive().iterator():
-            yield row
+    for page in bar(range(1, page_count+1)):
+        yield query.paginate(page, n)
 
 
 def partitions(total, n, start=0):

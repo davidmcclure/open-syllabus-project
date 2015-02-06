@@ -7,7 +7,7 @@ import csv
 from osp.common.config import config
 from osp.common.models.base import pg_worker, redis
 from osp.common.overview import Overview
-from osp.common.utils import paginate_query
+from osp.common.utils import paginate_query_cli
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
@@ -16,7 +16,6 @@ from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
 from collections import Counter
 from prettytable import PrettyTable
-from clint.textui.progress import bar
 from osp.corpus import queries
 from rq import Queue
 
@@ -147,22 +146,21 @@ def truncated_csv(out_path, frag_len, page_len):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    query = Document_Text.select()
-    count = query.count()
-
     # Page through the table.
-    paginated = paginate_query(query, page_len)
+    query = Document_Text.select()
+    pages = paginate_query_cli(query, page_len)
 
     rows = []
-    for row in bar(paginated, expected_size=count):
+    for page in pages:
+        for row in page.iterator():
 
-        # Truncate the text.
-        fragment = row.text[:frag_len]
+            # Truncate the text.
+            fragment = row.text[:frag_len]
 
-        rows.append({
-            'id': row.document,
-            'title': row.document,
-            'text': fragment
-        })
+            rows.append({
+                'id': row.document,
+                'title': row.document,
+                'text': fragment
+            })
 
     writer.writerows(rows)
