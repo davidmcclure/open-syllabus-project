@@ -12,11 +12,11 @@ hlom = Blueprint('hlom', __name__)
 @hlom.route('/query', methods=['POST'])
 def query():
 
-    id1 = int(request.args['id1'])
-    id2 = int(request.args['id2'])
+    o1 = int(request.args['o1'])
+    o2 = int(request.args['o2'])
 
     queue = Queue(connection=redis)
-    job = queue.enqueue(queue_queries, id1, id2, timeout=3600)
+    job = queue.enqueue(queue_queries, o1, o2, timeout=3600)
 
     code = 200 if job.is_queued else 500
     return ('', 200)

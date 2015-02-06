@@ -91,27 +91,7 @@ def queue_text(total):
     Queue text extraction.
     """
 
-    urls = Inventory().worker_urls
-    pts = partitions(total, len(urls))
-
-    for i, url in enumerate(urls):
-
-        s1 = pts[i][0]
-        s2 = pts[i][1]
-
-        # Post the boundaries.
-        r = requests.post(
-            url+'/corpus/text',
-            params={'s1': s1, 's2': s2 }
-        )
-
-        code = r.status_code
-        click.echo(url)
-
-        if code == 200:
-            click.echo(term.green(str(s1)+'-'+str(s2)))
-        else:
-            click.echo(term.red(str(code)))
+    queue(total, '/corpus/text')
 
 
 @cli.command()
@@ -122,27 +102,7 @@ def queue_hlom(total):
     Queue HLOM citation extraction.
     """
 
-    urls = Inventory().worker_urls
-    pts = partitions(total, len(urls))
-
-    for i, url in enumerate(urls):
-
-        id1 = pts[i][0]
-        id2 = pts[i][1]
-
-        # Post the boundaries.
-        r = requests.post(
-            url+'/hlom/query',
-            params={'id1': id1, 'id2': id2 }
-        )
-
-        code = r.status_code
-        click.echo(url)
-
-        if code == 200:
-            click.echo(term.green(str(id1)+'-'+str(id2)))
-        else:
-            click.echo(term.red(str(code)))
+    queue(total, '/hlom/query')
 
 
 @cli.command()
@@ -165,13 +125,7 @@ def queue(total, route):
     :param route: The API endpoint.
     """
 
-    urls = [
-        'http://localhost:5001',
-        'http://localhost:5002',
-        'http://localhost:5003'
-    ]
-
-    #urls = Inventory().worker_urls
+    urls = Inventory().worker_urls
     pts = partitions(total, len(urls))
 
     for i, url in enumerate(urls):
