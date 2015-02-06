@@ -143,3 +143,52 @@ def queue_hlom(total):
             click.echo(term.green(str(id1)+'-'+str(id2)))
         else:
             click.echo(term.red(str(code)))
+
+
+@cli.command()
+@click.option('--total', default=4095)
+def queue_locate(total):
+
+    """
+    Queue doc -> institution matching.
+    """
+
+    queue(total, '/locations/locate')
+
+
+def queue(total, route):
+
+    """
+    Queue partitions in EC2 workers.
+
+    :param total: The total number of objects.
+    :param route: The API endpoint.
+    """
+
+    urls = [
+        'http://localhost:5001',
+        'http://localhost:5002',
+        'http://localhost:5003'
+    ]
+
+    #urls = Inventory().worker_urls
+    pts = partitions(total, len(urls))
+
+    for i, url in enumerate(urls):
+
+        o1 = pts[i][0]
+        o2 = pts[i][1]
+
+        # Post the boundaries.
+        r = requests.post(
+            url+route,
+            params={'o1': o1, 'o2': o2 }
+        )
+
+        code = r.status_code
+        click.echo(url)
+
+        if code == 200:
+            click.echo(term.green(str(o1)+'-'+str(o2)))
+        else:
+            click.echo(term.red(str(code)))
