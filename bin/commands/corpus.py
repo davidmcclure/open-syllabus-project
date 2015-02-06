@@ -145,6 +145,7 @@ def truncated_csv(out_path, frag_len, page_len):
     # CSV writer.
     cols = ['id', 'title', 'text']
     writer = csv.DictWriter(out_file, cols)
+    writer.writeheader()
 
     query = Document_Text.select()
     count = query.count()
@@ -164,5 +165,4 @@ def truncated_csv(out_path, frag_len, page_len):
             'text': fragment
         })
 
-    writer.writeheader()
     writer.writerows(rows)

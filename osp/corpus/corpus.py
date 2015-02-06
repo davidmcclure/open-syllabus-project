@@ -6,7 +6,7 @@ from osp.common.config import config
 from osp.corpus.segment import Segment
 from osp.corpus.utils import int_to_dir
 from functools import lru_cache
-from clint.textui import progress
+from clint.textui.progress import bar
 
 
 class Corpus:
@@ -96,5 +96,5 @@ class Corpus:
         """
 
         n = self.file_count
-        for syllabus in progress.bar(self.syllabi(), expected_size=n):
+        for syllabus in bar(self.syllabi(), expected_size=n):
             yield syllabus
