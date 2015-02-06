@@ -1,8 +1,11 @@
 
 
+from osp.common.models.base import redis
 from osp.corpus.syllabus import Syllabus
+from osp.corpus.corpus import Corpus
 from osp.institutions.models.institution import Institution
 from osp.locations.models.doc_inst import Document_Institution
+from rq import Queue
 
 
 def locate(path):
@@ -36,3 +39,18 @@ def locate(path):
             institution=match,
             document=syllabus.relative_path
         )
+
+
+def queue_locate(s1=0, s2=4095):
+
+    """
+    Queue text extraction tasks in the worker.
+
+    :param s1: The first segment.
+    :param s2: The last segment.
+    """
+
+    queue = Queue(connection=redis)
+
+    for syllabus in Corpus.from_env(s1=s1, s2=s2).syllabi():
+        queue.enqueue(locate, syllabus.path)
