@@ -15,14 +15,14 @@ mapquest:
 
 postgres:
 
-  worker:
+  local:
     database: osp
     host: localhost
     port: 5432
     user: osp
     password: {{ osp_password }}
 
-  server:
+  remote:
     database: osp
     host: {{ osp_data_host }}
     port: 5432

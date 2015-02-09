@@ -4,7 +4,7 @@ import click
 import sys
 import csv
 
-from osp.common.models.base import pg_worker, pg_server, redis
+from osp.common.models.base import pg_local, pg_remote, redis
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
@@ -26,14 +26,14 @@ def init_db():
     Create the database tables.
     """
 
-    pg_worker.connect()
-    pg_server.connect()
+    pg_local.connect()
+    pg_remote.connect()
 
-    pg_worker.create_tables([
+    pg_local.create_tables([
         HLOM_Record
     ], safe=True)
 
-    pg_server.create_tables([
+    pg_remote.create_tables([
         HLOM_Citation
     ], safe=True)
 

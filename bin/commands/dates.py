@@ -3,7 +3,7 @@
 import click
 import math
 
-from osp.common.models.base import pg_worker, redis
+from osp.common.models.base import pg_local, redis
 from osp.common.utils import paginate_query_cli
 from osp.corpus.queries import all_document_texts
 from osp.dates.semester.models.semester import Document_Semester
@@ -25,9 +25,9 @@ def init_db():
     Create the database tables.
     """
 
-    pg_worker.connect()
+    pg_local.connect()
 
-    pg_worker.create_tables([
+    pg_local.create_tables([
         Document_Semester
     ], safe=True)
 

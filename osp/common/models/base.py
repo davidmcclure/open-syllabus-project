@@ -11,8 +11,8 @@ from osp.common.config import config
 
 
 # POSTGRES
-pg_worker = PostgresqlExtDatabase(**config['postgres']['worker'])
-pg_server = PostgresqlExtDatabase(**config['postgres']['server'])
+pg_local  = PostgresqlExtDatabase(**config['postgres']['local'])
+pg_remote = PostgresqlExtDatabase(**config['postgres']['remote'])
 
 # REDIS
 redis = StrictRedis(**config['redis'])
@@ -26,9 +26,9 @@ logging.getLogger('elasticsearch.trace').propagate = False
 
 class WorkerModel(Model):
     class Meta:
-        database = pg_worker
+        database = pg_local
 
 
 class ServerModel(Model):
     class Meta:
-        database = pg_server
+        database = pg_remote
