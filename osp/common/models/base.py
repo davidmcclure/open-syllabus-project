@@ -24,11 +24,11 @@ elasticsearch = Elasticsearch([config['elasticsearch']])
 logging.getLogger('elasticsearch.trace').propagate = False
 
 
-class WorkerModel(Model):
+class LocalModel(Model):
     class Meta:
         database = pg_local
 
 
-class ServerModel(Model):
+class RemoteModel(Model):
     class Meta:
         database = pg_remote

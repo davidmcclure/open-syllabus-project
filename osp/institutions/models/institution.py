@@ -2,12 +2,12 @@
 
 import datetime
 
-from osp.common.models.base import WorkerModel
+from osp.common.models.base import LocalModel
 from peewee import *
 from playhouse.postgres_ext import *
 
 
-class Institution(WorkerModel):
+class Institution(LocalModel):
 
 
     stored_id = BigIntegerField(null=True)

@@ -1,12 +1,12 @@
 
 
-from osp.common.models.base import WorkerModel
+from osp.common.models.base import LocalModel
 from peewee import *
 from playhouse.postgres_ext import *
 from pymarc import Record
 
 
-class HLOM_Record(WorkerModel):
+class HLOM_Record(LocalModel):
 
 
     control_number = CharField(unique=True)
