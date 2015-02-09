@@ -136,7 +136,7 @@ def queue(total, route):
         # Post the boundaries.
         r = requests.post(
             url+route,
-            params={'o1': o1, 'o2': o2 }
+            params={'o1': o1, 'o2': o2}
         )
 
         code = r.status_code
