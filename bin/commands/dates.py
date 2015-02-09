@@ -4,7 +4,7 @@ import click
 import math
 
 from osp.common.models.base import pg_local, redis
-from osp.common.utils import paginate_query_cli
+from osp.common.utils import paginate_query
 from osp.corpus.queries import all_document_texts
 from osp.dates.semester.models.semester import Document_Semester
 from osp.dates.semester.jobs.ext_semester import ext_semester
@@ -41,7 +41,7 @@ def queue(n):
     """
 
     queue = Queue(connection=redis)
-    pages = paginate_query_cli(all_document_texts(), n)
+    pages = paginate_query(all_document_texts(), n)
 
     for page in pages:
         for text in page.iterator():

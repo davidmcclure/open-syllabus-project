@@ -2,10 +2,8 @@
 
 import math
 
-from clint.textui.progress import bar
 
-
-def paginate_query_cli(query, n):
+def paginate_query(query, n):
 
     """
     Yield page queries from a base query.
@@ -16,7 +14,7 @@ def paginate_query_cli(query, n):
 
     page_count = math.ceil(query.count()/n)
 
-    for page in bar(range(1, page_count+1)):
+    for page in range(1, page_count+1):
         yield query.paginate(page, n)
 
 

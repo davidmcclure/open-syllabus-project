@@ -34,3 +34,14 @@ def sanitize_query(query):
         '',
         query
     )
+
+
+def deduping_hash(record):
+
+    """
+    Generate a hash that groups together discrete works.
+
+    :param record: A pymarc record instance.
+    """
+
+    pass

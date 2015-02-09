@@ -7,7 +7,7 @@ import csv
 from osp.common.config import config
 from osp.common.models.base import pg_local, redis
 from osp.common.overview import Overview
-from osp.common.utils import paginate_query_cli
+from osp.common.utils import paginate_query
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
@@ -148,7 +148,7 @@ def truncated_csv(out_path, frag_len, page_len):
 
     # Page through the table.
     query = Document_Text.select()
-    pages = paginate_query_cli(query, page_len)
+    pages = paginate_query(query, page_len)
 
     for page in pages:
 

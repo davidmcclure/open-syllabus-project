@@ -5,6 +5,7 @@ import sys
 import csv
 
 from osp.common.models.base import pg_local, pg_remote, redis
+from osp.common.utils import paginate_query
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
@@ -144,3 +145,18 @@ def csv_syllabus_counts(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
+
+
+@cli.command()
+@click.option('--page_len', default=10000)
+def dedupe(page_len):
+
+    """
+    TODO|dev
+    """
+
+    pages = paginate_query(HLOM_Record.select(), page_len)
+
+    for page in pages:
+        for row in page.iterator():
+            print(row.control_number)
