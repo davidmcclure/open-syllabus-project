@@ -22,7 +22,7 @@ app.register_blueprint(locations, url_prefix='/locations')
 
 @app.route('/ping')
 def ping():
-    return 'pong'
+    return ('pong', 200)
 
 
 if __name__ == '__main__':
