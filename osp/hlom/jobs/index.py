@@ -28,11 +28,7 @@ def index(page_number, records_per_page):
     for row in page.iterator():
 
         # Hydrate a MARC record.
-        marc = Record(
-            data=bytes(row.record),
-            ascii_handling='ignore',
-            utf8_handling='ignore'
-        )
+        marc = row.pymarc_record()
 
         # Get raw subject/notes values.
         subjects = [s.format_field() for s in marc.subjects()]

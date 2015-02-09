@@ -10,7 +10,6 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
-from pymarc.record import Record
 from prettytable import PrettyTable
 from rq import Queue
 
@@ -105,7 +104,7 @@ def csv_text_counts(out_path):
         )
 
         # Hydrate a MARC record.
-        marc = Record(data=bytes(row.record))
+        marc = row.pymarc_record()
 
         # Gather subject field values.
         subjects = [s.format_field() for s in marc.subjects()]

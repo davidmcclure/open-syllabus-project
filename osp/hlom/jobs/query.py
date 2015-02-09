@@ -16,15 +16,15 @@ def query(id):
     :param id: The hlom_record row id.
     """
 
-    marc = HLOM_Record.get(HLOM_Record.id==id)
+    row = HLOM_Record.get(HLOM_Record.id==id)
 
     # Hydrate a MARC record.
-    record = Record(data=bytes(marc.record))
+    marc = row.pymarc_record()
 
     # Construct an ES query.
     query = sanitize_query(' '.join([
-        record.title(),
-        record.author()
+        marc.title(),
+        marc.author()
     ]))
 
     # Execute the query.
@@ -47,7 +47,7 @@ def query(id):
         for hit in results['hits']['hits']:
             citations.append({
                 'document': hit['_id'],
-                'record': marc.control_number
+                'record': row.control_number
             })
 
         # Write the citation links.
