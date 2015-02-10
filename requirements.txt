@@ -23,5 +23,6 @@ PyYAML
 uwsgi
 boto
 flask
+spacy
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc

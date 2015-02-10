@@ -34,14 +34,3 @@ def sanitize_query(query):
         '',
         query
     )
-
-
-def dedupe_hash(record):
-
-    """
-    Generate a "grouping" hash from a MARC record.
-
-    :param record: A Pymarc record instance.
-    """
-
-    pass

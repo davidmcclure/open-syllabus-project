@@ -1,9 +1,11 @@
 
 
+import spacy.en
+import re
+
 from osp.common.models.base import LocalModel
 from osp.citations.hlom.utils import sanitize_query
 from peewee import *
-from functools import lru_cache
 from playhouse.postgres_ext import *
 from pymarc import Record
 
@@ -40,3 +42,25 @@ class HLOM_Record(LocalModel):
             self.pymarc.title(),
             self.pymarc.author()
         ]))
+
+
+    @property
+    def hash(self):
+
+        """
+        Generate a "grouping" hash, for de-duplication.
+        """
+
+        # Downcase the query.
+        query = self.query.lower()
+
+        # Tokenize / tag.
+        nlp = spacy.en.English() # TODO: Just do this once.
+        tokens = nlp(query)
+
+        # Remove articles, punct, and whitespace.
+        filtered = [t.orth_ for t in tokens if
+                    t.pos_ not in ['DET', 'PUNCT'] and
+                    not re.match('^\s+$', t.orth_)]
+
+        return ''.join(filtered)
