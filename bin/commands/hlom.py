@@ -145,18 +145,3 @@ def csv_syllabus_counts(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
-
-
-@cli.command()
-@click.option('--page_len', default=10000)
-def dedupe(page_len):
-
-    """
-    TODO|dev
-    """
-
-    pages = paginate_query(HLOM_Record.select(), page_len)
-
-    for page in pages:
-        for row in page.iterator():
-            print(row.control_number)
