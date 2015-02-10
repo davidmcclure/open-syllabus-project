@@ -5,7 +5,6 @@ import sys
 import csv
 
 from osp.common.models.base import pg_local, pg_remote, redis
-from osp.common.utils import paginate_query
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
