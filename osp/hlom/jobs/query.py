@@ -18,12 +18,6 @@ def query(id):
 
     row = HLOM_Record.get(HLOM_Record.id==id)
 
-    # Construct an ES query.
-    query = sanitize_query(' '.join([
-        row.pymarc.title(),
-        row.pymarc.author()
-    ]))
-
     # Execute the query.
     results = es.search('osp', 'syllabus', timeout=30, body={
         'fields': [],
@@ -31,7 +25,7 @@ def query(id):
         'query': {
             'match_phrase': {
                 'body': {
-                    'query': query,
+                    'query': row.query,
                     'slop': 10
                 }
             }
