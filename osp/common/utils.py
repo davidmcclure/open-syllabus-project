@@ -2,19 +2,25 @@
 
 import math
 
+from clint.textui.progress import bar
 
-def paginate_query(query, n):
+
+def paginate_query(query, n, bar=False):
 
     """
     Yield page queries from a base query.
 
     :param query: A query instance.
     :param n: The number of rows per page.
+    :param bar: If true, show progress bar.
     """
 
     page_count = math.ceil(query.count()/n)
 
-    for page in range(1, page_count+1):
+    pages = range(1, page_count+1)
+    if bar: pages = bar(pages)
+
+    for page in pages:
         yield query.paginate(page, n)
 
 
