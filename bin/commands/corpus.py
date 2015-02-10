@@ -148,7 +148,7 @@ def truncated_csv(out_path, frag_len, page_len):
 
     # Page through the table.
     query = Document_Text.select()
-    pages = paginate_query(query, page_len)
+    pages = paginate_query(query, page_len, bar=True)
 
     for page in pages:
 

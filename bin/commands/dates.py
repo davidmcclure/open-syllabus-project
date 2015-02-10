@@ -41,7 +41,7 @@ def queue(n):
     """
 
     queue = Queue(connection=redis)
-    pages = paginate_query(all_document_texts(), n)
+    pages = paginate_query(all_document_texts(), n, bar=True)
 
     for page in pages:
         for text in page.iterator():
