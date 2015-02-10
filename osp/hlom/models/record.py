@@ -10,6 +10,10 @@ from playhouse.postgres_ext import *
 from pymarc import Record
 
 
+# Load spaCy.
+nlp = spacy.en.English()
+
+
 class HLOM_Record(LocalModel):
 
 
@@ -55,7 +59,6 @@ class HLOM_Record(LocalModel):
         query = self.query.lower()
 
         # Tokenize / tag.
-        nlp = spacy.en.English() # TODO: Just do this once.
         tokens = nlp(query)
 
         # Remove articles, punct, and whitespace.
