@@ -103,15 +103,12 @@ def csv_text_counts(out_path):
             HLOM_Record.control_number==c.record
         )
 
-        # Hydrate a MARC record.
-        marc = row.pymarc_record()
-
         # Gather subject field values.
-        subjects = [s.format_field() for s in marc.subjects()]
+        subjects = [s.format_field() for s in row.pymarc.subjects()]
 
         rows.append({
-            'title': marc.title(),
-            'author': marc.author(),
+            'title': row.pymarc.title(),
+            'author': row.pymarc.author(),
             'count': c.count,
             'subjects': ','.join(subjects)
         })

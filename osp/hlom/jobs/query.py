@@ -18,13 +18,10 @@ def query(id):
 
     row = HLOM_Record.get(HLOM_Record.id==id)
 
-    # Hydrate a MARC record.
-    marc = row.pymarc_record()
-
     # Construct an ES query.
     query = sanitize_query(' '.join([
-        marc.title(),
-        marc.author()
+        row.pymarc.title(),
+        row.pymarc.author()
     ]))
 
     # Execute the query.

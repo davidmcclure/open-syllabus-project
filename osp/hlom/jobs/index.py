@@ -27,19 +27,16 @@ def index(page_number, records_per_page):
     docs = []
     for row in page.iterator():
 
-        # Hydrate a MARC record.
-        marc = row.pymarc_record()
-
-        # Get raw subject/notes values.
-        subjects = [s.format_field() for s in marc.subjects()]
-        notes = [n.format_field() for n in marc.notes()]
+        # Get raw subject / notes values.
+        subjects = [s.format_field() for s in row.pymarc.subjects()]
+        notes = [n.format_field() for n in row.pymarc.notes()]
 
         docs.append({
             '_id': row.control_number,
-            'title': marc.title(),
-            'author': marc.author(),
-            'publisher': marc.publisher(),
-            'pubyear': marc.pubyear(),
+            'title': row.pymarc.title(),
+            'author': row.pymarc.author(),
+            'publisher': row.pymarc.publisher(),
+            'pubyear': row.pymarc.pubyear(),
             'subjects': subjects,
             'notes': notes
         })

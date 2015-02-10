@@ -2,6 +2,7 @@
 
 from osp.common.models.base import LocalModel
 from peewee import *
+from functools import lru_cache
 from playhouse.postgres_ext import *
 from pymarc import Record
 
@@ -13,7 +14,9 @@ class HLOM_Record(LocalModel):
     record = BlobField()
 
 
-    def pymarc_record(self):
+    @property
+    @lru_cache()
+    def pymarc(self):
 
         """
         Wrap the raw record blob as a Pymarc record instance.
