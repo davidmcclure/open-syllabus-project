@@ -33,8 +33,8 @@ def index(page_number, records_per_page):
 
         docs.append({
             '_id': row.control_number,
-            'title': row.pymarc.title(),
             'author': row.pymarc.author(),
+            'title': row.pymarc.title(),
             'publisher': row.pymarc.publisher(),
             'pubyear': row.pymarc.pubyear(),
             'subjects': subjects,
