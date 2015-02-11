@@ -141,15 +141,3 @@ def csv_syllabus_counts(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
-
-
-@cli.command()
-def test():
-
-    """
-    Write a CSV with syllabus -> citation count.
-    """
-
-    for r in queries.records_with_citations():
-        print(r.control_number)
-        print(r.count)
