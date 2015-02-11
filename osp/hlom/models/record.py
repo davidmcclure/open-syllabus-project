@@ -65,6 +65,7 @@ class HLOM_Record(LocalModel):
                     t.pos_ not in ['DET', 'PUNCT'] and
                     not re.match('^\s+$', t.orth_)]
 
+        # Get an sha1 digest.
         sha1 = hashlib.sha1()
-        sha1.update(''.join(filtered).encode('ascii'))
+        sha1.update(''.join(filtered).encode('ascii', 'ignore'))
         return sha1.hexdigest()

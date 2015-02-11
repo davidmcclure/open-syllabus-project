@@ -32,7 +32,7 @@ def index(page_number, records_per_page):
         notes = [n.format_field() for n in row.pymarc.notes()]
 
         docs.append({
-            '_id': row.control_number,
+            '_id': row.hash,
             'author': row.pymarc.author(),
             'title': row.pymarc.title(),
             'publisher': row.pymarc.publisher(),
