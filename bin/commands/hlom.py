@@ -79,7 +79,7 @@ def queue_queries():
     queue = Queue(connection=redis)
 
     for record in HLOM_Record.select().naive().iterator():
-        queue.enqueue(query, record.control_number)
+        queue.enqueue(query, record.id)
 
 
 @cli.command()
