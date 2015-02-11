@@ -49,7 +49,7 @@ def records_with_citations():
 
     """
     Get all HLOM records that have at least one citation, annotated with the
-    citation count.
+    citation count, ordered by record <id>.
     """
 
     count = fn.Count(HLOM_Citation.id)
@@ -65,4 +65,5 @@ def records_with_citations():
             on=(HLOM_Record.control_number==HLOM_Citation.record)
         )
         .group_by(HLOM_Record)
+        .order_by(HLOM_Record.id)
     )

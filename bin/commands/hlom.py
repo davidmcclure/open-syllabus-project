@@ -147,7 +147,7 @@ def csv_syllabus_counts(out_path):
 def test():
 
     """
-    TODO|dev
+    Write a CSV with syllabus -> citation count.
     """
 
     for r in queries.records_with_citations():

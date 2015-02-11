@@ -8,6 +8,7 @@ from osp.common.models.base import redis, elasticsearch as es
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.jobs.index import index
+from osp.citations.hlom import queries
 from elasticsearch.helpers import bulk
 from pymarc import Record
 from blessings import Terminal
@@ -45,6 +46,9 @@ def create():
                     },
                     'pubyear': {
                         'type': 'string'
+                    },
+                    'count': {
+                        'type': 'integer'
                     },
                     'lists': {
                         'properties': {
@@ -91,7 +95,7 @@ def queue_insert(n):
     """
 
     queue = Queue(connection=redis)
-    query = HLOM_Record.select()
+    query = queries.records_with_citations()
     pages = math.ceil(query.count()/n)
 
     for page in range(1, pages+1):

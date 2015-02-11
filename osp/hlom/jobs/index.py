@@ -3,6 +3,7 @@
 import re
 
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom import queries
 from osp.common.models.base import elasticsearch as es
 from pymarc.record import Record
 from elasticsearch.helpers import bulk
@@ -18,10 +19,8 @@ def index(page_number, records_per_page):
     """
 
     page = (
-        HLOM_Record
-        .select()
+        queries.records_with_citations()
         .paginate(page_number, records_per_page)
-        .order_by(HLOM_Record.id)
     )
 
     docs = []
@@ -38,7 +37,8 @@ def index(page_number, records_per_page):
             'publisher': row.pymarc.publisher(),
             'pubyear': row.pymarc.pubyear(),
             'subjects': subjects,
-            'notes': notes
+            'notes': notes,
+            'count': row.count
         })
 
     # Bulk-index the page.
