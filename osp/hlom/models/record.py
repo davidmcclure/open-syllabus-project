@@ -1,5 +1,6 @@
 
 
+import hashlib
 import spacy.en
 import re
 
@@ -55,10 +56,8 @@ class HLOM_Record(LocalModel):
         Generate a "grouping" hash, for de-duplication.
         """
 
-        # Downcase the query.
+        # Downcase, tokenize.
         query = self.query.lower()
-
-        # Tokenize / tag.
         tokens = nlp(query)
 
         # Remove articles, punct, and whitespace.
@@ -66,4 +65,6 @@ class HLOM_Record(LocalModel):
                     t.pos_ not in ['DET', 'PUNCT'] and
                     not re.match('^\s+$', t.orth_)]
 
-        return ''.join(filtered)
+        sha1 = hashlib.sha1()
+        sha1.update(''.join(filtered).encode('ascii'))
+        return sha1.hexdigest()
