@@ -103,8 +103,7 @@ def queue_insert(n):
 @click.argument('q')
 @click.option('--size', default=10)
 @click.option('--start', default=0)
-@click.option('--slop', default=10)
-def search(q, size, start, slop):
+def search(q, size, start):
 
     """
     Search records.
@@ -118,6 +117,10 @@ def search(q, size, start, slop):
                 'query': q
             }
         },
+        'sort': [
+            {'count': {'order': 'desc'}},
+            '_score'
+        ],
         'highlight': {
             'pre_tags': ['\033[1m'],
             'post_tags': ['\033[0m'],
