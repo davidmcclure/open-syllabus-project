@@ -113,7 +113,6 @@ def search(q, size, start, slop):
     results = es.search('hlom', 'record', {
         'size': size,
         'from': start,
-        'fields': [],
         'query': {
             'query_string': {
                 'query': q
@@ -134,11 +133,9 @@ def search(q, size, start, slop):
     hits = str(results['hits']['total'])+' docs'
     click.echo(term.standout_cyan(hits))
 
-    # Hit highlights.
+    # Print results.
     for hit in results['hits']['hits']:
-
-        if 'highlight' in hit:
-            click.echo('\n'+term.underline(hit['_id']))
-            for field, snippets in hit['highlight'].items():
-                for snippet in snippets:
-                    click.echo(field+': '+snippet)
+        click.echo('\n'+term.underline(hit['_id']))
+        click.echo(hit['_source']['title'])
+        click.echo(hit['_source']['author'])
+        click.echo(hit['_source']['count'])
