@@ -141,3 +141,15 @@ def csv_syllabus_counts(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
+
+
+@cli.command()
+def test():
+
+    """
+    TODO|dev
+    """
+
+    for r in queries.records_with_citations():
+        print(r.control_number)
+        print(r.count)
