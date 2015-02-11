@@ -5,11 +5,8 @@ import click
 import re
 
 from osp.common.models.base import redis, elasticsearch as es
-from osp.citations.hlom.dataset import Dataset
-from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.jobs.index import index
 from osp.citations.hlom import queries
-from elasticsearch.helpers import bulk
 from pymarc import Record
 from blessings import Terminal
 from rq import Queue
