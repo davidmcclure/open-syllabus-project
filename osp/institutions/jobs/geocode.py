@@ -2,7 +2,7 @@
 
 import os
 
-from geopy.geocoders import OpenMapQuest
+from geopy.geocoders import Nominatim
 from osp.institutions.models.lonlat import Institution_LonLat
 
 
@@ -16,14 +16,16 @@ def geocode(iid, key, query):
     :param str query: The query for the geocoder.
     """
 
-    coder = OpenMapQuest(key)
+    coder = Nominatim()
 
     # Geocode.
-    g = coder.geocode(query, timeout=10)
+    location = coder.geocode(query, timeout=10)
 
-    # Write the coordinate.
-    Institution_LonLat.create(
-        institution=iid,
-        lat=g.latitude,
-        lon=g.longitude
-    )
+    if location:
+
+        # Write the coordinate.
+        Institution_LonLat.create(
+            institution=iid,
+            lat=location.latitude,
+            lon=location.longitude
+        )

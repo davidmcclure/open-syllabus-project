@@ -27,7 +27,12 @@ class Institution(LocalModel):
         c_state  = self.metadata['Campus_State']
 
         if c_street and c_city and c_state:
-            return ' '.join([c_street, c_city, c_state, 'US'])
+            return {
+                'street':   c_street,
+                'city':     c_city,
+                'state':    c_state,
+                'country':  'USA'
+            }
 
         # Or, institution address:
         i_street = self.metadata['Institution_Address']
@@ -35,4 +40,9 @@ class Institution(LocalModel):
         i_state  = self.metadata['Institution_State']
 
         if i_street and i_city and i_state:
-            return ' '.join([i_street, i_city, i_state, 'US'])
+            return {
+                'street':   i_street,
+                'city':     i_city,
+                'state':    i_state,
+                'country':  'USA'
+            }
