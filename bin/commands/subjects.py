@@ -24,8 +24,10 @@ def course_numbers(out_path, page_len, skim_depth):
 
     query = all_document_texts()
     pages = paginate_query(query, page_len, bar=True)
-    regex = re.compile('[A-Z]{2,}\s+[0-9]{2,}')
     out_file = open(out_path, 'w')
+
+    # Match things like "PHYS 101".
+    regex = re.compile('[A-Z]{2,}\s+[0-9]{2,}')
 
     for page in pages:
         for doc in page.iterator():
