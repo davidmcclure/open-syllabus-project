@@ -2,7 +2,7 @@
 
 import os
 
-from geopy.geocoders import MapQuest
+from geopy.geocoders import OpenMapQuest
 from osp.institutions.models.lonlat import Institution_LonLat
 
 
@@ -16,7 +16,7 @@ def geocode(iid, key, query):
     :param str query: The query for the geocoder.
     """
 
-    coder = MapQuest(key)
+    coder = OpenMapQuest(key)
 
     # Geocode.
     g = coder.geocode(query, timeout=10)
