@@ -68,11 +68,10 @@ def queue_geocoding():
     """
 
     queue = Queue(connection=redis)
-    key = config['mapquest']['api_key']
 
     for inst in Institution.select().iterator():
         query = inst.geocoding_query
-        if query:queue.enqueue(geocode, inst.id, key, query)
+        if query:queue.enqueue(geocode, inst.id, query)
 
 
 @cli.command()
