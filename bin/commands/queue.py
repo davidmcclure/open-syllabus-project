@@ -21,7 +21,12 @@ def work(n):
     Spin up workers.
     """
 
-    workers = {'cmd': config['osp']['worker'], 'numprocesses': n}
+    workers = {
+        'cmd': config['osp']['worker'],
+        'numprocesses': n,
+        'env': {'LANG': 'en_US.UTF-8'}
+    }
+
     arbiter = get_arbiter([workers])
 
     try:
