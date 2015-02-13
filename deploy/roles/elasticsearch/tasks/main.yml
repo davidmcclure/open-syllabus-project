@@ -25,6 +25,15 @@
 - name: Install the package
   shell: dpkg -i /tmp/elasticsearch-{{ es_version }}.deb
 
+- name: Set permissions on the data directory
+  file:
+    state: directory
+    path: '{{ es_data_dir }}'
+    owner: '{{ es_user }}'
+    group: '{{ es_group }}'
+    mode: 0700
+    recurse: yes
+
 - name: Apply the configuration
   notify: restart elasticsearch
   template:
