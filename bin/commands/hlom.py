@@ -174,4 +174,14 @@ def pull_overview_ids():
     Copy store object ids from Overview.
     """
 
-    pass
+    ov = Overview.from_env()
+
+    for obj in ov.list_objects().json():
+
+        query = (
+            HLOM_Record
+            .update(stored_id=obj['id'])
+            .where(HLOM_Record.id==obj['indexedLong'])
+        )
+
+        query.execute()
