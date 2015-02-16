@@ -14,9 +14,10 @@ from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
-from collections import Counter
-from prettytable import PrettyTable
 from osp.corpus import queries
+from collections import Counter
+from clint.textui.progress import bar
+from prettytable import PrettyTable
 from rq import Queue
 
 
@@ -48,11 +49,17 @@ def insert_documents():
     Insert documents in the database.
     """
 
-    for s in Corpus.from_env().cli_syllabi():
-        try:
-            with pg_local.transaction():
-                Document.create(path=s.relative_path)
-        except: pass
+    segments = Corpus.from_env().segments()
+    itr = bar(segments, expected_size=4096)
+
+    for segment in itr:
+
+        rows = []
+        for syllabus in segment.syllabi():
+            rows.append({'path': syllabus.relative_path})
+
+        with pg_local.transaction():
+            Document.insert_many(rows).execute()
 
 
 @cli.command()
