@@ -141,3 +141,24 @@ def csv_syllabus_counts(out_path):
 
     writer.writeheader()
     writer.writerows(rows)
+
+
+@cli.command()
+@click.option('--page_len', default=50)
+def write_objects(page_len):
+
+    """
+    Write HLOM records as store objects into Overview.
+    """
+
+    pass
+
+
+@cli.command()
+def pull_overview_ids():
+
+    """
+    Copy store object ids from Overview.
+    """
+
+    pass
