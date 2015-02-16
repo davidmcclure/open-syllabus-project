@@ -13,20 +13,20 @@ def cli():
 
 
 @cli.command()
-def list_objects():
-
-    """
-    Print the store object count.
-    """
-
-    print(ov.list_objects().json())
-
-
-@cli.command()
 def object_count():
 
     """
     Print the store object count.
     """
 
-    print(len(ov.list_objects().json()))
+    click.echo(len(ov.list_objects().json()))
+
+
+@cli.command()
+def list_objects():
+
+    """
+    Print the store object count.
+    """
+
+    click.echo(ov.list_objects().json())

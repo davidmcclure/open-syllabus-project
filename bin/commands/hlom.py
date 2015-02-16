@@ -156,7 +156,11 @@ def write_objects(page_len):
 
     objects = []
     for r in queries.records_with_citations().iterator():
-        objects.append({'indexedLong': r.id})
+        objects.append({
+            'indexedLong': r.id,
+            'indexedString': None,
+            'json': {}
+        })
 
     # Write the objects in pages.
     for i in range(0, len(objects), page_len):
