@@ -38,6 +38,7 @@ def index(page_number, records_per_page):
             'pubyear': row.pymarc.pubyear(),
             'subjects': subjects,
             'notes': notes,
+            'stored_id': row.stored_id,
             'count': row.count
         })
 

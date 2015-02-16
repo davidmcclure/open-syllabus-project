@@ -47,6 +47,9 @@ def create():
                     'count': {
                         'type': 'integer'
                     },
+                    'stored_id': {
+                        'type': 'integer'
+                    },
                     'lists': {
                         'properties': {
                             'subjects': {
@@ -141,4 +144,5 @@ def search(q, size, start):
         click.echo('\n'+term.underline(hit['_id']))
         click.echo(hit['_source']['title'])
         click.echo(hit['_source']['author'])
+        click.echo(hit['_source']['stored_id'])
         click.echo(hit['_source']['count'])
