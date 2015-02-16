@@ -1,8 +1,9 @@
 
 
-from peewee import *
+from osp.corpus.models.document import Document
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
+from peewee import *
 
 
 def text_counts():
@@ -66,4 +67,28 @@ def records_with_citations():
         )
         .group_by(HLOM_Record)
         .order_by(HLOM_Record.id)
+    )
+
+
+def document_objects():
+
+    """
+    Get document -> HLOM record IDs for Overview document-objects.
+    """
+
+    iid = HLOM_Record.stored_id.alias('iid')
+    did = Document.stored_id.alias('did')
+
+    return (
+        HLOM_Citation
+        .select(iid, did)
+        .join(
+            HLOM_Record,
+            on=(HLOM_Citation.record==HLOM_Record.control_number)
+        )
+        .join(
+            Document,
+            on=(HLOM_Citation.document==Document.path)
+        )
+        .where(~(Document.stored_id >> None))
     )

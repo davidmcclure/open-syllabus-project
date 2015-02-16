@@ -149,7 +149,7 @@ def csv_syllabus_counts(out_path):
 def write_objects(page_len):
 
     """
-    Write HLOM records as store objects into Overview.
+    Write HLOM records as store objects in Overview.
     """
 
     ov = Overview.from_env()
@@ -185,3 +185,22 @@ def pull_overview_ids():
         )
 
         query.execute()
+
+
+@cli.command()
+@click.option('--page_len', default=50)
+def write_document_objects(page_len):
+
+    """
+    Write HLOM citations as document -> store objects in Overview.
+    """
+
+    ov = Overview.from_env()
+
+    objects = []
+    for d2i in queries.document_objects().naive().iterator():
+        objects.append([d2i.did, d2i.iid])
+
+    # Write the objects in pages.
+    for i in range(0, len(objects), page_len):
+        ov.post_document_objects(objects[i:i+page_len])

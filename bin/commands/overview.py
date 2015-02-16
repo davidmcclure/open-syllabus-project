@@ -1,6 +1,8 @@
 
 
 import click
+import json
+
 from osp.common.overview import Overview
 
 
@@ -13,7 +15,7 @@ def cli():
 
 
 @cli.command()
-def object_count():
+def count_objects():
 
     """
     Print the store object count.
@@ -26,7 +28,8 @@ def object_count():
 def list_objects():
 
     """
-    Print the store object count.
+    Print the store objects.
     """
 
-    click.echo(ov.list_objects().json())
+    objects = ov.list_objects().json()
+    click.echo(json.dumps(objects, indent=2))
