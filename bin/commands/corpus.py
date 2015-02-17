@@ -15,6 +15,7 @@ from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
 from osp.corpus import queries
+from playhouse.postgres_ext import ServerSide
 from collections import Counter
 from clint.textui.progress import bar
 from prettytable import PrettyTable
@@ -153,28 +154,16 @@ def truncated_csv(out_path, frag_len, page_len):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    # TODO: Assumes no duplicate documents.
-    query = (
-        Document_Text
-        .select()
-        .order_by(Document_Text.id)
-    )
+    query = Document_Text.select()
+    count = query.count()
 
-    # Page through the table.
-    pages = paginate_query(query, page_len, bar=True)
+    for row in bar(ServerSide(query), expected_size=count):
 
-    for page in pages:
+        # Truncate the text.
+        fragment = row.text[:frag_len]
 
-        rows = []
-        for row in page.iterator():
-
-            # Truncate the text.
-            fragment = row.text[:frag_len]
-
-            rows.append({
-                'id': row.document,
-                'title': row.document,
-                'text': fragment
-            })
-
-        writer.writerows(rows)
+        writer.writerow({
+            'id': row.document,
+            'title': row.document,
+            'text': fragment
+        })
