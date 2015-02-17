@@ -2,6 +2,7 @@
 
 import math
 
+from itertools import islice, chain
 from clint.textui import progress
 
 
@@ -35,3 +36,19 @@ def partitions(total, n, start=0):
         bounds.append((i1, i2))
 
     return bounds
+
+
+def grouper(iterable, size):
+
+    """
+    Yield "groups" from an iterable.
+
+    :param iterable: The iterable.
+    :param size: The size of the group.
+    """
+
+    source = iter(iterable)
+
+    while True:
+        group = islice(source, size)
+        yield chain([next(group)], group)

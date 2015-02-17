@@ -8,7 +8,7 @@ import sys
 from osp.common.config import config
 from osp.common.models.base import pg_local, redis
 from osp.common.overview import Overview
-from osp.common.utils import query_bar
+from osp.common.utils import query_bar, grouper
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
@@ -51,24 +51,25 @@ def pull_overview_ids(page_len):
     Copy document ids from Overview.
     """
 
-    id = config['overview']['doc_set']
     ov = Overview.from_env()
 
-    rows = []
-    for doc in ov.stream_documents(id):
+    # Get the document streamer.
+    id = config['overview']['doc_set']
+    stream = ov.stream_documents(id)
 
-        rows.append({
-            'stored_id': doc['id'],
-            'path': doc['title']
-        })
+    # Generate groups of documents.
+    for group in grouper(stream, page_len):
 
-        if len(rows) % page_len == 0:
+        rows = []
+        for doc in group:
+            rows.append({
+                'stored_id': doc['id'],
+                'path': doc['title']
+            })
 
-            # Bulk-insert the page.
-            with pg_local.transaction():
-                Document.insert_many(rows).execute()
-
-            rows = []
+        # Bulk-insert the page.
+        with pg_local.transaction():
+            Document.insert_many(rows).execute()
 
 
 @cli.command()
