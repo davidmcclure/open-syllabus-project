@@ -5,23 +5,16 @@ import math
 from clint.textui import progress
 
 
-def paginate_query(query, n, bar=False):
+def query_bar(query):
 
     """
-    Yield page queries from a base query.
+    Wrap a query in a progress bar.
 
     :param query: A query instance.
-    :param n: The number of rows per page.
-    :param bar: If true, show progress bar.
     """
 
-    page_count = math.ceil(query.count()/n)
-
-    pages = range(1, page_count+1)
-    if bar: pages = progress.bar(pages)
-
-    for page in pages:
-        yield query.paginate(page, n)
+    size = query.count()
+    return progress.bar(query, expected_size=size)
 
 
 def partitions(total, n, start=0):
