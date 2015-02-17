@@ -153,8 +153,14 @@ def truncated_csv(out_path, frag_len, page_len):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
+    # TODO: Assumes no duplicate documents.
+    query = (
+        Document_Text
+        .select()
+        .order_by(Document_Text.id)
+    )
+
     # Page through the table.
-    query = queries.all_document_texts()
     pages = paginate_query(query, page_len, bar=True)
 
     for page in pages:
