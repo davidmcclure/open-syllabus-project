@@ -96,6 +96,7 @@ def csv_text_counts(out_path):
     # CSV writer.
     cols = ['title', 'author', 'count', 'subjects']
     writer = csv.DictWriter(out_file, cols)
+    writer.writeheader()
 
     rows = []
     for c in queries.text_counts().naive().iterator():
@@ -114,7 +115,6 @@ def csv_text_counts(out_path):
             'subjects': ','.join(subjects)
         })
 
-    writer.writeheader()
     writer.writerows(rows)
 
 
@@ -131,6 +131,7 @@ def csv_syllabus_counts(out_path):
     # CSV writer.
     cols = ['document', 'count']
     writer = csv.DictWriter(out_file, cols)
+    writer.writeheader()
 
     rows = []
     for c in queries.syllabus_counts().naive().iterator():
@@ -140,7 +141,6 @@ def csv_syllabus_counts(out_path):
             'count': c.count
         })
 
-    writer.writeheader()
     writer.writerows(rows)
 
 

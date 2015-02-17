@@ -142,6 +142,7 @@ def write_csv(out_path):
     # CSV writer.
     cols = ['name', 'longitude', 'latitude']
     writer = csv.DictWriter(out_file, cols)
+    writer.writeheader()
 
     rows = []
     for inst in queries.csv_rows().naive().iterator():
@@ -151,5 +152,4 @@ def write_csv(out_path):
             'longitude': inst.lon
         })
 
-    writer.writeheader()
     writer.writerows(rows)
