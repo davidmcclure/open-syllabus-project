@@ -138,7 +138,7 @@ def file_count():
 
 @cli.command()
 @click.argument('out_path', type=click.Path())
-@click.option('--frag_len', default=500)
+@click.option('--frag_len', default=1500)
 @click.option('--page_len', default=10000)
 def truncated_csv(out_path, frag_len, page_len):
 
