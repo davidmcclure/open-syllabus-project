@@ -3,6 +3,7 @@
 import os
 import click
 import csv
+import sys
 
 from osp.common.config import config
 from osp.common.models.base import pg_local, redis
@@ -43,27 +44,8 @@ def init_db():
 
 
 @cli.command()
-def insert_documents():
-
-    """
-    Insert documents in the database.
-    """
-
-    segments = Corpus.from_env().segments()
-    itr = bar(segments, expected_size=4096)
-
-    for segment in itr:
-
-        rows = []
-        for syllabus in segment.syllabi():
-            rows.append({'path': syllabus.relative_path})
-
-        with pg_local.transaction():
-            Document.insert_many(rows).execute()
-
-
-@cli.command()
-def pull_overview_ids():
+@click.option('--page_len', default=10000)
+def pull_overview_ids(page_len):
 
     """
     Copy document ids from Overview.
@@ -72,15 +54,21 @@ def pull_overview_ids():
     id = config['overview']['doc_set']
     ov = Overview.from_env()
 
-    for o_doc in ov.stream_documents(id):
+    rows = []
+    for doc in ov.stream_documents(id):
 
-        query = (
-            Document
-            .update(stored_id=o_doc['id'])
-            .where(Document.path==o_doc['title'])
-        )
+        rows.append({
+            'stored_id': doc['id'],
+            'path': doc['title']
+        })
 
-        query.execute()
+        if len(rows) % page_len == 0:
+
+            # Bulk-insert the page.
+            with pg_local.transaction():
+                Document.insert_many(rows).execute()
+
+            rows = []
 
 
 @cli.command()
