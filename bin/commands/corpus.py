@@ -146,7 +146,7 @@ def truncated_csv(out_path, frag_len, page_len):
     Write a CSV with truncated document texts.
     """
 
-    out_file = open(out_path, 'w', 1024*1024)
+    out_file = open(out_path, 'w')
 
     # CSV writer.
     cols = ['id', 'title', 'text']
