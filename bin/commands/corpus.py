@@ -157,7 +157,7 @@ def truncated_csv(out_path, frag_len, page_len):
     query = Document_Text.select()
     count = query.count()
 
-    for row in bar(ServerSide(query), expected_size=count):
+    for row in bar(query, expected_size=count):
 
         # Truncate the text.
         fragment = row.text[:frag_len]

@@ -10,18 +10,24 @@ from elasticsearch import Elasticsearch
 from osp.common.config import config
 
 
-# POSTGRES
-pg_local  = PostgresqlExtDatabase(**config['postgres']['local'])
-pg_remote = PostgresqlExtDatabase(**config['postgres']['remote'])
+# Local (worker) database.
+pg_local = PostgresqlExtDatabase(
+    server_side_cursors=True,
+    **config['postgres']['local']
+)
 
-# REDIS
-redis = StrictRedis(**config['redis'])
+# Remote (server) database.
+pg_remote = PostgresqlExtDatabase(
+    server_side_cursors=True,
+    **config['postgres']['remote']
+)
 
 # ELASTICSEARCH
 elasticsearch = Elasticsearch([config['elasticsearch']])
-
-# Clobber the CURL logging.
 logging.getLogger('elasticsearch.trace').propagate = False
+
+# REDIS
+redis = StrictRedis(**config['redis'])
 
 
 class LocalModel(Model):
