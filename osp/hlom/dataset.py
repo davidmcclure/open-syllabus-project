@@ -3,8 +3,8 @@
 import os
 
 from osp.common.config import config
+from osp.common.utils import grouper
 from osp.citations.hlom.segment import Segment
-from osp.citations.hlom.utils import groups
 
 
 class Dataset:
@@ -61,5 +61,5 @@ class Dataset:
         """
 
         for segment in self.segments():
-            for group in groups(segment.records(), n):
+            for group in grouper(segment.records(), n):
                 yield group
