@@ -87,7 +87,7 @@ def count():
 
 
 @cli.command()
-@click.option('--n', default=10000)
+@click.option('--n', default=1000)
 def queue_insert(n):
 
     """
