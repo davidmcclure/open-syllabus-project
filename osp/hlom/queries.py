@@ -65,7 +65,7 @@ def records_with_citations():
             HLOM_Citation,
             on=(HLOM_Record.control_number==HLOM_Citation.record)
         )
-        .group_by(HLOM_Record)
+        .group_by(HLOM_Record.id)
         .order_by(HLOM_Record.id)
     )
 
