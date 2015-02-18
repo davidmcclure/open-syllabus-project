@@ -6,6 +6,7 @@ import csv
 
 from osp.common.models.base import pg_local, pg_remote, redis
 from osp.common.overview import Overview
+from osp.common.utils import query_bar, grouper
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
@@ -154,17 +155,20 @@ def write_objects(page_len):
 
     ov = Overview.from_env()
 
-    objects = []
-    for r in queries.records_with_citations().iterator():
-        objects.append({
-            'indexedLong': r.id,
-            'indexedString': None,
-            'json': {}
-        })
+    # Wrap the query in a progress bar.
+    query = query_bar(queries.records_with_citations())
 
-    # Write the objects in pages.
-    for i in range(0, len(objects), page_len):
-        ov.post_object(objects[i:i+page_len])
+    for group in grouper(query, page_len):
+
+        objects = []
+        for r in group:
+            objects.append({
+                'indexedLong': r.id,
+                'indexedString': None,
+                'json': {}
+            })
+
+        ov.post_object(objects)
 
 
 @cli.command()
