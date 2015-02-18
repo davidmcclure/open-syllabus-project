@@ -15,7 +15,11 @@ def query_bar(query):
     """
 
     size = query.count()
-    return progress.bar(query, expected_size=size)
+
+    return progress.bar(
+        query.naive().iterator(),
+        expected_size=size
+    )
 
 
 def partitions(total, n, start=0):

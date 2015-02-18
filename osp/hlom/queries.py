@@ -76,12 +76,12 @@ def document_objects():
     Get document -> HLOM record IDs for Overview document-objects.
     """
 
-    iid = HLOM_Record.stored_id.alias('iid')
+    rid = HLOM_Record.stored_id.alias('rid')
     did = Document.stored_id.alias('did')
 
     return (
         HLOM_Citation
-        .select(iid, did)
+        .select(rid, did)
         .join(
             HLOM_Record,
             on=(HLOM_Citation.record==HLOM_Record.control_number)

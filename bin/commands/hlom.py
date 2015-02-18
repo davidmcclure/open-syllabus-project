@@ -146,7 +146,7 @@ def csv_syllabus_counts(out_path):
 
 
 @cli.command()
-@click.option('--page_len', default=50)
+@click.option('--page_len', default=1000)
 def write_objects(page_len):
 
     """
@@ -192,7 +192,7 @@ def pull_overview_ids():
 
 
 @cli.command()
-@click.option('--page_len', default=50)
+@click.option('--page_len', default=1000)
 def write_document_objects(page_len):
 
     """
@@ -201,10 +201,13 @@ def write_document_objects(page_len):
 
     ov = Overview.from_env()
 
-    objects = []
-    for d2i in queries.document_objects().naive().iterator():
-        objects.append([d2i.did, d2i.iid])
+    # Wrap the query in a progress bar.
+    query = query_bar(queries.document_objects())
 
-    # Write the objects in pages.
-    for i in range(0, len(objects), page_len):
-        ov.post_document_objects(objects[i:i+page_len])
+    for group in grouper(query, page_len):
+
+        objects = []
+        for d2r in group:
+            objects.append([d2r.did, d2r.rid])
+
+        ov.post_document_objects(objects)
