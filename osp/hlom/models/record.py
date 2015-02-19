@@ -5,7 +5,7 @@ import spacy.en
 import re
 
 from osp.common.models.base import LocalModel
-from osp.citations.hlom.utils import sanitize_query
+from osp.citations.hlom.utils import sanitize_query, clean_field
 from peewee import *
 from playhouse.postgres_ext import *
 from pymarc import Record
@@ -84,13 +84,13 @@ class HLOM_Record(LocalModel):
         notes = [n.format_field() for n in self.pymarc.notes()]
 
         return {
-            '_id': self.hash,
-            'author': self.pymarc.author(),
-            'title': self.pymarc.title(),
-            'publisher': self.pymarc.publisher(),
-            'pubyear': self.pymarc.pubyear(),
-            'subjects': subjs,
-            'notes': notes,
-            'stored_id': self.stored_id,
-            'count': self.count
+            '_id':          self.hash,
+            'author':       clean_field(self.pymarc.author()),
+            'title':        clean_field(self.pymarc.title()),
+            'pubyear':      self.pymarc.pubyear(),
+            'publisher':    self.pymarc.publisher(),
+            'subjects':     subjs,
+            'notes':        notes,
+            'stored_id':    self.stored_id,
+            'count':        self.count
         }

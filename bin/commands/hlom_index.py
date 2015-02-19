@@ -94,8 +94,10 @@ def insert():
     Index documents.
     """
 
+    query = query_bar(queries.records_with_citations())
+
     def stream():
-        for row in query_bar(queries.records_with_citations()):
+        for row in query:
             yield row.document
 
     # Batch-insert the documents.
