@@ -19,6 +19,7 @@ class HLOM_Record(LocalModel):
 
 
     control_number = CharField(unique=True)
+    metadata = HStoreField()
     stored_id = BigIntegerField(null=True)
     record = BlobField()
 

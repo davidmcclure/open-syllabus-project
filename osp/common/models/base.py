@@ -12,22 +12,24 @@ from osp.common.config import config
 
 # Local (worker) database.
 pg_local = PostgresqlExtDatabase(
-    server_side_cursors=True,
     **config['postgres']['local']
 )
 
 # Remote (server) database.
 pg_remote = PostgresqlExtDatabase(
-    server_side_cursors=True,
     **config['postgres']['remote']
 )
 
-# ELASTICSEARCH
-elasticsearch = Elasticsearch([config['elasticsearch']])
-logging.getLogger('elasticsearch.trace').propagate = False
+# Elasticsearch.
+elasticsearch = Elasticsearch([
+    config['elasticsearch']
+])
 
-# REDIS
+# Redis.
 redis = StrictRedis(**config['redis'])
+
+# Dial down Elasticsearch logging.
+logging.getLogger('elasticsearch.trace').propagate = False
 
 
 class LocalModel(Model):

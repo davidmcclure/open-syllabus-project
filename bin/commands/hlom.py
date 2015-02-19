@@ -147,7 +147,7 @@ def csv_syllabus_counts(out_path):
 
 @cli.command()
 @click.option('--page_len', default=1000)
-def write_objects(page_len):
+def push_objects(page_len):
 
     """
     Write HLOM records as store objects in Overview.
@@ -193,7 +193,7 @@ def pull_overview_ids():
 
 @cli.command()
 @click.option('--page_len', default=1000)
-def write_document_objects(page_len):
+def push_document_objects(page_len):
 
     """
     Write HLOM citations as document -> store objects in Overview.
@@ -211,3 +211,65 @@ def write_document_objects(page_len):
             objects.append([d2r.did, d2r.rid])
 
         ov.post_document_objects(objects)
+
+
+@cli.command()
+def write_citation_counts():
+
+    """
+    Cache a citation count value on the HLOM records.
+    """
+
+    query = query_bar(queries.text_counts())
+
+    for pair in query:
+
+        # Get a modified HSTORE value.
+        updated = HLOM_Record.metadata.update(
+            citation_count=str(pair.count)
+        )
+
+        # Update the HLOM record.
+        query = (
+            HLOM_Record
+            .update(metadata=updated)
+            .where(HLOM_Record.control_number==pair.record)
+        )
+
+        query.execute()
+
+
+@cli.command()
+def write_deduping_hash():
+
+    """
+    Cache a "deduping" hash on HLOM records.
+    """
+
+    query = query_bar(queries.records_with_citations())
+
+    for record in query:
+
+        # Get a modified HSTORE value.
+        updated = HLOM_Record.metadata.update(
+            deduping_hash=record.hash
+        )
+
+        # Update the HLOM record.
+        query = (
+            HLOM_Record
+            .update(metadata=updated)
+            .where(HLOM_Record.id==record.id)
+        )
+
+        query.execute()
+
+
+@cli.command()
+def write_teaching_rank():
+
+    """
+    Write a "teaching rank" score on HLOM records.
+    """
+
+    pass
