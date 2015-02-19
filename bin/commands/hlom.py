@@ -293,7 +293,7 @@ def write_teaching_rank():
 
         # Get a modified HSTORE value.
         updated = HLOM_Record.metadata.update(
-            teaching_rank=str(rank)
+            teaching_rank=str(int(rank))
         )
 
         # Update the HLOM record.
