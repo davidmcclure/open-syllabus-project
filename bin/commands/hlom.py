@@ -272,4 +272,11 @@ def write_teaching_rank():
     Write a "teaching rank" score on HLOM records.
     """
 
-    pass
+    counts = []
+    for record in queries.deduped_records():
+        counts.append((
+            record.id,
+            record.metadata['citation_count'])
+        )
+
+    print(counts)

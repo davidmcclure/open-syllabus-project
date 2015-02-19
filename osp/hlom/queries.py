@@ -57,3 +57,15 @@ def records_with_citations():
         .select()
         .where(HLOM_Record.metadata.exists('citation_count'))
     )
+
+
+def deduped_records():
+
+    """
+    Get all HLOM records that have at least one citation.
+    """
+
+    return (
+        records_with_citations()
+        .distinct([HLOM_Record.metadata['deduping_hash']])
+    )
