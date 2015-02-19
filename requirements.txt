@@ -21,8 +21,8 @@ ijson
 anyconfig
 PyYAML
 uwsgi
-boto
 flask
 spacy
+scipy
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
