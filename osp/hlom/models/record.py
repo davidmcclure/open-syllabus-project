@@ -92,6 +92,7 @@ class HLOM_Record(LocalModel):
             'publisher':    self.pymarc.publisher(),
             'subjects':     subjs,
             'notes':        notes,
-            'stored_id':    self.stored_id,
-            'count':        self.count
+            'count':        self.metadata['citation_count'],
+            'rank':         self.metadata['teaching_rank'],
+            'stored_id':    self.stored_id
         }

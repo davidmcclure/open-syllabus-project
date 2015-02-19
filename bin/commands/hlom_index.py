@@ -48,6 +48,9 @@ def create():
                     'count': {
                         'type': 'integer'
                     },
+                    'rank': {
+                        'type': 'integer'
+                    },
                     'stored_id': {
                         'type': 'integer'
                     },
@@ -94,7 +97,7 @@ def insert():
     Index documents.
     """
 
-    query = query_bar(queries.records_with_citations())
+    query = query_bar(queries.deduped_records())
 
     def stream():
         for row in query:

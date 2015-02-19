@@ -62,10 +62,14 @@ def records_with_citations():
 def deduped_records():
 
     """
-    Get all HLOM records that have at least one citation.
+    Get records with distinct deduping hashes.
     """
 
     return (
         records_with_citations()
         .distinct([HLOM_Record.metadata['deduping_hash']])
+        .order_by(
+            HLOM_Record.metadata['deduping_hash'],
+            HLOM_Record.id
+        )
     )

@@ -284,7 +284,7 @@ def write_teaching_rank():
 
     # Rank the counts.
     counts = [p[1] for p in pairs]
-    ranks = rankdata(counts, 'dense')
+    ranks = rankdata(counts, 'max')
 
     # Write the ranks.
     for i, rank in enumerate(bar(ranks)):
