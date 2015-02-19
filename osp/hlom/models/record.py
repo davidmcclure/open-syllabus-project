@@ -70,3 +70,27 @@ class HLOM_Record(LocalModel):
         sha1 = hashlib.sha1()
         sha1.update(''.join(filtered).encode('ascii', 'ignore'))
         return sha1.hexdigest()
+
+
+    @property
+    def document(self):
+
+        """
+        Construct an Elasticsearch document.
+        """
+
+        # Get raw subject / notes values.
+        subjs = [s.format_field() for s in self.pymarc.subjects()]
+        notes = [n.format_field() for n in self.pymarc.notes()]
+
+        return {
+            '_id': self.hash,
+            'author': self.pymarc.author(),
+            'title': self.pymarc.title(),
+            'publisher': self.pymarc.publisher(),
+            'pubyear': self.pymarc.pubyear(),
+            'subjects': subjs,
+            'notes': notes,
+            'stored_id': self.stored_id,
+            'count': self.count
+        }

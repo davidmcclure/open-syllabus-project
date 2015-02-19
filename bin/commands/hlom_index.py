@@ -5,9 +5,10 @@ import click
 import re
 
 from osp.common.models.base import redis, elasticsearch as es
+from osp.common.utils import query_bar
 from osp.citations.hlom.jobs.index import index
 from osp.citations.hlom import queries
-from pymarc import Record
+from elasticsearch.helpers import bulk
 from blessings import Terminal
 from rq import Queue
 
@@ -87,19 +88,18 @@ def count():
 
 
 @cli.command()
-@click.option('--n', default=1000)
-def queue_insert(n):
+def insert():
 
     """
     Index documents.
     """
 
-    queue = Queue(connection=redis)
-    query = queries.records_with_citations()
-    pages = math.ceil(query.count()/n)
+    def stream():
+        for row in query_bar(queries.records_with_citations()):
+            yield row.document
 
-    for page in range(1, pages+1):
-        queue.enqueue(index, page, n, timeout=600)
+    # Batch-insert the documents.
+    bulk(es, stream(), index='hlom', doc_type='record')
 
 
 @cli.command()
