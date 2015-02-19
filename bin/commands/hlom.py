@@ -12,6 +12,8 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
+from clint.textui.progress import bar
+from scipy.stats import rankdata
 from prettytable import PrettyTable
 from rq import Queue
 
@@ -272,11 +274,33 @@ def write_teaching_rank():
     Write a "teaching rank" score on HLOM records.
     """
 
-    counts = []
+    # Get a set of id -> count tuples.
+    pairs = []
     for record in queries.deduped_records():
-        counts.append((
+        pairs.append((
             record.id,
             record.metadata['citation_count'])
         )
 
-    print(counts)
+    # Rank the counts.
+    counts = [p[1] for p in pairs]
+    ranks = rankdata(counts, 'dense')
+
+    # Write the ranks.
+    for i, rank in enumerate(bar(ranks)):
+
+        id = pairs[i][0]
+
+        # Get a modified HSTORE value.
+        updated = HLOM_Record.metadata.update(
+            teaching_rank=str(rank)
+        )
+
+        # Update the HLOM record.
+        query = (
+            HLOM_Record
+            .update(metadata=updated)
+            .where(HLOM_Record.id==id)
+        )
+
+        query.execute()
