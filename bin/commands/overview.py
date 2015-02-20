@@ -21,7 +21,7 @@ def count_objects():
     Print the store object count.
     """
 
-    click.echo(len(ov.list_objects().json()))
+    click.echo(ov.count_objects())
 
 
 @cli.command()

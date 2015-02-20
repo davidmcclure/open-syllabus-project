@@ -180,6 +180,15 @@ class Overview:
         return self.overview.get(self.objects_url)
 
 
+    def count_objects(self):
+
+        """
+        Count the number of store objects.
+        """
+
+        return len(self.list_objects().json())
+
+
     def get_object(self, id):
 
         """
