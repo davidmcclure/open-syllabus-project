@@ -48,7 +48,7 @@ def queue_location_matching():
 
 @cli.command()
 @click.option('--page', default=50)
-def write_document_objects(page):
+def push_document_objects(page):
 
     """
     Write document objects into Overview.

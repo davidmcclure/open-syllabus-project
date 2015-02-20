@@ -76,7 +76,7 @@ def queue_geocoding():
 
 @cli.command()
 @click.option('--page', default=50)
-def write_objects(page):
+def push_objects(page):
 
     """
     Write store objects into Overview.
