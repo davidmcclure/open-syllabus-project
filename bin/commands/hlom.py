@@ -181,8 +181,10 @@ def pull_overview_ids():
     """
 
     ov = Overview.from_env()
+    objects = ov.list_objects().json()
+    size = ov.count_objects()
 
-    for obj in ov.list_objects().json():
+    for obj in bar(objects, expected_size=size):
 
         query = (
             HLOM_Record
