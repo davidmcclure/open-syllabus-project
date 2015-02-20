@@ -12,6 +12,7 @@ from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import Institution_LonLat
 from osp.institutions.jobs.geocode import geocode
 from osp.institutions import queries
+from clint.textui.progress import bar
 from rq import Queue
 from peewee import *
 
@@ -121,8 +122,10 @@ def pull_overview_ids():
     """
 
     ov = Overview.from_env()
+    objects = ov.list_objects().json()
+    size = ov.count_objects()
 
-    for obj in ov.list_objects().json():
+    for obj in bar(objects, expected_size=size):
 
         query = (
             Institution
