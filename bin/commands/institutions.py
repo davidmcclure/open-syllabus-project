@@ -7,6 +7,7 @@ import csv
 from osp.common.config import config
 from osp.common.models.base import pg_local, redis
 from osp.common.overview import Overview
+from osp.common.utils import query_bar, grouper
 from osp.institutions.models.institution import Institution
 from osp.institutions.models.lonlat import Institution_LonLat
 from osp.institutions.jobs.geocode import geocode
@@ -75,8 +76,8 @@ def queue_geocoding():
 
 
 @cli.command()
-@click.option('--page', default=50)
-def push_objects(page):
+@click.option('--page_len', default=50)
+def push_objects(page_len):
 
     """
     Write store objects into Overview.
@@ -84,29 +85,32 @@ def push_objects(page):
 
     ov = Overview.from_env()
 
-    objects = []
-    for inst in queries.store_objects().naive().iterator():
+    # Wrap the query in a progress bar.
+    query = query_bar(queries.store_objects())
 
-        json = { k: inst.metadata[k] for k in [
-            'Institution_Name',
-            'Campus_Name',
-            'Institution_Web_Address'
-        ]}
+    for group in grouper(query, page_len):
 
-        json.update({
-            'Longitude': inst.lon,
-            'Latitude': inst.lat
-        })
+        objects = []
+        for inst in group:
 
-        objects.append({
-            'indexedLong': inst.id,
-            'indexedString': inst.metadata['Institution_Name'],
-            'json': json
-        })
+            json = { k: inst.metadata[k] for k in [
+                'Institution_Name',
+                'Campus_Name',
+                'Institution_Web_Address'
+            ]}
 
-    # Write the objects in pages.
-    for i in range(0, len(objects), page):
-        ov.post_object(objects[i:i+page])
+            json.update({
+                'Longitude': inst.lon,
+                'Latitude': inst.lat
+            })
+
+            objects.append({
+                'indexedLong': inst.id,
+                'indexedString': inst.metadata['Institution_Name'],
+                'json': json
+            })
+
+        ov.post_object(objects)
 
 
 @cli.command()
