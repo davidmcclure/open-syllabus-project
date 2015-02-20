@@ -6,6 +6,7 @@ import csv
 
 from osp.common.models.base import pg_remote, redis
 from osp.common.overview import Overview
+from osp.common.utils import query_bar, grouper
 from osp.locations.models.doc_inst import Document_Institution
 from osp.locations.jobs.locate import queue_locate
 from osp.locations import queries
@@ -47,8 +48,8 @@ def queue_location_matching():
 
 
 @cli.command()
-@click.option('--page', default=1000)
-def push_document_objects(page):
+@click.option('--page_len', default=1000)
+def push_document_objects(page_len):
 
     """
     Write document objects into Overview.
@@ -56,10 +57,13 @@ def push_document_objects(page):
 
     ov = Overview.from_env()
 
-    objects = []
-    for d2i in queries.document_objects().naive().iterator():
-        objects.append([d2i.did, d2i.iid])
+    # Wrap the query in a progress bar.
+    query = query_bar(queries.document_objects())
 
-    # Write the objects in pages.
-    for i in range(0, len(objects), page):
-        ov.post_document_objects(objects[i:i+page])
+    for group in grouper(query, page_len):
+
+        objects = []
+        for d2i in group:
+            objects.append([d2i.did, d2i.iid])
+
+        ov.post_document_objects(objects)
