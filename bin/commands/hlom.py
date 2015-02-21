@@ -272,6 +272,16 @@ def write_deduping_hash():
 
 
 @cli.command()
+def write_blacklist():
+
+    """
+    Flag blacklisted HLOM records.
+    """
+
+    pass
+
+
+@cli.command()
 def write_metrics():
 
     """

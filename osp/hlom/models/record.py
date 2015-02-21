@@ -85,7 +85,7 @@ class HLOM_Record(LocalModel):
         notes = [n.format_field() for n in self.pymarc.notes()]
 
         return {
-            '_id':          self.hash,
+            '_id':          self.control_number,
             'author':       clean_field(self.pymarc.author()),
             'title':        clean_field(self.pymarc.title()),
             'pubyear':      self.pymarc.pubyear(),
