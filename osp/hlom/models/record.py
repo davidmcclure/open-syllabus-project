@@ -94,5 +94,6 @@ class HLOM_Record(LocalModel):
             'notes':        notes,
             'count':        int(self.metadata['citation_count']),
             'rank':         int(self.metadata['teaching_rank']),
+            'percentile':   float(self.metadata['teaching_percentile']),
             'stored_id':    self.stored_id
         }

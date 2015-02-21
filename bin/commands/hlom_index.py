@@ -51,6 +51,9 @@ def create():
                     'rank': {
                         'type': 'integer'
                     },
+                    'percentile': {
+                        'type': 'float'
+                    },
                     'stored_id': {
                         'type': 'integer'
                     },
