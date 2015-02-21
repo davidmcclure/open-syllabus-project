@@ -272,13 +272,28 @@ def write_deduping_hash():
 
 
 @cli.command()
-def write_blacklist():
+@click.argument('in_file', type=click.File('rt'))
+def write_blacklist(in_file):
 
     """
     Flag blacklisted HLOM records.
     """
 
-    pass
+    for number in in_file.read().splitlines():
+
+        # Get a modified HSTORE value.
+        updated = HLOM_Record.metadata.update(
+            blacklisted=''
+        )
+
+        # Update the HLOM record.
+        query = (
+            HLOM_Record
+            .update(metadata=updated)
+            .where(HLOM_Record.control_number==number)
+        )
+
+        query.execute()
 
 
 @cli.command()

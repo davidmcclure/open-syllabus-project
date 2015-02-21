@@ -67,6 +67,7 @@ def deduped_records():
 
     return (
         records_with_citations()
+        .where(~HLOM_Record.metadata.exists('blacklisted'))
         .distinct([HLOM_Record.metadata['deduping_hash']])
         .order_by(
             HLOM_Record.metadata['deduping_hash'],
