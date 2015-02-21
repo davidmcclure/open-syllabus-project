@@ -12,6 +12,7 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
+from osp.corpus.models.document import Document
 from clint.textui.progress import bar
 from scipy.stats import rankdata
 from prettytable import PrettyTable
@@ -270,10 +271,10 @@ def write_deduping_hash():
 
 
 @cli.command()
-def write_teaching_rank():
+def write_metrics():
 
     """
-    Write a "teaching rank" score on HLOM records.
+    Write ranking scores for HLOM records.
     """
 
     # Get a set of id -> count tuples.
@@ -284,28 +285,35 @@ def write_teaching_rank():
             record.metadata['citation_count'])
         )
 
-    # Rank the counts.
+    # Get min/max ranks.
     counts = [p[1] for p in pairs]
-    ranks = rankdata(counts, 'max')
+    max_ranks = rankdata(counts, 'max')
+    min_ranks = rankdata(counts, 'min')
 
-    # Rank ascending.
-    ranks = ranks.max()+1 - ranks
+    # Rank in ascending order.
+    max_ranks = max_ranks.max()+1 - max_ranks
+    min_ranks = min_ranks.max()+1 - min_ranks
 
-    # Write the ranks.
-    for i, rank in enumerate(bar(ranks)):
+    text_count = len(pairs)
+    for i, pair in enumerate(bar(pairs)):
 
-        id = pairs[i][0]
+        max_rank = int(max_ranks[i])
+        min_rank = int(min_ranks[i])
+
+        # Percentage of texts with fewer assignments.
+        percentile = ((text_count-min_rank)/text_count)*100
 
         # Get a modified HSTORE value.
         updated = HLOM_Record.metadata.update(
-            teaching_rank=str(int(rank))
+            teaching_rank=str(max_rank),
+            teaching_percentile=str(percentile)
         )
 
         # Update the HLOM record.
         query = (
             HLOM_Record
             .update(metadata=updated)
-            .where(HLOM_Record.id==id)
+            .where(HLOM_Record.id==pair[0])
         )
 
         query.execute()
