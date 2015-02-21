@@ -24,6 +24,7 @@ uwsgi
 flask
 boto
 spacy
+numpy
 scipy
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc

@@ -2,6 +2,7 @@
 
 import click
 import sys
+import numpy as np
 import csv
 
 from osp.common.models.base import pg_local, pg_remote, redis
@@ -294,14 +295,14 @@ def write_metrics():
     max_ranks = max_ranks.max()+1 - max_ranks
     min_ranks = min_ranks.max()+1 - min_ranks
 
-    text_count = len(pairs)
+    log_max = np.log(len(pairs))
     for i, pair in enumerate(bar(pairs)):
 
         max_rank = int(max_ranks[i])
         min_rank = int(min_ranks[i])
 
-        # Percentage of texts with fewer assignments.
-        percentile = ((text_count-min_rank)/text_count)*100
+        # Log-percentage in the rank stack.
+        percentile = ((log_max-np.log(min_rank))/log_max)*100
 
         # Get a modified HSTORE value.
         updated = HLOM_Record.metadata.update(
