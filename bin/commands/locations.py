@@ -48,7 +48,7 @@ def queue_location_matching():
 
 
 @cli.command()
-@click.option('--page_len', default=1000)
+@click.option('--page_len', default=3000)
 def push_document_objects(page_len):
 
     """
