@@ -3,6 +3,7 @@
 import click
 
 from osp.common.overview import Overview
+from clint.textui.progress import bar
 
 
 ov = Overview.from_env()
@@ -38,6 +39,23 @@ def push_document_objects():
     Print the document-store objects.
     """
 
-    objects = ov.list_objects().json()
-    documents = ov.list_documents({'limit': 1000})
-    print(documents)
+    objs = ov.list_objects().json()
+    docs = ov.list_documents({'limit': 1000}).json()['items']
+
+    for i in bar(range(1000)):
+
+        links = []
+        for j in range(i):
+            links.append([docs[j]['id'], objs[j]['id']])
+
+        ov.post_document_objects(links)
+
+
+@cli.command()
+def counts():
+
+    """
+    Print the document-object counts.
+    """
+
+    print(ov.list_document_object_counts())

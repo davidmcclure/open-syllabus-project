@@ -62,6 +62,7 @@ class Overview:
     # -------------
 
 
+    @property
     def documents_url(self):
         return self.url+'/document-sets/'+str(self.set_id)+'/documents'
 
@@ -107,7 +108,7 @@ class Overview:
         """
 
         return self.overview.get(
-            self.documents_url(), params=params
+            self.documents_url, params=params
         )
 
 
@@ -122,7 +123,7 @@ class Overview:
         params.update({'stream': 'true'})
 
         request = self.overview.get(
-            self.documents_url(), params=params, stream=True
+            self.documents_url, params=params, stream=True
         )
 
         for doc in ijson.items(request.raw, 'items.item'):
