@@ -1,8 +1,9 @@
 
 
 from osp.corpus.models.document import Document
-from osp.institutions.models.institution import Institution
 from osp.locations.models.doc_inst import Document_Institution as DocInst
+from osp.institutions.models.institution import Institution
+from osp.institutions.models.lonlat import Institution_LonLat as LonLat
 from peewee import *
 
 
@@ -20,6 +21,8 @@ def document_objects():
         .select(iid, did)
         .join(Institution)
         .join(Document, on=(DocInst.document==Document.path))
+        .switch(Institution)
+        .join(LonLat)
         .where(~(Document.stored_id >> None))
         .distinct([DocInst.document])
         .order_by(
