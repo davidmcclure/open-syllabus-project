@@ -20,9 +20,8 @@ def document_objects():
         DocInst
         .select(iid, did)
         .join(Institution)
-        .join(Document, on=(DocInst.document==Document.path))
-        .switch(Institution)
         .join(LonLat)
+        .join(Document, on=(DocInst.document==Document.path))
         .where(~(Document.stored_id >> None))
         .distinct([DocInst.document])
         .order_by(
