@@ -21,21 +21,24 @@ class Overview:
 
         return cls(
             config['overview']['api_url'],
-            config['overview']['api_token']
+            config['overview']['api_token'],
+            config['overview']['set_id']
         )
 
 
-    def __init__(self, url, token):
+    def __init__(self, url, token, set_id):
 
         """
         Initialize the session, set headers.
 
-        :param url: The API url.
+        :param url: The API endpoint.
         :param token: The API token.
+        :param set_id: The document set ID.
         """
 
         self.url = url.rstrip('/')
         self.token = token
+        self.set_id = set_id
 
         # Initialize the session.
         self.overview = requests.Session()
@@ -59,12 +62,12 @@ class Overview:
     # -------------
 
 
-    def documents_url(self, set_id):
-        return self.url+'/document-sets/'+str(set_id)+'/documents'
+    def documents_url(self):
+        return self.url+'/document-sets/'+str(self.set_id)+'/documents'
 
 
-    def document_url(self, set_id, doc_id):
-        return self.documents_url(set_id)+'/'+str(doc_id)
+    def document_url(self, doc_id):
+        return self.documents_url()+'/'+str(doc_id)
 
 
     @property
@@ -95,49 +98,46 @@ class Overview:
     # -------------
 
 
-    def list_documents(self, set_id, params={}):
+    def list_documents(self, params={}):
 
         """
         Get a list of documents.
 
-        :param set_id: The document set ID.
         :param params: Query parameters.
         """
 
         return self.overview.get(
-            self.documents_url(set_id), params=params
+            self.documents_url(), params=params
         )
 
 
-    def stream_documents(self, set_id, params={}):
+    def stream_documents(self, params={}):
 
         """
         Stream all documents.
 
-        :param set_id: The document set ID.
         :param params: Query parameters.
         """
 
         params.update({'stream': 'true'})
 
         request = self.overview.get(
-            self.documents_url(set_id), params=params, stream=True
+            self.documents_url(), params=params, stream=True
         )
 
         for doc in ijson.items(request.raw, 'items.item'):
             yield doc
 
 
-    def get_document(self, set_id, doc_id):
+    def get_document(self, doc_id):
 
         """
         Get a list of documents.
 
-        :param set_id: The document set ID.
         :param doc_id: The document ID.
         """
 
-        return self.overview.get(self.document_url(set_id, doc_id))
+        return self.overview.get(self.document_url(doc_id))
 
 
     def put_state(self, state):

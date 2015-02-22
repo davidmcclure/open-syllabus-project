@@ -54,8 +54,7 @@ def pull_overview_ids(page_len):
     ov = Overview.from_env()
 
     # Get the document streamer.
-    id = config['overview']['doc_set']
-    stream = ov.stream_documents(id)
+    stream = ov.stream_documents()
 
     # Generate groups of documents.
     for group in grouper(stream, page_len):
