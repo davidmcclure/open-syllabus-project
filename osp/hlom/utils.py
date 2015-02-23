@@ -29,4 +29,5 @@ def clean_field(field):
     :param field: The field value.
     """
 
-    return re.sub('^[\W\s]*|[\W\s]*$', '', field)
+    punct = '^[\W\s]*|[\W\s]*$'
+    return re.sub(punct, '', field) if field else None
