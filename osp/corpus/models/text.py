@@ -9,5 +9,5 @@ from peewee import *
 class Document_Text(LocalModel):
 
     created = DateTimeField(default=datetime.datetime.now)
-    document = CharField()
+    document = CharField(index=True)
     text = TextField()

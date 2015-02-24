@@ -10,5 +10,5 @@ from peewee import *
 class Document_Institution(RemoteModel):
 
     created = DateTimeField(default=datetime.datetime.now)
+    document = CharField(index=True)
     institution = ForeignKeyField(Institution)
-    document = CharField()

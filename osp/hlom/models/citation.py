@@ -8,5 +8,5 @@ from peewee import *
 
 class HLOM_Citation(RemoteModel):
 
-    document = CharField()
-    record = CharField()
+    document = CharField(index=True)
+    record = CharField(index=True)
