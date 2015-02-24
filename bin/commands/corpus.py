@@ -50,10 +50,9 @@ def insert_documents():
     Insert documents in the database.
     """
 
-    segments = Corpus.from_env().segments()
-    itr = bar(segments, expected_size=4096)
+    segments = Corpus.from_env().segments_bar()
 
-    for segment in itr:
+    for segment in segments:
 
         rows = []
         for syllabus in segment.syllabi():
