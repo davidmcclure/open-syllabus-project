@@ -89,6 +89,16 @@ class Corpus:
                 yield syllabus
 
 
+    def segments_bar(self):
+
+        """
+        Wrap the segments iterator in a progress bar.
+        """
+
+        for segment in bar(self.segments(), expected_size=self.s2):
+            yield segment
+
+
     def syllabi_bar(self):
 
         """
