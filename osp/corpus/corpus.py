@@ -89,7 +89,7 @@ class Corpus:
                 yield syllabus
 
 
-    def cli_syllabi(self):
+    def syllabi_bar(self):
 
         """
         Wrap the syllabi iterator in a progress bar.

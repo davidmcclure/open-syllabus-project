@@ -101,7 +101,7 @@ def queue_read_format():
 
     queue = Queue(connection=redis)
 
-    for syllabus in Corpus.from_env().cli_syllabi():
+    for syllabus in Corpus.from_env().syllabi_bar():
         queue.enqueue(read_format, syllabus.path)
 
 
@@ -114,7 +114,7 @@ def queue_read_text():
 
     queue = Queue(connection=redis)
 
-    for syllabus in Corpus.from_env().cli_syllabi():
+    for syllabus in Corpus.from_env().syllabi_bar():
         queue.enqueue(read_text, syllabus.path)
 
 
