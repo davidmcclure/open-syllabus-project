@@ -8,11 +8,23 @@ import magic
 import re
 
 import osp.corpus.utils as utils
+from osp.common.config import config
 from contextlib import contextmanager
 from functools import lru_cache
 
 
 class Syllabus:
+
+
+    @classmethod
+    def from_env(cls, relative_path):
+
+        """
+        Get an instance from a corpus-relative path.
+        """
+
+        path = os.path.join(config['osp']['corpus'], relative_path)
+        return cls(path)
 
 
     def __init__(self, path):

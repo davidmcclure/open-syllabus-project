@@ -13,9 +13,9 @@ def read_format(id):
     :param id: The document id.
     """
 
-    doc = Document.select(Document.id==id)
+    doc = Document.get(Document.id==id)
 
     Document_Format.create(
         format=doc.syllabus.libmagic_file_type,
-        document=syllabus.relative_path
+        document=doc.id
     )

@@ -20,4 +20,4 @@ class Document(LocalModel):
         Wrap the row as an OSP Syllabus instance.
         """
 
-        pass
+        return Syllabus.from_env(self.path)
