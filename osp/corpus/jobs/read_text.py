@@ -2,26 +2,27 @@
 
 from osp.common.models.base import redis
 from osp.corpus.syllabus import Syllabus
+from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 from osp.corpus.corpus import Corpus
 from rq import Queue
 
 
-def read_text(path):
+def read_text(id):
 
     """
-    Write the document as plaintext.
+    Write the document as plain text.
 
-    :param str path: The document path.
+    :param path: The document id.
     """
 
-    syllabus = Syllabus(path)
+    doc = Document.get(Document.id==id)
 
-    if syllabus.text:
+    if doc.syllabus.text:
 
         Document_Text.create(
-            text=syllabus.unbroken_text,
-            document=syllabus.relative_path
+            text=doc.syllabus.unbroken_text,
+            document=doc.id
         )
 
 

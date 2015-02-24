@@ -113,8 +113,8 @@ def queue_read_text():
 
     queue = Queue(connection=redis)
 
-    for syllabus in Corpus.from_env().syllabi_bar():
-        queue.enqueue(read_text, syllabus.path)
+    for doc in query_bar(Document.select()):
+        queue.enqueue(read_text, doc.id)
 
 
 @cli.command()
