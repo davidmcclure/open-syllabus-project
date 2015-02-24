@@ -44,6 +44,27 @@ def init_db():
 
 
 @cli.command()
+def insert_documents():
+
+    """
+    Insert documents in the database.
+    """
+
+    segments = Corpus.from_env().segments()
+    itr = bar(segments, expected_size=4096)
+
+    for segment in itr:
+
+        rows = []
+        for syllabus in segment.syllabi():
+            rows.append({'path': syllabus.relative_path})
+
+        # Bulk-insert the segment.
+        with pg_local.transaction():
+            Document.insert_many(rows).execute()
+
+
+@cli.command()
 @click.option('--page_len', default=10000)
 def pull_overview_ids(page_len):
 
