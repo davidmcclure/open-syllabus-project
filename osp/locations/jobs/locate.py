@@ -3,27 +3,28 @@
 from osp.common.models.base import redis
 from osp.corpus.syllabus import Syllabus
 from osp.corpus.corpus import Corpus
+from osp.corpus.models.document import Document
 from osp.institutions.models.institution import Institution
 from osp.locations.models.doc_inst import Document_Institution
 from rq import Queue
 
 
-def locate(path):
+def locate(id):
 
     """
     Find an institution with the same base URL as a document.
 
-    :param str path: The document path.
+    :param id: The document id.
     """
 
-    syllabus = Syllabus(path)
+    doc = Document.get(Document.id==id)
 
     # Break if no manifest.
-    if not syllabus.registered_domain:
+    if not doc.syllabus.registered_domain:
         return
 
     # Form the domain query.
-    q = '%'+syllabus.registered_domain+'%'
+    q = '%'+doc.syllabus.registered_domain+'%'
 
     match = (
         Institution
@@ -37,7 +38,7 @@ def locate(path):
 
         Document_Institution.create(
             institution=match,
-            document=syllabus.relative_path
+            document=doc.id
         )
 
 

@@ -8,7 +8,7 @@ from osp.common.models.base import pg_remote, redis
 from osp.common.overview import Overview
 from osp.common.utils import query_bar, grouper
 from osp.locations.models.doc_inst import Document_Institution
-from osp.locations.jobs.locate import queue_locate
+from osp.locations.jobs.locate import locate
 from osp.locations import queries
 from osp.institutions.models.institution import Institution
 from osp.corpus.corpus import Corpus
@@ -37,14 +37,16 @@ def init_db():
 
 
 @cli.command()
-def queue_location_matching():
+def queue_matching():
 
     """
     Queue institution matching tasks in the worker.
     """
 
     queue = Queue(connection=redis)
-    queue.enqueue(queue_locate)
+
+    for doc in query_bar(Document.select()):
+        queue.enqueue(locate, doc.id)
 
 
 @cli.command()
