@@ -100,8 +100,8 @@ def queue_read_format():
 
     queue = Queue(connection=redis)
 
-    for syllabus in Corpus.from_env().syllabi_bar():
-        queue.enqueue(read_format, syllabus.path)
+    for doc in query_bar(Document.select()):
+        queue.enqueue(read_format, doc.id)
 
 
 @cli.command()
