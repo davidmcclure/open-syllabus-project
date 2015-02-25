@@ -38,7 +38,7 @@ def query(id):
         for hit in results['hits']['hits']:
             citations.append({
                 'document': hit['_id'],
-                'record': row.control_number
+                'record': row.id
             })
 
         # Write the citation links.

@@ -22,7 +22,7 @@ def index(page_number, records_per_page):
     docs = []
     for doc in page.iterator():
         docs.append({
-            '_id': doc.document,
+            '_id': doc.id,
             'body': doc.text
         })
 
