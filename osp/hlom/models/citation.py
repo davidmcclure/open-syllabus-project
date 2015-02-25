@@ -10,5 +10,6 @@ from peewee import *
 
 class HLOM_Citation(RemoteModel):
 
+    created = DateTimeField(default=datetime.datetime.now)
     document = ForeignKeyField(Document)
     record = ForeignKeyField(HLOM_Record)
