@@ -14,6 +14,7 @@ from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
 from osp.corpus.models.document import Document
+from playhouse.postgres_ext import ServerSide
 from clint.textui.progress import bar
 from scipy.stats import rankdata
 from prettytable import PrettyTable
@@ -84,7 +85,7 @@ def queue_queries():
 
     queue = Queue(connection=redis)
 
-    for record in HLOM_Record.select().iterator():
+    for record in ServerSide(HLOM_Record.select()):
         queue.enqueue(query, record.id)
 
 

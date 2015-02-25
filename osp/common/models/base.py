@@ -3,11 +3,11 @@
 import os
 import logging
 
+from osp.common.config import config
 from redis import StrictRedis
 from playhouse.postgres_ext import PostgresqlExtDatabase
-from peewee import *
 from elasticsearch import Elasticsearch
-from osp.common.config import config
+from peewee import *
 
 
 # Local (worker) database.
