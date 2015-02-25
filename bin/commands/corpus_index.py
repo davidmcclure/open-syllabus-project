@@ -3,8 +3,8 @@
 import click
 import math
 
+from osp.common.utils import query_bar
 from osp.common.models.base import redis, elasticsearch as es
-from osp.corpus.jobs.index import index
 from osp.corpus.queries import all_document_texts
 from elasticsearch.helpers import bulk
 from blessings import Terminal
@@ -61,19 +61,20 @@ def count():
 
 
 @cli.command()
-@click.option('--n', default=1000)
-def queue_insert(n):
+def insert():
 
     """
     Index documents.
     """
 
-    queue = Queue(connection=redis)
-    query = all_document_texts()
-    pages = math.ceil(query.count()/n)
+    query = query_bar(all_document_texts())
 
-    for page in range(1, pages+1):
-        queue.enqueue(index, page, n, timeout=600)
+    def stream():
+        for row in query:
+            yield {'_id': row.id, 'body': row.text}
+
+    # Batch-insert the documents.
+    bulk(es, stream(), index='osp', doc_type='syllabus')
 
 
 @cli.command()
