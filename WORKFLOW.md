@@ -47,7 +47,7 @@
 
 1. `osp hlom write_citation_counts` - Denormalize the citation counts for each record.
 
-1. `osp hlom write_blacklist [PATH]` - Exclude manually-identifier nonsense records, where `PATH` is a .txt file with a list of MARC control numbers.
+1. `osp hlom write_blacklist [PATH]` - Exclude manually-identified nonsense records, where `PATH` is a .txt file with a list of MARC control numbers.
 
 1. `osp write_deduping_hash` - Write a hash onto each record that (in theory) collapses together the unique title/author combinations.
 
