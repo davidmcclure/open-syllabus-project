@@ -23,7 +23,7 @@
 
 1. `osp corpus_index create` - Create the ES index, set the mapping.
 
-1. `osp corpus_index queue_insert` - Queue document indexing jobs. (**TODO**: Just use the built-in elasticsearch-py bulk helpers here.)
+1. `osp corpus_index insert` - Queue document indexing jobs.
 
 ## Extract citations
 
