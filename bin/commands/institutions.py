@@ -39,7 +39,7 @@ def init_db():
 
 @cli.command()
 @click.argument('in_file', type=click.File('rt'))
-def insert_institutions(in_file):
+def insert(in_file):
 
     """
     Write the institutions into the database.

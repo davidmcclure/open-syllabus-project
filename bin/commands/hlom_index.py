@@ -6,7 +6,6 @@ import re
 
 from osp.common.models.base import redis, elasticsearch as es
 from osp.common.utils import query_bar
-from osp.citations.hlom.jobs.index import index
 from osp.citations.hlom import queries
 from elasticsearch.helpers import bulk
 from blessings import Terminal
