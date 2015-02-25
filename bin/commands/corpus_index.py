@@ -88,15 +88,28 @@ def search(q, size, start, slop):
     Search documents.
     """
 
-    results = es.search('osp', 'syllabus', {
+    results = es.search('osp', 'syllabus', timeout=30, body={
         'size': size,
         'from': start,
         'fields': [],
         'query': {
-            'match_phrase': {
-                'body': {
-                    'query': q,
-                    'slop': slop
+            'bool': {
+                'must': {
+                    'match': {
+                        'body': {
+                            'query': q,
+                            'minimum_should_match': '60%',
+                            'cutoff_frequency': 0.001
+                        }
+                    }
+                },
+                'should': {
+                    'match_phrase': {
+                        'body': {
+                            'query': q,
+                            'slop': slop
+                        }
+                    }
                 }
             }
         },
