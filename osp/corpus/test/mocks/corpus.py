@@ -10,17 +10,15 @@ class MockCorpus:
 
 
     def __init__(self):
-        """
-        Create the temporary directory.
-        """
+        """ Create the temporary directory. """
         self.dir = tempfile.mkdtemp()
 
 
     def add_segment(self, name):
-        """
-        Add a segment directory.
+        """ Add a segment directory.
 
-        :param name: The segment name.
+        Args:
+            name (str): The segment name.
         """
         path = os.path.join(self.dir, name)
 
@@ -29,12 +27,15 @@ class MockCorpus:
 
 
     def add_pdf(self, segment, name, page_texts):
-        """
-        Add a PDF file.
+        """ Add a PDF file.
 
-        :param segment: The segment name.
-        :param name: The file name.
-        :param page_texts: A list of page texts.
+        Args:
+            segment (str): The segment name.
+            name (str): The file name
+            page_texts (list): A list of page texts.
+
+        Returns:
+            file: A handle on the new file.
         """
         path = os.path.join(self.dir, segment+'/'+name)
         canvas = Canvas(path)
@@ -44,3 +45,4 @@ class MockCorpus:
             canvas.showPage()
 
         canvas.save()
+        return open(path, 'rb')
