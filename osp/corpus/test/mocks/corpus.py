@@ -34,7 +34,7 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_pdf(self, segment, name, page_texts):
+    def add_pdf(self, segment, name, text):
 
         """
         Add a PDF file.
@@ -42,7 +42,7 @@ class MockCorpus:
         Args:
             segment (str): The segment name.
             name (str): The file name.
-            page_texts (list): A list of page texts.
+            text (str): The file content.
 
         Returns:
             file: A handle on the new file.
@@ -51,9 +51,8 @@ class MockCorpus:
         path = os.path.join(self.dir, segment+'/'+name)
         canvas = Canvas(path)
 
-        for text in page_texts:
-            canvas.drawString(12, 720, text)
-            canvas.showPage()
+        canvas.drawString(12, 720, text)
+        canvas.showPage()
 
         canvas.save()
         return open(path, 'rb')

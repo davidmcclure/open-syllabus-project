@@ -16,8 +16,8 @@ def test_extract_text():
     corpus.add_segment('000')
 
     # Create a PDF with 3 pages.
-    handle = corpus.add_pdf('000', 'pdf', ['p1', 'p2', 'p3'])
+    handle = corpus.add_pdf('000', 'pdf', 'text')
 
     # Should extract the text.
-    pages = pdf_to_text(handle.name).split()
-    assert pages == ['p1', 'p2', 'p3']
+    text = pdf_to_text(handle.name).strip()
+    assert text == 'text'
