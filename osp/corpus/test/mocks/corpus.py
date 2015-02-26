@@ -4,6 +4,7 @@ import os
 import tempfile
 
 from reportlab.pdfgen.canvas import Canvas
+from docx import Document
 
 
 class MockCorpus:
@@ -40,7 +41,7 @@ class MockCorpus:
 
         Args:
             segment (str): The segment name.
-            name (str): The file name
+            name (str): The file name.
             page_texts (list): A list of page texts.
 
         Returns:
@@ -55,4 +56,27 @@ class MockCorpus:
             canvas.showPage()
 
         canvas.save()
+        return open(path, 'rb')
+
+
+    def add_docx(self, segment, name, text):
+
+        """
+        Add a .docx file.
+
+        Args:
+            segment (str): The segment name.
+            name (str): The file name.
+            text (str): The file content.
+
+        Returns:
+            file: A handle on the new file.
+        """
+
+        docx = Document()
+        docx.add_paragraph(text)
+
+        path = os.path.join(self.dir, segment+'/'+name)
+        docx.save(path)
+
         return open(path, 'rb')

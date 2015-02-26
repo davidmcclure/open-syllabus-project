@@ -28,6 +28,7 @@ numpy
 scipy
 reportlab
 pdfminer3k
+python-docx
 pytest
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
