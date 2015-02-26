@@ -101,3 +101,16 @@ def office_to_text(data):
     )
 
     return r.text
+
+
+def tika_is_online():
+
+    """
+    Is the Tika server available?
+
+    Returns:
+        bool: True if Tika is reachable.
+    """
+
+    r = requests.get(config['tika']['server'])
+    return r.status_code == 200
