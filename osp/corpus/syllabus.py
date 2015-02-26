@@ -3,7 +3,6 @@
 import os
 import tldextract
 import re
-import PyPDF2
 import magic
 import re
 

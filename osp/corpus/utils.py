@@ -6,7 +6,6 @@ import requests
 
 from osp.common.config import config
 from bs4 import BeautifulSoup
-from PyPDF2 import PdfFileReader
 
 
 def requires_attr(attr):
@@ -55,21 +54,16 @@ def html_to_text(html, exclude=['script', 'style']):
     return soup.get_text()
 
 
-def pdf_to_text(pdf):
+def pdf_to_text(path):
 
     """
-    Convert HTML to text.
+    Convert a PDF to text.
 
-    :param pdf: A PDF file handle.
+    :param path: The file path.
     """
 
-    reader = PdfFileReader(pdf)
-
-    pages = []
-    for page in reader.pages:
-        pages.append(page.extractText())
-
-    return ' '.join(pages)
+    text = subprocess.check_output(['pdf2txt.py', path])
+    return text.decode('utf8')
 
 
 def office_to_text(data):

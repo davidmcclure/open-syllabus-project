@@ -24,9 +24,10 @@ uwsgi
 flask
 boto
 spacy
-reportlab
-pytest
 numpy
 scipy
+reportlab
+pdfminer3k
+pytest
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
