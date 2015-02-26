@@ -13,7 +13,6 @@ def test_extract_text():
     """
 
     corpus = MockCorpus()
-    corpus.add_segment('000')
 
     # Create a PDF with 3 pages.
     handle = corpus.add_file('000', 'text', 'pdf')
