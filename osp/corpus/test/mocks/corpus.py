@@ -16,7 +16,7 @@ class MockCorpus:
 
     def add_segment(self, name):
         """
-        Create a segment directory.
+        Add a segment directory.
 
         :param name: The segment name.
         """
@@ -24,3 +24,14 @@ class MockCorpus:
 
         if not os.path.exists(path):
             os.makedirs(path)
+
+
+    def add_pdf(self, segment, name, page_texts):
+        """
+        Add a PDF file.
+
+        :param segment: The segment name.
+        :param name: The file name.
+        :param page_texts: A list of page texts.
+        """
+        pass

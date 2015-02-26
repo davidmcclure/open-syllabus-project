@@ -3,7 +3,6 @@
 import pytest
 
 from osp.corpus.utils import pdf_to_text
-from PyPDF2 import PdfFileWriter
 
 
 @pytest.fixture

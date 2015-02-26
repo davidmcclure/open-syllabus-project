@@ -24,6 +24,7 @@ uwsgi
 flask
 boto
 spacy
+reportlab
 pytest
 numpy
 scipy
