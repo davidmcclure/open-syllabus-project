@@ -3,8 +3,19 @@
 import os
 import tempfile
 
+from abc import ABCMeta
 from reportlab.pdfgen.canvas import Canvas
 from docx import Document
+
+
+class MockFile(metaclass=ABCMeta):
+
+    @abstractmethod
+    def write_file():
+        pass
+
+    def write_log():
+        pass
 
 
 class MockCorpus:
@@ -34,7 +45,7 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_pdf(self, segment, name, text):
+    def add_pdf(self, segment, name, content):
 
         """
         Add a PDF file.
@@ -42,7 +53,7 @@ class MockCorpus:
         Args:
             segment (str): The segment name.
             name (str): The file name.
-            text (str): The file content.
+            content (str): The file content.
 
         Returns:
             file: A handle on the new file.
@@ -51,14 +62,14 @@ class MockCorpus:
         path = os.path.join(self.dir, segment+'/'+name)
         canvas = Canvas(path)
 
-        canvas.drawString(12, 720, text)
+        canvas.drawString(12, 720, content)
         canvas.showPage()
 
         canvas.save()
         return open(path, 'rb')
 
 
-    def add_docx(self, segment, name, text):
+    def add_docx(self, segment, name, content):
 
         """
         Add a .docx file.
@@ -66,14 +77,14 @@ class MockCorpus:
         Args:
             segment (str): The segment name.
             name (str): The file name.
-            text (str): The file content.
+            content (str): The file content.
 
         Returns:
             file: A handle on the new file.
         """
 
         docx = Document()
-        docx.add_paragraph(text)
+        docx.add_paragraph(content)
 
         path = os.path.join(self.dir, segment+'/'+name)
         docx.save(path)
