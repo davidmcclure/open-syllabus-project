@@ -44,11 +44,10 @@ class MockCorpus:
         Args:
             segment (str): The segment name.
             content (str): The file content.
-            fname (str): The file name.
             ftype (str): The file type.
         """
 
-        # Get the file cheksum.
+        # Get the file checksum.
         sha1 = hashlib.sha1()
         sha1.update(content.encode('utf8'))
         name = sha1.hexdigest()
@@ -61,10 +60,30 @@ class MockCorpus:
         return write_file(path, content)
 
 
+    def write_txt(self, path, content):
+
+        """
+        Write a .txt file.
+
+        Args:
+            path (str): The file path.
+            content (str): The file content.
+
+        Returns:
+            file: A handle on the new file.
+        """
+
+        fh = open(path, 'w+')
+        fh.write(content)
+        fh.close()
+
+        return open(path, 'rb')
+
+
     def write_pdf(self, path, content):
 
         """
-        Add a PDF file.
+        Write a .pdf file.
 
         Args:
             path (str): The file path.
@@ -84,7 +103,7 @@ class MockCorpus:
     def write_docx(self, path, content):
 
         """
-        Add a .docx file.
+        Write a .docx file.
 
         Args:
             path (str): The file path.
