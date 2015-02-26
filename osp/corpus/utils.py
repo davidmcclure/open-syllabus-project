@@ -58,11 +58,7 @@ def html_to_text(html, exclude=['script', 'style']):
     """
 
     soup = BeautifulSoup(html)
-
-    # Stript excluded tags.
-    for script in soup(exclude):
-        script.extract()
-
+    for script in soup(exclude): script.extract()
     return soup.get_text()
 
 
