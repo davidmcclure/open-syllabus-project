@@ -47,6 +47,8 @@ class MockCorpus:
             ftype (str): The file type.
         """
 
+        self.add_segment(segment)
+
         # Get the file checksum.
         sha1 = hashlib.sha1()
         sha1.update(content.encode('utf8'))
