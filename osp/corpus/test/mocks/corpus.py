@@ -75,11 +75,11 @@ class MockCorpus:
             file: A handle on the new file.
         """
 
-        fh = open(path, 'w+')
+        fh = open(path, 'wb+')
         fh.write(content)
-        fh.close()
 
-        return open(path, 'rb')
+        fh.seek(0)
+        return fh
 
 
     def write_pdf(self, path, content):
