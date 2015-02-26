@@ -10,12 +10,15 @@ class MockCorpus:
 
 
     def __init__(self):
-        """ Create the temporary directory. """
+        """
+        Create the temporary directory.
+        """
         self.dir = tempfile.mkdtemp()
 
 
     def add_segment(self, name):
-        """ Add a segment directory.
+        """
+        Add a segment directory.
 
         Args:
             name (str): The segment name.
@@ -27,7 +30,8 @@ class MockCorpus:
 
 
     def add_pdf(self, segment, name, page_texts):
-        """ Add a PDF file.
+        """
+        Add a PDF file.
 
         Args:
             segment (str): The segment name.
