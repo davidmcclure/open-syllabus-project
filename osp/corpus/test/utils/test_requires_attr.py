@@ -16,11 +16,10 @@ def instance():
     return Test()
 
 
-def test_attr_exists(instance):
+def test_attr_does_not_exist(instance):
     assert instance.needs_attr() == None
 
 
-def test_attr_does_not_exist(instance):
+def test_attr_exists(instance):
     instance.attr = True
     assert instance.needs_attr() == True
-
