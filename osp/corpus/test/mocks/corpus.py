@@ -8,16 +8,6 @@ from reportlab.pdfgen.canvas import Canvas
 from docx import Document
 
 
-class MockFile(metaclass=ABCMeta):
-
-    @abstractmethod
-    def write_file():
-        pass
-
-    def write_log():
-        pass
-
-
 class MockCorpus:
 
 

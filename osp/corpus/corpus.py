@@ -27,9 +27,10 @@ class Corpus:
         """
         Set the path and segment boundaries.
 
-        :param path: A relative path to the corpus.
-        :param s1: The first segment.
-        :param s2: The last segment.
+        Args:
+            path (str): The corpus base path.
+            s1 (int): The first segment.
+            s2 (int): The second segment.
         """
 
         self.path = os.path.abspath(path)
@@ -42,7 +43,10 @@ class Corpus:
     def file_count(self):
 
         """
-        How many syllabi are contained in the entire corpus?
+        How many syllabi are in the entire corpus?
+
+        Returns:
+            int: The number of syllabi.
         """
 
         count = 0
@@ -56,6 +60,9 @@ class Corpus:
 
         """
         Generate `Segment` instances for each directory.
+
+        Yields:
+            Segment: The next segment.
         """
 
         for s in range(self.s1, self.s2):
@@ -71,6 +78,9 @@ class Corpus:
 
         """
         Generate fully qualified paths for every file in the corpus.
+
+        Yields:
+            str: The next file path.
         """
 
         for segment in self.segments():
@@ -82,6 +92,9 @@ class Corpus:
 
         """
         Generate `Syllabus` instances for every file in the corpus.
+
+        Yields:
+            Syllabus: The next syllabus.
         """
 
         for segment in self.segments():
@@ -93,6 +106,9 @@ class Corpus:
 
         """
         Wrap the segments iterator in a progress bar.
+
+        Yields:
+            Segment: The next segment.
         """
 
         for segment in bar(self.segments(), expected_size=self.s2):
@@ -103,6 +119,9 @@ class Corpus:
 
         """
         Wrap the syllabi iterator in a progress bar.
+
+        Yields:
+            Segment: The next syllabus.
         """
 
         size = self.file_count
