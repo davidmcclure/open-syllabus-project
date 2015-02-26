@@ -16,7 +16,7 @@ def test_extract_text():
     corpus.add_segment('000')
 
     # Create a PDF with 3 pages.
-    handle = corpus.add_pdf('000', 'pdf', 'text')
+    handle = corpus.add_file('000', 'text', 'pdf')
 
     # Should extract the text.
     text = pdf_to_text(handle.name).strip()

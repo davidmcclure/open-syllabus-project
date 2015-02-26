@@ -2,6 +2,7 @@
 
 import os
 import tempfile
+import hashlib
 
 from abc import ABCMeta
 from reportlab.pdfgen.canvas import Canvas
@@ -35,38 +36,58 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_pdf(self, segment, name, content):
+    def add_file(self, segment, content, ftype='txt'):
+
+        """
+        Add a file to the corpus.
+
+        Args:
+            segment (str): The segment name.
+            content (str): The file content.
+            fname (str): The file name.
+            ftype (str): The file type.
+        """
+
+        # Get the file cheksum.
+        sha1 = hashlib.sha1()
+        sha1.update(content.encode('utf8'))
+        name = sha1.hexdigest()
+
+        # Get the complete path.
+        path = os.path.join(self.dir, segment+'/'+sha1.hexdigest())
+
+        # Write the file.
+        write_file = getattr(self, 'write_'+ftype)
+        return write_file(path, content)
+
+
+    def write_pdf(self, path, content):
 
         """
         Add a PDF file.
 
         Args:
-            segment (str): The segment name.
-            name (str): The file name.
+            path (str): The file path.
             content (str): The file content.
 
         Returns:
             file: A handle on the new file.
         """
 
-        path = os.path.join(self.dir, segment+'/'+name)
         canvas = Canvas(path)
-
         canvas.drawString(12, 720, content)
-        canvas.showPage()
-
         canvas.save()
+
         return open(path, 'rb')
 
 
-    def add_docx(self, segment, name, content):
+    def write_docx(self, path, content):
 
         """
         Add a .docx file.
 
         Args:
-            segment (str): The segment name.
-            name (str): The file name.
+            path (str): The file path.
             content (str): The file content.
 
         Returns:
@@ -75,8 +96,6 @@ class MockCorpus:
 
         docx = Document()
         docx.add_paragraph(content)
-
-        path = os.path.join(self.dir, segment+'/'+name)
         docx.save(path)
 
         return open(path, 'rb')

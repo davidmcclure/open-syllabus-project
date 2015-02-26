@@ -22,7 +22,7 @@ def test_extract_text():
     corpus.add_segment('000')
 
     # Create a .docx.
-    handle = corpus.add_docx('000', 'docx', 'text')
+    handle = corpus.add_file('000', 'text', 'docx')
 
     # Should extract the text.
     text = office_to_text(handle.read())
