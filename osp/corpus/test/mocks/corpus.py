@@ -3,6 +3,8 @@
 import os
 import tempfile
 
+from reportlab.pdfgen.canvas import Canvas
+
 
 class MockCorpus:
 
@@ -34,4 +36,11 @@ class MockCorpus:
         :param name: The file name.
         :param page_texts: A list of page texts.
         """
-        pass
+        path = os.path.join(self.dir, segment+'/'+name)
+        canvas = Canvas(path)
+
+        for text in page_texts:
+            canvas.drawString(12, 720, text)
+            canvas.showPage()
+
+        canvas.save()
