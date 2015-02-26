@@ -112,5 +112,9 @@ def tika_is_online():
         bool: True if Tika is reachable.
     """
 
-    r = requests.get(config['tika']['server'])
-    return r.status_code == 200
+    try:
+        r = requests.get(config['tika']['server'])
+        return r.status_code == 200
+
+    except requests.exceptions.ConnectionError:
+        return False
