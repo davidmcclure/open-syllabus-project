@@ -11,9 +11,13 @@ from bs4 import BeautifulSoup
 def requires_attr(attr):
 
     """
-    If the instance doesn't have a defined value for a key, return None.
+    If the instance doesn't have an attribute, return None.
 
-    :param attr: The syllabus path.
+    Args:
+        attr (str): The required attribute.
+
+    Returns:
+        function: The decorated function.
     """
 
     def decorator(func):
@@ -28,9 +32,13 @@ def requires_attr(attr):
 def int_to_dir(i):
 
     """
-    Convert an integer offset to a segment directory name.
+    Convert an integer offset to a segment name.
 
-    :param i: The integer.
+    Args:
+        i (int): The integer offset.
+
+    Returns:
+        str: The segment directory name.
     """
 
     return hex(i)[2:].zfill(3)
@@ -41,8 +49,12 @@ def html_to_text(html, exclude=['script', 'style']):
     """
     Convert HTML to text.
 
-    :param html: The raw HTML.
-    :param exclude: An array of tags to exclude.
+    Args:
+        html (str): The raw HTML markup.
+        exclude (list): A list of tags to ignore.
+
+    Returns:
+        str: The extracted text.
     """
 
     soup = BeautifulSoup(html)
@@ -59,7 +71,11 @@ def pdf_to_text(path):
     """
     Convert a PDF to text.
 
-    :param path: The file path.
+    Args:
+        path (str): The file path.
+
+    Returns:
+        str: The extracted text.
     """
 
     text = subprocess.check_output(['pdf2txt.py', path])
@@ -71,7 +87,11 @@ def office_to_text(data):
     """
     Convert to plaintext with LibreOffice.
 
-    :param data: The raw file data.
+    Args:
+        data (bytes): The raw file data.
+
+    Returns:
+        str: The extracted text.
     """
 
     headers = {
