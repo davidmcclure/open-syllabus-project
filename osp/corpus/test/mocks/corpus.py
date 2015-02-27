@@ -24,7 +24,7 @@ class MockCorpus:
     def add_segment(self, name):
 
         """
-        Add a segment directory.
+        Add a segment directory, if it doesn't exist.
 
         Args:
             name (str): The segment name.
@@ -45,6 +45,9 @@ class MockCorpus:
             segment (str): The segment name.
             content (str): The file content.
             ftype (str): The file type.
+
+        Returns:
+            str: The path of the new file.
         """
 
         self.add_segment(segment)
@@ -59,7 +62,9 @@ class MockCorpus:
 
         # Write the file.
         write_file = getattr(self, 'write_'+ftype)
-        return write_file(path, content)
+        write_file(path, content)
+
+        return path
 
 
     def write_pdf(self, path, content):
@@ -70,16 +75,11 @@ class MockCorpus:
         Args:
             path (str): The file path.
             content (str): The file content.
-
-        Returns:
-            file: A handle on the new file.
         """
 
         canvas = Canvas(path)
         canvas.drawString(12, 720, content)
         canvas.save()
-
-        return open(path, 'rb')
 
 
     def write_docx(self, path, content):
@@ -98,5 +98,3 @@ class MockCorpus:
         docx = Document()
         docx.add_paragraph(content)
         docx.save(path)
-
-        return open(path, 'rb')

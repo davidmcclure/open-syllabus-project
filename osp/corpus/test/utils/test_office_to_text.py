@@ -21,8 +21,8 @@ def test_extract_text():
     corpus = MockCorpus()
 
     # Create a .docx.
-    handle = corpus.add_file('000', 'text', 'docx')
+    path = corpus.add_file('000', 'text', 'docx')
 
     # Should extract the text.
-    text = office_to_text(handle.read())
-    assert text.strip() == 'text'
+    text = office_to_text(path).strip()
+    assert text == 'text'

@@ -78,25 +78,27 @@ def pdf_to_text(path):
     return text.decode('utf8')
 
 
-def office_to_text(data):
+def office_to_text(path):
 
     """
     Convert to plaintext with LibreOffice.
 
     Args:
-        data (bytes): The raw file data.
+        path (str): The file path.
 
     Returns:
         str: The extracted text.
     """
 
-    r = requests.put(
-        config['tika']['server'],
-        headers={'Accept': 'text/plain'},
-        data=data
-    )
+    with open(path, 'rb') as fh:
 
-    return r.text
+        r = requests.put(
+            config['tika']['server'],
+            headers={'Accept': 'text/plain'},
+            data=fh.read()
+        )
+
+        return r.text
 
 
 def tika_is_online():
