@@ -9,7 +9,9 @@ def test_extract_text(corpus):
     Text inside HTML tags should be extracted.
     """
 
-    path = corpus.add_file(content='<p>text</p>')
+    html = '<p>text</p>'
+
+    path = corpus.add_file(content=html, ftype='html')
     text = html_to_text(path)
     assert text == 'text'
 
@@ -26,7 +28,7 @@ def test_ignore_scripts_and_styles(corpus):
     <p>text</p>
     """
 
-    path = corpus.add_file(content=html)
+    path = corpus.add_file(content=html, ftype='html')
     text = html_to_text(path).strip()
     assert text == 'text'
 
@@ -43,6 +45,6 @@ def test_ignore_custom_tags(corpus):
     <h3>h3</h3>
     """
 
-    path = corpus.add_file(content=html)
+    path = corpus.add_file(content=html, ftype='html')
     text = html_to_text(path, ['h1', 'h2']).strip()
     assert text == 'h3'
