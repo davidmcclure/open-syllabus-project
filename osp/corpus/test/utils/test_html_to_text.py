@@ -1,9 +1,17 @@
 
 
+import pytest
+
 from osp.corpus.utils import html_to_text
+from osp.corpus.test.mocks.corpus import MockCorpus
 
 
-def test_extract_text():
+@pytest.fixture
+def corpus():
+    return MockCorpus()
+
+
+def test_extract_text(corpus):
 
     """
     Text inside HTML tags should be extracted.

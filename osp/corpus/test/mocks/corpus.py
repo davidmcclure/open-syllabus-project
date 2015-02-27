@@ -36,7 +36,7 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_file(self, segment, content, ftype='txt'):
+    def add_file(self, content, segment='000', ftype='txt'):
 
         """
         Add a file to the corpus.

@@ -15,7 +15,7 @@ def test_extract_text():
     corpus = MockCorpus()
 
     # Create a PDF with 3 pages.
-    path = corpus.add_file('000', 'text', 'pdf')
+    path = corpus.add_file('text', ftype='pdf')
 
     # Should extract the text.
     text = pdf_to_text(path).strip()
