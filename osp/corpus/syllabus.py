@@ -20,6 +20,12 @@ class Syllabus:
 
         """
         Get an instance from a corpus-relative path.
+
+        Args:
+            relative_path (str): The corpus-relative path of the file.
+
+        Returns:
+            Syllabus: The wrapped instance.
         """
 
         path = os.path.join(config['osp']['corpus'], relative_path)
@@ -31,7 +37,8 @@ class Syllabus:
         """
         Initialize a syllabus reader.
 
-        :param path: The syllabus path.
+        Args:
+            path (str): The file path.
         """
 
         self.path = os.path.abspath(path)
@@ -42,6 +49,9 @@ class Syllabus:
 
         """
         Get an open file handler to the syllabus.
+
+        Yields:
+            file: A file object.
         """
 
         with open(self.path, 'rb') as syllabus:
@@ -52,7 +62,8 @@ class Syllabus:
     def file_name(self):
 
         """
-        Get the file name of the document.
+        Returns:
+            str: The file name of the document.
         """
 
         return os.path.basename(self.path)
@@ -62,7 +73,8 @@ class Syllabus:
     def segment_name(self):
 
         """
-        Get the name of the parent segment.
+        Returns:
+            str: The name of the parent segment.
         """
 
         return os.path.split(os.path.dirname(self.path))[-1]
@@ -72,7 +84,8 @@ class Syllabus:
     def relative_path(self):
 
         """
-        Get the file path relative to the corpus.
+        Returns:
+            str: The file path, relative to the corpus.
         """
 
         return self.segment_name+'/'+self.file_name
@@ -82,7 +95,8 @@ class Syllabus:
     def log_path(self):
 
         """
-        Get the path to the corresponding log file.
+        Returns:
+            str: The path of the corresponding log file.
         """
 
         return self.path+'.log'
@@ -94,6 +108,9 @@ class Syllabus:
 
         """
         Get the log file as an array of elements.
+
+        Returns:
+            list|bool: Log elements, or False if no log.
         """
 
         with open(self.log_path, 'r') as log:
@@ -106,7 +123,11 @@ class Syllabus:
         """
         Get a manifest element, identified by offset.
 
-        :param offset: The 0-indexed offset.
+        Args:
+            offset (int): The element offset.
+
+        Returns:
+            str|None: The metadata value.
         """
 
         try: return self.log[offset]
@@ -117,7 +138,8 @@ class Syllabus:
     def url(self):
 
         """
-        The URL the syllabus was scraped from.
+        Returns:
+            str: The URL.
         """
 
         return self.metadata(0)
@@ -127,7 +149,8 @@ class Syllabus:
     def provenance(self):
 
         """
-        The origin of the file.
+        Returns:
+            str: The provenance.
         """
 
         return self.metadata(1)
@@ -137,7 +160,8 @@ class Syllabus:
     def retrieved(self):
 
         """
-        The date the file was scraped.
+        Returns:
+            str: The date the file was scraped.
         """
 
         return self.metadata(2)
@@ -147,7 +171,8 @@ class Syllabus:
     def checksum(self):
 
         """
-        The checksum for the file.
+        Returns:
+            str: The checksum for the file.
         """
 
         return self.metadata(3)
@@ -157,7 +182,8 @@ class Syllabus:
     def file_type(self):
 
         """
-        The mime type of the file.
+        Returns:
+            str: The mime type of the file.
         """
 
         return self.metadata(4)
@@ -168,7 +194,8 @@ class Syllabus:
     def libmagic_file_type(self):
 
         """
-        Parse the file type with libmagic.
+        Returns:
+            str: Parse the file type with libmagic.
         """
 
         return magic.from_file(self.path, mime=True).decode('utf-8')
@@ -180,6 +207,9 @@ class Syllabus:
 
         """
         Get the parsed domain of the syllabus' URL.
+
+        Returns:
+            str: The top-level domain.
         """
 
         # Get the last `http://` group.
@@ -196,6 +226,9 @@ class Syllabus:
         """
         Get the registered domain of the syllabus' URL. Eg:
         http://www.yale.edu/syllabus.pdf -> yale.edu
+
+        Returns:
+            str: The base URL.
         """
 
         return self.parsed_domain.registered_domain
@@ -207,6 +240,9 @@ class Syllabus:
 
         """
         Extract the raw plain text.
+
+        Returns:
+            str: The text content.
         """
 
         ft = self.libmagic_file_type
@@ -247,6 +283,9 @@ class Syllabus:
 
         """
         Get rid of linebreaks in the raw text.
+
+        Returns:
+            str: The compressed text.
         """
 
         return re.sub('\s{2,}', ' ', self.text)
