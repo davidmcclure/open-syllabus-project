@@ -2,6 +2,7 @@
 
 import os
 import tempfile
+import datetime
 import hashlib
 
 from abc import ABCMeta
@@ -36,7 +37,7 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_file(self, content, segment='000', ftype='plain'):
+    def add_file(self, content, segment='000', ftype='plain', log={}):
 
         """
         Add a file to the corpus.
@@ -45,6 +46,7 @@ class MockCorpus:
             segment (str): The segment name.
             content (str): The file content.
             ftype (str): The file type.
+            log (dict): Custom log data.
 
         Returns:
             str: The path of the new file.
@@ -64,7 +66,45 @@ class MockCorpus:
         write_file = getattr(self, '_write_'+ftype)
         write_file(path, content)
 
+        # Write the log.
+        self.write_log(path, ftype, log)
+
         return path
+
+
+    def write_log(self, path, ftype, log={}):
+
+        """
+        Write a .log file.
+
+        Args:
+            path (str): The file path.
+            ftype (str): The file type.
+            log (dict): Custom log data.
+        """
+
+        metadata = {
+            'url':          'http://opensyllabusproject.org',
+            'provenance':   'osp-test',
+            'date':         datetime.datetime.now().isoformat(),
+            'checksum':     os.path.basename(path),
+            'format':       ftype
+        }
+
+        metadata.update(log)
+
+        order = [
+            'url',
+            'provenance',
+            'date',
+            'checksum',
+            'format'
+        ]
+
+        # Write the log.
+        with open(path+'.log', 'w+') as fh:
+            for key in order:
+                print(metadata[key], file=fh)
 
 
     def _write_plain(self, path, content):
