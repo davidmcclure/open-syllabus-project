@@ -123,7 +123,7 @@ class Syllabus:
         Get the log file as an array of elements.
 
         Returns:
-            list|bool: Log elements, or False if no log.
+            list: Log elements.
         """
 
         if self.log_exists:
@@ -172,7 +172,7 @@ class Syllabus:
 
 
     @property
-    def retrieved(self):
+    def date(self):
 
         """
         Returns:
