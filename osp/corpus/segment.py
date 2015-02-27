@@ -28,14 +28,11 @@ class Segment:
         Get a list of all syllabus file names.
         """
 
-        names = []
         for name in os.listdir(self.path):
 
             # Ignore `.log` files.
             if os.path.splitext(name)[1] != '.log':
-                names.append(name)
-
-        return names
+                yield name
 
 
     @property
@@ -46,7 +43,7 @@ class Segment:
         How many syllabi are contained in the segment?
         """
 
-        return len(self.file_names)
+        return sum(1 for _ in self.file_names)
 
 
     def file_paths(self):

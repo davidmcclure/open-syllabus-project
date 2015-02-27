@@ -8,7 +8,7 @@ from osp.corpus.syllabus import Syllabus
 def test_log_exists(corpus):
 
     """
-    Syllabys#log_exists should return True when a log is present.
+    Syllabus#log_exists should return True when a log is present.
     """
 
     path = corpus.add_file()

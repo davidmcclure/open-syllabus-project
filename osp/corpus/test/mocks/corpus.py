@@ -70,7 +70,7 @@ class MockCorpus:
         # Get the complete path.
         path = os.path.join(self.dir, segment+'/'+name)
 
-        # Write the file.
+        # Write the file and log.
         write_file = getattr(self, '_write_'+ftype)
         write_file(path, content)
         self.write_log(path, ftype, log)
