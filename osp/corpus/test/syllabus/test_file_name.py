@@ -1,15 +1,14 @@
 
 
-import pytest
-
 from osp.corpus.syllabus import Syllabus
-from osp.corpus.test.mocks.corpus import MockCorpus
-
-
-@pytest.fixture
-def corpus():
-    return MockCorpus()
 
 
 def test_file_name(corpus):
-    pass
+
+    """
+    Syllabys#file_name() should return the base file name.
+    """
+
+    path = corpus.add_file(name='name')
+    syllabus = Syllabus(path)
+    assert syllabus.file_name == 'name'

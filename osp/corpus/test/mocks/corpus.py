@@ -37,14 +37,16 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_file(self, content, segment='000', ftype='plain', log={}):
+    def add_file(self, content='content', name=None, segment='000',
+                 ftype='plain', log={}):
 
         """
         Add a file to the corpus.
 
         Args:
-            segment (str): The segment name.
             content (str): The file content.
+            name (str): The file name.
+            segment (str): The segment name.
             ftype (str): The file type.
             log (dict): Custom log data.
 
@@ -54,13 +56,14 @@ class MockCorpus:
 
         self.add_segment(segment)
 
-        # Get the file checksum.
-        sha1 = hashlib.sha1()
-        sha1.update(content.encode('utf8'))
-        name = sha1.hexdigest()
+        # If no custom name, sha1 the content.
+        if not name:
+            sha1 = hashlib.sha1()
+            sha1.update(content.encode('utf8'))
+            name = sha1.hexdigest()
 
         # Get the complete path.
-        path = os.path.join(self.dir, segment+'/'+sha1.hexdigest())
+        path = os.path.join(self.dir, segment+'/'+name)
 
         # Write the file.
         write_file = getattr(self, '_write_'+ftype)

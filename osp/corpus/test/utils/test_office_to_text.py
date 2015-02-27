@@ -18,7 +18,7 @@ def test_extract_text(corpus):
     """
 
     # Create a .docx.
-    path = corpus.add_file('text', ftype='docx')
+    path = corpus.add_file(content='text', ftype='docx')
 
     # Should extract the text.
     text = office_to_text(path).strip()
