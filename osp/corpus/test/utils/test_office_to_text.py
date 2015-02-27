@@ -12,13 +12,16 @@ pytestmark = pytest.mark.skipif(
 )
 
 
-def test_extract_text():
+@pytest.fixture
+def corpus():
+    return MockCorpus()
+
+
+def test_extract_text(corpus):
 
     """
     Text should be extracted via Tika.
     """
-
-    corpus = MockCorpus()
 
     # Create a .docx.
     path = corpus.add_file('text', ftype='docx')
