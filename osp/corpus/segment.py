@@ -14,7 +14,8 @@ class Segment:
         """
         Initialize the segment reader.
 
-        :param path: The segment path.
+        Args:
+            path (str): The segment path.
         """
 
         self.path = os.path.abspath(path)
@@ -26,6 +27,9 @@ class Segment:
 
         """
         Get a list of all syllabus file names.
+
+        Yields:
+            str: The next file name.
         """
 
         for name in os.listdir(self.path):
@@ -41,6 +45,9 @@ class Segment:
 
         """
         How many syllabi are contained in the segment?
+
+        Returns:
+            int: The number of syllabi.
         """
 
         return sum(1 for _ in self.file_names)
@@ -50,6 +57,9 @@ class Segment:
 
         """
         Generate fully qualified paths for each file.
+
+        Yields:
+            str: The next file path.
         """
 
         for name in self.file_names:
@@ -60,6 +70,9 @@ class Segment:
 
         """
         Generate Syllabus instances for each file.
+
+        Yields:
+            Syllabus: The next syllabus.
         """
 
         for path in self.file_paths():
