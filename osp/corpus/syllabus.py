@@ -295,4 +295,4 @@ class Syllabus:
             str: The compressed text.
         """
 
-        return re.sub('\s{2,}', ' ', self.text)
+        return re.sub('\s{2,}', ' ', self.text).strip()
