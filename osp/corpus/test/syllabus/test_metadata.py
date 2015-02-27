@@ -5,6 +5,31 @@ import os
 from osp.corpus.syllabus import Syllabus
 
 
+def test_valid_index(corpus):
+
+    """
+    When an in-bounds offset is passed to Syllabus#metadata(), the value
+    should be returned.
+    """
+
+    path = corpus.add_file()
+    syllabus = Syllabus(path)
+
+    assert syllabus.metadata(1) is not None
+
+
+def test_invalid_index(corpus):
+
+    """
+    Return None when an out-of-bounds offset is passed.
+    """
+
+    path = corpus.add_file()
+    syllabus = Syllabus(path)
+
+    assert syllabus.metadata(10) is None
+
+
 def test_url(corpus):
 
     """

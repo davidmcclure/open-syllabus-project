@@ -145,8 +145,10 @@ class Syllabus:
             str|None: The metadata value.
         """
 
-        try: return self.log[offset]
-        except: return None
+        if offset <= len(self.log)-1:
+            return self.log[offset]
+
+        else: return None
 
 
     @property
