@@ -2,13 +2,7 @@
 
 import pytest
 
-from osp.corpus.test.mocks.corpus import MockCorpus
 from osp.corpus.utils import pdf_to_text
-
-
-@pytest.fixture
-def corpus():
-    return MockCorpus()
 
 
 def test_extract_text(corpus):
