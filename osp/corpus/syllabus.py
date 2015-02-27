@@ -103,6 +103,19 @@ class Syllabus:
 
 
     @property
+    def log_exists(self):
+
+        """
+        Is the log file present?
+
+        Returns:
+            bool: True if the file exists.
+        """
+
+        return os.path.isfile(self.log_path)
+
+
+    @property
     @lru_cache()
     def log(self):
 
@@ -113,9 +126,11 @@ class Syllabus:
             list|bool: Log elements, or False if no log.
         """
 
-        with open(self.log_path, 'r') as log:
-            try: return log.read().splitlines()
-            except: return False
+        if self.log_exists:
+            with open(self.log_path, 'r') as log:
+                return log.read().splitlines()
+
+        else: return []
 
 
     def metadata(self, offset):

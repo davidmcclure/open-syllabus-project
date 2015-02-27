@@ -56,7 +56,7 @@ class MockCorpus:
 
         self.add_segment(segment)
 
-        # If no custom name, sha1 the content.
+        # Hash the content, if no name.
         if not name:
             sha1 = hashlib.sha1()
             sha1.update(content.encode('utf8'))
@@ -68,8 +68,6 @@ class MockCorpus:
         # Write the file.
         write_file = getattr(self, '_write_'+ftype)
         write_file(path, content)
-
-        # Write the log.
         self.write_log(path, ftype, log)
 
         return path
