@@ -29,12 +29,17 @@ class MockCorpus:
 
         Args:
             name (str): The segment name.
+
+        Returns:
+            path (str): The path of the new segment.
         """
 
         path = os.path.join(self.dir, name)
 
         if not os.path.exists(path):
             os.makedirs(path)
+
+        return path
 
 
     def add_file(self, content='content', name=None, segment='000',
