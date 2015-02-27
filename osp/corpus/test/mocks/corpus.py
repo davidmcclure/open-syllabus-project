@@ -122,6 +122,20 @@ class MockCorpus:
             fh.write(content)
 
 
+    def _write_html(self, path, content):
+
+        """
+        Write an HTML file.
+
+        Args:
+            path (str): The file path.
+            content (str): The file content.
+        """
+
+        with open(path, 'w+') as fh:
+            fh.write('<html>'+content+'</html>')
+
+
     def _write_pdf(self, path, content):
 
         """

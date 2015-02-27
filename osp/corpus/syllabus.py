@@ -268,6 +268,9 @@ class Syllabus:
             with open(self.path, 'r') as fh:
                 return fh.read()
 
+        elif ft == 'text/html':
+            return utils.html_to_text(self.path)
+
         #text = None
         #with self.open() as f:
 
