@@ -62,26 +62,6 @@ class MockCorpus:
         return write_file(path, content)
 
 
-    def write_txt(self, path, content):
-
-        """
-        Write a .txt file.
-
-        Args:
-            path (str): The file path.
-            content (str): The file content.
-
-        Returns:
-            file: A handle on the new file.
-        """
-
-        fh = open(path, 'wb+')
-        fh.write(content)
-
-        fh.seek(0)
-        return fh
-
-
     def write_pdf(self, path, content):
 
         """
