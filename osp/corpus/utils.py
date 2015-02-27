@@ -90,14 +90,10 @@ def office_to_text(data):
         str: The extracted text.
     """
 
-    headers = {
-        'Accept': 'text/plain'
-    }
-
     r = requests.put(
         config['tika']['server'],
-        data=data,
-        headers=headers
+        headers={'Accept': 'text/plain'},
+        data=data
     )
 
     return r.text
