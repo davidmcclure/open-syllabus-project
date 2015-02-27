@@ -36,7 +36,7 @@ class MockCorpus:
             os.makedirs(path)
 
 
-    def add_file(self, content, segment='000', ftype='txt'):
+    def add_file(self, content, segment='000', ftype='plain'):
 
         """
         Add a file to the corpus.
@@ -61,13 +61,27 @@ class MockCorpus:
         path = os.path.join(self.dir, segment+'/'+sha1.hexdigest())
 
         # Write the file.
-        write_file = getattr(self, 'write_'+ftype)
+        write_file = getattr(self, '_write_'+ftype)
         write_file(path, content)
 
         return path
 
 
-    def write_pdf(self, path, content):
+    def _write_plain(self, path, content):
+
+        """
+        Write a plaintext file.
+
+        Args:
+            path (str): The file path.
+            content (str): The file content.
+        """
+
+        with open(path, 'w+') as fh:
+            fh.write(content)
+
+
+    def _write_pdf(self, path, content):
 
         """
         Write a .pdf file.
@@ -82,7 +96,7 @@ class MockCorpus:
         canvas.save()
 
 
-    def write_docx(self, path, content):
+    def _write_docx(self, path, content):
 
         """
         Write a .docx file.

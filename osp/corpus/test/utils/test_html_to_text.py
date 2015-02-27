@@ -17,10 +17,12 @@ def test_extract_text(corpus):
     Text inside HTML tags should be extracted.
     """
 
-    assert html_to_text('<p>text</p>') == 'text'
+    path = corpus.add_file('<p>text</p>')
+    text = html_to_text(path)
+    assert text == 'text'
 
 
-def test_ignore_scripts_and_styles():
+def test_ignore_scripts_and_styles(corpus):
 
     """
     By default, <script> and <style> tags should be ignored.
@@ -32,10 +34,12 @@ def test_ignore_scripts_and_styles():
     <p>text</p>
     """
 
-    assert html_to_text(html).strip() == 'text'
+    path = corpus.add_file(html)
+    text = html_to_text(path).strip()
+    assert text == 'text'
 
 
-def test_ignore_custom_tags():
+def test_ignore_custom_tags(corpus):
 
     """
     Tags explicitly passed in `excluded` should be ignored.
@@ -47,5 +51,6 @@ def test_ignore_custom_tags():
     <h3>h3</h3>
     """
 
-    text = html_to_text(html, ['h1', 'h2'])
-    assert text.strip() == 'h3'
+    path = corpus.add_file(html)
+    text = html_to_text(path, ['h1', 'h2']).strip()
+    assert text == 'h3'

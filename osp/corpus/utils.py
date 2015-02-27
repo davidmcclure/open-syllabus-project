@@ -44,22 +44,24 @@ def int_to_dir(i):
     return hex(i)[2:].zfill(3)
 
 
-def html_to_text(html, exclude=['script', 'style']):
+def html_to_text(path, exclude=['script', 'style']):
 
     """
     Convert HTML to text.
 
     Args:
-        html (str): The raw HTML markup.
+        path (str): The file path.
         exclude (list): A list of tags to ignore.
 
     Returns:
         str: The extracted text.
     """
 
-    soup = BeautifulSoup(html)
-    for script in soup(exclude): script.extract()
-    return soup.get_text()
+    with open(path, 'rb') as fh:
+
+        soup = BeautifulSoup(fh)
+        for script in soup(exclude):script.extract()
+        return soup.get_text()
 
 
 def pdf_to_text(path):
