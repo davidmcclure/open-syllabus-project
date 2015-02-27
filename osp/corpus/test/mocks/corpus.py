@@ -42,7 +42,7 @@ class MockCorpus:
         return path
 
 
-    def add_file(self, content='content', name=None, segment='000',
+    def add_file(self, name=None, segment='000', content='content',
                  ftype='plain', log={}):
 
         """
@@ -76,6 +76,30 @@ class MockCorpus:
         self.write_log(path, ftype, log)
 
         return path
+
+
+    def add_files(self, segment, count, ftype='plain', name_prefix='file-',
+                  text_prefix='text-'):
+
+        """
+        Add a batch of files to a segment.
+
+        Args:
+            segment (str): The segment name.
+            count (int): The number of files.
+            ftype (str): The file type.
+            name_prefix (str): A prefix for the file names.
+            text_prefix (str): A prefix for the fiel texts.
+        """
+
+        for i in range(0, count):
+
+            self.add_file(
+                name=name_prefix+str(i),
+                segment=segment,
+                content=text_prefix+str(i),
+                ftype=ftype
+            )
 
 
     def write_log(self, path, ftype, log={}):
