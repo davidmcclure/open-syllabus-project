@@ -88,8 +88,8 @@ class MockCorpus:
             segment (str): The segment name.
             count (int): The number of files.
             ftype (str): The file type.
-            name_prefix (str): A prefix for the file names.
-            text_prefix (str): A prefix for the fiel texts.
+            name_prefix (str): A file name prefix.
+            text_prefix (str): A content prefix.
         """
 
         for i in range(0, count):
