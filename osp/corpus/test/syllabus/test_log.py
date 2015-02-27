@@ -8,7 +8,7 @@ from osp.corpus.syllabus import Syllabus
 def test_log_exists(corpus):
 
     """
-    Syllabys#log should split the log file into lines.
+    Syllabus#log should split the log file into lines.
     """
 
     log = {
