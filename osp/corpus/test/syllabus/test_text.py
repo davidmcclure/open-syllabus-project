@@ -27,3 +27,27 @@ def test_html(corpus):
     syllabus = Syllabus(path)
 
     assert syllabus.text == 'text'
+
+
+def test_pdf(corpus):
+
+    """
+    Should extract text from PDF files.
+    """
+
+    path = corpus.add_file(content='text', ftype='pdf')
+    syllabus = Syllabus(path)
+
+    assert syllabus.text.strip() == 'text'
+
+
+def test_office(corpus):
+
+    """
+    Should extract text from office files.
+    """
+
+    path = corpus.add_file(content='text', ftype='docx')
+    syllabus = Syllabus(path)
+
+    assert syllabus.text.strip() == 'text'

@@ -263,41 +263,24 @@ class Syllabus:
         """
 
         ft = self.libmagic_file_type
+        text = None
 
+        # Plaintext:
         if ft == 'text/plain':
             with open(self.path, 'r') as fh:
                 return fh.read()
 
+        # HTML/XML:
         elif ft == 'text/html':
             return utils.html_to_text(self.path)
 
-        #text = None
-        #with self.open() as f:
+        # PDF:
+        elif ft == 'application/pdf':
+            return utils.pdf_to_text(self.path)
 
-            ## Plaintext:
-            #if ft == 'text/plain':
-                #text = f.read()
-
-            ## HTML/XML:
-            #elif ft in ['text/html', 'application/xml']:
-                #text = utils.html_to_text(f.read())
-
-            ## PDF:
-            #elif ft == 'application/pdf':
-                #text = utils.pdf_to_text(f)
-
-            ## Everything else:
-            #else:
-                #text = utils.office_to_text(f.read())
-
-        ## Scrub unicode.
-        #if text: text = (
-            #text
-            #.encode('ascii', 'ignore')
-            #.decode('utf-8')
-        #)
-
-        #return text
+        # Everything else:
+        else:
+            return utils.office_to_text(self.path)
 
 
     @property
