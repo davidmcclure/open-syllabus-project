@@ -6,7 +6,7 @@ from osp.corpus.segment import Segment
 def test_file_count(corpus):
 
     """
-    Syllabus#file_count() should return the number of files.
+    Segment#file_count() should return the number of files.
     """
 
     path = corpus.add_segment('000')

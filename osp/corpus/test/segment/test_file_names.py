@@ -6,7 +6,7 @@ from osp.corpus.segment import Segment
 def test_file_names(corpus):
 
     """
-    Syllabus#file_names() should generate the file names.
+    Segment#file_names() should generate the file names.
     """
 
     path = corpus.add_segment('000')
