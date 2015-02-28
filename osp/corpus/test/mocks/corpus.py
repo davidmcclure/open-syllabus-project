@@ -42,7 +42,7 @@ class MockCorpus:
         return path
 
 
-    def add_file(self, name=None, segment='000', content='content',
+    def add_file(self, segment='000', name=None, content='content',
                  ftype='plain', log={}):
 
         """
@@ -78,8 +78,7 @@ class MockCorpus:
         return path
 
 
-    def add_files(self, segment, count, ftype='plain', name_prefix='file-',
-                  text_prefix='text-'):
+    def add_files(self, segment, count, name='file-'):
 
         """
         Add a batch of files to a segment.
@@ -87,19 +86,11 @@ class MockCorpus:
         Args:
             segment (str): The segment name.
             count (int): The number of files.
-            ftype (str): The file type.
-            name_prefix (str): A file name prefix.
-            text_prefix (str): A content prefix.
+            name (str): A file name prefix.
         """
 
         for i in range(0, count):
-
-            self.add_file(
-                name=name_prefix+str(i),
-                segment=segment,
-                content=text_prefix+str(i),
-                ftype=ftype
-            )
+            self.add_file(segment=segment, name=name+str(i))
 
 
     def write_log(self, path, ftype, log={}):
@@ -114,11 +105,11 @@ class MockCorpus:
         """
 
         metadata = {
-            'url':          'http://opensyllabusproject.org',
-            'provenance':   'osp-test',
-            'date':         datetime.datetime.now().isoformat(),
-            'checksum':     os.path.basename(path),
-            'format':       ftype
+            'url': 'http://opensyllabusproject.org',
+            'provenance': 'osp-test',
+            'date': datetime.datetime.now().isoformat(),
+            'checksum': os.path.basename(path),
+            'format': ftype
         }
 
         metadata.update(log)
