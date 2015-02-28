@@ -21,7 +21,6 @@ class Segment:
         self.path = os.path.abspath(path)
 
 
-    @lru_cache()
     def file_names(self):
 
         """
@@ -49,7 +48,7 @@ class Segment:
             int: The number of syllabi.
         """
 
-        return sum(1 for _ in self.file_names)
+        return sum(1 for _ in self.file_names())
 
 
     def file_paths(self):
