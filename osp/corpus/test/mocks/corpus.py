@@ -1,9 +1,10 @@
 
 
 import os
+import hashlib
 import tempfile
 import datetime
-import hashlib
+import shutil
 
 from osp.corpus.utils import int_to_dir
 from abc import ABCMeta
@@ -195,3 +196,12 @@ class MockCorpus:
         docx = Document()
         docx.add_paragraph(content)
         docx.save(path)
+
+
+    def teardown(self):
+
+        """
+        Delete the temporary directory.
+        """
+
+        shutil.rmtree(self.path)
