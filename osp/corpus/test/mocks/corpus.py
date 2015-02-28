@@ -20,7 +20,7 @@ class MockCorpus:
         Create the temporary directory.
         """
 
-        self.dir = tempfile.mkdtemp()
+        self.path = tempfile.mkdtemp()
 
 
     def add_segment(self, name):
@@ -35,7 +35,7 @@ class MockCorpus:
             path (str): The path of the new segment.
         """
 
-        path = os.path.join(self.dir, name)
+        path = os.path.join(self.path, name)
         if not os.path.exists(path): os.makedirs(path)
         return path
 
@@ -80,7 +80,7 @@ class MockCorpus:
             name = sha1.hexdigest()
 
         # Get the complete path.
-        path = os.path.join(self.dir, segment+'/'+name)
+        path = os.path.join(self.path, segment+'/'+name)
 
         # Write the file and log.
         write_file = getattr(self, '_write_'+ftype)
