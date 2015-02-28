@@ -68,3 +68,24 @@ def test_bounded_partition(mock_corpus):
 
     # And then stop.
     assert next(segments, False) == False
+
+
+def test_missing_segments(mock_corpus):
+
+    """
+    The generator should gracefully skip missing segments.
+    """
+
+    # Add segments 0-10.
+    mock_corpus.add_segments(s1=0, s2=10)
+    corpus = Corpus(mock_corpus.path, s1=0, s2=10)
+
+    # Request segments 0-20
+    segments = corpus.segments()
+
+    # Should yield 10 segments.
+    for i in range(0, 10):
+        assert_segment(corpus, next(segments), i)
+
+    # And then stop.
+    assert next(segments, False) == False
