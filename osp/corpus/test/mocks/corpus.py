@@ -5,6 +5,7 @@ import tempfile
 import datetime
 import hashlib
 
+from osp.corpus.utils import int_to_dir
 from abc import ABCMeta
 from reportlab.pdfgen.canvas import Canvas
 from docx import Document
@@ -37,6 +38,20 @@ class MockCorpus:
         path = os.path.join(self.dir, name)
         if not os.path.exists(path): os.makedirs(path)
         return path
+
+
+    def add_segments(self, s1=0, s2=4095):
+
+        """
+        Add a batch of segments, identified by an offset range.
+
+        Args:
+            s1 (int): The first segment.
+            s2 (int): The last segment.
+        """
+
+        for i in range(s1, s2):
+            self.add_segment(int_to_dir(i))
 
 
     def add_file(self, segment='000', name=None, content='content',
