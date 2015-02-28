@@ -109,6 +109,21 @@ class MockCorpus:
                 print(metadata[key], file=fh)
 
 
+    def add_files(self, segment, count, prefix='file-'):
+
+        """
+        Add a batch of files to a segment.
+
+        Args:
+            segment (str): The segment name.
+            count (int): The number of files to add.
+            prefix (str): A filename prefix.
+        """
+
+        for i in range(0, count):
+            self.add_file(segment=segment, name=prefix+str(i))
+
+
     def _write_plain(self, path, content):
 
         """

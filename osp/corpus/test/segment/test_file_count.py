@@ -13,7 +13,5 @@ def test_file_count(corpus):
     segment = Segment(path)
 
     # Add 10 files.
-    for i in range(0, 10):
-        corpus.add_file(segment='000', name='file-'+str(i))
-
+    corpus.add_files('000', 10)
     assert segment.file_count == 10

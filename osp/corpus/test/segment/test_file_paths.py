@@ -15,9 +15,7 @@ def test_file_paths(corpus):
     segment = Segment(path)
 
     # Add 10 files.
-    for i in range(0, 10):
-        corpus.add_file(segment='000', name='file-'+str(i))
-
+    corpus.add_files('000', 10)
     paths = segment.file_paths()
 
     for i in range(0, 10):
