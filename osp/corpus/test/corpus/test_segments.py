@@ -7,6 +7,25 @@ from osp.corpus.corpus import Corpus
 from osp.corpus.utils import int_to_dir
 
 
+def assert_segment(corpus, segment, offset):
+
+    """
+    Check for a well-formed Segment instance.
+
+    Args:
+        corpus (Corpus): The parent corpus.
+        segment (Segment): The candidate Segment.
+        offset (int): The segment offset.
+    """
+
+    # Should be a Segment instance.
+    assert isinstance(segment, Segment)
+
+    # Should have the correct path.
+    dpath = os.path.join(corpus.path, int_to_dir(offset))
+    assert segment.path == dpath
+
+
 def test_full_partition(mock_corpus):
 
     """
@@ -21,17 +40,11 @@ def test_full_partition(mock_corpus):
     # Request all segments.
     segments = corpus.segments()
 
+    # Should yield all segments.
     for i in range(0, 4095):
+        assert_segment(corpus, next(segments), i)
 
-        # Should be a Segment instance.
-        segment = next(segments)
-        assert isinstance(segment, Segment)
-
-        # Should have the right path.
-        dpath = os.path.join(corpus.path, int_to_dir(i))
-        assert segment.path == dpath
-
-    # Generator should be empty.
+    # But no more.
     assert next(segments, False) == False
 
 
@@ -49,15 +62,9 @@ def test_bounded_partition(mock_corpus):
     # Request segments 0-10
     segments = corpus.segments()
 
+    # Should yield 10 segments.
     for i in range(0, 10):
+        assert_segment(corpus, next(segments), i)
 
-        # Should be a Segment instance.
-        segment = next(segments)
-        assert isinstance(segment, Segment)
-
-        # Should have the right path.
-        dpath = os.path.join(corpus.path, int_to_dir(i))
-        assert segment.path == dpath
-
-    # Generator should be empty.
+    # And then stop.
     assert next(segments, False) == False
