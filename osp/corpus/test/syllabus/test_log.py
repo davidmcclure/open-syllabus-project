@@ -12,11 +12,11 @@ def test_log_exists(corpus):
     """
 
     log = {
-        'url':      'url',
-        'origin':   'origin',
-        'date':     'date',
-        'checksum': 'checksum',
-        'format':   'format'
+        'url':          'url',
+        'provenance':   'provenance',
+        'date':         'date',
+        'checksum':     'checksum',
+        'format':       'format'
     }
 
     path = corpus.add_file(log=log)
@@ -24,7 +24,7 @@ def test_log_exists(corpus):
 
     assert syllabus.log == [
         'url',
-        'origin',
+        'provenance',
         'date',
         'checksum',
         'format'

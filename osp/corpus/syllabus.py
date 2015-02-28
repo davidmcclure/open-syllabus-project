@@ -44,20 +44,6 @@ class Syllabus:
         self.path = os.path.abspath(path)
 
 
-    @contextmanager
-    def open(self):
-
-        """
-        Get an open file handler to the syllabus.
-
-        Yields:
-            file: A file object.
-        """
-
-        with open(self.path, 'rb') as syllabus:
-            yield syllabus
-
-
     @property
     def file_name(self):
 
@@ -163,7 +149,7 @@ class Syllabus:
 
 
     @property
-    def origin(self):
+    def provenance(self):
 
         """
         Returns:

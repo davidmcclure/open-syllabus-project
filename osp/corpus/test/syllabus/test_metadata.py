@@ -42,16 +42,16 @@ def test_url(corpus):
     assert syllabus.url == 'osp.org'
 
 
-def test_origin(corpus):
+def test_provenance(corpus):
 
     """
-    Syllabus#origin should return the log origin.
+    Syllabus#provenance should return the log origin.
     """
 
-    path = corpus.add_file(log={'origin': 'pytest'})
+    path = corpus.add_file(log={'provenance': 'pytest'})
     syllabus = Syllabus(path)
 
-    assert syllabus.origin == 'pytest'
+    assert syllabus.provenance == 'pytest'
 
 
 def test_date(corpus):

@@ -46,9 +46,9 @@ class MockCorpus:
         Add a file to the corpus.
 
         Args:
-            content (str): The file content.
-            name (str): The file name.
             segment (str): The segment name.
+            name (str): The file name.
+            content (str): The file content.
             ftype (str): The file type.
             log (dict): Custom log data.
 
@@ -70,35 +70,34 @@ class MockCorpus:
         # Write the file and log.
         write_file = getattr(self, '_write_'+ftype)
         write_file(path, content)
-        self.write_log(path, ftype, log)
+        self.write_log(path, log)
 
         return path
 
 
-    def write_log(self, path, ftype, log={}):
+    def write_log(self, path, log={}):
 
         """
         Write a .log file.
 
         Args:
             path (str): The file path.
-            ftype (str): The file type.
-            log (dict): Custom log data.
+            log (dict): Log overrides.
         """
 
         metadata = {
-            'url': 'http://opensyllabusproject.org',
-            'origin': 'fixture',
-            'date': datetime.datetime.now().isoformat(),
-            'checksum': os.path.basename(path),
-            'format': ftype
+            'url':          'url',
+            'provenance':   'provenance',
+            'date':         'date',
+            'checksum':     'checksum',
+            'format':       'format'
         }
 
         metadata.update(log)
 
         order = [
             'url',
-            'origin',
+            'provenance',
             'date',
             'checksum',
             'format'
