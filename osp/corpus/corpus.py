@@ -38,24 +38,6 @@ class Corpus:
         self.s2 = s2
 
 
-    @property
-    @lru_cache()
-    def file_count(self):
-
-        """
-        How many syllabi are in the entire corpus?
-
-        Returns:
-            int: The number of syllabi.
-        """
-
-        count = 0
-        for segment in self.segments():
-            count += segment.file_count
-
-        return count
-
-
     def segments(self):
 
         """
@@ -72,6 +54,24 @@ class Corpus:
 
             # Only yield segment if the path exists.
             if os.path.exists(path): yield Segment(path)
+
+
+    @property
+    @lru_cache()
+    def file_count(self):
+
+        """
+        How many syllabi are in the entire corpus?
+
+        Returns:
+            int: The number of syllabi.
+        """
+
+        count = 0
+        for segment in self.segments():
+            count += segment.file_count
+
+        return count
 
 
     def file_paths(self):
