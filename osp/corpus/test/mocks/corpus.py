@@ -35,14 +35,11 @@ class MockCorpus:
         """
 
         path = os.path.join(self.dir, name)
-
-        if not os.path.exists(path):
-            os.makedirs(path)
-
+        if not os.path.exists(path): os.makedirs(path)
         return path
 
 
-    def add_file(self, segment='000', name=None, content='content',
+    def add_file(self, segment='000', name=None,content='content',
                  ftype='plain', log={}):
 
         """
@@ -76,21 +73,6 @@ class MockCorpus:
         self.write_log(path, ftype, log)
 
         return path
-
-
-    def add_files(self, segment, count, name='file-'):
-
-        """
-        Add a batch of files to a segment.
-
-        Args:
-            segment (str): The segment name.
-            count (int): The number of files.
-            name (str): A file name prefix.
-        """
-
-        for i in range(0, count):
-            self.add_file(segment=segment, name=name+str(i))
 
 
     def write_log(self, path, ftype, log={}):
