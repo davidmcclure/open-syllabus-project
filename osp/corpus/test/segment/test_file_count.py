@@ -1,7 +1,5 @@
 
 
-import os
-
 from osp.corpus.segment import Segment
 
 
