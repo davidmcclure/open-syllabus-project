@@ -156,18 +156,18 @@ class Syllabus:
 
         """
         Returns:
-            str: The URL.
+            str: The URL the file was scraped from.
         """
 
         return self.metadata(0)
 
 
     @property
-    def provenance(self):
+    def origin(self):
 
         """
         Returns:
-            str: The provenance.
+            str: The origin of the file.
         """
 
         return self.metadata(1)
@@ -212,7 +212,7 @@ class Syllabus:
 
         """
         Returns:
-            str: Parse the file type with libmagic.
+            str: The libmagic-parsed file type.
         """
 
         return magic.from_file(self.path, mime=True).decode('utf-8')

@@ -39,7 +39,7 @@ class MockCorpus:
         return path
 
 
-    def add_file(self, segment='000', name=None,content='content',
+    def add_file(self, segment='000', name=None, content='content',
                  ftype='plain', log={}):
 
         """
@@ -88,7 +88,7 @@ class MockCorpus:
 
         metadata = {
             'url': 'http://opensyllabusproject.org',
-            'provenance': 'osp-test',
+            'origin': 'fixture',
             'date': datetime.datetime.now().isoformat(),
             'checksum': os.path.basename(path),
             'format': ftype
@@ -98,7 +98,7 @@ class MockCorpus:
 
         order = [
             'url',
-            'provenance',
+            'origin',
             'date',
             'checksum',
             'format'
@@ -161,9 +161,6 @@ class MockCorpus:
         Args:
             path (str): The file path.
             content (str): The file content.
-
-        Returns:
-            file: A handle on the new file.
         """
 
         docx = Document()
