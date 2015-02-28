@@ -60,7 +60,7 @@ class Segment:
             str: The next file path.
         """
 
-        for name in self.file_names:
+        for name in self.file_names():
             yield os.path.join(self.path, name)
 
 
