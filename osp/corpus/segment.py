@@ -21,7 +21,6 @@ class Segment:
         self.path = os.path.abspath(path)
 
 
-    @property
     @lru_cache()
     def file_names(self):
 
