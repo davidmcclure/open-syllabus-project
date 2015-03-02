@@ -30,6 +30,8 @@ def test_file_paths(mock_corpus):
 
         # Walk files:
         for j in range(0, 10):
+
+            # Should generate the next file path.
             name = segment+'-'+str(j)
             path = os.path.join(corpus.path, segment, name)
             assert next(paths) == path
