@@ -25,6 +25,6 @@ def test_syllabi(corpus):
         syllabus = next(syllabi)
         assert isinstance(syllabus, Syllabus)
 
-        # Should have the right file path.
+        # Should wrap the right file.
         fpath = os.path.join(path, 'file-'+str(i))
         assert syllabus.path == fpath
