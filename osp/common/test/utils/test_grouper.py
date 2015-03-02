@@ -10,7 +10,7 @@ def test_even_groups():
     all groups should be generated.
     """
 
-    groups = grouper(range(100), 10)
+    groups = grouper(range(50), 10)
 
     # Should generate 10 groups, each of length 10.
     assert list(next(groups)) == list(range(0, 10))
@@ -18,11 +18,6 @@ def test_even_groups():
     assert list(next(groups)) == list(range(20, 30))
     assert list(next(groups)) == list(range(30, 40))
     assert list(next(groups)) == list(range(40, 50))
-    assert list(next(groups)) == list(range(50, 60))
-    assert list(next(groups)) == list(range(60, 70))
-    assert list(next(groups)) == list(range(70, 80))
-    assert list(next(groups)) == list(range(80, 90))
-    assert list(next(groups)) == list(range(90, 100))
 
     # And then stop.
     assert next(groups, False) == False
@@ -35,7 +30,7 @@ def test_uneven_groups():
     groups should be yielded, followed by a final group with the remainder.
     """
 
-    groups = grouper(range(105), 10)
+    groups = grouper(range(55), 10)
 
     # Should generate the 10 full-sized groups.
     assert list(next(groups)) == list(range(0, 10))
@@ -43,14 +38,9 @@ def test_uneven_groups():
     assert list(next(groups)) == list(range(20, 30))
     assert list(next(groups)) == list(range(30, 40))
     assert list(next(groups)) == list(range(40, 50))
-    assert list(next(groups)) == list(range(50, 60))
-    assert list(next(groups)) == list(range(60, 70))
-    assert list(next(groups)) == list(range(70, 80))
-    assert list(next(groups)) == list(range(80, 90))
-    assert list(next(groups)) == list(range(90, 100))
 
     # And then the last 5 elements.
-    assert list(next(groups)) == list(range(100, 105))
+    assert list(next(groups)) == list(range(50, 55))
 
     # And then stop.
     assert next(groups, False) == False
