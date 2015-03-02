@@ -1,6 +1,7 @@
 
 
 import math
+import numpy as np
 
 from itertools import islice, chain
 from clint.textui import progress
@@ -22,22 +23,20 @@ def query_bar(query):
     )
 
 
-def partitions(total, n, start=0):
+def partitions(total, n):
 
     """
     Get start/stop boundaries for N partitions.
 
     :param total: The total number of objects.
     :param n: The number of partitions.
-    :param start: The number to start from.
     """
 
-    plen = math.ceil(total/n)
+    pts = np.array_split(np.arange(total), n)
 
     bounds = []
-    for i1 in range(start, total, plen):
-        i2 = i1+plen-1 if i1+plen < total else total
-        bounds.append((i1, i2))
+    for pt in pts:
+        bounds.append((pt[0], pt[-1]))
 
     return bounds
 
