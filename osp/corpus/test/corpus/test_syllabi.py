@@ -40,3 +40,6 @@ def test_syllabi(mock_corpus):
             name = segment+'-'+str(j)
             path = os.path.join(corpus.path, segment, name)
             assert syllabus.path == path
+
+    # And stop at the end.
+    assert next(syllabi, False) == False

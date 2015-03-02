@@ -35,3 +35,6 @@ def test_file_paths(mock_corpus):
             name = segment+'-'+str(j)
             path = os.path.join(corpus.path, segment, name)
             assert next(paths) == path
+
+    # And stop at the end.
+    assert next(paths, False) == False
