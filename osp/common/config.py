@@ -62,5 +62,20 @@ class Config:
         return self.config[key]
 
 
+    def get_db(self, table):
+
+        """
+        Get a Postgres database object for a given table name.
+
+        Args:
+            table (str): The name of the table.
+
+        Returns:
+            PostgresqlExtDatabase: The database object.
+        """
+
+        pass
+
+
 # Global instance.
 config = Config.from_env()
