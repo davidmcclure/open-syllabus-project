@@ -40,11 +40,7 @@ class Config:
             paths (list): YAML paths, from the most to least specific.
         """
 
-        self.config = anyconfig.load(
-            paths,
-            merge=anyconfig.MS_DICTS,
-            ignore_missing=True
-        )
+        self.config = anyconfig.load(paths, ignore_missing=True)
 
 
     def __getitem__(self, key):

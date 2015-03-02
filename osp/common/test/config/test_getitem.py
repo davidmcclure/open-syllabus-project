@@ -1,8 +1,5 @@
 
 
-import os
-
-from osp.common.config import Config
 from .conftest import get_config
 
 
