@@ -35,9 +35,9 @@ def test_full_partition(mock_corpus):
 
     # Add all segments.
     mock_corpus.add_segments()
-    corpus = Corpus(mock_corpus.path)
 
     # Request all segments.
+    corpus = Corpus(mock_corpus.path)
     segments = corpus.segments()
 
     # Should yield all segments.
@@ -57,9 +57,9 @@ def test_bounded_partition(mock_corpus):
 
     # Add segments 0-10.
     mock_corpus.add_segments(s1=0, s2=10)
-    corpus = Corpus(mock_corpus.path, s1=0, s2=10)
 
     # Request segments 0-10
+    corpus = Corpus(mock_corpus.path, s1=0, s2=10)
     segments = corpus.segments()
 
     # Should yield 10 segments.
@@ -78,9 +78,9 @@ def test_missing_segments(mock_corpus):
 
     # Add segments 0-10.
     mock_corpus.add_segments(s1=0, s2=10)
-    corpus = Corpus(mock_corpus.path, s1=0, s2=20)
 
     # Request segments 0-20.
+    corpus = Corpus(mock_corpus.path, s1=0, s2=20)
     segments = corpus.segments()
 
     # Should yield 10 segments.

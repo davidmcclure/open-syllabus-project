@@ -15,13 +15,13 @@ def test_syllabi(mock_corpus):
 
     # Add 10 segments.
     mock_corpus.add_segments(s1=0, s2=10)
-    corpus = Corpus(mock_corpus.path)
 
     # Add 10 files per segment.
     for i in range(0, 10):
         segment = int_to_dir(i)
         mock_corpus.add_files(segment, 10, prefix=segment+'-')
 
+    corpus = Corpus(mock_corpus.path)
     syllabi = corpus.syllabi()
 
     # Walk segments:
