@@ -26,7 +26,11 @@ def query_bar(query):
     """
     Wrap a query in a progress bar.
 
-    :param query: A query instance.
+    Args:
+        query (peewee.Query): A query instance.
+
+    Returns:
+        The query, wrapped in a progress bar.
     """
 
     size = query.count()
@@ -42,8 +46,9 @@ def partitions(total, n):
     """
     Get start/stop boundaries for N partitions.
 
-    :param total: The total number of objects.
-    :param n: The number of partitions.
+    Args:
+        total (int): The total number of objects.
+        n (int): The number of partitions.
     """
 
     pts = np.array_split(np.arange(total), n)
@@ -60,8 +65,12 @@ def grouper(iterable, size):
     """
     Yield "groups" from an iterable.
 
-    :param iterable: The iterable.
-    :param size: The size of the group.
+    Args:
+        iterable (iter): The iterable.
+        size (int): The number of elements in each group.
+
+    Yields:
+        The next group.
     """
 
     source = iter(iterable)
