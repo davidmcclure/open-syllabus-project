@@ -1,7 +1,7 @@
 
 
 from osp.corpus.corpus import Corpus
-from osp.corpus.utils import int_to_dir
+from osp.test.utils import segment_range
 
 
 def test_insert_documents(mock_corpus, Document):
@@ -11,20 +11,14 @@ def test_insert_documents(mock_corpus, Document):
     in the corpus.
     """
 
-    # Add 10 segments.
-    mock_corpus.add_segments(s1=0, s2=10)
-
-    # Add 10 files per segment.
-    for i in range(0, 10):
-        segment = int_to_dir(i)
-        mock_corpus.add_files(segment, 10, prefix=segment+'-')
+    # Add 10 segments with 10 files.
+    for s in segment_range(0, 10):
+        mock_corpus.add_segment(s)
+        mock_corpus.add_files(s, 10, prefix=s+'-')
 
     # Insert document rows.
     corpus = Corpus(mock_corpus.path)
     Document.insert_documents(corpus)
 
-    # Query for the new rows.
-    query = Document.select().order_by(Document.id)
-
     # Should create 100 rows.
-    assert query.count() == 100
+    assert Document.select().count() == 100
