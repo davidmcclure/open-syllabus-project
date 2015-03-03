@@ -9,10 +9,10 @@ from contextlib import contextmanager
 def db(*models):
 
     """
-    Reassign the passed models to the testing database.
+    Assign the passed models to the testing database.
 
     Args:
-        models (*peewee.Model): The set of models under test.
+        models (*peewee.Model): The models under test.
 
     Yields:
         A context with the wrapped models.

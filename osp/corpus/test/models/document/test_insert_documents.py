@@ -1,6 +1,6 @@
 
 
-from osp.common.test.helpers import db
+from osp.test.utils import db
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.utils import int_to_dir
@@ -21,7 +21,7 @@ def test_insert_documents(mock_corpus):
         segment = int_to_dir(i)
         mock_corpus.add_files(segment, 10, prefix=segment+'-')
 
-    with db([Document]):
+    with db(Document):
 
         # Insert document rows.
         corpus = Corpus(mock_corpus.path)
