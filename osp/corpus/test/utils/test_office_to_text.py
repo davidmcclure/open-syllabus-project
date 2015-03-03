@@ -2,15 +2,11 @@
 
 import pytest
 
-from osp.corpus.utils import tika_is_online, office_to_text
+from osp.corpus.test.markers import requires_tika
+from osp.corpus.utils import office_to_text
 
 
-pytestmark = pytest.mark.skipif(
-    tika_is_online() == False,
-    reason='Tika is offline.'
-)
-
-
+@requires_tika
 def test_extract_text(corpus):
 
     """

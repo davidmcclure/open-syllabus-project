@@ -3,7 +3,6 @@
 import os
 import anyconfig
 
-
 from playhouse.postgres_ext import PostgresqlExtDatabase
 
 
@@ -64,7 +63,7 @@ class Config:
     def get_db(self, table):
 
         """
-        Get a Postgres database object for a given table name.
+        Get a Postgres database object for a table name.
 
         Args:
             table (str): The name of the table.

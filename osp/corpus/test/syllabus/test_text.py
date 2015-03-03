@@ -1,7 +1,8 @@
 
 
-import os
+import pytest
 
+from osp.corpus.test.markers import requires_tika
 from osp.corpus.syllabus import Syllabus
 
 
@@ -41,6 +42,7 @@ def test_pdf(corpus):
     assert syllabus.text.strip() == 'text'
 
 
+@requires_tika
 def test_office(corpus):
 
     """
