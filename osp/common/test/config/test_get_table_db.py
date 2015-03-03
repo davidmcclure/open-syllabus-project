@@ -3,16 +3,14 @@
 from .conftest import get_config
 
 
-def test_use_custom_connection():
+def test_get_non_default():
 
     """
     When the passed table is associated with a custom host, return a
     connection to the custom database.
     """
 
-    config = get_config('get-table-db-use-custom')
-
-    # Get connection for table linked to `custom1`.
+    config = get_config('get_table_db/get-non-default')
     db = config.get_table_db('remote_table')
 
     assert db.database                      == 'remote-database'
@@ -22,16 +20,14 @@ def test_use_custom_connection():
     assert db.connect_kwargs['password']    == 'remote-password'
 
 
-def test_use_default_connection():
+def test_fall_back_to_default():
 
     """
     When the passed table name isn't associated with a custom host, return a
     connection to the default database.
     """
 
-    config = get_config('get-table-db-use-default')
-
-    # Get connection for table without any custom host.
+    config = get_config('get_table_db/fall-back-to-default')
     db = config.get_table_db('remote_table')
 
     assert db.database                      == 'database'
@@ -48,9 +44,7 @@ def test_merge_default_values():
     parameters with the default values.
     """
 
-    config = get_config('get-table-db-merge-defaults')
-
-    # Get connection for table linked to `custom2`.
+    config = get_config('get_table_db/merge-default-values')
     db = config.get_table_db('remote_table')
 
     assert db.database                      == 'database'

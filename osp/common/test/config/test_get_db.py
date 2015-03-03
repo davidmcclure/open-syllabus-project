@@ -3,13 +3,13 @@
 from .conftest import get_config
 
 
-def test_get_database():
+def test_get_non_default():
 
     """
     Config#get_db() should return a database object for the requested key.
     """
 
-    config = get_config('get-db-get-database')
+    config = get_config('get_db/get-non-default')
     db = config.get_db('test')
 
     assert db.database                      == 'test-database'
@@ -19,13 +19,13 @@ def test_get_database():
     assert db.connect_kwargs['password']    == 'test-password'
 
 
-def test_fall_back_on_defaults():
+def test_fall_back_to_default():
 
     """
     When the requested key is missing, fall back on the default connection.
     """
 
-    config = get_config('get-db-fall-back-on-defaults')
+    config = get_config('get_db/fall-back-to-default')
     db = config.get_db('test')
 
     assert db.database                      == 'database'
@@ -42,7 +42,7 @@ def test_merge_default_values():
     default values.
     """
 
-    config = get_config('get-db-merge-defaults')
+    config = get_config('get_db/merge-default-values')
     db = config.get_db('test')
 
     assert db.database                      == 'database'
