@@ -7,20 +7,6 @@ from itertools import islice, chain
 from clint.textui import progress
 
 
-def create_tables(*models):
-
-    """
-    Create tables for a set of models.
-
-    Args:
-        models (*peewee.Model): The set of models.
-    """
-
-    for model in models:
-        model._meta.database.connect()
-        model.create_table(fail_silently=True)
-
-
 def query_bar(query):
 
     """

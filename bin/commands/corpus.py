@@ -17,6 +17,7 @@ from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
 from osp.corpus import queries
+from peewee import create_model_tables
 from collections import Counter
 from clint.textui.progress import bar
 from prettytable import PrettyTable
@@ -35,12 +36,12 @@ def init_db():
     Create the database tables.
     """
 
-    create_tables(
+    create_model_tables([
         Document,
         Document_Stored_Id,
         Document_Text,
         Document_Format
-    )
+    ], fail_silently=True)
 
 
 @cli.command()
