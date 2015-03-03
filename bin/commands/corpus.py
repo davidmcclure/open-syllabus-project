@@ -50,17 +50,7 @@ def insert_documents():
     Insert documents in the database.
     """
 
-    segments = Corpus.from_env().segments_bar()
-
-    for segment in segments:
-
-        rows = []
-        for syllabus in segment.syllabi():
-            rows.append({'path': syllabus.relative_path})
-
-        # Bulk-insert the segment.
-        with pg_local.transaction():
-            Document.insert_many(rows).execute()
+    Document.insert_documents()
 
 
 @cli.command()
