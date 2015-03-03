@@ -2,6 +2,7 @@
 
 import datetime
 
+from osp.common.config import config
 from osp.corpus.models.document import Document
 from peewee import *
 

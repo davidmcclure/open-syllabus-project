@@ -6,9 +6,9 @@ import csv
 import sys
 
 from osp.common.config import config
-from osp.common.models.base import pg_local, redis
+from osp.common.models.base import redis
 from osp.common.overview import Overview
-from osp.common.utils import query_bar, grouper
+from osp.common.utils import create_tables, query_bar, grouper
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
@@ -34,13 +34,11 @@ def init_db():
     Create the database tables.
     """
 
-    pg_local.connect()
-
-    pg_local.create_tables([
+    create_tables(
         Document,
         Document_Format,
         Document_Text
-    ], safe=True)
+    )
 
 
 @cli.command()
