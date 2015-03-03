@@ -27,5 +27,4 @@ def db(model):
 
 @pytest.yield_fixture
 def Document():
-    with db(_Document):
-        yield _Document
+    with db(_Document): yield _Document

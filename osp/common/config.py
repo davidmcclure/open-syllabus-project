@@ -85,7 +85,7 @@ class Config:
             list(db.items())
         )
 
-        return PostgresqlExtDatabase(**args)
+        return PostgresqlExtDatabase(autorollback=True, **args)
 
 
     def get_table_db(self, table):
