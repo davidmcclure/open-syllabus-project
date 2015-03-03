@@ -60,6 +60,29 @@ class Config:
         return self.config[key]
 
 
+    def get_db(self, name):
+
+        """
+        Get a Postgres database object.
+
+        Args:
+            name (str): The database key.
+
+        Returns:
+            The database object.
+        """
+
+        defaults = self['postgres']['default']['args']
+
+        if name in self['postgres']:
+            args = self['postgres'][name]['args']
+
+        else:
+            args = defaults
+
+        return PostgresqlExtDatabase(**args)
+
+
     def get_table_db(self, table):
 
         """

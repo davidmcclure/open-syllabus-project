@@ -1,0 +1,11 @@
+---
+
+postgres:
+
+  default:
+    args:
+      database: database
+      host: host
+      port: port
+      user: user
+      password: password
