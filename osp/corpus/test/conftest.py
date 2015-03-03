@@ -6,7 +6,7 @@ from osp.corpus.test.mocks.corpus import MockCorpus
 
 
 @pytest.fixture
-def corpus(request):
+def mock_corpus(request):
 
     corpus = MockCorpus()
 
