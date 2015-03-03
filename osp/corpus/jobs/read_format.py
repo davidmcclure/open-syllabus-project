@@ -10,7 +10,8 @@ def read_format(id):
     """
     Write the libmagic file format.
 
-    :param id: The document id.
+    Args:
+        id (int): The document id.
     """
 
     doc = Document.get(Document.id==id)

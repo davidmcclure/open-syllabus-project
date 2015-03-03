@@ -8,7 +8,7 @@ import sys
 from osp.common.config import config
 from osp.common.models.base import redis
 from osp.common.overview import Overview
-from osp.common.utils import create_tables, query_bar, grouper
+from osp.common.utils import query_bar, grouper
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.stored_id import Document_Stored_Id
