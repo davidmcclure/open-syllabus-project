@@ -11,6 +11,7 @@ from osp.common.overview import Overview
 from osp.common.utils import create_tables, query_bar, grouper
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
+from osp.corpus.models.stored_id import Document_Stored_Id
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_format import read_format
@@ -36,8 +37,9 @@ def init_db():
 
     create_tables(
         Document,
-        Document_Format,
-        Document_Text
+        Document_Stored_Id,
+        Document_Text,
+        Document_Format
     )
 
 

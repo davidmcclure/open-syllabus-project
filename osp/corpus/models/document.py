@@ -8,7 +8,6 @@ from peewee import *
 class Document(Model):
 
 
-    stored_id = BigIntegerField(null=True)
     path = CharField(unique=True)
 
 

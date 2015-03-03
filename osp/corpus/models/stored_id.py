@@ -7,11 +7,13 @@ from osp.corpus.models.document import Document
 from peewee import *
 
 
-class Document_Text(Model):
+class Document_Stored_Id(Model):
+
 
     created = DateTimeField(default=datetime.datetime.now)
     document = ForeignKeyField(Document, unique=True)
-    text = TextField()
+    stored_id = BigIntegerField(null=True)
+
 
     class Meta:
-        database = config.get_db('document_text')
+        database = config.get_db('document_stored_id')

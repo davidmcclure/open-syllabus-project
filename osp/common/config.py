@@ -79,7 +79,7 @@ class Config:
         for db in self['postgres'].values():
             if table in db.get('tables', {}):
 
-                # Merge custon params with defaults.
+                # Merge in the default args.
                 args = dict(
                     list(defaults.items()) +
                     list(db['args'].items())

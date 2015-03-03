@@ -10,7 +10,7 @@ from peewee import *
 class Document_Format(Model):
 
     created = DateTimeField(default=datetime.datetime.now)
-    document = ForeignKeyField(Document)
+    document = ForeignKeyField(Document, unique=True)
     format = CharField(index=True)
 
     class Meta:
