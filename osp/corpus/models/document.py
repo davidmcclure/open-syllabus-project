@@ -2,7 +2,6 @@
 
 from osp.common.config import config
 from osp.corpus.syllabus import Syllabus
-from playhouse.postgres_ext import *
 from peewee import *
 
 
