@@ -10,7 +10,7 @@ def test_use_custom_connection():
     connection to the custom database.
     """
 
-    config = get_config('get-db-use-custom')
+    config = get_config('get-table-db-use-custom')
 
     # Get connection for table linked to `custom1`.
     db = config.get_table_db('remote_table')
@@ -29,7 +29,7 @@ def test_use_default_connection():
     connection to the default database.
     """
 
-    config = get_config('get-db-use-default')
+    config = get_config('get-table-db-use-default')
 
     # Get connection for table without any custom host.
     db = config.get_table_db('remote_table')
@@ -48,7 +48,7 @@ def test_merge_default_values():
     parameters with the default values.
     """
 
-    config = get_config('get-db-merge-defaults')
+    config = get_config('get-table-db-merge-defaults')
 
     # Get connection for table linked to `custom2`.
     db = config.get_table_db('remote_table')
