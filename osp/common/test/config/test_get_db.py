@@ -10,16 +10,16 @@ def test_use_custom_connection():
     connection to the custom database.
     """
 
-    config = get_config('get-db')
+    config = get_config('get-db-use-custom')
 
     # Get connection for table linked to `custom1`.
-    db = config.get_db('table1')
+    db = config.get_db('remote_table')
 
-    assert db.database                      == 'c1-database'
-    assert db.connect_kwargs['host']        == 'c1-host'
-    assert db.connect_kwargs['port']        == 'c1-port'
-    assert db.connect_kwargs['user']        == 'c1-user'
-    assert db.connect_kwargs['password']    == 'c1-password'
+    assert db.database                      == 'remote-database'
+    assert db.connect_kwargs['host']        == 'remote-host'
+    assert db.connect_kwargs['port']        == 'remote-port'
+    assert db.connect_kwargs['user']        == 'remote-user'
+    assert db.connect_kwargs['password']    == 'remote-password'
 
 
 def test_use_default_connection():
@@ -29,10 +29,10 @@ def test_use_default_connection():
     connection to the default database.
     """
 
-    config = get_config('get-db')
+    config = get_config('get-db-use-default')
 
     # Get connection for table without any custom host.
-    db = config.get_db('table3')
+    db = config.get_db('remote_table')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'host'
@@ -48,13 +48,13 @@ def test_merge_default_values():
     parameters with the default values.
     """
 
-    config = get_config('get-db')
+    config = get_config('get-db-merge-defaults')
 
     # Get connection for table linked to `custom2`.
-    db = config.get_db('table2')
+    db = config.get_db('remote_table')
 
     assert db.database                      == 'database'
-    assert db.connect_kwargs['host']        == 'c2-host' # overridden
-    assert db.connect_kwargs['port']        == 'c2-port' # overridden
+    assert db.connect_kwargs['host']        == 'remote-host' # overridden
+    assert db.connect_kwargs['port']        == 'remote-port' # overridden
     assert db.connect_kwargs['user']        == 'user'
     assert db.connect_kwargs['password']    == 'password'

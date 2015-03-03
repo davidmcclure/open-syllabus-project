@@ -24,12 +24,11 @@ tika:
 postgres:
 
   default:
-    params:
+    args:
       database: osp
       host: localhost
       port: 5432
       user: postgres
-      password:
 
 redis:
   host: localhost

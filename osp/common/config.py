@@ -73,24 +73,24 @@ class Config:
             The database object.
         """
 
-        defaults = self['postgres']['default']['params']
-        params = None
+        defaults = self['postgres']['default']['args']
 
         # Try to find a custom host.
-        for name, host in self['postgres'].items():
-            if table in host.get('tables', []):
+        args = None
+        for db in self['postgres'].values():
+            if table in db.get('tables', {}):
 
-                # Merge custom params with defaults.
-                params = dict(
+                # Merge custon params with defaults.
+                args = dict(
                     list(defaults.items()) +
-                    list(host['params'].items())
+                    list(db['args'].items())
                 )
 
         # If none is found, use defaults.
-        if not params:
-            params = defaults
+        if not args:
+            args = defaults
 
-        return PostgresqlExtDatabase(**params)
+        return PostgresqlExtDatabase(**args)
 
 
 # Global instance.

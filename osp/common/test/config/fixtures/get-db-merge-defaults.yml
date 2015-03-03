@@ -1,0 +1,18 @@
+---
+
+postgres:
+
+  default:
+    args:
+      database: database
+      host: host
+      port: port
+      user: user
+      password: password
+
+  remote:
+    args:
+      host: remote-host
+      port: remote-port
+    tables:
+      - remote_table
