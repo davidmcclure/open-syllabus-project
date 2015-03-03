@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.corpus.test.mocks.corpus import MockCorpus
+from osp.test.corpus.mocks.corpus import MockCorpus
 
 
 @pytest.fixture

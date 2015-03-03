@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.corpus.test.markers import requires_tika
+from osp.test.corpus.markers import requires_tika
 from osp.corpus.syllabus import Syllabus
 
 
