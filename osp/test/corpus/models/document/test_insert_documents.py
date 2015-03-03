@@ -1,12 +1,10 @@
 
 
-from osp.test.utils import db
 from osp.corpus.corpus import Corpus
-from osp.corpus.models.document import Document
 from osp.corpus.utils import int_to_dir
 
 
-def test_insert_documents(mock_corpus):
+def test_insert_documents(mock_corpus, Document):
 
     """
     Corpus.insert_documents() should create a `document` row for each syllabus
@@ -21,14 +19,12 @@ def test_insert_documents(mock_corpus):
         segment = int_to_dir(i)
         mock_corpus.add_files(segment, 10, prefix=segment+'-')
 
-    with db(Document):
+    # Insert document rows.
+    corpus = Corpus(mock_corpus.path)
+    Document.insert_documents(corpus)
 
-        # Insert document rows.
-        corpus = Corpus(mock_corpus.path)
-        Document.insert_documents(corpus)
+    # Query for the new rows.
+    query = Document.select().order_by(Document.id)
 
-        # Query for the new rows.
-        query = Document.select().order_by(Document.id)
-
-        # Should create 100 rows.
-        assert query.count() == 100
+    # Should create 100 rows.
+    assert query.count() == 100
