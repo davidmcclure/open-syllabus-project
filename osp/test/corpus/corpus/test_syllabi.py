@@ -4,7 +4,7 @@ import os
 
 from osp.corpus.corpus import Corpus
 from osp.corpus.syllabus import Syllabus
-from osp.corpus.utils import int_to_dir
+from osp.test.utils import segment_range
 
 
 def test_syllabi(mock_corpus):
@@ -13,32 +13,25 @@ def test_syllabi(mock_corpus):
     Corpus#syllabi() should generate Syllabus instances for all files.
     """
 
-    # Add 10 segments.
-    mock_corpus.add_segments(s1=0, s2=10)
-
-    # Add 10 files per segment.
-    for i in range(0, 10):
-        segment = int_to_dir(i)
-        mock_corpus.add_files(segment, 10, prefix=segment+'-')
+    # 10 segments, each with 10 files.
+    for s in segment_range(0, 10):
+        mock_corpus.add_segment(s)
+        mock_corpus.add_files(s, 10, prefix=s+'-')
 
     corpus = Corpus(mock_corpus.path)
     syllabi = corpus.syllabi()
 
-    # Walk segments:
-    for i in range(0, 10):
-
-        segment = int_to_dir(i)
-
-        # Walk files:
-        for j in range(0, 10):
+    # Walk segments / files:
+    for s in segment_range(0, 10):
+        for i in range(0, 10):
 
             # Should be a Syllabus instance.
             syllabus = next(syllabi)
             assert isinstance(syllabus, Syllabus)
 
-            # Should wrap the right file.
-            name = segment+'-'+str(j)
-            path = os.path.join(corpus.path, segment, name)
+            # Should generate the next file path.
+            name = s+'-'+str(i)
+            path = os.path.join(corpus.path, s, name)
             assert syllabus.path == path
 
     # And stop at the end.

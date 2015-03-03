@@ -1,7 +1,7 @@
 
 
 from osp.corpus.corpus import Corpus
-from osp.corpus.utils import int_to_dir
+from osp.test.utils import segment_range
 
 
 def test_file_count(mock_corpus):
@@ -10,12 +10,10 @@ def test_file_count(mock_corpus):
     Corpus#file_count should return the number of files in all segments.
     """
 
-    # Add 10 segments.
-    mock_corpus.add_segments(s1=0, s2=10)
+    # 10 segments, each with 10 files.
+    for s in segment_range(0, 10):
+        mock_corpus.add_segment(s)
+        mock_corpus.add_files(s, 10)
+
     corpus = Corpus(mock_corpus.path)
-
-    # Add 10 files per segment.
-    for i in range(0, 10):
-        mock_corpus.add_files(int_to_dir(i), 10)
-
     assert corpus.file_count == 100

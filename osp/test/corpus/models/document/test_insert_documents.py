@@ -11,7 +11,7 @@ def test_insert_documents(mock_corpus, Document):
     in the corpus.
     """
 
-    # Add 10 segments with 10 files.
+    # 10 segments, each with 10 files.
     for s in segment_range(0, 10):
         mock_corpus.add_segment(s)
         mock_corpus.add_files(s, 10, prefix=s+'-')
