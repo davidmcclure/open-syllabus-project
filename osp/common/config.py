@@ -4,6 +4,9 @@ import os
 import anyconfig
 
 
+from playhouse.postgres_ext import PostgresqlExtDatabase
+
+
 # Throttle the logging.
 anyconfig.set_loglevel('WARNING')
 
@@ -70,7 +73,24 @@ class Config:
             PostgresqlExtDatabase: The database object.
         """
 
-        pass
+        defaults = self['postgres']['default']['params']
+
+        # Try to find a custom host.
+        params = None
+        for name, host in self['postgres'].items():
+            if table in host.get('tables', []):
+
+                # Merge the custom params with the defaults.
+                params = dict(
+                    list(defaults.items()) +
+                    list(host['params'].items())
+                )
+
+        # If none is found, use the defaults.
+        if not params:
+            params = defaults
+
+        return PostgresqlExtDatabase(**params)
 
 
 # Global instance.
