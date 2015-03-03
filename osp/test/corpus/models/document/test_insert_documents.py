@@ -22,3 +22,12 @@ def test_insert_documents(mock_corpus, Document):
 
     # Should create 100 rows.
     assert Document.select().count() == 100
+
+    # All 100 paths should have rows.
+    for s in segment_range(0, 10):
+        for i in range(0, 10):
+
+            # Query for the document path.
+            path = s+'/'+s+'-'+str(i)
+            query = Document.select().where(Document.path==path)
+            assert query.count() == 1
