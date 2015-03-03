@@ -1,16 +1,16 @@
 
 
-from osp.common.config import config
+from osp.common.test.helpers import db
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.utils import int_to_dir
-from playhouse.test_utils import test_database
 
 
 def test_insert_documents(mock_corpus):
 
     """
-    Corpus.insert_documents()
+    Corpus.insert_documents() should create a `document` row for each syllabus
+    in the corpus.
     """
 
     # Add 10 segments.
@@ -21,7 +21,7 @@ def test_insert_documents(mock_corpus):
         segment = int_to_dir(i)
         mock_corpus.add_files(segment, 10, prefix=segment+'-')
 
-    with test_database(config.get_db('test'), (Document,)):
+    with db([Document]):
 
         # Insert document rows.
         corpus = Corpus(mock_corpus.path)
@@ -32,5 +32,3 @@ def test_insert_documents(mock_corpus):
 
         # Should create 100 rows.
         assert query.count() == 100
-
-        # TODO: Check paths.
