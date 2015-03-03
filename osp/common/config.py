@@ -74,19 +74,19 @@ class Config:
         """
 
         defaults = self['postgres']['default']['params']
+        params = None
 
         # Try to find a custom host.
-        params = None
         for name, host in self['postgres'].items():
             if table in host.get('tables', []):
 
-                # Merge the custom params with the defaults.
+                # Merge the custom params with defaults.
                 params = dict(
                     list(defaults.items()) +
                     list(host['params'].items())
                 )
 
-        # If none is found, use the defaults.
+        # If none is found, use defaults.
         if not params:
             params = defaults
 
