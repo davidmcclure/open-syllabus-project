@@ -19,17 +19,34 @@ def test_get_database():
     assert db.connect_kwargs['password']    == 'test-password'
 
 
-def test_fall_back_on_default():
+def test_fall_back_on_defaults():
 
     """
-    When the requested key is missing, fall back on the default args.
+    When the requested key is missing, fall back on the default connection.
     """
 
-    config = get_config('get-db-fall-back-on-default')
+    config = get_config('get-db-fall-back-on-defaults')
     db = config.get_db('test')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'host'
     assert db.connect_kwargs['port']        == 'port'
+    assert db.connect_kwargs['user']        == 'user'
+    assert db.connect_kwargs['password']    == 'password'
+
+
+def test_merge_default_values():
+
+    """
+    Before initializing a connection to a non-default host, merge in the
+    default values.
+    """
+
+    config = get_config('get-db-merge-defaults')
+    db = config.get_db('test')
+
+    assert db.database                      == 'database'
+    assert db.connect_kwargs['host']        == 'test-host' # overridden
+    assert db.connect_kwargs['port']        == 'test-port' # overridden
     assert db.connect_kwargs['user']        == 'user'
     assert db.connect_kwargs['password']    == 'password'

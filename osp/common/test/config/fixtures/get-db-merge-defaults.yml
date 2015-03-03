@@ -1,0 +1,16 @@
+---
+
+postgres:
+
+  default:
+    args:
+      database: database
+      host: host
+      port: port
+      user: user
+      password: password
+
+  test:
+    args:
+      host: test-host
+      port: test-port
