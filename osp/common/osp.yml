@@ -23,19 +23,13 @@ tika:
 
 postgres:
 
-  local:
-    database: osp
-    host: localhost
-    port: 5432
-    user: postgres
-    password:
-
-  remote:
-    database: XXX
-    host: XXX
-    port: 5432
-    user: XXX
-    password:
+  default:
+    params:
+      database: osp
+      host: localhost
+      port: 5432
+      user: postgres
+      password:
 
 redis:
   host: localhost

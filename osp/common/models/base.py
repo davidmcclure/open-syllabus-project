@@ -10,16 +10,6 @@ from elasticsearch import Elasticsearch
 from peewee import *
 
 
-# Local (worker) database.
-pg_local = PostgresqlExtDatabase(
-    **config['postgres']['local']
-)
-
-# Remote (server) database.
-pg_remote = PostgresqlExtDatabase(
-    **config['postgres']['remote']
-)
-
 # Elasticsearch.
 elasticsearch = Elasticsearch([
     config['elasticsearch']
@@ -30,13 +20,3 @@ redis = StrictRedis(**config['redis'])
 
 # Dial down Elasticsearch logging.
 logging.getLogger('elasticsearch.trace').propagate = False
-
-
-class LocalModel(Model):
-    class Meta:
-        database = pg_local
-
-
-class RemoteModel(Model):
-    class Meta:
-        database = pg_remote

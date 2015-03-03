@@ -1,12 +1,12 @@
 
 
+from osp.common.config import config
 from osp.corpus.syllabus import Syllabus
 from playhouse.postgres_ext import *
-from osp.common.models.base import LocalModel
 from peewee import *
 
 
-class Document(LocalModel):
+class Document(Model):
 
 
     stored_id = BigIntegerField(null=True)
@@ -21,3 +21,7 @@ class Document(LocalModel):
         """
 
         return Syllabus.from_env(self.path)
+
+
+    class Meta:
+        database = config.get_db('document')
