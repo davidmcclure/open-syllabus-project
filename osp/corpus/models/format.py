@@ -12,4 +12,4 @@ class Document_Format(BaseModel):
     format = CharField(index=True)
 
     class Meta:
-        database = config.get_db('document_format')
+        database = config.get_table_db('document_format')

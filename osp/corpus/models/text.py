@@ -12,4 +12,4 @@ class Document_Text(BaseModel):
     text = TextField()
 
     class Meta:
-        database = config.get_db('document_text')
+        database = config.get_table_db('document_text')

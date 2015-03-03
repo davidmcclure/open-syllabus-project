@@ -13,7 +13,7 @@ def test_use_custom_connection():
     config = get_config('get-db-use-custom')
 
     # Get connection for table linked to `custom1`.
-    db = config.get_db('remote_table')
+    db = config.get_table_db('remote_table')
 
     assert db.database                      == 'remote-database'
     assert db.connect_kwargs['host']        == 'remote-host'
@@ -32,7 +32,7 @@ def test_use_default_connection():
     config = get_config('get-db-use-default')
 
     # Get connection for table without any custom host.
-    db = config.get_db('remote_table')
+    db = config.get_table_db('remote_table')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'host'
@@ -51,7 +51,7 @@ def test_merge_default_values():
     config = get_config('get-db-merge-defaults')
 
     # Get connection for table linked to `custom2`.
-    db = config.get_db('remote_table')
+    db = config.get_table_db('remote_table')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'remote-host' # overridden

@@ -60,7 +60,7 @@ class Config:
         return self.config[key]
 
 
-    def get_db(self, table):
+    def get_table_db(self, table):
 
         """
         Get a Postgres database object for a table name.

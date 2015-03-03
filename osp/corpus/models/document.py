@@ -47,4 +47,4 @@ class Document(BaseModel):
 
 
     class Meta:
-        database = config.get_db('document')
+        database = config.get_table_db('document')

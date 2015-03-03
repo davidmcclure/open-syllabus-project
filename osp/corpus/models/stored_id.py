@@ -12,4 +12,4 @@ class Document_Stored_Id(BaseModel):
     stored_id = BigIntegerField(null=True)
 
     class Meta:
-        database = config.get_db('document_stored_id')
+        database = config.get_table_db('document_stored_id')

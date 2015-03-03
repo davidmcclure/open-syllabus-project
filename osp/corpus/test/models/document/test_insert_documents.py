@@ -25,5 +25,5 @@ def test_insert_documents(mock_corpus):
         mock_corpus.add_files(segment, 10, prefix=segment+'-')
 
     # Insert document rows.
-    corpus = Corpus(mock_corpus.path)
-    Document.insert_documents(corpus)
+    #corpus = Corpus(mock_corpus.path)
+    #Document.insert_documents(corpus)
