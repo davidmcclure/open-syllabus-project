@@ -70,7 +70,7 @@ class Config:
             table (str): The name of the table.
 
         Returns:
-            PostgresqlExtDatabase: The database object.
+            The database object.
         """
 
         defaults = self['postgres']['default']['params']
@@ -80,7 +80,7 @@ class Config:
         for name, host in self['postgres'].items():
             if table in host.get('tables', []):
 
-                # Merge the custom params with defaults.
+                # Merge custom params with defaults.
                 params = dict(
                     list(defaults.items()) +
                     list(host['params'].items())
