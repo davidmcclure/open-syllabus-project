@@ -10,7 +10,6 @@ from osp.common.models.base import redis
 from osp.common.utils import query_bar
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
-from osp.corpus.models.stored_id import Document_Stored_Id
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_format import read_format
@@ -37,9 +36,8 @@ def init_db():
 
     create_model_tables([
         Document,
-        Document_Stored_Id,
-        Document_Text,
-        Document_Format
+        Document_Format,
+        Document_Text
     ], fail_silently=True)
 
 
