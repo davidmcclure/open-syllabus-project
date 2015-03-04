@@ -6,7 +6,6 @@ rq
 rq-dashboard
 click
 psycopg2
-peewee
 python-magic
 requests
 clint
@@ -31,4 +30,5 @@ pdfminer3k
 python-docx
 pytest
 
+-e git+https://github.com/davidmcclure/peewee.git@bug/postgres-ext-autorollback#egg=peewee
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
