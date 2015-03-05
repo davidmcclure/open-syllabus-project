@@ -22,7 +22,7 @@ def test_get_non_default():
 def test_fall_back_to_default():
 
     """
-    When the requested key is missing, fall back on the default connection.
+    If the requested key is missing, fall back on the default connection.
     """
 
     config = get_config('get_db/fall-back-to-default')
@@ -39,7 +39,8 @@ def test_merge_default_values():
 
     """
     Before initializing a connection to a non-default host, merge in the
-    default values.
+    default values. (This makes it possible to just override the values that
+    are different in the custom host.)
     """
 
     config = get_config('get_db/merge-default-values')
