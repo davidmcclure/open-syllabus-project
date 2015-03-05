@@ -36,13 +36,15 @@ class Config:
     def __init__(self, paths):
 
         """
-        Initialize the configuration object.
+        Initialize the configuration object and store a copy of the initial
+        configuration options, which can be restored later.
 
         Args:
             paths (list): YAML paths, from the most to least specific.
         """
 
         self.config = anyconfig.load(paths, ignore_missing=True)
+        self.initial = self.config.copy()
 
 
     def __getitem__(self, key):
@@ -58,6 +60,15 @@ class Config:
         """
 
         return self.config[key]
+
+
+    def reset(self):
+
+        """
+        Restore the initial options.
+        """
+
+        self.config.update(self.initial)
 
 
     def get_db(self, name):

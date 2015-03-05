@@ -3,9 +3,19 @@
 import pytest
 
 from osp.corpus.models.document import Document as _Document
-from osp.common.config import config
+from osp.common.config import config as _config
 from playhouse.test_utils import test_database
 from contextlib import contextmanager
+
+
+@pytest.fixture
+def config(request):
+
+    def teardown():
+        _config.reset()
+
+    request.addfinalizer(teardown)
+    return _config
 
 
 @contextmanager
@@ -21,7 +31,7 @@ def db(model):
         A context with the wrapped model.
     """
 
-    with test_database(config.get_db('test'), [model]):
+    with test_database(_config.get_db('test'), [model]):
         yield
 
 
