@@ -14,7 +14,6 @@ from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_format import read_format
 from osp.corpus.jobs.read_text import read_text
-from osp.corpus import queries
 from peewee import create_model_tables
 from collections import Counter
 from clint.textui.progress import bar
@@ -88,8 +87,8 @@ def format_counts():
     t = PrettyTable(['File Type', 'Doc Count'])
     t.align = 'l'
 
-    for c in queries.format_counts().naive().iterator():
-        t.add_row([c.format, c.count])
+    for c in Document_Format.format_counts():
+        t.add_row(c)
 
     click.echo(t)
 
