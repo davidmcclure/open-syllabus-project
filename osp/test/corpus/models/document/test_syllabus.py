@@ -10,12 +10,6 @@ def test_syllabus(Document, config, mock_corpus):
     referenced by the document row.
     """
 
-    config.config.update_w_merge({
-        'osp': {
-            'corpus': mock_corpus.path
-        }
-    })
-
     path = mock_corpus.add_file('000', name='123')
     doc = Document(path='000/123')
 

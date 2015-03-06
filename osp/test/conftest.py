@@ -4,6 +4,7 @@ import pytest
 
 from osp.corpus.models.document import Document as _Document
 from osp.common.config import config as _config
+from osp.test.corpus.mocks.corpus import MockCorpus
 from playhouse.test_utils import test_database
 from contextlib import contextmanager
 
@@ -16,6 +17,25 @@ def config(request):
 
     request.addfinalizer(teardown)
     return _config
+
+
+@pytest.fixture
+def mock_corpus(request, config):
+
+    corpus = MockCorpus()
+
+    # Point config -> mock.
+    config.config.update_w_merge({
+        'osp': {
+            'corpus': corpus.path
+        }
+    })
+
+    def teardown():
+        corpus.teardown()
+
+    request.addfinalizer(teardown)
+    return corpus
 
 
 @contextmanager
