@@ -21,3 +21,19 @@ def test_text_extraction_succeeds(models, mock_corpus):
     # Pop out the new row.
     row = Document_Text.get(Document_Text.document==document)
     assert row.text == 'text'
+
+
+def test_text_extraction_fails(models, mock_corpus):
+
+    """
+    If no text can be extracted, don't write the row.
+    """
+
+    # Add an empty file.
+    path = mock_corpus.add_file(content='')
+    document = Document.create(path=path)
+
+    read_text(document.id)
+
+    # Shouldn't write a row.
+    assert Document_Text.select().count() == 0
