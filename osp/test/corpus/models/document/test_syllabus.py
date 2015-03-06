@@ -1,9 +1,10 @@
 
 
+from osp.corpus.models.document import Document
 from osp.corpus.syllabus import Syllabus
 
 
-def test_syllabus(Document, config, mock_corpus):
+def test_syllabus(models, mock_corpus):
 
     """
     Document#syllabus should provide a Syllabus instance bound to the file

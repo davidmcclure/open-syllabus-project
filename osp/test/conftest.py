@@ -2,8 +2,8 @@
 
 import pytest
 
-from osp.corpus.models.document import Document as _Document
-from osp.corpus.models.text import Document_Text as _Document_Text
+from osp.corpus.models.document import Document
+from osp.corpus.models.text import Document_Text
 from osp.common.config import config as _config
 from osp.test.corpus.mocks.corpus import MockCorpus
 from playhouse.test_utils import test_database
@@ -63,28 +63,20 @@ def mock_corpus(request, config):
     return corpus
 
 
-@contextmanager
-def db(model):
+@pytest.yield_fixture
+def models():
 
     """
-    Assign a model to the testing database.
-
-    Args:
-        model (peewee.Model): The model under test.
+    Assign models to the testing database.
 
     Yields:
         A context with the wrapped model.
     """
 
-    with test_database(_config.get_db('test'), [model]):
+    models = [
+        Document,
+        Document_Text
+    ]
+
+    with test_database(_config.get_db('test'), models):
         yield
-
-
-@pytest.yield_fixture
-def Document():
-    with db(_Document): yield _Document
-
-
-@pytest.yield_fixture
-def Document_Text():
-    with db(_Document_Text): yield _Document_Text

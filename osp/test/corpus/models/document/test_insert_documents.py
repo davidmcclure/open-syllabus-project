@@ -1,10 +1,11 @@
 
 
 from osp.corpus.corpus import Corpus
+from osp.corpus.models.document import Document
 from osp.test.utils import segment_range
 
 
-def test_insert_documents(mock_corpus, Document):
+def test_insert_documents(models, mock_corpus):
 
     """
     Corpus.insert_documents() should create a `document` row for each syllabus

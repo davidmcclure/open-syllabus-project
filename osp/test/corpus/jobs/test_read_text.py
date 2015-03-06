@@ -1,9 +1,10 @@
 
 
+from osp.corpus.models.document import Document
 from osp.corpus.jobs.read_text import read_text
 
 
-def test_text_extraction_succeeds(Document, Document_Text, mock_corpus):
+def test_text_extraction_succeeds(models, mock_corpus):
 
     """
     read_text() should extract text for a document and write the result into
