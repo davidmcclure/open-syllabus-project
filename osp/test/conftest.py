@@ -4,6 +4,7 @@ import pytest
 
 from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
+from osp.corpus.models.format import Document_Format
 from osp.common.config import config as _config
 from osp.test.corpus.mocks.corpus import MockCorpus
 from playhouse.test_utils import test_database
@@ -75,6 +76,7 @@ def models():
 
     models = [
         Document,
+        Document_Format,
         Document_Text
     ]
 
