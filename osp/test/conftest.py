@@ -12,6 +12,18 @@ from contextlib import contextmanager
 @pytest.fixture
 def config(request):
 
+    """
+    Provide a config object. When the test finishes, restore the original
+    values loaded from the YAML files, which makes it possible to modify the
+    config without changing state across tests.
+
+    Args:
+        request (FixtureRequest)
+
+    Returns:
+        The modify-able config object.
+    """
+
     def teardown():
         _config.reset()
 
@@ -21,6 +33,18 @@ def config(request):
 
 @pytest.fixture
 def mock_corpus(request, config):
+
+    """
+    Provide a MockCorpus instance, and automatically point the configuration
+    object at the path of the mock corpus.
+
+    Args:
+        request (FixtureRequest)
+        config (Config)
+
+    Returns:
+        MockCorpus
+    """
 
     corpus = MockCorpus()
 
