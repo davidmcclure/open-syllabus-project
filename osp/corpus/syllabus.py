@@ -28,7 +28,6 @@ class Syllabus:
             Syllabus: The wrapped instance.
         """
 
-        print(config.config)
         path = os.path.join(config['osp']['corpus'], relative_path)
         return cls(path)
 

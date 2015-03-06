@@ -22,7 +22,7 @@ def work(n):
     """
 
     workers = {
-        'cmd': config['osp']['worker'],
+        'cmd': os.path.join(config['osp']['bin'], 'rqworker'),
         'numprocesses': n,
         'env': {'LANG': 'en_US.UTF-8'}
     }

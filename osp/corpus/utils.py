@@ -76,8 +76,9 @@ def pdf_to_text(path):
         str: The extracted text.
     """
 
-    text = subprocess.check_output(['pdf2txt.py', path])
-    return text.decode('utf8')
+    cmd = os.path.join(config['osp']['bin'], 'pdf2txt.py')
+    txt = subprocess.check_output([cmd, path])
+    return txt.decode('utf8')
 
 
 def office_to_text(path):

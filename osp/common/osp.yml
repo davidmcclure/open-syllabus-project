@@ -8,7 +8,7 @@
 
 osp:
   corpus: XXX
-  worker: XXX
+  bin: XXX
 
 hlom:
   corpus: XXX
