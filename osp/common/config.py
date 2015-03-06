@@ -2,6 +2,7 @@
 
 import os
 import anyconfig
+import copy
 
 from playhouse.postgres_ext import PostgresqlExtDatabase
 
@@ -44,7 +45,7 @@ class Config:
         """
 
         self.config = anyconfig.load(paths, ignore_missing=True)
-        self.initial = self.config.copy()
+        self.initial = copy.deepcopy(self.config.copy())
 
 
     def __getitem__(self, key):
