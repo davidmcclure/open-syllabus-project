@@ -37,14 +37,15 @@ class Config:
     def __init__(self, paths):
 
         """
-        Initialize the configuration object and store a copy of the initial
-        configuration options, which can be restored later.
+        Initialize the configuration object.
 
         Args:
             paths (list): YAML paths, from the most to least specific.
         """
 
         self.config = anyconfig.load(paths, ignore_missing=True)
+
+        # Save a copy of the original values.
         self.initial = copy.deepcopy(self.config.copy())
 
 

@@ -1,24 +1,23 @@
 
 
-def test_1(Document, config):
+from osp.corpus.syllabus import Syllabus
+
+
+def test_syllabus(Document, config, mock_corpus):
 
     """
-    TODO|dev
+    Document#syllabus should provide a Syllabus instance bound to the file
+    referenced by the document row.
     """
 
     config.config.update_w_merge({
         'osp': {
-            'corpus': 'test'
+            'corpus': mock_corpus.path
         }
     })
 
-    assert config['osp']['corpus'] == 'test'
+    path = mock_corpus.add_file('000', name='123')
+    doc = Document(path='000/123')
 
-
-def test_2(Document, config):
-
-    """
-    TODO|dev
-    """
-
-    assert config['osp']['corpus'] != 'test'
+    assert isinstance(doc.syllabus, Syllabus)
+    assert doc.syllabus.path == path
