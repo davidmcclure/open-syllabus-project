@@ -20,37 +20,3 @@ def format_counts():
         .group_by(Document_Format.format)
         .order_by(count.desc())
     )
-
-
-def document_text(path):
-
-    """
-    Get the most recently-extracted text for a document.
-
-    :param path: A corpus-relative document path.
-    """
-
-    return (
-        Document_Text
-        .select()
-        .where(Document_Text.document==path)
-        .order_by(Document_Text.created.desc())
-        .first()
-    )
-
-
-def all_document_texts():
-
-    """
-    Get the most recently-extracted texts for all documents.
-    """
-
-    return (
-        Document_Text
-        .select()
-        .distinct(Document_Text.document)
-        .order_by(
-            Document_Text.document,
-            Document_Text.created.desc()
-        )
-    )
