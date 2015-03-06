@@ -1,6 +1,7 @@
 
 
 from osp.corpus.models.document import Document
+from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.read_text import read_text
 
 
@@ -16,3 +17,7 @@ def test_text_extraction_succeeds(models, mock_corpus):
     document = Document.create(path=path)
 
     read_text(document.id)
+
+    # Pop out the new row.
+    row = Document_Text.get(Document_Text.document==document)
+    assert row.text == 'text'
