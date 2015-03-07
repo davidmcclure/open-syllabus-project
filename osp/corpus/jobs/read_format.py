@@ -17,5 +17,5 @@ def read_format(id):
 
     Document_Format.create(
         format=doc.syllabus.libmagic_file_type,
-        document=doc.id
+        document=doc
     )

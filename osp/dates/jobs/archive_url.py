@@ -26,5 +26,5 @@ def archive_url(id):
 
         Document_Date_Archive_Url.create(
             timestamp=match.group('timestamp'),
-            document=doc.id
+            document=doc
         )
