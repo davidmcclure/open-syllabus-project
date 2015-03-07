@@ -4,7 +4,7 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 
 
-def read_format(id):
+def format(id):
 
     """
     Write the libmagic file format.
