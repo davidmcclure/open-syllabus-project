@@ -19,5 +19,5 @@ def read_text(id):
 
         Document_Text.create(
             text=doc.syllabus.unbroken_text,
-            document=doc.id
+            document=doc
         )
