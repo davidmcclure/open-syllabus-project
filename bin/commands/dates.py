@@ -2,8 +2,13 @@
 
 import click
 
+from osp.common.utils import query_bar
+from osp.corpus.models.document import Document
 from osp.dates.models.archive_url import Document_Date_Archive_Url
+from osp.dates.jobs.archive_url import archive_url
 from peewee import create_model_tables
+from osp.common.models.base import redis
+from rq import Queue
 
 
 @click.group()
@@ -21,3 +26,16 @@ def init_db():
     create_model_tables([
         Document_Date_Archive_Url
     ], fail_silently=True)
+
+
+@cli.command()
+def queue_archive_url():
+
+    """
+    Queue Internet Archive timestamp extraction tasks in the worker.
+    """
+
+    queue = Queue(connection=redis)
+
+    for doc in query_bar(Document.select()):
+        queue.enqueue(archive_url, doc.id)
