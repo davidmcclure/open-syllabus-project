@@ -2,7 +2,6 @@
 
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
-from osp.corpus.syllabus import Syllabus
 
 
 def read_format(id):

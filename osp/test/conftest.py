@@ -2,13 +2,15 @@
 
 import pytest
 
-from osp.corpus.models.document import Document
-from osp.corpus.models.text import Document_Text
-from osp.corpus.models.format import Document_Format
 from osp.common.config import config as _config
 from osp.test.corpus.mocks.corpus import MockCorpus
 from playhouse.test_utils import test_database
 from contextlib import contextmanager
+
+from osp.corpus.models.document import Document
+from osp.corpus.models.format import Document_Format
+from osp.corpus.models.text import Document_Text
+from osp.dates.models.archive_url import Document_Date_Archive_Url
 
 
 @pytest.fixture
@@ -77,7 +79,8 @@ def models():
     models = [
         Document,
         Document_Format,
-        Document_Text
+        Document_Text,
+        Document_Date_Archive_Url
     ]
 
     with test_database(_config.get_db('test'), models):
