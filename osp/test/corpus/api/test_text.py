@@ -8,4 +8,4 @@ def test_text(api_client):
     """
 
     ping = api_client.post('/corpus/text', data={'o1':1, 'o2':5})
-    # TODO
+    # should queue the job

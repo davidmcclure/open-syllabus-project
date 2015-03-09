@@ -7,10 +7,12 @@ from osp.common.config import config
 from peewee import Model, DateTimeField, fn
 from redis import StrictRedis
 from elasticsearch import Elasticsearch
+from rq import Queue
 
 
-# REDIS
+# REDIS/RQ
 redis = StrictRedis(**config['redis'])
+queue = Queue(connection=redis)
 
 # ELASTICSEARCH
 elasticsearch = Elasticsearch([
