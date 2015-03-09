@@ -3,10 +3,12 @@
 import pytest
 
 from osp.common.config import config as _config
+from osp.common.models.base import queue as _queue
 from osp.api.server import app
 from osp.test.corpus.mocks.corpus import MockCorpus
 from playhouse.test_utils import test_database
 from contextlib import contextmanager
+from redis import StrictRedis
 
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
@@ -92,7 +94,14 @@ def queue():
         The RQ queue.
     """
 
-    pass
+    old = _queue.connection
+    new = StrictRedis(db=1)
+    _queue.connection = new
+
+    yield _queue
+
+    new.flushdb()
+    _queue.connection = old
 
 
 @pytest.yield_fixture
