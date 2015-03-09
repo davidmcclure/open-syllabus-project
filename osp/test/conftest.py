@@ -83,10 +83,23 @@ def models():
 
 
 @pytest.yield_fixture
+def queue():
+
+    """
+    Point the queue at a testing Redis database.
+
+    Yields:
+        The RQ queue.
+    """
+
+    pass
+
+
+@pytest.yield_fixture
 def api_client():
 
     """
-    Start a testing client for the worker API.
+    Get a test client for the worker API.
 
     Yields:
         The test client.
