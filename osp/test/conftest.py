@@ -13,7 +13,7 @@ from osp.corpus.models.text import Document_Text
 from osp.dates.models.archive_url import Document_Date_Archive_Url
 
 
-@pytest.fixture
+@pytest.yield_fixture
 def config(request):
 
     """
@@ -28,14 +28,11 @@ def config(request):
         The modify-able config object.
     """
 
-    def teardown():
-        _config.reset()
-
-    request.addfinalizer(teardown)
-    return _config
+    yield _config
+    _config.reset()
 
 
-@pytest.fixture
+@pytest.yield_fixture
 def mock_corpus(request, config):
 
     """
@@ -59,11 +56,8 @@ def mock_corpus(request, config):
         }
     })
 
-    def teardown():
-        corpus.teardown()
-
-    request.addfinalizer(teardown)
-    return corpus
+    yield corpus
+    corpus.teardown()
 
 
 @pytest.yield_fixture
