@@ -17,13 +17,13 @@ def text():
     o2 = int(request.args['o2'])
 
     queue = Queue(connection=redis)
-    job = queue.enqueue(queue_read_text, o1, o2, timeout=3600)
+    job = queue.enqueue(queue_text, o1, o2, timeout=3600)
 
     code = 200 if job.is_queued else 500
     return ('', 200)
 
 
-def queue_read_text(o1, o2):
+def queue_text(o1, o2):
 
     """
     Queue text extraction tasks in the worker.
