@@ -6,6 +6,18 @@ from osp.test.corpus.markers import requires_tika
 from osp.corpus.syllabus import Syllabus
 
 
+def test_empty(mock_corpus):
+
+    """
+    Should return None if the file is empty.
+    """
+
+    path = mock_corpus.add_file(content='', ftype='plain')
+    syllabus = Syllabus(path)
+
+    assert syllabus.text == None
+
+
 def test_plaintext(mock_corpus):
 
     """

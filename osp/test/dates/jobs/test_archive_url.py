@@ -11,8 +11,8 @@ def test_internet_archive_url(models, mock_corpus):
     archive_url() should extract a timestamp from and Internet Archive URL.
     """
 
-    url1 = 'https://web.archive.org/web/20031119022539'
-    url2 = 'http:/ce.byu.edu/is/ahtg/sec11/l19.htm'
+    url1 = 'https://web.archive.org/web/20150102030405'
+    url2 = 'http://yale.edu/syllabus.html'
 
     # Mock an Internet Archive URL.
     path = mock_corpus.add_file(log={'url': url1+'/'+url2})
@@ -26,7 +26,7 @@ def test_internet_archive_url(models, mock_corpus):
         Document_Date_Archive_Url.document==document
     )
 
-    assert row.timestamp == '20031119022539'
+    assert row.timestamp == '20150102030405'
 
 
 def test_regular_url(models, mock_corpus):
@@ -37,7 +37,7 @@ def test_regular_url(models, mock_corpus):
 
     # Mock a regular URL.
     path = mock_corpus.add_file(log={
-        'url': 'http://yale.edu/syllabus.pdf'
+        'url': 'http://yale.edu/syllabus.html'
     })
 
     # Write the timestamp.

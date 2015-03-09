@@ -249,10 +249,13 @@ class Syllabus:
         """
 
         ft = self.libmagic_file_type
-        text = None
+
+        # Empty:
+        if ft == 'inode/x-empty':
+            return None
 
         # Plaintext:
-        if ft == 'text/plain':
+        elif ft == 'text/plain':
             with open(self.path, 'r') as fh:
                 return fh.read()
 
