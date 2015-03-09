@@ -10,12 +10,12 @@ def test_date():
     timestamp into a regular datetime instance.
     """
 
-    row = Document_Date_Archive_Url(timestamp='20031119022539')
+    row = Document_Date_Archive_Url(timestamp='20150102030405')
     date = row.date
 
-    assert date.tm_year == 2003
-    assert date.tm_mon == 11
-    assert date.tm_mday == 19
-    assert date.tm_hour == 2
-    assert date.tm_min == 25
-    assert date.tm_sec == 39
+    assert date.tm_year == 2015
+    assert date.tm_mon  == 1
+    assert date.tm_mday == 2
+    assert date.tm_hour == 3
+    assert date.tm_min  == 4
+    assert date.tm_sec  == 5
