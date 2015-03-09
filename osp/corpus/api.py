@@ -25,8 +25,9 @@ def queue_text(o1, o2):
     """
     Queue text extraction tasks in the worker.
 
-    :param o1: The first id.
-    :param o2: The last id.
+    Args:
+        o1 (int): The first id.
+        o2 (int): The second id.
     """
 
     for i in range(o1, o2+1):
