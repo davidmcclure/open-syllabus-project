@@ -1,17 +1,18 @@
 
 
 from osp.corpus.api import queue_text
+from osp.corpus.jobs.text import text
 
 
-def test_text(api_client, queue):
+def test_queue_text(queue):
 
     """
-    The /text endpoint should queue the job that then queues the individual
-    text extraction jobs for each document.
+    queue_text() should queue text extraction jobs.
     """
 
-    api_client.post('/corpus/text', data={'o1':1, 'o2':5})
+    queue_text(1, 5)
+    assert queue.count == 5
 
-    assert queue.count == 1
-    assert queue.jobs[0].func == queue_text
-    assert queue.jobs[0].args == (1, 5)
+    for i, job in enumerate(queue.jobs):
+        assert job.func == text
+        assert job.args == (i+1,)

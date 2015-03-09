@@ -2,7 +2,7 @@
 
 from osp.common.models.base import queue
 from osp.corpus.corpus import Corpus
-from osp.corpus.jobs.text import text
+from osp.corpus.jobs.text import text as job
 from flask import Flask, Blueprint, request
 
 
@@ -14,7 +14,6 @@ def text():
 
     o1 = int(request.form['o1'])
     o2 = int(request.form['o2'])
-
     job = queue.enqueue(queue_text, o1, o2, timeout=3600)
 
     code = 200 if job.is_queued else 500
@@ -31,4 +30,4 @@ def queue_text(o1, o2):
     """
 
     for i in range(o1, o2+1):
-        queue.enqueue(read_text, i)
+        queue.enqueue(job, i)
