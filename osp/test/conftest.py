@@ -3,6 +3,7 @@
 import pytest
 
 from osp.common.config import config as _config
+from osp.api.server import app
 from osp.test.corpus.mocks.corpus import MockCorpus
 from playhouse.test_utils import test_database
 from contextlib import contextmanager
@@ -79,3 +80,17 @@ def models():
 
     with test_database(_config.get_db('test'), models):
         yield
+
+
+@pytest.yield_fixture
+def api_client():
+
+    """
+    Start a testing client for the worker API.
+
+    Yields:
+        The test client.
+    """
+
+    app.testing = True
+    yield app.test_client()

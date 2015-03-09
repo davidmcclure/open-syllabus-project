@@ -2,7 +2,7 @@
 
 from osp.common.models.base import redis
 from osp.corpus.corpus import Corpus
-from osp.corpus.jobs.read_text import read_text
+from osp.corpus.jobs.text import text
 from flask import Flask, Blueprint, request
 from rq import Queue
 
@@ -13,8 +13,8 @@ corpus = Blueprint('corpus', __name__)
 @corpus.route('/text', methods=['POST'])
 def text():
 
-    o1 = int(request.args['o1'])
-    o2 = int(request.args['o2'])
+    o1 = int(request.form['o1'])
+    o2 = int(request.form['o2'])
 
     queue = Queue(connection=redis)
     job = queue.enqueue(queue_text, o1, o2, timeout=3600)
