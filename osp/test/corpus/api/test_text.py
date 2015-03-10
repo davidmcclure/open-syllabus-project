@@ -1,7 +1,7 @@
 
 
 from osp.corpus.api import queue_text
-from osp.corpus.jobs.text import text
+from osp.corpus.jobs.read_text import read_text
 
 
 def test_text(api_client, queue):
@@ -22,5 +22,5 @@ def test_text(api_client, queue):
 
     # Should queue the text jobs.
     for i, job in enumerate(queue.jobs):
-        assert job.func == text
+        assert job.func == read_text
         assert job.args == (i+1,)

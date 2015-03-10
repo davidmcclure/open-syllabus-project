@@ -4,7 +4,7 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 
 
-def text(id):
+def read_text(id):
 
     """
     Write the document as plain text.
