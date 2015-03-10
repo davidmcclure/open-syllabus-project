@@ -14,11 +14,13 @@ def test_internet_archive_url(models, mock_corpus):
     url1 = 'https://web.archive.org/web/20150102030405'
     url2 = 'http://yale.edu/syllabus.html'
 
-    # Mock an Internet Archive URL.
-    path = mock_corpus.add_file(log={'url': url1+'/'+url2})
-    document = Document.create(path=path)
+    # Internet Archive URL.
+    path = mock_corpus.add_file(log={
+        'url': url1+'/'+url2
+    })
 
     # Write the timestamp.
+    document = Document.create(path=path)
     archive_url(document.id)
 
     # Pop out the new row.
@@ -35,7 +37,7 @@ def test_regular_url(models, mock_corpus):
     When the syllabus was scraped from a regular URL, don't write a row.
     """
 
-    # Mock a regular URL.
+    # Regular URL.
     path = mock_corpus.add_file(log={
         'url': 'http://yale.edu/syllabus.html'
     })
