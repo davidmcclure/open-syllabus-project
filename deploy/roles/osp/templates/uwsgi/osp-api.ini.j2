@@ -2,7 +2,7 @@
 [uwsgi]
 
 base = {{ osp_src }}
-module = osp.api
+module = osp.api.server
 home = %(base)/env
 pythonpath = %(base)
 callable = app
