@@ -13,10 +13,10 @@ prettytable
 circus
 beautifulsoup4
 jsonstream
+ijson
 pypdf2
 elasticsearch
 blessings
-ijson
 anyconfig
 PyYAML
 uwsgi
@@ -25,8 +25,8 @@ boto
 spacy
 numpy
 reportlab
-pdfminer3k
 python-docx
+pdfminer3k
 pytest
 
 -e git+https://github.com/davidmcclure/peewee.git@bug/postgres-ext-autorollback#egg=peewee
