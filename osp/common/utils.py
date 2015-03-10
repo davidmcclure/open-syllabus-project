@@ -27,17 +27,18 @@ def query_bar(query):
     )
 
 
-def partitions(total, n):
+def partitions(min_val, max_val, n):
 
     """
     Get start/stop boundaries for N partitions.
 
     Args:
-        total (int): The total number of objects.
+        min_val (int): The starting value.
+        max_val (int): The last value.
         n (int): The number of partitions.
     """
 
-    pts = np.array_split(np.arange(total), n)
+    pts = np.array_split(np.arange(min_val, max_val+1), n)
 
     bounds = []
     for pt in pts:

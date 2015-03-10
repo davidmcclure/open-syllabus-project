@@ -20,7 +20,7 @@ def test_text(api_client, queue):
     meta.perform()
     assert queue.count == 5
 
-    # Should queue extraction jobs.
+    # Should queue the text jobs.
     for i, job in enumerate(queue.jobs):
         assert job.func == text
         assert job.args == (i+1,)
