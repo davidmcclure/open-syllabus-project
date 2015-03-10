@@ -2,7 +2,7 @@
 
 osp:
   corpus: /osp/repository
-  worker: /home/{{ ansible_ssh_user }}/osp/env/bin/rqworker
+  bin: /home/{{ ansible_ssh_user }}/osp/env/bin
 
 hlom:
   corpus: /osp/hlom
@@ -16,19 +16,19 @@ overview:
 
 postgres:
 
-  local:
-    database: osp
-    host: localhost
-    port: 5432
-    user: osp
-    password: {{ osp_password }}
+  default:
+    args:
+      database: osp
+      host: localhost
+      port: 5432
+      user: osp
+      password: {{ osp_password }}
 
   remote:
-    database: osp
-    host: {{ osp_data_host }}
-    port: 5432
-    user: osp
-    password: {{ osp_password }}
+    args:
+      host: {{ osp_data_host }}
+    tables:
+      - document_text
 
 redis:
   host: localhost
