@@ -28,18 +28,4 @@ class Client:
             tuple: (response, offset 1, offset 2)
         """
 
-        urls = self.inventory.worker_urls
-        pts = partitions(total, len(urls))
-
-        for i, url in enumerate(urls):
-
-            o1 = pts[i][0]
-            o2 = pts[i][1]
-
-            # Post the boundaries.
-            r = requests.post(
-                url+route,
-                params={'o1': o1, 'o2': o2}
-            )
-
-            yield (r, o1, o2)
+        pass
