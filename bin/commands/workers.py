@@ -5,6 +5,7 @@ import requests
 
 from osp.common.utils import partitions
 from osp.common.inventory import Inventory
+from osp.corpus.models.document import Document
 from blessings import Terminal
 
 
@@ -48,7 +49,7 @@ def status():
 
         click.echo(url)
 
-        # Load rq-dashboard.
+        # Get the queue counts.
         r = requests.get(url+'/rq/queues.json')
 
         for queue in r.json()['queues']:
@@ -84,49 +85,49 @@ def requeue():
 
 
 @cli.command()
-@click.option('--total', default=4095)
-def queue_text(total):
+def queue_text():
 
     """
     Queue text extraction.
     """
 
-    queue(total, '/corpus/text')
+    queue('/corpus/text', Document.max_id())
 
 
-@cli.command()
-@click.option('--total', default=10526523)
-def queue_hlom(total):
+#@cli.command()
+#@click.option('--total', default=10526523)
+#def queue_hlom(total):
 
-    """
-    Queue HLOM citation extraction.
-    """
+    #"""
+    #Queue HLOM citation extraction.
+    #"""
 
-    queue(total, '/hlom/query')
-
-
-@cli.command()
-@click.option('--total', default=4095)
-def queue_locate(total):
-
-    """
-    Queue doc -> institution matching.
-    """
-
-    queue(total, '/locations/locate')
+    #queue(total, '/hlom/query')
 
 
-def queue(total, route):
+#@cli.command()
+#@click.option('--total', default=4095)
+#def queue_locate(total):
+
+    #"""
+    #Queue doc -> institution matching.
+    #"""
+
+    #queue(total, '/locations/locate')
+
+
+def queue(route, max_id):
 
     """
     Queue partitions in EC2 workers.
 
-    :param total: The total number of objects.
-    :param route: The API endpoint.
+    Args:
+        route (str): The API endpoint.
+        max_id (int): The highest ID.
     """
 
     urls = Inventory().worker_urls
-    pts = partitions(total, len(urls))
+    pts = partitions(1, max_id, len(urls))
 
     for i, url in enumerate(urls):
 
