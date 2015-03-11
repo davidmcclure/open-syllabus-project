@@ -12,17 +12,7 @@ class Document_Date_Archive_Url(BaseModel):
 
 
     document = ForeignKeyField(Document, unique=True)
-    timestamp = CharField(index=True)
-
-
-    @property
-    def date(self):
-
-        """
-        Convert the raw timestamp into a regular datetime instance.
-        """
-
-        return time.strptime(self.timestamp, '%Y%m%d%H%M%S')
+    date = DateTimeField()
 
 
     class Meta:

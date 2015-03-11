@@ -4,6 +4,7 @@ import re
 
 from osp.corpus.models.document import Document
 from osp.dates.models.archive_url import Document_Date_Archive_Url
+from datetime import datetime
 
 
 def ext_archive_url(id):
@@ -24,7 +25,12 @@ def ext_archive_url(id):
 
     if match:
 
+        date = datetime.strptime(
+            match.group('timestamp'),
+            '%Y%m%d%H%M%S'
+        )
+
         Document_Date_Archive_Url.create(
-            timestamp=match.group('timestamp'),
+            date=date,
             document=doc
         )
