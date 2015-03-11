@@ -1,6 +1,5 @@
 
 
-from osp.corpus.api import queue_text
 from osp.corpus.jobs.read_text import read_text
 
 
