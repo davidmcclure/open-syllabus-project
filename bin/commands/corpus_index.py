@@ -93,23 +93,10 @@ def search(q, size, start, slop):
         'from': start,
         'fields': [],
         'query': {
-            'bool': {
-                'must': {
-                    'match': {
-                        'body': {
-                            'query': q,
-                            'minimum_should_match': '60%',
-                            'cutoff_frequency': 0.001
-                        }
-                    }
-                },
-                'should': {
-                    'match_phrase': {
-                        'body': {
-                            'query': q,
-                            'slop': slop
-                        }
-                    }
+            'match_phrase': {
+                'body': {
+                    'query': q,
+                    'slop': slop
                 }
             }
         },
