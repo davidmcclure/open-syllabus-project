@@ -1,28 +1,28 @@
 
 
 from osp.common.models.base import queue
-from osp.corpus.jobs.read_text import read_text
+from osp.dates.jobs.archive_url import archive_url as job
 from flask import Flask, Blueprint, request
 
 
-corpus = Blueprint('corpus', __name__)
+dates = Blueprint('dates', __name__)
 
 
-@corpus.route('/text', methods=['POST'])
-def text():
+@dates.route('/archive-url', methods=['POST'])
+def archive_url():
 
     o1 = int(request.form['o1'])
     o2 = int(request.form['o2'])
-    job = queue.enqueue(queue_text, o1, o2, timeout=3600)
+    job = queue.enqueue(queue_archive_url, o1, o2)
 
     code = 200 if job.is_queued else 500
     return ('', 200)
 
 
-def queue_text(o1, o2):
+def queue_archive_url(o1, o2):
 
     """
-    Queue text extraction tasks in the worker.
+    Queue archive URL parsing tasks in the worker.
 
     Args:
         o1 (int): The first id.
@@ -30,4 +30,4 @@ def queue_text(o1, o2):
     """
 
     for i in range(o1, o2+1):
-        queue.enqueue(read_text, i)
+        queue.enqueue(job, i)

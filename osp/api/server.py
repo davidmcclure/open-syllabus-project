@@ -5,6 +5,7 @@ import os
 from flask import Flask
 from rq_dashboard import RQDashboard
 from osp.corpus.api import corpus
+from osp.dates.api import dates
 
 
 # RQ dashboard:
@@ -14,6 +15,7 @@ RQDashboard(app)
 
 # OSP REST APIs:
 app.register_blueprint(corpus, url_prefix='/corpus')
+app.register_blueprint(dates, url_prefix='/dates')
 
 
 @app.route('/ping')
