@@ -2,7 +2,7 @@
 
 from osp.corpus.models.document import Document
 from osp.dates.models.archive_url import Document_Date_Archive_Url
-from osp.dates.jobs.archive_url import ext_archive_url
+from osp.dates.jobs.ext_archive_url import ext_archive_url
 
 
 def test_internet_archive_url(models, mock_corpus):

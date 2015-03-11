@@ -1,7 +1,7 @@
 
 
 from osp.common.models.base import queue
-from osp.corpus.jobs.read_text import read_text
+from osp.corpus.jobs.ext_text import ext_text
 from flask import Flask, Blueprint, request
 
 
@@ -30,4 +30,4 @@ def queue_text(o1, o2):
     """
 
     for i in range(o1, o2+1):
-        queue.enqueue(read_text, i)
+        queue.enqueue(ext_text, i)

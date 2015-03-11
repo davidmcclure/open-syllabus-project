@@ -1,7 +1,7 @@
 
 
 from osp.common.models.base import queue
-from osp.dates.jobs.archive_url import ext_archive_url
+from osp.dates.jobs.ext_archive_url import ext_archive_url
 from flask import Flask, Blueprint, request
 
 

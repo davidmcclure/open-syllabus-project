@@ -1,6 +1,6 @@
 
 
-from osp.dates.jobs.archive_url import ext_archive_url
+from osp.dates.jobs.ext_archive_url import ext_archive_url
 
 
 def test_text(api_client, queue):
