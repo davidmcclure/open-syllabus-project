@@ -1,7 +1,7 @@
 
 
 from osp.common.models.base import queue
-from osp.dates.jobs.archive_url import archive_url as job
+from osp.dates.jobs.archive_url import ext_archive_url
 from flask import Flask, Blueprint, request
 
 
@@ -30,4 +30,4 @@ def queue_archive_url(o1, o2):
     """
 
     for i in range(o1, o2+1):
-        queue.enqueue(job, i)
+        queue.enqueue(ext_archive_url, i)

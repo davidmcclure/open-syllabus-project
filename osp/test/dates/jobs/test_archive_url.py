@@ -2,7 +2,7 @@
 
 from osp.corpus.models.document import Document
 from osp.dates.models.archive_url import Document_Date_Archive_Url
-from osp.dates.jobs.archive_url import archive_url
+from osp.dates.jobs.archive_url import ext_archive_url
 
 
 def test_internet_archive_url(models, mock_corpus):
@@ -21,7 +21,7 @@ def test_internet_archive_url(models, mock_corpus):
 
     # Write the timestamp.
     document = Document.create(path=path)
-    archive_url(document.id)
+    ext_archive_url(document.id)
 
     # Pop out the new row.
     row = Document_Date_Archive_Url.get(
@@ -44,7 +44,7 @@ def test_regular_url(models, mock_corpus):
 
     # Write the timestamp.
     document = Document.create(path=path)
-    archive_url(document.id)
+    ext_archive_url(document.id)
 
     # Shouldn't write a row.
     assert Document_Date_Archive_Url.select().count() == 0

@@ -1,6 +1,6 @@
 
 
-from osp.dates.jobs.archive_url import archive_url
+from osp.dates.jobs.archive_url import ext_archive_url
 
 
 def test_text(api_client, queue):
@@ -20,5 +20,5 @@ def test_text(api_client, queue):
 
     # Should queue the parsing jobs.
     for i, job in enumerate(queue.jobs):
-        assert job.func == archive_url
+        assert job.func == ext_archive_url
         assert job.args == (i+1,)
