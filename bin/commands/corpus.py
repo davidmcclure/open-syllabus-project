@@ -12,8 +12,8 @@ from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
-from osp.corpus.jobs.read_format import read_format
-from osp.corpus.jobs.read_text import read_text
+from osp.corpus.jobs.ext_format import ext_format
+from osp.corpus.jobs.ext_text import ext_text
 from peewee import create_model_tables
 from collections import Counter
 from clint.textui.progress import bar
@@ -52,7 +52,7 @@ def insert_documents():
 
 
 @cli.command()
-def queue_read_format():
+def queue_ext_format():
 
     """
     Queue format extraction tasks in the worker.
@@ -61,11 +61,11 @@ def queue_read_format():
     queue = Queue(connection=redis)
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(read_format, doc.id)
+        queue.enqueue(ext_format, doc.id)
 
 
 @cli.command()
-def queue_read_text():
+def queue_ext_text():
 
     """
     Queue text extraction tasks in the worker.
@@ -74,7 +74,7 @@ def queue_read_text():
     queue = Queue(connection=redis)
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(read_text, doc.id)
+        queue.enqueue(ext_text, doc.id)
 
 
 @cli.command()
