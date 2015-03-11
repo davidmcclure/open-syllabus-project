@@ -85,13 +85,14 @@ def requeue():
 
 
 @cli.command()
-def queue_text():
+@click.argument('max_id', type=int)
+def queue_text(max_id):
 
     """
     Queue text extraction.
     """
 
-    queue('/corpus/text', Document.max_id())
+    queue('/corpus/text', max_id)
 
 
 #@cli.command()
@@ -137,7 +138,7 @@ def queue(route, max_id):
         # Post the boundaries.
         r = requests.post(
             url+route,
-            params={'o1': o1, 'o2': o2}
+            data={'o1': o1, 'o2': o2}
         )
 
         code = r.status_code
