@@ -6,9 +6,10 @@ import re
 import magic
 import re
 
-import osp.corpus.utils as utils
+from osp.corpus import utils
 from osp.common.config import config
 from contextlib import contextmanager
+from pdfminer.pdfparser import PDFParser, PDFDocument
 from functools import lru_cache
 
 
@@ -160,7 +161,7 @@ class Syllabus:
 
 
     @property
-    def date(self):
+    def retrieved_date(self):
 
         """
         Returns:
@@ -190,6 +191,20 @@ class Syllabus:
         """
 
         return self.metadata(4)
+
+
+    @property
+    def created_date(self):
+
+        """
+        If the file is a PDF or DOCX file, try to get a created date out of
+        the file metadata.
+
+        Returns:
+            datetime|None: The created date.
+        """
+
+        pass
 
 
     @property

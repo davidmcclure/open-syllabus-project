@@ -54,16 +54,16 @@ def test_provenance(mock_corpus):
     assert syllabus.provenance == 'pytest'
 
 
-def test_date(mock_corpus):
+def test_retrieved_date(mock_corpus):
 
     """
-    Syllabus#date should return the log date.
+    Syllabus#retrieved_date should return the log date.
     """
 
     path = mock_corpus.add_file(log={'date': 'now'})
     syllabus = Syllabus(path)
 
-    assert syllabus.date == 'now'
+    assert syllabus.retrieved_date == 'now'
 
 
 def test_checksum(mock_corpus):
