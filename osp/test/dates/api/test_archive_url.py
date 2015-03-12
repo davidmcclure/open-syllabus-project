@@ -3,7 +3,7 @@
 from osp.dates.jobs.ext_archive_url import ext_archive_url
 
 
-def test_text(api_client, queue):
+def test_archive_url(api_client, queue):
 
     """
     The /archive-url endpoint should queue the meta-job that queues the
