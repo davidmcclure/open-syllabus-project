@@ -95,26 +95,26 @@ def queue_text(max_id):
     queue('/corpus/text', max_id)
 
 
-#@cli.command()
-#@click.option('--total', default=10526523)
-#def queue_hlom(total):
+@cli.command()
+@click.argument('max_id', type=int)
+def queue_date_archive_url(max_id):
 
-    #"""
-    #Queue HLOM citation extraction.
-    #"""
+    """
+    Queue date archive URL extraction.
+    """
 
-    #queue(total, '/hlom/query')
+    queue('/dates/archive-url', max_id)
 
 
-#@cli.command()
-#@click.option('--total', default=4095)
-#def queue_locate(total):
+@cli.command()
+@click.argument('max_id', type=int)
+def queue_date_archive_url(max_id):
 
-    #"""
-    #Queue doc -> institution matching.
-    #"""
+    """
+    Queue date semester extraction.
+    """
 
-    #queue(total, '/locations/locate')
+    queue('/dates/semester', max_id)
 
 
 def queue(route, max_id):
