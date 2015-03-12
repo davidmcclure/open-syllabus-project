@@ -76,16 +76,15 @@ class TestExtSemester:
         ]
 
         for case in cases:
+
             row = ext(case)
+
+            assert row.offset == 4
             assert row.date.year == 2012
             assert row.date.month == 1
 
 
     def test_two_digit_year(self, ext):
-        pass
-
-
-    def test_four_digit_year(self, ext):
         pass
 
 
