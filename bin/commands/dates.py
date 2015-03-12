@@ -5,7 +5,7 @@ import click
 from osp.common.utils import query_bar
 from osp.corpus.models.document import Document
 from osp.dates.models.archive_url import Document_Date_Archive_Url
-from osp.dates.jobs.archive_url import archive_url
+from osp.dates.jobs.ext_archive_url import ext_archive_url
 from peewee import create_model_tables
 from osp.common.models.base import redis
 from rq import Queue
@@ -38,4 +38,4 @@ def queue_archive_url():
     queue = Queue(connection=redis)
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(archive_url, doc.id)
+        queue.enqueue(ext_archive_url, doc.id)

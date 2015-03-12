@@ -52,7 +52,7 @@ def insert_documents():
 
 
 @cli.command()
-def queue_ext_format():
+def queue_format():
 
     """
     Queue format extraction tasks in the worker.
@@ -65,7 +65,7 @@ def queue_ext_format():
 
 
 @cli.command()
-def queue_ext_text():
+def queue_text():
 
     """
     Queue text extraction tasks in the worker.
