@@ -28,10 +28,6 @@ def test_archive_url(models, mock_corpus):
         Document_Date_Archive_Url.document==document
     )
 
-    # Store the original string.
-    assert row.timestamp == '20150102030405'
-
-    # Store a Postgres timestamp.
     assert row.date.year    == 2015
     assert row.date.month   == 1
     assert row.date.day     == 2
