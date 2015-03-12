@@ -27,8 +27,11 @@ def ext(models, mock_corpus):
         ext_semester(document.id)
 
         # Pop out the new row.
-        return Document_Date_Semester.get(
-            Document_Date_Semester.document==document
+        return (
+            Document_Date_Semester
+            .select()
+            .where(Document_Date_Semester.document==document)
+            .first()
         )
 
     return _ext
@@ -37,7 +40,7 @@ def ext(models, mock_corpus):
 def test_fall_semester(ext):
 
     """
-    `Fall 2012` -> September, 2012
+    Fall 2012
     """
 
     row = ext('abc Fall 2012 def')
@@ -50,7 +53,7 @@ def test_fall_semester(ext):
 def test_spring_semester(ext):
 
     """
-    `Spring 2012` -> January, 2012
+    Spring 2012
     """
 
     row = ext('abc Spring 2012 def')
@@ -67,9 +70,9 @@ def test_ignore_case(ext):
     """
 
     cases = [
-        'abc SPRING 2012 def',
-        'abc spring 2012 def',
-        'abc SpRiNg 2012 def'
+        'abc FALL 2012 def',
+        'abc fall 2012 def',
+        'abc FaLl 2012 def'
     ]
 
     for case in cases:
@@ -78,16 +81,50 @@ def test_ignore_case(ext):
 
         assert row.offset == 4
         assert row.date.year == 2012
-        assert row.date.month == 1
+        assert row.date.month == 9
 
 
 def test_two_digit_year(ext):
-    pass
+
+    """
+    Fall 12
+    """
+
+    row = ext('abc Fall 12 def')
+
+    assert row.offset == 4
+    assert row.date.year == 2012
+    assert row.date.month == 9
+
+
+def test_apostrophe_before_year(ext):
+
+    """
+    Fall '12
+    """
+
+    row = ext("abc Fall '12 def")
+
+    assert row.offset == 4
+    assert row.date.year == 2012
+    assert row.date.month == 9
 
 
 def test_ignore_future_years(ext):
-    pass
+
+    """
+    Fall 3000
+    """
+
+    row = ext("abc Fall 3000 def")
+    assert row == None
 
 
 def test_ignore_old_years(ext):
-    pass
+
+    """
+    Fall 1979
+    """
+
+    row = ext("abc Fall 1979 def")
+    assert row == None
