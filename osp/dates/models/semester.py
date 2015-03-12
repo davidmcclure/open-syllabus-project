@@ -14,8 +14,6 @@ class Document_Date_Semester(BaseModel):
     document = ForeignKeyField(Document, unique=True)
     date = DateTimeField()
     offset = IntegerField()
-    year = IntegerField()
-    semester = CharField()
 
 
     class Meta:
