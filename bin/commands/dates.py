@@ -10,7 +10,6 @@ from osp.dates.jobs.ext_archive_url import ext_archive_url
 from osp.dates.jobs.ext_semester import ext_semester
 from peewee import create_model_tables
 from osp.common.models.base import queue
-from rq import Queue
 
 
 @click.group()

@@ -6,7 +6,7 @@ import csv
 import sys
 
 from osp.common.config import config
-from osp.common.models.base import redis
+from osp.common.models.base import queue
 from osp.common.utils import query_bar
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
@@ -18,7 +18,6 @@ from peewee import create_model_tables
 from collections import Counter
 from clint.textui.progress import bar
 from prettytable import PrettyTable
-from rq import Queue
 
 
 @click.group()
@@ -58,8 +57,6 @@ def queue_format():
     Queue format extraction tasks in the worker.
     """
 
-    queue = Queue(connection=redis)
-
     for doc in query_bar(Document.select()):
         queue.enqueue(ext_format, doc.id)
 
@@ -70,8 +67,6 @@ def queue_text():
     """
     Queue text extraction tasks in the worker.
     """
-
-    queue = Queue(connection=redis)
 
     for doc in query_bar(Document.select()):
         queue.enqueue(ext_text, doc.id)
