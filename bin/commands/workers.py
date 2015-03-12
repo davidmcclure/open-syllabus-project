@@ -108,7 +108,7 @@ def queue_date_archive_url(max_id):
 
 @cli.command()
 @click.argument('max_id', type=int)
-def queue_date_archive_url(max_id):
+def queue_date_semester(max_id):
 
     """
     Queue date semester extraction.
