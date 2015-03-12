@@ -5,7 +5,6 @@ import click
 import csv
 import sys
 
-from osp.common.config import config
 from osp.common.models.base import queue
 from osp.common.utils import query_bar
 from osp.corpus.corpus import Corpus
@@ -15,8 +14,6 @@ from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.ext_format import ext_format
 from osp.corpus.jobs.ext_text import ext_text
 from peewee import create_model_tables
-from collections import Counter
-from clint.textui.progress import bar
 from prettytable import PrettyTable
 
 
