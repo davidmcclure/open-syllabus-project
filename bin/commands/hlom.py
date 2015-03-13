@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import csv
 
-from osp.common.models.base import pg_local, pg_remote, redis
+from osp.common.models.base import queue
 from osp.common.overview import Overview
 from osp.common.utils import query_bar, grouper
 from osp.citations.hlom.models.record import HLOM_Record
@@ -14,6 +14,7 @@ from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
 from osp.corpus.models.document import Document
+from peewee import create_model_tables
 from playhouse.postgres_ext import ServerSide
 from clint.textui.progress import bar
 from scipy.stats import rankdata
@@ -33,16 +34,10 @@ def init_db():
     Create the database tables.
     """
 
-    pg_local.connect()
-    pg_remote.connect()
-
-    pg_local.create_tables([
-        HLOM_Record
-    ], safe=True)
-
-    pg_remote.create_tables([
-        HLOM_Citation
-    ], safe=True)
+    create_model_tables([
+        HLOM_Record,
+        HLOM_Citation,
+    ], fail_silently=True)
 
 
 @cli.command()
@@ -82,8 +77,6 @@ def queue_queries():
     """
     Queue citation extraction queries.
     """
-
-    queue = Queue(connection=redis)
 
     for record in ServerSide(HLOM_Record.select()):
         queue.enqueue(query, record.id)

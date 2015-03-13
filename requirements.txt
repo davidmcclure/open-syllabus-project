@@ -23,8 +23,8 @@ PyYAML
 uwsgi
 flask
 boto
-spacy
 numpy
+scipy
 reportlab
 python-docx
 pdfminer3k
