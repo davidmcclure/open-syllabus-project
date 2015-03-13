@@ -12,41 +12,43 @@ dates = Blueprint('dates', __name__)
 
 @dates.route('/archive-url', methods=['POST'])
 def archive_url():
-
-    o1 = int(request.form['o1'])
-    o2 = int(request.form['o2'])
-    job = queue.enqueue(queue_jobs, ext_archive_url, o1, o2)
-
-    code = 200 if job.is_queued else 500
-    return ('', 200)
+    return queue_jobs(ext_archive_url)
 
 
 @dates.route('/semester', methods=['POST'])
 def semester():
-
-    o1 = int(request.form['o1'])
-    o2 = int(request.form['o2'])
-    job = queue.enqueue(queue_jobs, ext_semester, o1, o2)
-
-    code = 200 if job.is_queued else 500
-    return ('', 200)
+    return queue_jobs(ext_semester)
 
 
 @dates.route('/file-metadata', methods=['POST'])
 def file_metadata():
-
-    o1 = int(request.form['o1'])
-    o2 = int(request.form['o2'])
-    job = queue.enqueue(queue_jobs, ext_file_metadata, o1, o2)
-
-    code = 200 if job.is_queued else 500
-    return ('', 200)
+    return queue_jobs(ext_file_metadata)
 
 
-def queue_jobs(job, o1, o2):
+def queue_jobs(job):
 
     """
     Queue archive URL parsing tasks in the worker.
+
+    Args:
+        job (function): The job.
+
+    Returns:
+        tuple: ('', HTTP code)
+    """
+
+    o1 = int(request.form['o1'])
+    o2 = int(request.form['o2'])
+    job = queue.enqueue(meta_job, job, o1, o2)
+
+    code = 200 if job.is_queued else 500
+    return ('', code)
+
+
+def meta_job(job, o1, o2):
+
+    """
+    Queue the individual per-id jobs.
 
     Args:
         job (function): The job.
