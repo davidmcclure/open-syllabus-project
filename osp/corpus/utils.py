@@ -3,6 +3,7 @@
 import os
 import subprocess
 import requests
+import re
 
 from osp.common.config import config
 from bs4 import BeautifulSoup
@@ -138,8 +139,12 @@ def pdf_date(path):
 
     reader = PdfFileReader(path)
 
+    # Get rid of `D:` prefix and timezone.
+    stamp = reader.documentInfo['/CreationDate']
+    match = re.search('\d+', stamp)
+
     return datetime.strptime(
-        reader.documentInfo['/CreationDate'][2:-7],
+        match.group(),
         '%Y%m%d%H%M%S'
     )
 
