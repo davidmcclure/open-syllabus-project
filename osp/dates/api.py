@@ -3,6 +3,7 @@
 from osp.common.models.base import queue
 from osp.dates.jobs.ext_archive_url import ext_archive_url
 from osp.dates.jobs.ext_semester import ext_semester
+from osp.dates.jobs.ext_file_metadata import ext_file_metadata
 from flask import Flask, Blueprint, request
 
 
@@ -26,6 +27,17 @@ def semester():
     o1 = int(request.form['o1'])
     o2 = int(request.form['o2'])
     job = queue.enqueue(queue_jobs, ext_semester, o1, o2)
+
+    code = 200 if job.is_queued else 500
+    return ('', 200)
+
+
+@dates.route('/file-metadata', methods=['POST'])
+def file_metadata():
+
+    o1 = int(request.form['o1'])
+    o2 = int(request.form['o2'])
+    job = queue.enqueue(queue_jobs, ext_file_metadata, o1, o2)
 
     code = 200 if job.is_queued else 500
     return ('', 200)
