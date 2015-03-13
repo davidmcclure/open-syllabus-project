@@ -17,4 +17,11 @@ def ext_file_metadata(id):
     """
 
     doc = Document.get(Document.id==id)
-    # TODO
+    date = doc.syllabus.created_date
+
+    if date:
+
+        Document_Date_File_Metadata.create(
+            document=doc,
+            date=date
+        )

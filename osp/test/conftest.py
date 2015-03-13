@@ -16,6 +16,7 @@ from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.dates.models.archive_url import Document_Date_Archive_Url
 from osp.dates.models.semester import Document_Date_Semester
+from osp.dates.models.file_metadata import Document_Date_File_Metadata
 
 
 @pytest.yield_fixture
@@ -80,7 +81,8 @@ def models():
         Document_Format,
         Document_Text,
         Document_Date_Archive_Url,
-        Document_Date_Semester
+        Document_Date_Semester,
+        Document_Date_File_Metadata
     ]
 
     with test_database(_config.get_db('test'), models):
