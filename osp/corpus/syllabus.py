@@ -210,7 +210,8 @@ class Syllabus:
             return utils.pdf_date(self.path)
 
         else:
-            return utils.docx_date(self.path)
+            try: return utils.docx_date(self.path)
+            except: pass
 
 
     @property

@@ -33,3 +33,20 @@ def test_docx(mock_corpus):
 
     # Created within a second of now.
     assert abs(syllabus.created_date - now).seconds <= 1
+
+
+def test_text(mock_corpus):
+
+    """
+    If the file isn't a PDF or DOCX, return None.
+    """
+
+    path = mock_corpus.add_file(ftype='plain')
+    plain = Syllabus(path)
+
+    assert plain.created_date == None
+
+    path = mock_corpus.add_file(ftype='html')
+    html = Syllabus(path)
+
+    assert html.created_date == None
