@@ -32,4 +32,4 @@ def test_docx(mock_corpus):
     syllabus = Syllabus(path)
 
     # Created within a second of now.
-    #assert abs(syllabus.created_date - now).seconds <= 1
+    assert abs(syllabus.created_date - now).seconds <= 1

@@ -209,6 +209,9 @@ class Syllabus:
         if ft == 'application/pdf':
             return utils.pdf_date(self.path)
 
+        else:
+            return utils.docx_date(self.path)
+
 
     @property
     @lru_cache()

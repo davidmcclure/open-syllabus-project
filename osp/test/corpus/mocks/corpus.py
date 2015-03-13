@@ -10,6 +10,7 @@ from osp.corpus.utils import int_to_dir
 from abc import ABCMeta
 from reportlab.pdfgen.canvas import Canvas
 from docx import Document
+from datetime import datetime
 
 
 class MockCorpus:
@@ -195,6 +196,7 @@ class MockCorpus:
 
         docx = Document()
         docx.add_paragraph(content)
+        docx.core_properties.created = datetime.now()
         docx.save(path)
 
 

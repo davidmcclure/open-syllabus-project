@@ -7,6 +7,7 @@ import requests
 from osp.common.config import config
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfFileReader
+from docx import Document
 from datetime import datetime
 
 
@@ -155,4 +156,4 @@ def docx_date(path):
         datetime: The created date.
     """
 
-    pass
+    return Document(path).core_properties.created
