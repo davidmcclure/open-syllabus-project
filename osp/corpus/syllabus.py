@@ -9,8 +9,9 @@ import re
 from osp.corpus import utils
 from osp.common.config import config
 from contextlib import contextmanager
-from pdfminer.pdfparser import PDFParser, PDFDocument
 from functools import lru_cache
+from PyPDF2 import PdfFileReader
+from datetime import datetime
 
 
 class Syllabus:
@@ -204,7 +205,16 @@ class Syllabus:
             datetime|None: The created date.
         """
 
-        pass
+        ft = self.libmagic_file_type
+
+        if ft == 'application/pdf':
+
+            reader = PdfFileReader(self.path)
+
+            return datetime.strptime(
+                reader.documentInfo['/CreationDate'][2:-7],
+                '%Y%m%d%H%M%S'
+            )
 
 
     @property
