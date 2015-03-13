@@ -46,7 +46,7 @@ def int_to_dir(i):
     return hex(i)[2:].zfill(3)
 
 
-def html_to_text(path, exclude=['script', 'style']):
+def html_text(path, exclude=['script', 'style']):
 
     """
     Convert HTML to text.
@@ -66,7 +66,7 @@ def html_to_text(path, exclude=['script', 'style']):
         return soup.get_text()
 
 
-def pdf_to_text(path):
+def pdf_text(path):
 
     """
     Convert a PDF to text.
@@ -83,7 +83,7 @@ def pdf_to_text(path):
     return txt.decode('utf8')
 
 
-def office_to_text(path):
+def docx_text(path):
 
     """
     Convert to plaintext with LibreOffice.
@@ -141,3 +141,18 @@ def pdf_date(path):
         reader.documentInfo['/CreationDate'][2:-7],
         '%Y%m%d%H%M%S'
     )
+
+
+def docx_date(path):
+
+    """
+    Extract a date from DOCX file metadata.
+
+    Args:
+        path (str): The file path.
+
+    Returns:
+        datetime: The created date.
+    """
+
+    pass

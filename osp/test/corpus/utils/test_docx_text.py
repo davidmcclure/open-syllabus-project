@@ -3,7 +3,7 @@
 import pytest
 
 from osp.test.corpus.markers import requires_tika
-from osp.corpus.utils import office_to_text
+from osp.corpus.utils import docx_text
 
 
 @requires_tika
@@ -17,5 +17,5 @@ def test_extract_text(mock_corpus):
     path = mock_corpus.add_file(content='text', ftype='docx')
 
     # Should extract the text.
-    text = office_to_text(path).strip()
+    text = docx_text(path).strip()
     assert text == 'text'

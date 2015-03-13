@@ -9,8 +9,8 @@ import re
 from osp.corpus import utils
 from osp.common.config import config
 from contextlib import contextmanager
-from functools import lru_cache
 from datetime import datetime
+from functools import lru_cache
 
 
 class Syllabus:
@@ -279,15 +279,15 @@ class Syllabus:
 
         # HTML/XML:
         elif ft == 'text/html':
-            return utils.html_to_text(self.path)
+            return utils.html_text(self.path)
 
         # PDF:
         elif ft == 'application/pdf':
-            return utils.pdf_to_text(self.path)
+            return utils.pdf_text(self.path)
 
         # Everything else:
         else:
-            return utils.office_to_text(self.path)
+            return utils.docx_text(self.path)
 
 
     @property
