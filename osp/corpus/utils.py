@@ -6,6 +6,8 @@ import requests
 
 from osp.common.config import config
 from bs4 import BeautifulSoup
+from PyPDF2 import PdfFileReader
+from datetime import datetime
 
 
 def requires_attr(attr):
@@ -119,3 +121,23 @@ def tika_is_online():
 
     except requests.exceptions.ConnectionError:
         return False
+
+
+def pdf_date(path):
+
+    """
+    Extract a date from PDF file metadata.
+
+    Args:
+        path (str): The file path.
+
+    Returns:
+        datetime: The created date.
+    """
+
+    reader = PdfFileReader(path)
+
+    return datetime.strptime(
+        reader.documentInfo['/CreationDate'][2:-7],
+        '%Y%m%d%H%M%S'
+    )
