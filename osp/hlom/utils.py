@@ -7,15 +7,15 @@ import re
 def sanitize_query(query):
 
     """
-    Scrub out Elasticsearch-reserved characters:
-    + - && || ! ( ) { } [ ] ^ " ~ * ? : \ /
+    Escape Lucene-reserved characters:
+    + - & | ! ( ) { } [ ] ^ " ~ * ? : \ /
 
     :param query: The query string.
     """
 
     return re.sub(
-        '[\+\-\&\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/]',
-        '',
+        '([\+\-\&\|\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/])',
+        r'\\\1',
         query
     )
 
