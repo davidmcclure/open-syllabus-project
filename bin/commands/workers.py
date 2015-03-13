@@ -100,7 +100,7 @@ def queue_text(max_id):
 def queue_date_archive_url(max_id):
 
     """
-    Queue date archive URL extraction.
+    Queue archive URL date extraction.
     """
 
     queue('/dates/archive-url', max_id)
@@ -111,10 +111,21 @@ def queue_date_archive_url(max_id):
 def queue_date_semester(max_id):
 
     """
-    Queue date semester extraction.
+    Queue semester date extraction.
     """
 
     queue('/dates/semester', max_id)
+
+
+@cli.command()
+@click.argument('max_id', type=int)
+def queue_date_file_metadata(max_id):
+
+    """
+    Queue file metadata date extraction.
+    """
+
+    queue('/dates/file-metadata', max_id)
 
 
 def queue(route, max_id):
