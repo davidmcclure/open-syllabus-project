@@ -64,3 +64,23 @@ def test_docx(ext):
 
     # Created within a second of now.
     assert abs(row.date - now).seconds <= 1
+
+
+def test_ignore_plaintext(ext):
+
+    """
+    ext_file_metadata() should ignore plaintext files.
+    """
+
+    row = ext('plain')
+    assert row == None
+
+
+def test_ignore_html(ext):
+
+    """
+    ext_file_metadata() should ignore HTML files.
+    """
+
+    row = ext('html')
+    assert row == None
