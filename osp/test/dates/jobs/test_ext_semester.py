@@ -12,8 +12,9 @@ from osp.dates.jobs.ext_semester import ext_semester
 def ext(models, mock_corpus):
 
     """
-    Provide a function that create document / text rows, runs the job,
-    and returns the new `document_date_semester` row.
+    Returns:
+        function: A helper that creates document / text rows, runs the job,
+        and returns the new `document_date_semester` row.
     """
 
     def _ext(content):
