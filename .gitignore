@@ -1,5 +1,7 @@
-*.pyc
 env
+.ipynb_checkpoints
+
+*.pyc
 *.egg-info
 *.sql
 *.csv
