@@ -74,27 +74,3 @@ def deduped_records():
             HLOM_Record.id
         )
     )
-
-
-def document_objects():
-
-    """
-    Get document -> HLOM record IDs for Overview document-objects.
-    """
-
-    rid = HLOM_Record.stored_id.alias('rid')
-    did = Document.stored_id.alias('did')
-
-    return (
-        HLOM_Citation
-        .select(rid, did)
-        .join(
-            HLOM_Record,
-            on=(HLOM_Citation.record==HLOM_Record.control_number)
-        )
-        .join(
-            Document,
-            on=(HLOM_Citation.document==Document.path)
-        )
-        .where(~(Document.stored_id >> None))
-    )
