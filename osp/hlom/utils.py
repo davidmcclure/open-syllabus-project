@@ -23,8 +23,8 @@ def sanitize_query(query):
 def clean_field(field):
 
     """
-    Clean a field for Elasticsearch - strip spaces and non-word characters
-    from the beginning and end of the value.
+    Clean a field for public-facing display - strip spaces and non-word
+    characters from the beginning and end of the value.
 
     :param field: The field value.
     """
