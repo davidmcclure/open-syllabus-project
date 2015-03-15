@@ -47,8 +47,21 @@ def test_fall_semester(ext):
     row = ext('abc Fall 2012 def')
 
     assert row.offset == 4
-    assert row.date.year == 2012
-    assert row.date.month == 9
+    assert row.semester == 'Fall'
+    assert row.year == '2012'
+
+
+def test_winter_semester(ext):
+
+    """
+    Winter 2012
+    """
+
+    row = ext('abc Winter 2012 def')
+
+    assert row.offset == 4
+    assert row.semester == 'Winter'
+    assert row.year == '2012'
 
 
 def test_spring_semester(ext):
@@ -60,8 +73,21 @@ def test_spring_semester(ext):
     row = ext('abc Spring 2012 def')
 
     assert row.offset == 4
-    assert row.date.year == 2012
-    assert row.date.month == 1
+    assert row.semester == 'Spring'
+    assert row.year == '2012'
+
+
+def test_summer_semester(ext):
+
+    """
+    Summer 2012
+    """
+
+    row = ext('abc Summer 2012 def')
+
+    assert row.offset == 4
+    assert row.semester == 'Summer'
+    assert row.year == '2012'
 
 
 def test_ignore_case(ext):
@@ -71,18 +97,19 @@ def test_ignore_case(ext):
     """
 
     cases = [
-        'abc FALL 2012 def',
-        'abc fall 2012 def',
-        'abc FaLl 2012 def'
+        'Summer',
+        'SUMMER',
+        'summer',
+        'SuMmEr',
     ]
 
-    for case in cases:
+    for semester in cases:
 
-        row = ext(case)
+        row = ext('abc %s 2012 def' % semester)
 
         assert row.offset == 4
-        assert row.date.year == 2012
-        assert row.date.month == 9
+        assert row.semester == semester
+        assert row.year == '2012'
 
 
 def test_two_digit_year(ext):
@@ -94,8 +121,8 @@ def test_two_digit_year(ext):
     row = ext('abc Fall 12 def')
 
     assert row.offset == 4
-    assert row.date.year == 2012
-    assert row.date.month == 9
+    assert row.semester == 'Fall'
+    assert row.year == '12'
 
 
 def test_apostrophe_before_year(ext):
@@ -107,8 +134,8 @@ def test_apostrophe_before_year(ext):
     row = ext("abc Fall '12 def")
 
     assert row.offset == 4
-    assert row.date.year == 2012
-    assert row.date.month == 9
+    assert row.semester == 'Fall'
+    assert row.year == '12'
 
 
 def test_ignore_future_years(ext):

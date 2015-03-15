@@ -19,7 +19,7 @@ def ext_semester(id):
     doc = Document_Text.get(Document_Text.id==id)
 
     pattern = re.compile(r'''
-        (?P<semester>fall|spring)
+        (?P<semester>fall|winter|spring|summer)
         [\s\']+
         (?P<year>\d{4}|\d{2})
     ''', re.I+re.X)
@@ -28,29 +28,12 @@ def ext_semester(id):
 
     if match:
 
-        year = match.group('year')
+        row = Document_Date_Semester(
+            document=doc,
+            offset=match.start(),
+            semester=match.group('semester'),
+            year=match.group('year')
+        )
 
-        # Get the year.
-        if len(year) == 4:
-            date = datetime.strptime(year, '%Y')
-        elif len(year) == 2:
-            date = datetime.strptime(year, '%y')
-
-        semester = match.group('semester').lower()
-
-        # Get the month.
-        if semester == 'spring':
-            month = 1
-        elif semester == 'fall':
-            month = 9
-
-        # Set the month.
-        date = date.replace(month=month)
-
-        if date.year > 1980 and date < datetime.now():
-
-            Document_Date_Semester.create(
-                document=doc,
-                offset=match.start(),
-                date=date
-            )
+        if row.date.year > 1980 and row.date < datetime.now():
+            row.save()
