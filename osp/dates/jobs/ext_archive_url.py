@@ -35,7 +35,7 @@ def ext_archive_url(id):
 
         if date < datetime.now():
 
-            Document_Date_Archive_Url.create(
+            return Document_Date_Archive_Url.create(
                 document=doc,
                 date=date
             )

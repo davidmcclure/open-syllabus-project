@@ -17,7 +17,7 @@ def ext_text(id):
 
     if doc.syllabus.text:
 
-        Document_Text.create(
+        return Document_Text.create(
             text=doc.syllabus.unbroken_text,
             document=doc
         )

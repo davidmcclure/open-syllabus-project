@@ -21,7 +21,7 @@ def ext_file_metadata(id):
 
     if date:
 
-        Document_Date_File_Metadata.create(
+        return Document_Date_File_Metadata.create(
             document=doc,
             date=date
         )
