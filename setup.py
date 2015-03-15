@@ -48,6 +48,7 @@ setup(
         'python-docx',
         'pdfminer3k',
         'pytest',
+        'matplotlib',
 
         # Via GitHub (see requirements.txt).
         'pymarc',

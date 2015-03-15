@@ -1,5 +1,6 @@
 ipython
 jsonschema
+mistune
 tldextract
 geopy
 redis
@@ -29,6 +30,7 @@ reportlab
 python-docx
 pdfminer3k
 pytest
+matplotlib
 
 -e git+https://github.com/davidmcclure/peewee.git@bug/postgres-ext-autorollback#egg=peewee
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
