@@ -6,12 +6,17 @@
     update_cache: yes
     state: latest
   with_items:
+    - pkg-config
     - python-virtualenv
     - python3-setuptools
     - python3-dev
+    - libfreetype6-dev
     - libpq-dev
     - libxslt1-dev
     - libxml2-dev
+
+- name: Install SciPy build dependencies
+  command: apt-get -y build-dep python3-scipy
 
 - name: Configure .profile
   lineinfile:
