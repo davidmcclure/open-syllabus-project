@@ -3,8 +3,9 @@
 import pytest
 
 from osp.corpus.models.document import Document
-from osp.corpus.jobs.ext_text import ext_text
+from osp.corpus.models.text import Document_Text
 from osp.dates.models.semester import Document_Date_Semester
+from osp.corpus.jobs.ext_text import ext_text
 from osp.dates.jobs.ext_semester import ext_semester
 
 
@@ -15,25 +16,13 @@ def test_link_with_document(models, mock_corpus):
     document with the id that was passed to the job.
     """
 
-    # 2 files.
-    path1 = mock_corpus.add_file(content='')
-    path2 = mock_corpus.add_file(content='Fall 2013')
-
     # 2 document rows.
-    doc1 = Document.create(path=path1)
-    doc2 = Document.create(path=path2)
+    doc1 = Document.create(path='path1')
+    doc2 = Document.create(path='path2')
 
-    # Extract text for both documents.
-    text1 = ext_text(doc1.id) # Won't write text.
-    text2 = ext_text(doc2.id) # Will write text.
-
-    # Since the first document has no text content, a text metadata row won't
-    # get written, meaning that the ids in the `document` table will no longer
-    # match up with the ids of the corresponding rows in `document_text`.
-
-    assert text1 == None
-    assert text2.id == 1
-    assert text2.document.id == 2
+    # Just 1 text row.
+    doc_text = Document_Text.create(document=doc2, text='Fall 2012')
+    assert doc_text.id != doc_text.document.id
 
     row = ext_semester(doc2.id)
     assert row.document == doc2
