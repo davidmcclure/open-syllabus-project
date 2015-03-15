@@ -9,6 +9,7 @@ from osp.dates.models.semester import Document_Date_Semester
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from osp.dates.jobs.ext_archive_url import ext_archive_url
 from osp.dates.jobs.ext_semester import ext_semester
+from osp.dates.jobs.ext_file_metadata import ext_file_metadata
 from peewee import create_model_tables
 from osp.common.models.base import queue
 
@@ -52,3 +53,14 @@ def queue_semester():
 
     for doc in query_bar(Document.select()):
         queue.enqueue(ext_semester, doc.id)
+
+
+@cli.command()
+def queue_file_metadata():
+
+    """
+    Queue file metadata extraction tasks.
+    """
+
+    for doc in query_bar(Document.select()):
+        queue.enqueue(ext_file_metadata, doc.id)
