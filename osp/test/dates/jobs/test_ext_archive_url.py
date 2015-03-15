@@ -28,7 +28,12 @@ def test_archive_url(models, mock_corpus):
         Document_Date_Archive_Url.document==document
     )
 
-    assert row.timestamp == '20150102030405'
+    assert row.date.year    == 2015
+    assert row.date.month   == 1
+    assert row.date.day     == 2
+    assert row.date.hour    == 3
+    assert row.date.minute  == 4
+    assert row.date.second  == 5
 
 
 def test_regular_url(models, mock_corpus):

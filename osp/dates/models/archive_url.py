@@ -12,7 +12,7 @@ class Document_Date_Archive_Url(BaseModel):
 
 
     document = ForeignKeyField(Document, unique=True)
-    timestamp = CharField(index=True)
+    date = DateTimeField()
 
 
     class Meta:

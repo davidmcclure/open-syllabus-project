@@ -33,6 +33,5 @@ def ext_archive_url(id):
 
         Document_Date_Archive_Url.create(
             document=doc,
-            timestamp=timestamp,
             date=date
         )
