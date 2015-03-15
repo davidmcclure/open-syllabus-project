@@ -7,7 +7,7 @@ from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from datetime import datetime
 
 
-def ext_file_metadata(id):
+def ext_file_metadata(doc_id):
 
     """
     Try to extract a created date from PDF and DOCX file metadata.
@@ -16,7 +16,7 @@ def ext_file_metadata(id):
         id (int): The document id.
     """
 
-    doc = Document.get(Document.id==id)
+    doc = Document.get(Document.id==doc_id)
     date = doc.syllabus.created_date
 
     if date:

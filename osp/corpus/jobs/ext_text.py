@@ -4,16 +4,16 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 
 
-def ext_text(id):
+def ext_text(doc_id):
 
     """
     Write the document as plain text.
 
     Args:
-        id (int): The document id.
+        doc_id (int): The document id.
     """
 
-    doc = Document.get(Document.id==id)
+    doc = Document.get(Document.id==doc_id)
 
     if doc.syllabus.text:
 

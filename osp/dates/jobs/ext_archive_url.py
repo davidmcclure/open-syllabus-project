@@ -10,16 +10,16 @@ from datetime import datetime
 date_format = '%Y%m%d%H%M%S'
 
 
-def ext_archive_url(id):
+def ext_archive_url(doc_id):
 
     """
     Try to extract an Internet Archive timestamp from the URL.
 
     Args:
-        id (int): The document id.
+        doc_id (int): The document id.
     """
 
-    doc = Document.get(Document.id==id)
+    doc = Document.get(Document.id==doc_id)
 
     match = re.search(
         'web\.archive\.org\/web\/(?P<timestamp>\d+)',
