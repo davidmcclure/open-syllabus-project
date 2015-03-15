@@ -25,13 +25,14 @@ def ext_archive_url(id):
 
     if match:
 
-        # Get the original string.
-        timestamp = match.group('timestamp')
-
-        # Parse the date.
-        date = datetime.strptime(timestamp, '%Y%m%d%H%M%S')
-
-        Document_Date_Archive_Url.create(
-            document=doc,
-            date=date
+        date = datetime.strptime(
+            match.group('timestamp'),
+            '%Y%m%d%H%M%S'
         )
+
+        if date < datetime.now():
+
+            Document_Date_Archive_Url.create(
+                document=doc,
+                date=date
+            )
