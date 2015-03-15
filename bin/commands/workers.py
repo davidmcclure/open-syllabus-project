@@ -26,16 +26,11 @@ def ping():
 
     for url in Inventory().worker_urls:
 
-        # Hit /ping.
-        r = requests.get(url+'/ping')
-
-        code = r.status_code
         click.echo(url)
 
-        if code == 200:
-            click.echo(term.green('pong'))
-        else:
-            click.echo(term.red(str(code)))
+        # Hit /ping.
+        r = requests.get(url+'/ping')
+        print_code(r.status_code)
 
 
 @cli.command()
@@ -72,16 +67,31 @@ def requeue():
 
     for url in Inventory().worker_urls:
 
-        # Hit /ping.
-        r = requests.post(url+'/rq/requeue-all')
-
-        code = r.status_code
         click.echo(url)
 
-        if code == 200:
-            click.echo(term.green(str(code)))
-        else:
-            click.echo(term.red(str(code)))
+        # Hit /ping.
+        r = requests.post(url+'/rq/requeue-all')
+        print_code(r.status_code)
+
+
+@cli.command()
+def reset():
+
+    """
+    Clear `default` and `failed` queues on all workers.
+    """
+
+    for url in Inventory().worker_urls:
+
+        click.echo(url)
+
+        # Default:
+        r1 = requests.post(url+'/rq/queue/default/empty')
+        print_code(r1.status_code)
+
+        # Failed:
+        r2 = requests.post(url+'/rq/queue/failed/empty')
+        print_code(r2.status_code)
 
 
 @cli.command()
@@ -159,3 +169,15 @@ def queue(route, max_id):
             click.echo(term.green(str(o1)+'-'+str(o2)))
         else:
             click.echo(term.red(str(code)))
+
+
+def print_code(code):
+
+    """
+    Print a colored status code.
+    """
+
+    if code == 200:
+        click.echo(term.green('200'))
+    else:
+        click.echo(term.red(str(code)))
