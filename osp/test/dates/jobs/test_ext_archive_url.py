@@ -2,7 +2,7 @@
 
 from osp.corpus.models.document import Document
 from osp.dates.models.archive_url import Document_Date_Archive_Url
-from osp.dates.jobs.ext_archive_url import ext_archive_url
+from osp.dates.jobs.ext_archive_url import date_format, ext_archive_url
 from datetime import datetime
 from dateutil.relativedelta import relativedelta
 
@@ -46,7 +46,7 @@ def test_ignore_future_timestamp(models, mock_corpus):
 
     # Get now + 1 year.
     future = datetime.now() + relativedelta(years=1)
-    timestamp = future.strftime('%Y%m%d%H%M%S')
+    timestamp = future.strftime(date_format)
 
     url1 = 'https://web.archive.org/web/'+timestamp
     url2 = 'http://yale.edu/syllabus.html'

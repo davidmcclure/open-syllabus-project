@@ -7,6 +7,9 @@ from osp.dates.models.archive_url import Document_Date_Archive_Url
 from datetime import datetime
 
 
+date_format = '%Y%m%d%H%M%S'
+
+
 def ext_archive_url(id):
 
     """
@@ -27,7 +30,7 @@ def ext_archive_url(id):
 
         date = datetime.strptime(
             match.group('timestamp'),
-            '%Y%m%d%H%M%S'
+            date_format
         )
 
         if date < datetime.now():
