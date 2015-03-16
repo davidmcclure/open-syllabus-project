@@ -38,12 +38,14 @@ class Document_Date_Semester(BaseModel):
 
         semester = self.semester.lower()
 
-        # TODO: What should "winter" map to?
+        # TODO: "winter" vs. "spring"?
 
-        if semester == 'fall':      month = 9
-        elif semester == 'winter':  month = 1
-        elif semester == 'spring':  month = 1
-        elif semester == 'summer':  month = 6
+        if semester in ['fall', 'autumn']:
+            month = 9
+        elif semester in ['winter', 'spring']:
+            month = 1
+        elif semester == 'summer':
+            month = 6
 
         # Thread in the month.
         return date.replace(month=month)

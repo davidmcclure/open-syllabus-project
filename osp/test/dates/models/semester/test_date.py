@@ -15,6 +15,18 @@ def test_fall_semester():
     assert row.date.month == 9
 
 
+def test_autumn_semester():
+
+    """
+    Autumn 2012
+    """
+
+    row = Document_Date_Semester(semester='Autumn', year='2012')
+
+    assert row.date.year == 2012
+    assert row.date.month == 9
+
+
 def test_winter_semester():
 
     """

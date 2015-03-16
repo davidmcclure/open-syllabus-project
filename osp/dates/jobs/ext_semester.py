@@ -19,7 +19,7 @@ def ext_semester(doc_id):
     doc_text = Document_Text.get(Document_Text.document==doc_id)
 
     pattern = re.compile(r'''
-        (?P<semester>fall|winter|spring|summer)
+        (?P<semester>fall|autumn|winter|spring|summer)
         [\s\']+
         (?P<year>\d{4}|\d{2})
     ''', re.I+re.X)

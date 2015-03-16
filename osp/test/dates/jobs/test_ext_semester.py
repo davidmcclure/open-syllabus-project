@@ -71,6 +71,19 @@ def test_fall_semester(ext):
     assert row.year == '2012'
 
 
+def test_autumn_semester(ext):
+
+    """
+    Autumn 2012
+    """
+
+    row = ext('abc Autumn 2012 def')
+
+    assert row.offset == 4
+    assert row.semester == 'Autumn'
+    assert row.year == '2012'
+
+
 def test_winter_semester(ext):
 
     """
