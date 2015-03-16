@@ -12,8 +12,8 @@ from osp.dates.jobs.ext_semester import ext_semester
 def test_link_with_document(models, mock_corpus):
 
     """
-    If a semester marker is found, the metadata row should be linked with the
-    document with the id that was passed to the job.
+    When a semester marker is found, the metadata row should be associated
+    with the document that was passed to the job.
     """
 
     # 2 document rows.
