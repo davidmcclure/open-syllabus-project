@@ -24,16 +24,4 @@ logging.getLogger('elasticsearch.trace').propagate = False
 
 
 class BaseModel(Model):
-
-
     created = DateTimeField(default=datetime.datetime.now)
-
-
-    @classmethod
-    def max_id(cls):
-
-        """
-        Get the highest id in the table.
-        """
-
-        return cls.select(fn.max(cls.id)).scalar()
