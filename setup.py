@@ -18,6 +18,7 @@ setup(
     install_requires=[
 
         'ipython',
+        'matplotlib',
         'jsonschema',
         'tldextract',
         'geopy',
@@ -48,7 +49,6 @@ setup(
         'python-docx',
         'pdfminer3k',
         'pytest',
-        'matplotlib',
 
         # Via GitHub (see requirements.txt).
         'pymarc',
