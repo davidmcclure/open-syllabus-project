@@ -20,17 +20,14 @@ from osp.dates.models.semester import Document_Date_Semester
 
 
 @pytest.yield_fixture
-def config(request):
+def config():
 
     """
     Provide a config object. When the test finishes, restore the original
     values loaded from the YAML files, which makes it possible to modify the
     config without changing state across tests.
 
-    Args:
-        request (FixtureRequest)
-
-    Returns:
+    Yields:
         The modify-able config object.
     """
 
@@ -39,17 +36,16 @@ def config(request):
 
 
 @pytest.yield_fixture
-def mock_corpus(request, config):
+def mock_corpus(config):
 
     """
     Provide a MockCorpus instance, and automatically point the configuration
     object at the path of the mock corpus.
 
     Args:
-        request (FixtureRequest)
         config (Config)
 
-    Returns:
+    Yields:
         MockCorpus
     """
 
@@ -76,7 +72,7 @@ def models():
         A context with the wrapped model.
     """
 
-    models = [
+    tables = [
         Document,
         Document_Format,
         Document_Text,
@@ -85,7 +81,7 @@ def models():
         Document_Date_File_Metadata
     ]
 
-    with test_database(_config.get_db('test'), models):
+    with test_database(_config.get_db('test'), tables):
         yield
 
 

@@ -1,10 +1,7 @@
 ---
 
 # Default configuration. Override at:
-#
 # /etc/osp/osp.yml
-# ~/osp.yml
-# ./osp.yml
 
 osp:
   corpus: XXX
