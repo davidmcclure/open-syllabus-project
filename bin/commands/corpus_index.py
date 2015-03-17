@@ -4,8 +4,8 @@ import click
 import math
 
 from osp.common.utils import query_bar
-from osp.common.models.base import redis, elasticsearch as es
-from osp.corpus.queries import all_document_texts
+from osp.common.models.base import elasticsearch as es
+from osp.corpus.models.text import Document_Text
 from elasticsearch.helpers import bulk
 from blessings import Terminal
 from rq import Queue
@@ -67,7 +67,7 @@ def insert():
     Index documents.
     """
 
-    query = query_bar(all_document_texts())
+    query = query_bar(Document_Text.select())
 
     def stream():
         for row in query:
