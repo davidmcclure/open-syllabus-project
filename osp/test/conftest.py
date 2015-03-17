@@ -15,8 +15,8 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.dates.models.archive_url import Document_Date_Archive_Url
-from osp.dates.models.semester import Document_Date_Semester
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
+from osp.dates.models.semester import Document_Date_Semester
 
 
 @pytest.yield_fixture
