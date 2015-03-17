@@ -7,8 +7,8 @@ from osp.common.utils import query_bar
 from osp.common.models.base import elasticsearch as es
 from osp.corpus.models.text import Document_Text
 from elasticsearch.helpers import bulk
+from playhouse.postgres_ext import ServerSide
 from blessings import Terminal
-from rq import Queue
 
 
 @click.group()
@@ -67,10 +67,10 @@ def insert():
     Index documents.
     """
 
-    query = query_bar(Document_Text.select())
+    query = Document_Text.select()
 
     def stream():
-        for row in query:
+        for row in ServerSide(query):
             yield {'_id': row.id, 'body': row.text}
 
     # Batch-insert the documents.
