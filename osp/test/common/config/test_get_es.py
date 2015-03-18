@@ -12,7 +12,7 @@ def test_get_es():
     config = get_config('get_es/get-es')
     es = config.get_es()
 
-    assert es.transport.hosts[0] == {
-        'host': 'host',
-        'port': 1337
-    }
+    args = es.transport.hosts[0]
+
+    assert args['host'] == 'host'
+    assert args['port'] == 1337

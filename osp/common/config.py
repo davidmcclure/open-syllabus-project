@@ -131,7 +131,7 @@ class Config:
         return Elasticsearch([self['elasticsearch']])
 
 
-    def get_queue(self):
+    def get_rq(self):
 
         """
         Get an RQ instance.

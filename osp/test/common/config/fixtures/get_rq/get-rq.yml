@@ -1,0 +1,6 @@
+---
+
+redis:
+  host: host
+  port: 1337
+  db: 1
