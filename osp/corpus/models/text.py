@@ -13,6 +13,7 @@ class Document_Text(BaseModel):
     text = TextField()
 
 
+    @property
     def es_doc(self):
 
         """
@@ -22,7 +23,10 @@ class Document_Text(BaseModel):
             dict: The document fields.
         """
 
-        pass
+        return {
+            '_id': self.document.path,
+            'body': self.text
+        }
 
 
     class Meta:
