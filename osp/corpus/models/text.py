@@ -22,7 +22,7 @@ class Document_Text(BaseModel):
         Set the Elasticsearch mapping.
         """
 
-        config.get_es().indices.create('osp', {
+        config.es.indices.create('osp', {
             'mappings': {
                 'syllabus': {
                     '_id': {
@@ -46,10 +46,8 @@ class Document_Text(BaseModel):
         Delete the Elasticsearch index.
         """
 
-        es = config.get_es()
-
-        if es.indices.exists('osp'):
-            es.indices.delete('osp')
+        if config.es.indices.exists('osp'):
+            config.es.indices.delete('osp')
 
 
     @classmethod
@@ -62,7 +60,7 @@ class Document_Text(BaseModel):
             int: The number of docs.
         """
 
-        return config.get_es().count('osp', 'syllabus')['count']
+        return config.es.count('osp', 'syllabus')['count']
 
 
     @classmethod
@@ -77,7 +75,7 @@ class Document_Text(BaseModel):
                 yield row.es_doc
 
         # Batch-insert the documents.
-        bulk(config.get_es(), stream(), index='osp', doc_type='syllabus')
+        bulk(config.es, stream(), index='osp', doc_type='syllabus')
 
 
     @property

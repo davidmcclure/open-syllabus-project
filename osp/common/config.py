@@ -61,13 +61,23 @@ class Config:
         return self.config[key]
 
 
-    def read(self):
+    def read(self, extra_paths=[]):
 
         """
         Load the configuration files.
+
+        Args:
+            extra_paths (list): A list of new file paths to add to the
+            defaults passed to the constructor. (Used in testing.)
         """
 
-        self.config = anyconfig.load(self.paths, ignore_missing=True)
+        self.config = anyconfig.load(
+            self.paths + extra_paths,
+            ignore_missing=True
+        )
+
+        #self.get_es.cache_clear()
+        #self.get_rq.cache_clear()
 
 
     def get_db(self, name):
@@ -145,6 +155,16 @@ class Config:
 
         redis = StrictRedis(**self['redis'])
         return Queue(connection=redis)
+
+
+    @property
+    def es(self):
+        return self.get_es()
+
+
+    @property
+    def rq(self):
+        return self.get_rq()
 
 
 # Global instance.

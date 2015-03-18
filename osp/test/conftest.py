@@ -31,6 +31,8 @@ def config():
         The modify-able config object.
     """
 
+    _config.read(['/etc/osp/osp.test.yml'])
+
     yield _config
     _config.read()
 
@@ -120,7 +122,7 @@ def api_client():
 
 
 @pytest.fixture
-def corpus_index():
+def corpus_index(config):
 
     """
     Clear the corpus index.

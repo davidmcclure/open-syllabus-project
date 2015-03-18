@@ -1,6 +1,7 @@
 
 
 from .conftest import get_config
+from rq import Queue
 
 
 def test_get_rq():
@@ -10,10 +11,11 @@ def test_get_rq():
     """
 
     config = get_config('get_rq/get-rq')
-    queue = config.get_rq()
 
-    args = queue.connection.connection_pool.connection_kwargs
+    rq = config.get_rq()
+    assert isinstance(rq, Queue)
 
+    args = rq.connection.connection_pool.connection_kwargs
     assert args['host'] == 'host'
     assert args['port'] == 1337
     assert args['db']   == 1
