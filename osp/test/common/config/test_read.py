@@ -6,7 +6,8 @@ from .conftest import get_config
 def test_read_on_startup():
 
     """
-    Config should call read() when an instance is created.
+    On startup, Config should read the passed paths and expose the underlying
+    configuration object.
     """
 
     config = get_config('read/read')
