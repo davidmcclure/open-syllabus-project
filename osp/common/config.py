@@ -3,11 +3,15 @@
 import os
 import anyconfig
 import copy
+import logging
 
 from playhouse.postgres_ext import PostgresqlExtDatabase
+from rq import Queue
+from redis import StrictRedis
 
 
-# Throttle the logging.
+# Throttle logging.
+logging.getLogger('elasticsearch.trace').propagate = False
 anyconfig.set_loglevel('WARNING')
 
 
@@ -112,6 +116,31 @@ class Config:
                 name = key
 
         return self.get_db(name)
+
+
+    def get_es(self):
+
+        """
+        Get an Elasticsearch connection.
+
+        Returns:
+            elasticsearch.Elasticsearch
+        """
+
+        return Elasticsearch([self['elasticsearch']])
+
+
+    def get_queue(self):
+
+        """
+        Get an RQ instance.
+
+        Returns:
+            rq.Queue
+        """
+
+        redis = StrictRedis(**self['redis'])
+        return Queue(connection=redis)
 
 
 # Global instance.
