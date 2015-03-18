@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.common.models.base import BaseModel, elasticsearch as es
+from osp.common.models.base import BaseModel
 from osp.corpus.models.document import Document
 from elasticsearch.helpers import bulk
 from playhouse.postgres_ext import ServerSide
@@ -22,7 +22,7 @@ class Document_Text(BaseModel):
         Set the Elasticsearch mapping.
         """
 
-        es.indices.create('osp', {
+        config.get_es().indices.create('osp', {
             'mappings': {
                 'syllabus': {
                     '_id': {
@@ -46,7 +46,10 @@ class Document_Text(BaseModel):
         Delete the Elasticsearch index.
         """
 
-        es.indices.delete('osp')
+        es = config.get_es()
+
+        if es.indices.exists('osp'):
+            es.indices.delete('osp')
 
 
     @classmethod
@@ -59,7 +62,7 @@ class Document_Text(BaseModel):
             int: The number of docs.
         """
 
-        return es.count('osp', 'syllabus')['count']
+        return config.get_es().count('osp', 'syllabus')['count']
 
 
     @classmethod
@@ -74,7 +77,7 @@ class Document_Text(BaseModel):
                 yield row.es_doc
 
         # Batch-insert the documents.
-        bulk(es, stream(), index='osp', doc_type='syllabus')
+        bulk(config.get_es(), stream(), index='osp', doc_type='syllabus')
 
 
     @property

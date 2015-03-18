@@ -9,6 +9,7 @@ from playhouse.postgres_ext import PostgresqlExtDatabase
 from rq import Queue
 from elasticsearch import Elasticsearch
 from redis import StrictRedis
+from functools import lru_cache
 
 
 # Throttle logging.
@@ -119,6 +120,7 @@ class Config:
         return self.get_db(name)
 
 
+    @lru_cache()
     def get_es(self):
 
         """
@@ -131,6 +133,7 @@ class Config:
         return Elasticsearch([self['elasticsearch']])
 
 
+    @lru_cache()
     def get_rq(self):
 
         """
