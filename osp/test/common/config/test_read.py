@@ -6,8 +6,8 @@ from .conftest import get_config
 def test_read_on_startup():
 
     """
-    On startup, Config should read the passed paths and expose the underlying
-    configuration object.
+    When initialized, Config should read the passed paths and expose the
+    underlying configuration object.
     """
 
     config = get_config('read/read')
