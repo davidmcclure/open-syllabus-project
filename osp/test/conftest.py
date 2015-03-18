@@ -117,3 +117,14 @@ def api_client():
 
     app.testing = True
     yield app.test_client()
+
+
+@pytest.fixture
+def corpus_index():
+
+    """
+    Clear the corpus index.
+    """
+
+    Document_Text.es_delete()
+    Document_Text.es_create()
