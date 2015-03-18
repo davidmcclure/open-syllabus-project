@@ -23,21 +23,7 @@ def create():
     Create the index.
     """
 
-    es.indices.create('osp', {
-        'mappings': {
-            'syllabus': {
-                '_id': {
-                    'index': 'not_analyzed',
-                    'store': True
-                },
-                'properties': {
-                    'body': {
-                        'type': 'string'
-                    }
-                }
-            }
-        }
-    })
+    Document_Text.es_create()
 
 
 @cli.command()
@@ -47,7 +33,7 @@ def delete():
     Delete the index.
     """
 
-    es.indices.delete('osp')
+    Document_Text.es_delete()
 
 
 @cli.command()
@@ -57,7 +43,7 @@ def count():
     Count documents.
     """
 
-    click.echo(es.count('osp', 'syllabus')['count'])
+    click.echo(Document_Text.es_count())
 
 
 @cli.command()
@@ -67,14 +53,7 @@ def insert():
     Index documents.
     """
 
-    query = Document_Text.select()
-
-    def stream():
-        for row in ServerSide(query):
-            yield {'_id': row.id, 'body': row.text}
-
-    # Batch-insert the documents.
-    bulk(es, stream(), index='osp', doc_type='syllabus')
+    Document_Text.es_index()
 
 
 @cli.command()
