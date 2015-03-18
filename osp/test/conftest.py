@@ -32,7 +32,7 @@ def config():
     """
 
     yield _config
-    _config.reset()
+    _config.read()
 
 
 @pytest.yield_fixture

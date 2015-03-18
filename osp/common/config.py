@@ -36,10 +36,8 @@ class Config:
             paths (list): YAML paths, from the most to least specific.
         """
 
-        self.config = anyconfig.load(paths, ignore_missing=True)
-
-        # Save a copy of the original values.
-        self.initial = copy.deepcopy(self.config.copy())
+        self.paths = paths
+        self.read()
 
 
     def __getitem__(self, key):
@@ -57,13 +55,13 @@ class Config:
         return self.config[key]
 
 
-    def reset(self):
+    def read(self):
 
         """
-        Restore the initial options.
+        Load the configuration files.
         """
 
-        self.config.update(self.initial)
+        self.config = anyconfig.load(self.paths, ignore_missing=True)
 
 
     def get_db(self, name):
