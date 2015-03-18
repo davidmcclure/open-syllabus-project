@@ -1,0 +1,5 @@
+---
+
+elasticsearch:
+  host: host
+  port: 1337

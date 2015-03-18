@@ -7,6 +7,7 @@ import logging
 
 from playhouse.postgres_ext import PostgresqlExtDatabase
 from rq import Queue
+from elasticsearch import Elasticsearch
 from redis import StrictRedis
 
 
