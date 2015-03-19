@@ -88,7 +88,7 @@ def models(config):
 
 
 @pytest.yield_fixture
-def queue():
+def queue(config):
 
     """
     Point the queue at a testing Redis database.
@@ -97,14 +97,9 @@ def queue():
         The RQ queue.
     """
 
-    old = _queue.connection
-    new = StrictRedis(db=1)
-    _queue.connection = new
-
-    yield _queue
-
-    new.flushdb()
-    _queue.connection = old
+    queue = config.get_rq()
+    queue.connection.flushdb()
+    yield queue
 
 
 @pytest.yield_fixture

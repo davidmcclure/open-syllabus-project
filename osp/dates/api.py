@@ -1,6 +1,6 @@
 
 
-from osp.common.models.base import queue
+from osp.common.config import config
 from osp.dates.jobs.ext_archive_url import ext_archive_url
 from osp.dates.jobs.ext_semester import ext_semester
 from osp.dates.jobs.ext_file_metadata import ext_file_metadata
@@ -37,6 +37,8 @@ def queue_jobs(job):
         tuple: ('', HTTP code)
     """
 
+    queue = config.get_rq()
+
     o1 = int(request.form['o1'])
     o2 = int(request.form['o2'])
     job = queue.enqueue(meta_job, job, o1, o2)
@@ -55,6 +57,8 @@ def meta_job(job, o1, o2):
         o1 (int): The first id.
         o2 (int): The second id.
     """
+
+    queue = config.get_rq()
 
     for i in range(o1, o2+1):
         queue.enqueue(job, i)
