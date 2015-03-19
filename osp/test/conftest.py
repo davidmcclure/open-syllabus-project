@@ -3,7 +3,6 @@
 import pytest
 
 from osp.common.config import config as _config
-from osp.common.models.base import queue as _queue
 from osp.api.server import app
 
 from osp.test.corpus.mocks.corpus import MockCorpus
