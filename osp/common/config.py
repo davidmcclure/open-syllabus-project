@@ -70,7 +70,6 @@ class Config:
             defaults passed to the constructor. (Used in testing.)
         """
 
-        print(self.paths)
         self.config = anyconfig.load(
             self.paths + extra_paths,
             ignore_missing=True
