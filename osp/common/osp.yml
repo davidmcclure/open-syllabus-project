@@ -22,10 +22,6 @@ postgres:
       port: 5432
       user: postgres
 
-  test:
-    args:
-      database: osp-test
-
 redis:
   host: localhost
   port: 6379

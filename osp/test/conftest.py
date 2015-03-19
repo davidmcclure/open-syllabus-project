@@ -63,7 +63,7 @@ def mock_corpus(config):
 
 
 @pytest.yield_fixture
-def models():
+def models(config):
 
     """
     Assign models to the testing database.
@@ -81,7 +81,7 @@ def models():
         Document_Date_File_Metadata
     ]
 
-    with test_database(_config.get_db('test'), tables):
+    with test_database(config.get_db('default'), tables):
         yield
 
 
