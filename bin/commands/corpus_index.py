@@ -4,11 +4,14 @@ import click
 import math
 
 from osp.common.utils import query_bar
-from osp.common.models.base import elasticsearch as es
 from osp.corpus.models.text import Document_Text
+from osp.corpus.index import CorpusIndex
 from elasticsearch.helpers import bulk
 from playhouse.postgres_ext import ServerSide
 from blessings import Terminal
+
+
+index = CorpusIndex()
 
 
 @click.group()
@@ -23,7 +26,7 @@ def create():
     Create the index.
     """
 
-    Document_Text.es_create()
+    index.create()
 
 
 @cli.command()
@@ -33,7 +36,18 @@ def delete():
     Delete the index.
     """
 
-    Document_Text.es_delete()
+    index.delete()
+
+
+@cli.command()
+def reset():
+
+    """
+    Reset the index.
+    """
+
+    index.delete()
+    index.create()
 
 
 @cli.command()
@@ -43,7 +57,7 @@ def count():
     Count documents.
     """
 
-    click.echo(Document_Text.es_count())
+    click.echo(index.count())
 
 
 @cli.command()
@@ -53,7 +67,7 @@ def insert():
     Index documents.
     """
 
-    Document_Text.es_index()
+    index.index()
 
 
 @cli.command()
@@ -67,7 +81,7 @@ def search(q, size, start, slop):
     Search documents.
     """
 
-    results = es.search('osp', 'syllabus', timeout=30, body={
+    results = index.es.search('osp', 'syllabus', body={
         'size': size,
         'from': start,
         'fields': [],

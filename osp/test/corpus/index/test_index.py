@@ -4,27 +4,25 @@ from .conftest import insert_texts
 from osp.corpus.models.text import Document_Text
 
 
-def test_es_index(models, corpus_index, config):
+def test_index(models, corpus_index, config):
 
     """
     Document_Text.es_index() should index all rows in Elasticsearch.
     """
 
-    es = config.get_es()
-    insert_texts(100)
-
     # Index documents.
-    Document_Text.es_index()
-    es.indices.flush('osp')
+    insert_texts(100)
+    corpus_index.index()
 
     # Should insert 100 docs.
-    assert Document_Text.es_count() == 100
+    corpus_index.es.indices.flush('osp')
+    assert corpus_index.count() == 100
 
     # For each text row:
     for t in Document_Text.select():
 
         # A document should exist.
-        doc = es.get('osp', t.document.path)
+        doc = corpus_index.es.get('osp', t.document.path)
 
         # The text should be indexed.
         assert doc['_source']['body'] == t.document.path+' text'

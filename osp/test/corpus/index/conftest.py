@@ -32,7 +32,6 @@ def insert_texts(n, path_prefix='path-'):
     Args:
         n (int): The number of documents.
         path_prefix (str): A prefix for the document paths.
-        text_prefix (str): A prefix for the fulltext.
     """
 
     for i in range(n):
