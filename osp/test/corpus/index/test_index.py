@@ -15,7 +15,6 @@ def test_index(models, corpus_index, config):
     corpus_index.index()
 
     # Should insert 100 docs.
-    corpus_index.es.indices.flush('osp')
     assert corpus_index.count() == 100
 
     # For each text row:
@@ -25,4 +24,4 @@ def test_index(models, corpus_index, config):
         doc = corpus_index.es.get('osp', t.document.path)
 
         # The text should be indexed.
-        assert doc['_source']['body'] == t.document.path+' text'
+        assert doc['_source']['body'] == t.document.path

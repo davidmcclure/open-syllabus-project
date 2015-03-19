@@ -54,6 +54,9 @@ class CorpusIndex:
         # Batch-insert the documents.
         bulk(self.es, stream(), index='osp', doc_type='syllabus')
 
+        # Commit the index.
+        self.es.indices.flush('osp')
+
 
     def delete(self):
 

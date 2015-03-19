@@ -17,11 +17,7 @@ def insert_text(path):
     """
 
     doc = Document.create(path=path)
-
-    return Document_Text.create(
-        document=doc,
-        text=path+' text'
-    )
+    return Document_Text.create(document=doc, text=path)
 
 
 def insert_texts(n, path_prefix='path-'):
