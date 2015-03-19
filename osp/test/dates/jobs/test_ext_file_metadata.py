@@ -50,7 +50,7 @@ def test_pdf(ext):
     row = ext('pdf')
 
     # Created within a second of now.
-    assert abs(row.date - now).seconds <= 1
+    assert abs(row.date - now).seconds <= 10
 
 
 def test_docx(ext):
@@ -63,7 +63,7 @@ def test_docx(ext):
     row = ext('docx')
 
     # Created within a second of now.
-    assert abs(row.date - now).seconds <= 1
+    assert abs(row.date - now).seconds <= 10
 
 
 def test_ignore_plaintext(ext):
