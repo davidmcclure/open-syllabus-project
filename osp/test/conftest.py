@@ -81,7 +81,7 @@ def models(config):
         Document_Date_File_Metadata
     ]
 
-    with test_database(config.get_db('default'), tables):
+    with test_database(config.get_db(), tables):
         yield
 
 

@@ -76,7 +76,7 @@ class Config:
         )
 
 
-    def get_db(self, name):
+    def get_db(self, name='default'):
 
         """
         Get a Postgres database object.
