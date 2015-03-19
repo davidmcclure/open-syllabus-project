@@ -23,15 +23,11 @@ from osp.dates.models.semester import Document_Date_Semester
 def config():
 
     """
-    Provide a config object. When the test finishes, restore the original
-    values loaded from the YAML files, which makes it possible to modify the
-    config without changing state across tests.
+    Merge the testing parameters into the configuration.
 
     Yields:
         The modify-able config object.
     """
-
-    _config.read(['/etc/osp/osp.test.yml'])
 
     yield _config
     _config.read()
