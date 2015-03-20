@@ -16,6 +16,16 @@ class HLOM_Record(BaseModel):
     metadata = BinaryJSONField(null=True)
 
 
+    @classmethod
+    def insert_records(cls):
+
+        """
+        Insert an row for each record in the HLOM corpus.
+        """
+
+        pass
+
+
     @property
     def pymarc(self):
 

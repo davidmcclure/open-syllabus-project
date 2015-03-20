@@ -8,8 +8,7 @@ from osp.test.utils import segment_range
 def test_insert_documents(models, mock_osp):
 
     """
-    Corpus.insert_documents() should create a `document` row for each syllabus
-    in the corpus.
+    Corpus.insert_documents() should create a row for each syllabus.
     """
 
     # 10 segments * 10 files.
@@ -23,7 +22,7 @@ def test_insert_documents(models, mock_osp):
     # Should create 100 rows.
     assert Document.select().count() == 100
 
-    # All 100 paths should have rows.
+    # All docs should have rows.
     for s in segment_range(0, 10):
         for i in range(0, 10):
 
