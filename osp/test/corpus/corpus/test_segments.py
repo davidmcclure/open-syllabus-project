@@ -26,7 +26,7 @@ def assert_segment(corpus, segment, offset):
     assert segment.path == dpath
 
 
-def test_full_partition(mock_corpus):
+def test_full_partition(mock_osp):
 
     """
     When no segment boundaries are passed to Corpus#segments(), instances for
@@ -34,10 +34,10 @@ def test_full_partition(mock_corpus):
     """
 
     # Add all segments.
-    mock_corpus.add_segments()
+    mock_osp.add_segments()
 
     # Request all segments.
-    corpus = Corpus(mock_corpus.path)
+    corpus = Corpus(mock_osp.path)
     segments = corpus.segments()
 
     # Should yield all segments.
@@ -48,7 +48,7 @@ def test_full_partition(mock_corpus):
     assert next(segments, False) == False
 
 
-def test_bounded_partition(mock_corpus):
+def test_bounded_partition(mock_osp):
 
     """
     When segment boundaries are passed, just the segments that fall within the
@@ -56,10 +56,10 @@ def test_bounded_partition(mock_corpus):
     """
 
     # Add segments 0-10.
-    mock_corpus.add_segments(s1=0, s2=10)
+    mock_osp.add_segments(s1=0, s2=10)
 
     # Request segments 0-10
-    corpus = Corpus(mock_corpus.path, s1=0, s2=10)
+    corpus = Corpus(mock_osp.path, s1=0, s2=10)
     segments = corpus.segments()
 
     # Should yield 10 segments.
@@ -70,17 +70,17 @@ def test_bounded_partition(mock_corpus):
     assert next(segments, False) == False
 
 
-def test_missing_segments(mock_corpus):
+def test_missing_segments(mock_osp):
 
     """
     The generator should gracefully skip missing segments.
     """
 
     # Add segments 0-10.
-    mock_corpus.add_segments(s1=0, s2=10)
+    mock_osp.add_segments(s1=0, s2=10)
 
     # Request segments 0-20.
-    corpus = Corpus(mock_corpus.path, s1=0, s2=20)
+    corpus = Corpus(mock_osp.path, s1=0, s2=20)
     segments = corpus.segments()
 
     # Should yield 10 segments.

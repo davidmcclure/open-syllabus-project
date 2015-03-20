@@ -10,7 +10,7 @@ from dateutil.relativedelta import relativedelta
 
 
 @pytest.fixture()
-def ext(models, mock_corpus):
+def ext(models, mock_osp):
 
     """
     Provide a function that mocks a file with a given URL and returns a
@@ -24,7 +24,7 @@ def ext(models, mock_corpus):
     def _ext(url):
 
         # Create a document.
-        path = mock_corpus.add_file(log={'url': url})
+        path = mock_osp.add_file(log={'url': url})
         document = Document.create(path=path)
 
         # Extract the date.

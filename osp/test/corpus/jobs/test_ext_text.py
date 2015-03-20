@@ -5,7 +5,7 @@ from osp.corpus.models.text import Document_Text
 from osp.corpus.jobs.ext_text import ext_text
 
 
-def test_text_extraction_succeeds(models, mock_corpus):
+def test_text_extraction_succeeds(models, mock_osp):
 
     """
     read_text() should extract text for a document and write the result into
@@ -13,7 +13,7 @@ def test_text_extraction_succeeds(models, mock_corpus):
     """
 
     # Add a file, create a document row.
-    path = mock_corpus.add_file(content='text')
+    path = mock_osp.add_file(content='text')
     document = Document.create(path=path)
 
     ext_text(document.id)
@@ -23,14 +23,14 @@ def test_text_extraction_succeeds(models, mock_corpus):
     assert row.text == 'text'
 
 
-def test_text_extraction_fails(models, mock_corpus):
+def test_text_extraction_fails(models, mock_osp):
 
     """
     If no text can be extracted, don't write the row.
     """
 
     # Add an empty file.
-    path = mock_corpus.add_file(content='')
+    path = mock_osp.add_file(content='')
     document = Document.create(path=path)
 
     ext_text(document.id)

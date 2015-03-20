@@ -4,14 +4,14 @@ from osp.corpus.models.document import Document
 from osp.corpus.syllabus import Syllabus
 
 
-def test_syllabus(models, mock_corpus):
+def test_syllabus(models, mock_osp):
 
     """
     Document#syllabus should provide a Syllabus instance bound to the file
     referenced by the document row.
     """
 
-    path = mock_corpus.add_file('000', name='123')
+    path = mock_osp.add_file('000', name='123')
     doc = Document(path='000/123')
 
     assert isinstance(doc.syllabus, Syllabus)

@@ -9,7 +9,7 @@ from datetime import datetime
 
 
 @pytest.fixture()
-def ext(models, mock_corpus):
+def ext(models, mock_osp):
 
     """
     Provide a function that mocks a file and returns a document instance bound
@@ -23,7 +23,7 @@ def ext(models, mock_corpus):
     def _ext(ftype):
 
         # Create a document.
-        path = mock_corpus.add_file(ftype=ftype)
+        path = mock_osp.add_file(ftype=ftype)
         document = Document.create(path=path)
 
         # Extract the date.

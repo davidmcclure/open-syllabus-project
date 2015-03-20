@@ -3,7 +3,7 @@
 import pytest
 
 from osp.common.config import config as _config
-from osp.test.corpus.mocks.corpus import MockCorpus
+from osp.test.corpus.mock_osp import MockOSP
 from osp.api.server import app
 
 from osp.corpus.index import CorpusIndex
@@ -35,7 +35,7 @@ def config():
 
 
 @pytest.yield_fixture
-def mock_corpus(config):
+def mock_osp(config):
 
     """
     Provide a MockCorpus instance, and automatically point the configuration
@@ -48,17 +48,17 @@ def mock_corpus(config):
         MockCorpus
     """
 
-    corpus = MockCorpus()
+    osp = MockOSP()
 
     # Point config -> mock.
     config.config.update_w_merge({
         'osp': {
-            'corpus': corpus.path
+            'corpus': osp.path
         }
     })
 
-    yield corpus
-    corpus.teardown()
+    yield osp
+    osp.teardown()
 
 
 @pytest.yield_fixture

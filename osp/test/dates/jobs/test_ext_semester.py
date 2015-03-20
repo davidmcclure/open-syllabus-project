@@ -9,7 +9,7 @@ from osp.corpus.jobs.ext_text import ext_text
 from osp.dates.jobs.ext_semester import ext_semester
 
 
-def test_link_with_document(models, mock_corpus):
+def test_link_with_document(models, mock_osp):
 
     """
     When a semester marker is found, the metadata row should be associated
@@ -29,7 +29,7 @@ def test_link_with_document(models, mock_corpus):
 
 
 @pytest.fixture()
-def ext(models, mock_corpus):
+def ext(models, mock_osp):
 
     """
     Returns:
@@ -40,7 +40,7 @@ def ext(models, mock_corpus):
     def _ext(content):
 
         # Create a document.
-        path = mock_corpus.add_file(content=content)
+        path = mock_osp.add_file(content=content)
         document = Document.create(path=path)
 
         # Extract text, then date.

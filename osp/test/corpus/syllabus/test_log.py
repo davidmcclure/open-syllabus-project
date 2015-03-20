@@ -5,7 +5,7 @@ import os
 from osp.corpus.syllabus import Syllabus
 
 
-def test_log_exists(mock_corpus):
+def test_log_exists(mock_osp):
 
     """
     Syllabus#log should split the log file into lines.
@@ -19,7 +19,7 @@ def test_log_exists(mock_corpus):
         'format':       'format'
     }
 
-    path = mock_corpus.add_file(log=log)
+    path = mock_osp.add_file(log=log)
     syllabus = Syllabus(path)
 
     assert syllabus.log == [
@@ -31,13 +31,13 @@ def test_log_exists(mock_corpus):
     ]
 
 
-def test_log_missing(mock_corpus):
+def test_log_missing(mock_osp):
 
     """
     When the log is absent, return an empty list.
     """
 
-    path = mock_corpus.add_file()
+    path = mock_osp.add_file()
     syllabus = Syllabus(path)
 
     os.remove(path+'.log')

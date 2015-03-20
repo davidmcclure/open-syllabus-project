@@ -7,7 +7,7 @@ from osp.corpus.syllabus import Syllabus
 from osp.test.utils import segment_range
 
 
-def test_syllabi(mock_corpus):
+def test_syllabi(mock_osp):
 
     """
     Corpus#syllabi() should generate Syllabus instances for all files.
@@ -15,10 +15,10 @@ def test_syllabi(mock_corpus):
 
     # 10 segments, each with 10 files.
     for s in segment_range(0, 10):
-        mock_corpus.add_segment(s)
-        mock_corpus.add_files(s, 10, prefix=s+'-')
+        mock_osp.add_segment(s)
+        mock_osp.add_files(s, 10, prefix=s+'-')
 
-    corpus = Corpus(mock_corpus.path)
+    corpus = Corpus(mock_osp.path)
     syllabi = corpus.syllabi()
 
     # Walk segments / files:

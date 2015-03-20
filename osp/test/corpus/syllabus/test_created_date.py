@@ -5,7 +5,7 @@ from datetime import datetime
 from PyPDF2 import PdfFileMerger
 
 
-def test_pdf(mock_corpus):
+def test_pdf(mock_osp):
 
     """
     Syllabus#created_date should extract the created date from PDFs.
@@ -13,14 +13,14 @@ def test_pdf(mock_corpus):
 
     now = datetime.now()
 
-    path = mock_corpus.add_file(ftype='pdf')
+    path = mock_osp.add_file(ftype='pdf')
     syllabus = Syllabus(path)
 
     # Created within a second of now.
     assert abs(syllabus.created_date - now).seconds <= 1
 
 
-def test_docx(mock_corpus):
+def test_docx(mock_osp):
 
     """
     Syllabus#created_date should extract the created date from DOCs.
@@ -28,25 +28,25 @@ def test_docx(mock_corpus):
 
     now = datetime.now()
 
-    path = mock_corpus.add_file(ftype='docx')
+    path = mock_osp.add_file(ftype='docx')
     syllabus = Syllabus(path)
 
     # Created within a second of now.
     assert abs(syllabus.created_date - now).seconds <= 1
 
 
-def test_text(mock_corpus):
+def test_text(mock_osp):
 
     """
     If the file isn't a PDF or DOCX, return None.
     """
 
-    path = mock_corpus.add_file(ftype='plain')
+    path = mock_osp.add_file(ftype='plain')
     plain = Syllabus(path)
 
     assert plain.created_date == None
 
-    path = mock_corpus.add_file(ftype='html')
+    path = mock_osp.add_file(ftype='html')
     html = Syllabus(path)
 
     assert html.created_date == None

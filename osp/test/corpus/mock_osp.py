@@ -13,7 +13,7 @@ from docx import Document
 from datetime import datetime
 
 
-class MockCorpus:
+class MockOSP:
 
 
     def __init__(self):

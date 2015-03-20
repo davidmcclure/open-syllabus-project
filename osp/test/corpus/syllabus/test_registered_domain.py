@@ -3,7 +3,7 @@
 from osp.corpus.syllabus import Syllabus
 
 
-def test_regular_url(mock_corpus):
+def test_regular_url(mock_osp):
 
     """
     Syllabys#registered_domain should return the "base" URL.
@@ -11,13 +11,13 @@ def test_regular_url(mock_corpus):
 
     log = {'url': 'http://www.yale.edu/syllabus.pdf'}
 
-    path = mock_corpus.add_file(log=log)
+    path = mock_osp.add_file(log=log)
     syllabus = Syllabus(path)
 
     assert syllabus.registered_domain == 'yale.edu'
 
 
-def test_double_url(mock_corpus):
+def test_double_url(mock_osp):
 
     """
     Many documents in the corpus are scraped from archive.org, which means
@@ -31,7 +31,7 @@ def test_double_url(mock_corpus):
     url1 = 'https://web.archive.org/web/123'
     url2 = 'http://www.yale.edu/syllabus.pdf'
 
-    path = mock_corpus.add_file(log={'url': url1+'/'+url2})
+    path = mock_osp.add_file(log={'url': url1+'/'+url2})
     syllabus = Syllabus(path)
 
     assert syllabus.registered_domain == 'yale.edu'
