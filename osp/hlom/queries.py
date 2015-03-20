@@ -44,33 +44,3 @@ def syllabus_counts():
         .distinct(HLOM_Citation.document)
         .order_by(count.desc())
     )
-
-
-def records_with_citations():
-
-    """
-    Get all HLOM records that have at least one citation.
-    """
-
-    return (
-        HLOM_Record
-        .select()
-        .where(HLOM_Record.metadata.exists('citation_count'))
-    )
-
-
-def deduped_records():
-
-    """
-    Get records with distinct deduping hashes.
-    """
-
-    return (
-        records_with_citations()
-        .where(~HLOM_Record.metadata.exists('blacklisted'))
-        .distinct([HLOM_Record.metadata['deduping_hash']])
-        .order_by(
-            HLOM_Record.metadata['deduping_hash'],
-            HLOM_Record.id
-        )
-    )
