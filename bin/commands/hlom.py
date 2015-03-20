@@ -71,10 +71,8 @@ def queue_queries():
     Queue citation extraction queries.
     """
 
-    queue = config.get_rq()
-
     for record in ServerSide(HLOM_Record.select()):
-        queue.enqueue(query, record.id)
+        config.rq.enqueue(query, record.id)
 
 
 @cli.command()

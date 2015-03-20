@@ -41,7 +41,7 @@ def queue_archive_url():
     """
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(ext_archive_url, doc.id)
+        config.rq.enqueue(ext_archive_url, doc.id)
 
 
 @cli.command()
@@ -52,7 +52,7 @@ def queue_semester():
     """
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(ext_semester, doc.id)
+        config.rq.enqueue(ext_semester, doc.id)
 
 
 @cli.command()
@@ -63,4 +63,4 @@ def queue_file_metadata():
     """
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(ext_file_metadata, doc.id)
+        config.rq.enqueue(ext_file_metadata, doc.id)

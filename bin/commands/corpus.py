@@ -5,7 +5,7 @@ import click
 import csv
 import sys
 
-from osp.common.models.base import queue
+from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
@@ -55,7 +55,7 @@ def queue_format():
     """
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(ext_format, doc.id)
+        config.rq.enqueue(ext_format, doc.id)
 
 
 @cli.command()
@@ -66,7 +66,7 @@ def queue_text():
     """
 
     for doc in query_bar(Document.select()):
-        queue.enqueue(ext_text, doc.id)
+        config.rq.enqueue(ext_text, doc.id)
 
 
 @cli.command()
