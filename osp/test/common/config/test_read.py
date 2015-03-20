@@ -29,21 +29,3 @@ def test_revert_changes():
     config.read()
 
     assert config['key'] == 'original'
-
-
-def test_extra_paths():
-
-    """
-    Values from extra paths should override the defaults.
-    """
-
-    config = get_config('read/default')
-
-    config.read([
-        get_path('read/extra1'),
-        get_path('read/extra2')
-    ])
-
-    assert config['key1'] == 'val1'
-    assert config['key2'] == 'extra1'
-    assert config['key3'] == 'extra2'

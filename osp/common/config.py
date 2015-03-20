@@ -61,20 +61,13 @@ class Config:
         return self.config[key]
 
 
-    def read(self, extra_paths=[]):
+    def read(self):
 
         """
         Load the configuration files.
-
-        Args:
-            extra_paths (list): A list of new file paths to add to the
-            defaults passed to the constructor. (Used in testing.)
         """
 
-        self.config = anyconfig.load(
-            self.paths + extra_paths,
-            ignore_missing=True
-        )
+        self.config = anyconfig.load(self.paths, ignore_missing=True)
 
 
     def get_db(self, name='default'):
