@@ -18,8 +18,7 @@ def test_insert_documents(models, mock_osp):
         mock_osp.add_files(s, 10, prefix=s+'-')
 
     # Insert document rows.
-    corpus = Corpus(mock_osp.path)
-    Document.insert_documents(corpus)
+    Document.insert_documents()
 
     # Should create 100 rows.
     assert Document.select().count() == 100

@@ -43,8 +43,7 @@ def insert_documents():
     Insert documents in the database.
     """
 
-    corpus = Corpus.from_env()
-    Document.insert_documents(corpus)
+    Document.insert_documents()
 
 
 @cli.command()

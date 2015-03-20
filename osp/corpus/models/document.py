@@ -16,16 +16,13 @@ class Document(BaseModel):
 
 
     @classmethod
-    def insert_documents(cls, corpus):
+    def insert_documents(cls):
 
         """
         Insert a document row for each syllabus in the corpus.
-
-        Args:
-            corpus (Corpus): A corpus instance.
         """
 
-        for segment in corpus.segments():
+        for segment in Corpus.from_env().segments():
 
             rows = []
             for syllabus in segment.syllabi():
