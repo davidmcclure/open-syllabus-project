@@ -3,6 +3,7 @@
 from osp.corpus.models.document import Document
 from osp.corpus.jobs.ext_text import ext_text
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
 from pymarc import Record, Field
 
@@ -62,8 +63,13 @@ def test_matches(models, mock_osp, corpus_index):
         record=marc.as_marc()
     )
 
-    #query(record.id)
+    query(record.id)
 
-    # add hlom_record row for WP
-    # query()
-    # check for hlom_citation links
+    assert HLOM_Citation.select().count() == 3
+
+    for doc in [d1, d2, d3]:
+
+        assert HLOM_Citation.select().where(
+            HLOM_Citation.document==doc,
+            HLOM_Citation.record==record
+        )

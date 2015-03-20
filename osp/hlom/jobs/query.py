@@ -17,7 +17,7 @@ def query(id):
 
     # Execute the query.
     results = config.es.search('osp', 'syllabus', timeout=30, body={
-        'fields': [],
+        'fields': ['doc_id'],
         'size': 100000,
         'query': {
             'match_phrase': {
@@ -33,8 +33,9 @@ def query(id):
 
         citations = []
         for hit in results['hits']['hits']:
+            print(hit)
             citations.append({
-                'document': hit['_id'],
+                'document': hit['fields']['doc_id'][0],
                 'record': row.id
             })
 
