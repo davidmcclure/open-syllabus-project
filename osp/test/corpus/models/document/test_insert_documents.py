@@ -12,7 +12,7 @@ def test_insert_documents(models, mock_osp):
     """
 
     # 10 segments * 10 files.
-    for s in segment_range(0, 10):
+    for s in segment_range(10):
         mock_osp.add_segment(s)
         mock_osp.add_files(s, 10, prefix=s+'-')
 
@@ -23,8 +23,8 @@ def test_insert_documents(models, mock_osp):
     assert Document.select().count() == 100
 
     # All docs should have rows.
-    for s in segment_range(0, 10):
-        for i in range(0, 10):
+    for s in segment_range(10):
+        for i in range(10):
 
             # Query for the document path.
             path = s+'/'+s+'-'+str(i)

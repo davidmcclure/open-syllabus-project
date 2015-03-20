@@ -1,6 +1,6 @@
 
 
-def test_insert_records():
+def test_insert_records(mock_hlom):
 
     """
     HLOM_Record.insert_records() should create a row for each MARC record.
