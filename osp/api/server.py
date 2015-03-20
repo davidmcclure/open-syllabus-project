@@ -6,6 +6,7 @@ from flask import Flask
 from rq_dashboard import RQDashboard
 from osp.corpus.api import corpus
 from osp.dates.api import dates
+from osp.citations.hlom.api import hlom
 
 
 # RQ dashboard:
@@ -15,6 +16,7 @@ RQDashboard(app)
 
 # OSP REST APIs:
 app.register_blueprint(corpus, url_prefix='/corpus')
+app.register_blueprint(hlom, url_prefix='/hlom')
 app.register_blueprint(dates, url_prefix='/dates')
 
 

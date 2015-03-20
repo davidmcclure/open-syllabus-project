@@ -40,18 +40,3 @@ def query(id):
 
         # Write the citation links.
         HLOM_Citation.insert_many(citations).execute()
-
-
-def queue_queries(id1, id2):
-
-    """
-    Queue HLOM query tasks in the worker.
-
-    :param id1: The first id.
-    :param id2: The last id.
-    """
-
-    queue = Queue(connection=redis)
-
-    for i in range(id1, id2+1):
-        queue.enqueue(query, i)
