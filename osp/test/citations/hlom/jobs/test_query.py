@@ -8,6 +8,47 @@ from osp.citations.hlom.jobs.query import query
 from pymarc import Record, Field
 
 
+def get_marc(number, title, author):
+
+    """
+    Create a MARC record.
+
+    Args:
+        number (str): The control number.
+        title (str): The title.
+        author (str): The author.
+
+    Returns:
+        pymarc.Record
+    """
+
+    record = Record()
+
+    f001 = Field(
+        tag='001',
+        indicators=['0', '1'],
+        subfields=['a', number]
+    )
+
+    f100 = Field(
+        tag='100',
+        indicators=['0', '1'],
+        subfields=['a', author]
+    )
+
+    f245 = Field(
+        tag='245',
+        indicators=['0', '1'],
+        subfields=['a', title]
+    )
+
+    record.add_field(f001)
+    record.add_field(f100)
+    record.add_field(f245)
+
+    return record
+
+
 def test_matches(models, mock_osp, corpus_index):
 
     """
@@ -34,29 +75,7 @@ def test_matches(models, mock_osp, corpus_index):
 
     corpus_index.index()
 
-    marc = Record()
-
-    control = Field(
-        tag='001',
-        indicators=['0', '1'],
-        subfields=['a', '1']
-    )
-
-    title = Field(
-        tag='245',
-        indicators=['0', '1'],
-        subfields=['a', 'War and Peace']
-    )
-
-    author = Field(
-        tag='100',
-        indicators=['0', '1'],
-        subfields=['a', 'Leo Tolstoy']
-    )
-
-    marc.add_field(control)
-    marc.add_field(title)
-    marc.add_field(author)
+    marc = get_marc('1', 'War and Peace', 'Leo Tolstoy')
 
     record = HLOM_Record.create(
         control_number='1',

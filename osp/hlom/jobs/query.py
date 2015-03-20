@@ -33,7 +33,6 @@ def query(id):
 
         citations = []
         for hit in results['hits']['hits']:
-            print(hit)
             citations.append({
                 'document': hit['fields']['doc_id'][0],
                 'record': row.id
