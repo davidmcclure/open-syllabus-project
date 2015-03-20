@@ -78,3 +78,13 @@ class CorpusIndex:
         """
 
         return self.es.count('osp', 'syllabus')['count']
+
+
+    def reset(self):
+
+        """
+        Clear and recreate the index.
+        """
+
+        self.delete()
+        self.create()

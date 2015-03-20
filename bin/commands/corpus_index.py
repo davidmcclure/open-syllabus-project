@@ -46,8 +46,7 @@ def reset():
     Reset the index.
     """
 
-    index.delete()
-    index.create()
+    index.reset()
 
 
 @cli.command()

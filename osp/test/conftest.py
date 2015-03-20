@@ -116,7 +116,7 @@ def models(config):
 def queue(config):
 
     """
-    Point the queue at a testing Redis database.
+    Clear the RQ queue.
 
     Yields:
         The RQ queue.
@@ -149,7 +149,6 @@ def corpus_index(config):
     """
 
     index = CorpusIndex()
-    index.delete()
-    index.create()
+    index.reset()
 
     yield index
