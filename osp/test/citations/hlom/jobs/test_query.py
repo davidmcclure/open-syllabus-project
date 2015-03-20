@@ -4,54 +4,9 @@ import pytest
 
 from osp.corpus.models.document import Document
 from osp.corpus.jobs.ext_text import ext_text
-from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
-from pymarc import Record, Field
-
-
-def get_hlom(number, title, author):
-
-    """
-    Insert a HLOM record row.
-
-    Args:
-        number (str): The control number.
-        title (str): The title.
-        author (str): The author.
-
-    Returns:
-        pymarc.Record
-    """
-
-    marc = Record()
-
-    f001 = Field(
-        tag='001',
-        indicators=['0', '1'],
-        subfields=['a', number]
-    )
-
-    f100 = Field(
-        tag='100',
-        indicators=['0', '1'],
-        subfields=['a', author]
-    )
-
-    f245 = Field(
-        tag='245',
-        indicators=['0', '1'],
-        subfields=['a', title]
-    )
-
-    marc.add_field(f001)
-    marc.add_field(f100)
-    marc.add_field(f245)
-
-    return HLOM_Record.create(
-        control_number=number,
-        record=marc.as_marc()
-    )
+from osp.test.citations.hlom.mock_hlom import get_hlom
 
 
 @pytest.fixture()

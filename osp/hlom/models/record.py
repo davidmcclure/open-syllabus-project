@@ -2,6 +2,7 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
+from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
 from pymarc import Record
 from playhouse.postgres_ext import *
@@ -11,8 +12,8 @@ from peewee import *
 class HLOM_Record(BaseModel):
 
 
-    control_number = CharField(unique=True)
-    record = BlobField()
+    control_number = CharField(unique=True, null=False)
+    record = BlobField(null=False)
     metadata = BinaryJSONField(null=True)
 
 
@@ -23,7 +24,13 @@ class HLOM_Record(BaseModel):
         Insert an row for each record in the HLOM corpus.
         """
 
-        pass
+        dataset = Dataset.from_env()
+
+        for record in dataset.records():
+            HLOM_Record.create(
+                control_number=record['001'].format_field(),
+                record=record.as_marc()
+            )
 
 
     @property
