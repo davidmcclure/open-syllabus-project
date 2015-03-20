@@ -1,13 +1,11 @@
 
 
-import hashlib
-import re
-
+from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.citations.hlom.utils import sanitize_query, clean_field
-from peewee import *
-from playhouse.postgres_ext import *
+from osp.citations.hlom.utils import sanitize_query
 from pymarc import Record
+from playhouse.postgres_ext import *
+from peewee import *
 
 
 class HLOM_Record(BaseModel):
@@ -43,3 +41,7 @@ class HLOM_Record(BaseModel):
             self.pymarc.title(),
             self.pymarc.author()
         ]))
+
+
+    class Meta:
+        database = config.get_table_db('hlom_record')

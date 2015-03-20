@@ -16,6 +16,9 @@ from osp.dates.models.archive_url import Document_Date_Archive_Url
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from osp.dates.models.semester import Document_Date_Semester
 
+from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.models.citation import HLOM_Citation
+
 from playhouse.test_utils import test_database
 
 
@@ -27,6 +30,7 @@ def test_env():
     """
 
     _config.paths.append('/etc/osp/osp.test.yml')
+    _config.read()
 
 
 @pytest.yield_fixture
@@ -113,7 +117,9 @@ def models(config):
         Document_Text,
         Document_Date_Archive_Url,
         Document_Date_Semester,
-        Document_Date_File_Metadata
+        Document_Date_File_Metadata,
+        HLOM_Record,
+        HLOM_Citation,
     ]
 
     with test_database(config.get_db(), tables):
