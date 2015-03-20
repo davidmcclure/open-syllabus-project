@@ -64,10 +64,12 @@ class Config:
     def read(self):
 
         """
-        Load the configuration files.
+        Load the configuration files, set connections.
         """
 
         self.config = anyconfig.load(self.paths, ignore_missing=True)
+        self.es = self.get_es()
+        self.rq = self.get_rq()
 
 
     def get_db(self, name='default'):
@@ -120,7 +122,6 @@ class Config:
         return self.get_db(name)
 
 
-    @lru_cache()
     def get_es(self):
 
         """
@@ -130,10 +131,10 @@ class Config:
             elasticsearch.Elasticsearch
         """
 
-        return Elasticsearch([self['elasticsearch']])
+        if 'elasticsearch' in self.config:
+            return Elasticsearch([self['elasticsearch']])
 
 
-    @lru_cache()
     def get_rq(self):
 
         """
@@ -143,18 +144,9 @@ class Config:
             rq.Queue
         """
 
-        redis = StrictRedis(**self['redis'])
-        return Queue(connection=redis)
-
-
-    @property
-    def es(self):
-        return self.get_es()
-
-
-    @property
-    def rq(self):
-        return self.get_rq()
+        if 'redis' in self.config:
+            redis = StrictRedis(**self['redis'])
+            return Queue(connection=redis)
 
 
 # Global instance.
