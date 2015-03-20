@@ -19,17 +19,25 @@ from osp.dates.models.semester import Document_Date_Semester
 from playhouse.test_utils import test_database
 
 
+@pytest.fixture(scope='session', autouse=True)
+def test_env():
+
+    """
+    Merge the testing parameters into the configuration.
+    """
+
+    _config.paths.append('/etc/osp/osp.test.yml')
+
+
 @pytest.yield_fixture
 def config():
 
     """
-    Merge the testing parameters into the configuration.
+    Reset the configuration object after each test.
 
     Yields:
         The modify-able config object.
     """
-
-    _config.read(['/etc/osp/osp.test.yml'])
 
     yield _config
     _config.read()
