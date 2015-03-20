@@ -3,21 +3,19 @@
 import pytest
 
 from osp.common.config import config as _config
+from osp.test.corpus.mocks.corpus import MockCorpus
 from osp.api.server import app
 
-from osp.test.corpus.mocks.corpus import MockCorpus
-from contextlib import contextmanager
-from playhouse.test_utils import test_database
-from redis import StrictRedis
-
+from osp.corpus.index import CorpusIndex
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
-from osp.corpus.index import CorpusIndex
 
 from osp.dates.models.archive_url import Document_Date_Archive_Url
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from osp.dates.models.semester import Document_Date_Semester
+
+from playhouse.test_utils import test_database
 
 
 @pytest.yield_fixture
