@@ -23,5 +23,6 @@ def test_index(models, corpus_index, config):
         # A document should exist.
         doc = corpus_index.es.get('osp', t.document.path)
 
-        # The text should be indexed.
-        assert doc['_source']['body'] == t.document.path
+        # Should index text / doc ID.
+        assert doc['_source']['doc_id'] == t.document.id
+        assert doc['_source']['body']   == t.document.path

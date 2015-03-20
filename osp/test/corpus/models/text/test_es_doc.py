@@ -13,7 +13,6 @@ def test_es_doc(models):
     doc = Document.create(path='000/abc')
     text = Document_Text.create(document=doc, text='text')
 
-    assert text.es_doc == {
-        '_id': '000/abc',
-        'body': 'text'
-    }
+    assert text.es_doc['_id']       == '000/abc'
+    assert text.es_doc['doc_id']    == doc.id
+    assert text.es_doc['body']      == 'text'

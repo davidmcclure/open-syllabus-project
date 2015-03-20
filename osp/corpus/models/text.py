@@ -26,8 +26,9 @@ class Document_Text(BaseModel):
         """
 
         return {
-            '_id': self.document.path,
-            'body': self.text
+            '_id':      self.document.path,
+            'doc_id':   self.document.id,
+            'body':     self.text
         }
 
 

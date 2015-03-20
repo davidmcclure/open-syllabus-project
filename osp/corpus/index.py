@@ -32,6 +32,9 @@ class CorpusIndex:
                         'store': True
                     },
                     'properties': {
+                        'doc_id': {
+                            'type': 'integer'
+                        },
                         'body': {
                             'type': 'string'
                         }

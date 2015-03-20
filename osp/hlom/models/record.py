@@ -13,7 +13,7 @@ class HLOM_Record(BaseModel):
 
     control_number = CharField(unique=True)
     record = BlobField()
-    metadata = BinaryJSONField()
+    metadata = BinaryJSONField(null=True)
 
 
     @property
