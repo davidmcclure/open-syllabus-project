@@ -96,7 +96,7 @@ def reset():
 
 @cli.command()
 @click.argument('max_id', type=int)
-def queue_text(max_id):
+def queue_corpus_text(max_id):
 
     """
     Queue text extraction.
@@ -136,6 +136,17 @@ def queue_date_file_metadata(max_id):
     """
 
     queue('/dates/file-metadata', max_id)
+
+
+@cli.command()
+@click.argument('max_id', type=int)
+def queue_hlom_query(max_id):
+
+    """
+    Queue HLOM queries.
+    """
+
+    queue('/hlom/query', max_id)
 
 
 def queue(route, max_id):
