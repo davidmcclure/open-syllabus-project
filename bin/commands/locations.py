@@ -47,25 +47,3 @@ def queue_matching():
 
     for doc in query_bar(Document.select()):
         queue.enqueue(locate, doc.id)
-
-
-@cli.command()
-@click.option('--page_len', default=3000)
-def push_document_objects(page_len):
-
-    """
-    Write document objects into Overview.
-    """
-
-    ov = Overview.from_env()
-
-    # Wrap the query in a progress bar.
-    query = query_bar(queries.document_objects())
-
-    for group in grouper(query, page_len):
-
-        objects = []
-        for d2i in group:
-            objects.append([d2i.did, d2i.iid])
-
-        ov.post_document_objects(objects)

@@ -73,67 +73,7 @@ def queue_geocoding():
 
     for inst in Institution.select().iterator():
         query = inst.geocoding_query
-        if query:queue.enqueue(geocode, inst.id, query)
-
-
-@cli.command()
-@click.option('--page_len', default=50)
-def push_objects(page_len):
-
-    """
-    Write store objects into Overview.
-    """
-
-    ov = Overview.from_env()
-
-    # Wrap the query in a progress bar.
-    query = query_bar(queries.store_objects())
-
-    for group in grouper(query, page_len):
-
-        objects = []
-        for inst in group:
-
-            json = { k: inst.metadata[k] for k in [
-                'Institution_Name',
-                'Campus_Name',
-                'Institution_Web_Address'
-            ]}
-
-            json.update({
-                'Longitude': inst.lon,
-                'Latitude': inst.lat
-            })
-
-            objects.append({
-                'indexedLong': inst.id,
-                'indexedString': inst.metadata['Institution_Name'],
-                'json': json
-            })
-
-        ov.post_object(objects)
-
-
-@cli.command()
-def pull_overview_ids():
-
-    """
-    Copy store object ids from Overview.
-    """
-
-    ov = Overview.from_env()
-    objects = ov.list_objects().json()
-    size = ov.count_objects()
-
-    for obj in bar(objects, expected_size=size):
-
-        query = (
-            Institution
-            .update(stored_id=obj['id'])
-            .where(Institution.id==obj['indexedLong'])
-        )
-
-        query.execute()
+        if query: queue.enqueue(geocode, inst.id, query)
 
 
 @cli.command()
