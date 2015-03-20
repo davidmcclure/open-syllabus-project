@@ -154,5 +154,15 @@ class Config:
         return Queue(connection=redis)
 
 
+    @property
+    def es(self):
+        return self.get_es()
+
+
+    @property
+    def rq(self):
+        return self.get_rq()
+
+
 # Global instance.
 config = Config.from_env()

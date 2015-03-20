@@ -37,11 +37,9 @@ def queue_jobs(job):
         tuple: ('', HTTP code)
     """
 
-    queue = config.get_rq()
-
     o1 = int(request.form['o1'])
     o2 = int(request.form['o2'])
-    job = queue.enqueue(meta_job, job, o1, o2)
+    job = config.rq.enqueue(meta_job, job, o1, o2)
 
     code = 200 if job.is_queued else 500
     return ('', code)
@@ -58,7 +56,5 @@ def meta_job(job, o1, o2):
         o2 (int): The second id.
     """
 
-    queue = config.get_rq()
-
     for i in range(o1, o2+1):
-        queue.enqueue(job, i)
+        config.rq.enqueue(job, i)

@@ -5,7 +5,7 @@ import sys
 import numpy as np
 import csv
 
-from osp.common.models.base import queue
+from osp.common.config import config
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.dataset import Dataset
@@ -13,7 +13,6 @@ from osp.citations.hlom.jobs.query import query
 from osp.citations.hlom import queries
 from peewee import create_model_tables
 from playhouse.postgres_ext import ServerSide
-from rq import Queue
 
 
 @click.group()
@@ -71,6 +70,8 @@ def queue_queries():
     """
     Queue citation extraction queries.
     """
+
+    queue = config.get_rq()
 
     for record in ServerSide(HLOM_Record.select()):
         queue.enqueue(query, record.id)

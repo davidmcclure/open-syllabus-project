@@ -1,11 +1,8 @@
 
 
-from osp.common.models.base import redis, elasticsearch as es
+from osp.common.config import config
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.utils import sanitize_query
-from pymarc.record import Record
-from rq import Queue
 
 
 def query(id):
