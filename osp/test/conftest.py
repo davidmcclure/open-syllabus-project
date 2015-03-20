@@ -4,6 +4,7 @@ import pytest
 
 from osp.common.config import config as _config
 from osp.test.corpus.mock_osp import MockOSP
+from osp.test.citations.hlom.mock_hlom import MockHLOM
 from osp.api.server import app
 
 from osp.corpus.index import CorpusIndex
@@ -71,6 +72,33 @@ def mock_osp(config):
 
     yield osp
     osp.teardown()
+
+
+@pytest.yield_fixture
+def mock_hlom(config):
+
+    """
+    Provide a MockHLOM instance, and automatically point the configuration
+    object at the path of the mock corpus.
+
+    Args:
+        config (Config)
+
+    Yields:
+        MockHLOM
+    """
+
+    hlom = MockHLOM()
+
+    # Point config -> mock.
+    config.config.update_w_merge({
+        'hlom': {
+            'corpus': hlom.path
+        }
+    })
+
+    yield hlom
+    hlom.teardown()
 
 
 @pytest.yield_fixture
