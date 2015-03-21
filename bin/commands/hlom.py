@@ -1,7 +1,6 @@
 
 
 import click
-import sys
 import numpy as np
 import csv
 
@@ -34,34 +33,14 @@ def init_db():
 
 
 @cli.command()
-@click.option('--n', default=10000)
-def insert_records(n):
+@click.option('--page_size', default=10000)
+def insert_records(page_size):
 
     """
     Write the records into the database.
     """
 
-    dataset = Dataset.from_env()
-
-    i = 0
-    for group in dataset.grouped_records(n):
-
-        rows = []
-        for record in group:
-
-            # Just records with title/author.
-            if record and record.title() and record.author():
-                rows.append({
-                    'control_number': record['001'].format_field(),
-                    'record': record.as_marc()
-                })
-
-        if rows:
-            HLOM_Record.insert_many(rows).execute()
-
-        i += 1
-        sys.stdout.write('\r'+str(i*n))
-        sys.stdout.flush()
+    HLOM_Record.insert_records(page_size)
 
 
 @cli.command()

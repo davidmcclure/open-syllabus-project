@@ -1,5 +1,7 @@
 
 
+import sys
+
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.hlom.dataset import Dataset
@@ -18,23 +20,37 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def insert_records(cls):
+    def insert_records(cls, page_size=10000):
 
         """
         Insert an row for each record in the HLOM corpus.
+
+        Args:
+            page_size (int): Batch-insert page size.
         """
 
         dataset = Dataset.from_env()
 
-        for record in dataset.records():
+        i = 0
+        for group in dataset.grouped_records(page_size):
 
-            # Require title and author.
-            if record.title() and record.author():
+            rows = []
+            for record in group:
 
-                HLOM_Record.create(
-                    control_number=record['001'].format_field(),
-                    record=record.as_marc()
-                )
+                # Require title and author.
+                if record.title() and record.author():
+
+                    rows.append({
+                        'control_number': record['001'].format_field(),
+                        'record': record.as_marc()
+                    })
+
+            if rows:
+                HLOM_Record.insert_many(rows).execute()
+
+            i += 1
+            sys.stdout.write('\r'+str(page_size*i))
+            sys.stdout.flush()
 
 
     @property
