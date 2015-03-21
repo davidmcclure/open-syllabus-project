@@ -70,7 +70,7 @@ def csv_text_counts(out_path):
     writer.writeheader()
 
     rows = []
-    for c in queries.text_counts().naive().iterator():
+    for c in HLOM_Citation.text_counts().naive().iterator():
 
         row = HLOM_Record.get(
             HLOM_Record.control_number==c.record
@@ -84,32 +84,6 @@ def csv_text_counts(out_path):
             'author': row.pymarc.author(),
             'count': c.count,
             'subjects': ','.join(subjects)
-        })
-
-    writer.writerows(rows)
-
-
-@cli.command()
-@click.argument('out_path', type=click.Path())
-def csv_syllabus_counts(out_path):
-
-    """
-    Write a CSV with syllabus -> citation count.
-    """
-
-    out_file = open(out_path, 'w')
-
-    # CSV writer.
-    cols = ['document', 'count']
-    writer = csv.DictWriter(out_file, cols)
-    writer.writeheader()
-
-    rows = []
-    for c in queries.syllabus_counts().naive().iterator():
-
-        rows.append({
-            'document': c.document,
-            'count': c.count
         })
 
     writer.writerows(rows)
