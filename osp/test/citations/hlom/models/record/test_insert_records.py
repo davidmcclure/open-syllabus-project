@@ -16,15 +16,8 @@ def test_insert_records(models, mock_hlom):
 
         # 10 records in each:
         for j in range(10):
-
-            cn = str(i)+'-'+str(j)
-
-            marc = mock_hlom.add_marc(
-                data_file=str(i),
-                control_number=cn
-            )
-
-            records.append((marc, cn))
+            marc = mock_hlom.add_marc(data_file=str(i))
+            records.append(marc)
 
     # Insert record rows.
     HLOM_Record.insert_records()
@@ -32,7 +25,11 @@ def test_insert_records(models, mock_hlom):
     # Should insert 100 records.
     assert HLOM_Record.select().count() == 100
 
-    # Should store the records.
-    for marc, cn in records:
+    for marc in records:
+
+        # Pop out the `hlom_record` row.
+        cn = marc['001'].format_field()
         row = HLOM_Record.get(HLOM_Record.control_number==cn)
+
+        # Should store the record body.
         assert row.pymarc.as_marc() == marc.as_marc()

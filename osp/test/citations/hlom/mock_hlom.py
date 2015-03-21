@@ -3,35 +3,11 @@
 import os
 import tempfile
 import shutil
+import random
 
 from osp.citations.hlom.models.record import HLOM_Record
 from contextlib import contextmanager
 from pymarc import Record, Field, MARCWriter
-
-
-def get_hlom(number, title, author):
-
-    """
-    Insert a HLOM record row.
-
-    Args:
-        number (str): The control number.
-        title (str): The title.
-        author (str): The author.
-
-    Returns:
-        HLOM_Record
-    """
-
-    marc = MockMARC()
-    marc.set_control_number(number)
-    marc.set_title(title)
-    marc.set_author(author)
-
-    return HLOM_Record.create(
-        control_number=number,
-        record=marc.as_marc()
-    )
 
 
 class MockMARC(Record):
@@ -114,7 +90,7 @@ class MockHLOM:
             yield MARCWriter(fh)
 
 
-    def add_marc(self, data_file='hlom', control_number='',
+    def add_marc(self, data_file='hlom', control_number=None,
                  title='', author=''):
 
         """
@@ -129,6 +105,10 @@ class MockHLOM:
         Returns:
             pymarc.Record
         """
+
+        # Use a random string, if no CN.
+        if not control_number:
+            control_number = str(random.getrandbits(32))
 
         with self.writer(data_file) as writer:
 

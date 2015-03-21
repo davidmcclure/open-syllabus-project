@@ -7,14 +7,55 @@ from osp.corpus.jobs.ext_text import ext_text
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
-from osp.test.citations.hlom.mock_hlom import get_hlom
+from osp.test.citations.hlom.mock_hlom import MockMARC
+
+
+def get_hlom(number, title, author):
+
+    """
+    Insert a HLOM record row.
+
+    Args:
+        number (str): The control number.
+        title (str): The title.
+        author (str): The author.
+
+    Returns:
+        HLOM_Record
+    """
+
+    marc = MockMARC()
+    marc.set_control_number(number)
+    marc.set_title(title)
+    marc.set_author(author)
+
+    return HLOM_Record.create(
+        control_number=number,
+        record=marc.as_marc()
+    )
+
+
+@pytest.fixture()
+def hlom(models, mock_hlom):
+
+    """
+    Mock an HLOM MARC record, create a `hlom_record` row.
+
+    Returns:
+        function
+    """
+
+    def _hlom(title, author):
+        pass
+
+    return _hlom
 
 
 @pytest.fixture()
 def doc(models, mock_osp):
 
     """
-    Mocks a file, create a document row, and extract text.
+    Mocks a file, create a `document` row, extract text.
 
     Returns:
         function
@@ -36,7 +77,7 @@ def doc(models, mock_osp):
     return _doc
 
 
-def test_matches(doc, corpus_index, mock_hlom):
+def test_matches(corpus_index, mock_hlom, doc):
 
     """
     When OSP documents match the query, write link rows.
@@ -65,7 +106,7 @@ def test_matches(doc, corpus_index, mock_hlom):
         )
 
 
-def test_no_matches(doc, corpus_index):
+def test_no_matches(corpus_index, doc):
 
     """
     When no documents match, don't write any rows.
