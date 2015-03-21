@@ -6,6 +6,7 @@ import tempfile
 import datetime
 import shutil
 
+from osp.test.utils import sha1
 from osp.corpus.utils import int_to_dir
 from abc import ABCMeta
 from reportlab.pdfgen.canvas import Canvas
@@ -75,11 +76,8 @@ class MockOSP:
 
         self.add_segment(segment)
 
-        # Hash the content, if no name.
-        if not name:
-            sha1 = hashlib.sha1()
-            sha1.update(content.encode('utf8'))
-            name = sha1.hexdigest()
+        # Hash content, if no name.
+        if not name: name = sha1(content)
 
         # Get the complete path.
         path = os.path.join(self.path, segment+'/'+name)
