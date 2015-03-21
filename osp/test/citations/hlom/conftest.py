@@ -8,7 +8,7 @@ from osp.corpus.jobs.ext_text import ext_text
 
 
 @pytest.fixture()
-def hlom(models, mock_hlom):
+def add_hlom(models, mock_hlom):
 
     """
     Mock an HLOM MARC record, create a `hlom_record` row.
@@ -35,7 +35,7 @@ def hlom(models, mock_hlom):
 
 
 @pytest.fixture()
-def doc(models, mock_osp):
+def add_doc(models, mock_osp):
 
     """
     Mocks a file, create a `document` row, extract text.

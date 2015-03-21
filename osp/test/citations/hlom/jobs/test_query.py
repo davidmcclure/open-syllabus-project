@@ -4,21 +4,21 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
 
 
-def test_matches(corpus_index, mock_hlom, doc, hlom):
+def test_matches(corpus_index, mock_hlom, add_doc, add_hlom):
 
     """
     When OSP documents match the query, write link rows.
     """
 
-    d1 = doc('War and Peace, Leo Tolstoy 1')
-    d2 = doc('War and Peace, Leo Tolstoy 2')
-    d3 = doc('War and Peace, Leo Tolstoy 3')
-    d4 = doc('Anna Karenina, Leo Tolstoy 1')
-    d5 = doc('Anna Karenina, Leo Tolstoy 2')
+    d1 = add_doc('War and Peace, Leo Tolstoy 1')
+    d2 = add_doc('War and Peace, Leo Tolstoy 2')
+    d3 = add_doc('War and Peace, Leo Tolstoy 3')
+    d4 = add_doc('Anna Karenina, Leo Tolstoy 1')
+    d5 = add_doc('Anna Karenina, Leo Tolstoy 2')
 
     corpus_index.index()
 
-    record = hlom('War and Peace', 'Leo Tolstoy')
+    record = add_hlom('War and Peace', 'Leo Tolstoy')
     query(record.id)
 
     # Should write 3 citation links.
@@ -33,16 +33,16 @@ def test_matches(corpus_index, mock_hlom, doc, hlom):
         )
 
 
-def test_no_matches(corpus_index, doc, hlom):
+def test_no_matches(corpus_index, add_doc, add_hlom):
 
     """
     When no documents match, don't write any rows.
     """
 
-    doc('War and Peace, Leo Tolstoy')
+    add_doc('War and Peace, Leo Tolstoy')
     corpus_index.index()
 
-    record = hlom('Master and Man', 'Leo Tolstoy')
+    record = add_hlom('Master and Man', 'Leo Tolstoy')
     query(record.id)
 
     # Shouldn't write any rows.
