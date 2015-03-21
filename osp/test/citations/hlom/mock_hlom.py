@@ -81,28 +81,28 @@ class MockHLOM:
 
 
     @contextmanager
-    def writer(self, name):
+    def writer(self, segment):
 
         """
         Yield a MARCWriter instance.
 
         Args:
-            name (str): The file basename.
+            segment (str): The file basename.
         """
 
-        path = os.path.join(self.path, name+'.dat')
+        path = os.path.join(self.path, segment+'.dat')
 
         with open(path, 'ab') as fh:
             yield MARCWriter(fh)
 
 
-    def add_record(self, name, number, title='title', author='author'):
+    def add_marc(self, segment, number, title='', author=''):
 
         """
         Add a MARC record to a .dat file.
 
         Args:
-            name (str): The file basename.
+            segment (str): The file basename.
             number (str): The control number.
             title (str): The title.
             author (str): The author.
@@ -111,11 +111,14 @@ class MockHLOM:
             pymarc.Record
         """
 
-        with self.writer(name) as writer:
+        with self.writer(segment) as writer:
 
             marc = Record()
 
-            f001 = Field(tag='001', data=number)
+            f001 = Field(
+                tag='001',
+                data=number
+            )
 
             f100 = Field(
                 tag='100',

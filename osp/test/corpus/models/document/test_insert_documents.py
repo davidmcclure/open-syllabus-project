@@ -11,7 +11,7 @@ def test_insert_documents(models, mock_osp):
     Corpus.insert_documents() should create a row for each syllabus.
     """
 
-    # 10 segments * 10 files.
+    # 10 segments x 10 files.
     for s in segment_range(10):
         mock_osp.add_segment(s)
         mock_osp.add_files(s, 10, prefix=s+'-')

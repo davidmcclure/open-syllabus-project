@@ -19,9 +19,10 @@ def test_insert_records(models, mock_hlom):
         for j in range(10):
 
             cn = str(i)+'-'+str(j)
-            marc = mock_hlom.add_record(str(i), cn)
+            marc = mock_hlom.add_marc(str(i), cn)
             records.append((marc, cn))
 
+    # Insert record rows.
     HLOM_Record.insert_records()
 
     # Should insert 100 records.
