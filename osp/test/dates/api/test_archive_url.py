@@ -6,8 +6,7 @@ from osp.dates.jobs.ext_archive_url import ext_archive_url
 def test_archive_url(api_client, queue):
 
     """
-    The /archive-url endpoint should queue the meta-job that queues the
-    individual archive ULR extraction jobs.
+    /archive-url should queue the archive URL extraction jobs.
     """
 
     api_client.post('/dates/archive-url', data={'o1':1, 'o2':5})

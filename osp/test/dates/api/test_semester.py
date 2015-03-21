@@ -6,8 +6,7 @@ from osp.dates.jobs.ext_semester import ext_semester
 def test_semester(api_client, queue):
 
     """
-    The /semester endpoint should queue the meta-job that queues the
-    individual semester extraction jobs.
+    /semester should queue the semester extraction jobs.
     """
 
     api_client.post('/dates/semester', data={'o1':1, 'o2':5})

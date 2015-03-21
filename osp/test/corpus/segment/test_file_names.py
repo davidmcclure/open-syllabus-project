@@ -16,5 +16,5 @@ def test_file_names(mock_osp):
     mock_osp.add_files('000', 10)
     names = segment.file_names()
 
-    for i in range(0, 10):
+    for i in range(10):
         assert next(names) == 'file-'+str(i)

@@ -6,8 +6,7 @@ from osp.dates.jobs.ext_file_metadata import ext_file_metadata
 def test_semester(api_client, queue):
 
     """
-    The /file-metadata endpoint should queue the meta-job that queues the
-    individual file metadata extraction jobs.
+    /file-metadata should queue the file metadata extraction jobs.
     """
 
     api_client.post('/dates/file-metadata', data={'o1':1, 'o2':5})

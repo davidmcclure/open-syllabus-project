@@ -6,8 +6,7 @@ from osp.corpus.jobs.ext_text import ext_text
 def test_text(api_client, queue):
 
     """
-    The /text endpoint should queue the job that then queues the individual
-    text extraction jobs for each document.
+    /text should queue the text extraction jobs.
     """
 
     # Should queue the meta-job.

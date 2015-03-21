@@ -41,7 +41,7 @@ def test_full_partition(mock_osp):
     segments = corpus.segments()
 
     # Should yield all segments.
-    for i in range(0, 4095):
+    for i in range(4095):
         assert_segment(corpus, next(segments), i)
 
     # But no more.
@@ -63,7 +63,7 @@ def test_bounded_partition(mock_osp):
     segments = corpus.segments()
 
     # Should yield 10 segments.
-    for i in range(0, 10):
+    for i in range(10):
         assert_segment(corpus, next(segments), i)
 
     # And then stop.
@@ -84,7 +84,7 @@ def test_missing_segments(mock_osp):
     segments = corpus.segments()
 
     # Should yield 10 segments.
-    for i in range(0, 10):
+    for i in range(10):
         assert_segment(corpus, next(segments), i)
 
     # And then stop.

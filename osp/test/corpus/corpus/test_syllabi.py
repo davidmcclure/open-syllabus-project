@@ -23,7 +23,7 @@ def test_syllabi(mock_osp):
 
     # Walk segments / files:
     for s in segment_range(10):
-        for i in range(0, 10):
+        for i in range(10):
 
             # Should be a Syllabus instance.
             syllabus = next(syllabi)

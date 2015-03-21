@@ -19,7 +19,7 @@ def test_syllabi(mock_osp):
     mock_osp.add_files('000', 10)
     syllabi = segment.syllabi()
 
-    for i in range(0, 10):
+    for i in range(10):
 
         # Should be a Syllabus instance.
         syllabus = next(syllabi)

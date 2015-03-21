@@ -22,7 +22,7 @@ def test_file_paths(mock_osp):
 
     # Walk segments / files:
     for s in segment_range(10):
-        for i in range(0, 10):
+        for i in range(10):
 
             # Should generate the next file path.
             name = s+'-'+str(i)

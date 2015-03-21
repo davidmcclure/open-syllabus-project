@@ -18,6 +18,6 @@ def test_file_paths(mock_osp):
     mock_osp.add_files('000', 10)
     paths = segment.file_paths()
 
-    for i in range(0, 10):
+    for i in range(10):
         fpath = os.path.join(path, 'file-'+str(i))
         assert next(paths) == fpath

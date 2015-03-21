@@ -13,7 +13,7 @@ def test_even_groups():
     groups = grouper(range(50), 10)
 
     # Should generate 10 groups, each of length 10.
-    assert list(next(groups)) == list(range(0, 10))
+    assert list(next(groups)) == list(range(10))
     assert list(next(groups)) == list(range(10, 20))
     assert list(next(groups)) == list(range(20, 30))
     assert list(next(groups)) == list(range(30, 40))
@@ -33,7 +33,7 @@ def test_uneven_groups():
     groups = grouper(range(55), 10)
 
     # Should generate the 10 full-sized groups.
-    assert list(next(groups)) == list(range(0, 10))
+    assert list(next(groups)) == list(range(10))
     assert list(next(groups)) == list(range(10, 20))
     assert list(next(groups)) == list(range(20, 30))
     assert list(next(groups)) == list(range(30, 40))

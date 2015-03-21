@@ -103,7 +103,7 @@ class MockOSP:
             prefix (str): A filename prefix.
         """
 
-        for i in range(0, count):
+        for i in range(count):
             self.add_file(segment=segment, name=prefix+str(i))
 
 
