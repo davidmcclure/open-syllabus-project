@@ -20,11 +20,24 @@ def query(id):
         'fields': ['doc_id'],
         'size': 100000,
         'query': {
-            'match_phrase': {
-                'body': {
-                    'query': row.query,
-                    'slop': 10
-                }
+            'bool': {
+                'must': [
+                    {
+                        'match_phrase': {
+                            'body': {
+                                'query': row.title
+                            }
+                        }
+                    },
+                    {
+                        'match_phrase': {
+                            'body': {
+                                'query': row.author,
+                                'slop': 2
+                            }
+                        }
+                    }
+                ]
             }
         }
     })

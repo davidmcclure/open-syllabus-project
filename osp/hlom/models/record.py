@@ -38,7 +38,7 @@ class HLOM_Record(BaseModel):
             for record in group:
 
                 # Require title and author.
-                if record.title() and record.author():
+                if record and record.title() and record.author():
 
                     rows.append({
                         'control_number': record['001'].format_field(),
@@ -68,16 +68,23 @@ class HLOM_Record(BaseModel):
 
 
     @property
-    def query(self):
+    def author(self):
 
         """
-        Build an Elasticsearch query string.
+        Get an Elasticsearch-sanitized author.
         """
 
-        return sanitize_query(' '.join([
-            self.pymarc.title(),
-            self.pymarc.author()
-        ]))
+        return sanitize_query(self.pymarc.author())
+
+
+    @property
+    def title(self):
+
+        """
+        Get an Elasticsearch-sanitized title.
+        """
+
+        return sanitize_query(self.pymarc.title())
 
 
     class Meta:

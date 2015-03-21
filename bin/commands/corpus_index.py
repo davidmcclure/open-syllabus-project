@@ -70,11 +70,12 @@ def insert():
 
 
 @cli.command()
-@click.argument('q')
+@click.argument('title')
+@click.argument('author')
 @click.option('--size', default=10)
 @click.option('--start', default=0)
-@click.option('--slop', default=10)
-def search(q, size, start, slop):
+@click.option('--slop', default=2)
+def search(title, author, size, start, slop):
 
     """
     Search documents.
@@ -85,11 +86,24 @@ def search(q, size, start, slop):
         'from': start,
         'fields': [],
         'query': {
-            'match_phrase': {
-                'body': {
-                    'query': q,
-                    'slop': slop
-                }
+            'bool': {
+                'must': [
+                    {
+                        'match_phrase': {
+                            'body': {
+                                'query': title
+                            }
+                        }
+                    },
+                    {
+                        'match_phrase': {
+                            'body': {
+                                'query': author,
+                                'slop': slop
+                            }
+                        }
+                    }
+                ]
             }
         },
         'highlight': {
