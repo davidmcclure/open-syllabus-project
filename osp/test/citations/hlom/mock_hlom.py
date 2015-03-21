@@ -13,6 +13,18 @@ from pymarc import Record, Field, MARCWriter
 class MockMARC(Record):
 
 
+    def control_number(self):
+
+        """
+        Get 001.
+
+        Returns:
+            str: The control number.
+        """
+
+        return self['001'].format_field()
+
+
     def set_control_number(self, control_number):
 
         """

@@ -28,8 +28,9 @@ def test_insert_records(models, mock_hlom):
     for marc in records:
 
         # Pop out the `hlom_record` row.
-        cn = marc['001'].format_field()
-        row = HLOM_Record.get(HLOM_Record.control_number==cn)
+        row = HLOM_Record.get(
+            HLOM_Record.control_number==marc.control_number()
+        )
 
         # Should store the record body.
         assert row.pymarc.as_marc() == marc.as_marc()

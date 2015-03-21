@@ -7,32 +7,6 @@ from osp.corpus.jobs.ext_text import ext_text
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
-from osp.test.citations.hlom.mock_hlom import MockMARC
-
-
-def get_hlom(number, title, author):
-
-    """
-    Insert a HLOM record row.
-
-    Args:
-        number (str): The control number.
-        title (str): The title.
-        author (str): The author.
-
-    Returns:
-        HLOM_Record
-    """
-
-    marc = MockMARC()
-    marc.set_control_number(number)
-    marc.set_title(title)
-    marc.set_author(author)
-
-    return HLOM_Record.create(
-        control_number=number,
-        record=marc.as_marc()
-    )
 
 
 @pytest.fixture()
@@ -45,8 +19,19 @@ def hlom(models, mock_hlom):
         function
     """
 
-    def _hlom(title, author):
-        pass
+    def _hlom(title='', author=''):
+
+        # Mock a MARC record.
+        marc = mock_hlom.add_marc(
+            title=title,
+            author=author
+        )
+
+        # Create a `hlom_record` row.
+        return HLOM_Record.create(
+            control_number=marc.control_number(),
+            record=marc.as_marc()
+        )
 
     return _hlom
 
@@ -77,7 +62,7 @@ def doc(models, mock_osp):
     return _doc
 
 
-def test_matches(corpus_index, mock_hlom, doc):
+def test_matches(corpus_index, mock_hlom, doc, hlom):
 
     """
     When OSP documents match the query, write link rows.
@@ -91,8 +76,8 @@ def test_matches(corpus_index, mock_hlom, doc):
 
     corpus_index.index()
 
-    hlom = get_hlom('1', 'War and Peace', 'Leo Tolstoy')
-    query(hlom.id)
+    record = hlom('War and Peace', 'Leo Tolstoy')
+    query(record.id)
 
     # Should write 3 citation links.
     assert HLOM_Citation.select().count() == 3
@@ -102,11 +87,11 @@ def test_matches(corpus_index, mock_hlom, doc):
 
         assert HLOM_Citation.select().where(
             HLOM_Citation.document==doc,
-            HLOM_Citation.record==hlom
+            HLOM_Citation.record==record
         )
 
 
-def test_no_matches(corpus_index, doc):
+def test_no_matches(corpus_index, doc, hlom):
 
     """
     When no documents match, don't write any rows.
@@ -115,8 +100,8 @@ def test_no_matches(corpus_index, doc):
     doc('War and Peace, Leo Tolstoy')
     corpus_index.index()
 
-    hlom = get_hlom('1', 'Master and Man', 'Leo Tolstoy')
-    query(hlom.id)
+    record = hlom('Master and Man', 'Leo Tolstoy')
+    query(record.id)
 
     # Shouldn't write any rows.
     assert HLOM_Citation.select().count() == 0
