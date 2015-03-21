@@ -28,10 +28,13 @@ class HLOM_Record(BaseModel):
 
         for record in dataset.records():
 
-            HLOM_Record.create(
-                control_number=record['001'].format_field(),
-                record=record.as_marc()
-            )
+            # Require title and author.
+            if record.title() and record.author():
+
+                HLOM_Record.create(
+                    control_number=record['001'].format_field(),
+                    record=record.as_marc()
+                )
 
 
     @property
