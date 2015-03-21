@@ -27,6 +27,7 @@ class HLOM_Record(BaseModel):
         dataset = Dataset.from_env()
 
         for record in dataset.records():
+
             HLOM_Record.create(
                 control_number=record['001'].format_field(),
                 record=record.as_marc()

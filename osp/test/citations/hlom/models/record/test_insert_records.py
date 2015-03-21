@@ -14,24 +14,20 @@ def test_insert_records(models, mock_hlom):
 
     # 10 segments:
     for i in range(10):
-        with mock_hlom.writer(str(i)+'.dat') as writer:
 
-            # 10 records in each:
-            for j in range(10):
+        # 10 records in each:
+        for j in range(10):
 
-                # Create a MARC record.
-                cn = str(i)+'-'+str(j)
-                marc = get_marc(cn, 'title'+cn, 'author'+cn)
-
-                writer.write(marc)
-                records.append(marc)
+            cn = str(i)+'-'+str(j)
+            marc = mock_hlom.add_record(str(i), cn)
+            records.append((marc, cn))
 
     HLOM_Record.insert_records()
 
     # Should insert 100 records.
     assert HLOM_Record.select().count() == 100
 
-    for record in records:
-        num = record['001'].format_field()
-        row = HLOM_Record.get(HLOM_Record.control_number==num)
-        assert row.pymarc.as_marc() == record.as_marc()
+    # Should store the records.
+    for marc, cn in records:
+        row = HLOM_Record.get(HLOM_Record.control_number==cn)
+        assert row.pymarc.as_marc() == marc.as_marc()

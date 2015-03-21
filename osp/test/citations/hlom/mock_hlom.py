@@ -87,13 +87,54 @@ class MockHLOM:
         Yield a MARCWriter instance.
 
         Args:
-            name (str): The file name.
+            name (str): The file basename.
         """
 
-        path = os.path.join(self.path, name)
+        path = os.path.join(self.path, name+'.dat')
 
-        with open(path, 'wb') as fh:
+        with open(path, 'ab') as fh:
             yield MARCWriter(fh)
+
+
+    def add_record(self, name, number, title='title', author='author'):
+
+        """
+        Add a MARC record to a .dat file.
+
+        Args:
+            name (str): The file basename.
+            number (str): The control number.
+            title (str): The title.
+            author (str): The author.
+
+        Returns:
+            pymarc.Record
+        """
+
+        with self.writer(name) as writer:
+
+            marc = Record()
+
+            f001 = Field(tag='001', data=number)
+
+            f100 = Field(
+                tag='100',
+                indicators=['0', '1'],
+                subfields=['a', author]
+            )
+
+            f245 = Field(
+                tag='245',
+                indicators=['0', '1'],
+                subfields=['a', title]
+            )
+
+            marc.add_field(f001)
+            marc.add_field(f100)
+            marc.add_field(f245)
+
+            writer.write(marc)
+            return marc
 
 
     def teardown(self):
