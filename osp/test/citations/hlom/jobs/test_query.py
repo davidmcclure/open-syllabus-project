@@ -4,6 +4,7 @@ import pytest
 
 from osp.corpus.models.document import Document
 from osp.corpus.jobs.ext_text import ext_text
+from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
 from osp.test.citations.hlom.mock_hlom import get_hlom
@@ -35,7 +36,7 @@ def doc(models, mock_osp):
     return _doc
 
 
-def test_matches(doc, corpus_index):
+def test_matches(doc, corpus_index, mock_hlom):
 
     """
     When OSP documents match the query, write link rows.

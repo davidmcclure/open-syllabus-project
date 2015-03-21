@@ -1,7 +1,6 @@
 
 
 from osp.citations.hlom.models.record import HLOM_Record
-from osp.test.citations.hlom.mock_hlom import get_marc
 
 
 def test_insert_records(models, mock_hlom):
@@ -19,7 +18,12 @@ def test_insert_records(models, mock_hlom):
         for j in range(10):
 
             cn = str(i)+'-'+str(j)
-            marc = mock_hlom.add_marc(str(i), cn)
+
+            marc = mock_hlom.add_marc(
+                data_file=str(i),
+                control_number=cn
+            )
+
             records.append((marc, cn))
 
     # Insert record rows.
