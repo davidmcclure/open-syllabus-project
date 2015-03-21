@@ -9,8 +9,6 @@
 
 1. `osp queue_read_text` (local) / `osp workers queue_text` (EC2) - Queue text-extraction jobs, which write rows into `document_text`.
 
-**TODO**: DRY up the worker queueing logic.
-
 1. `osp queue_read_format` - Queue format-extraction jobs.
 
 ## Index OSP documents in Elasticsearch
@@ -34,8 +32,6 @@
 1. `osp hlom_index create` - Create the ES index, set the mapping.
 
 1. `osp hlom write_citation_counts` - Denormalize the citation counts for each record.
-
-**TODO**: Use a JSON column here, instead of HSTORE?
 
 1. `osp hlom write_blacklist [PATH]` - Exclude manually-identified nonsense records, where `PATH` is a .txt file with a list of MARC control numbers.
 
