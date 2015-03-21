@@ -14,8 +14,8 @@ def test_file_paths(mock_osp):
 
     # 10 segments, each with 10 files.
     for s in segment_range(10):
-        mock_osp.add_segment(s)
-        mock_osp.add_files(s, 10, prefix=s+'-')
+        for i in range(10):
+            mock_osp.add_file(segment=s, name=s+'-'+str(i))
 
     corpus = Corpus(mock_osp.path)
     paths = corpus.file_paths()

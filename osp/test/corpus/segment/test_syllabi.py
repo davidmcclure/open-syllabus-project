@@ -16,7 +16,9 @@ def test_syllabi(mock_osp):
     segment = Segment(path)
 
     # Add 10 files.
-    mock_osp.add_files('000', 10)
+    for i in range(10):
+        mock_osp.add_file(segment='000', name=str(i))
+
     syllabi = segment.syllabi()
 
     for i in range(10):
@@ -26,5 +28,5 @@ def test_syllabi(mock_osp):
         assert isinstance(syllabus, Syllabus)
 
         # Should wrap the right file.
-        fpath = os.path.join(path, 'file-'+str(i))
+        fpath = os.path.join(path, str(i))
         assert syllabus.path == fpath

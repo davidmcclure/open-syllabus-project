@@ -13,5 +13,8 @@ def test_file_count(mock_osp):
     segment = Segment(path)
 
     # Add 10 files.
-    mock_osp.add_files('000', 10)
+    for i in range(10):
+        mock_osp.add_file(segment='000', name=str(i))
+
+    # Should count 10 files.
     assert segment.file_count == 10
