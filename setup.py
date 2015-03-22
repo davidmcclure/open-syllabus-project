@@ -57,8 +57,8 @@ setup(
     ],
 
     dependency_links=[
-        'https://github.com/davidmcclure/peewee/tarball/bug/postgres-ext-autorollback#egg=peewee',
-        'https://github.com/davidmcclure/pymarc/tarball/ascii#egg=pymarc'
+        'git+https://github.com/davidmcclure/peewee.git@bug/postgres-ext-autorollback#egg=peewee',
+        'git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc'
     ]
 
 )
