@@ -50,15 +50,15 @@ setup(
         'pdfminer3k',
         'pytest',
 
-        # Via GitHub.
+        # Forks, via GitHub.
         'pymarc',
         'peewee',
 
     ],
 
     dependency_links=[
-        'git+https://github.com/davidmcclure/peewee.git@bug/postgres-ext-autorollback#egg=peewee',
-        'git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc'
+        'https://github.com/davidmcclure/peewee/tarball/bug/postgres-ext-autorollback#egg=peewee',
+        'https://github.com/davidmcclure/pymarc/tarball/ascii#egg=pymarc'
     ]
 
 )
