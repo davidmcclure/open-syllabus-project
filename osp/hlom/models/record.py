@@ -16,7 +16,7 @@ class HLOM_Record(BaseModel):
 
     control_number = CharField(unique=True, null=False)
     record = BlobField(null=False)
-    metadata = BinaryJSONField(null=True)
+    metadata = BinaryJSONField(default={})
 
 
     @classmethod
@@ -51,6 +51,37 @@ class HLOM_Record(BaseModel):
             i += 1
             sys.stdout.write('\r'+str(page_size*i))
             sys.stdout.flush()
+
+
+    @classmethod
+    def write_citation_counts(cls):
+
+        """
+        Write a `citation_count` field into the metadata field.
+        """
+
+        from osp.citations.hlom.models.citation import HLOM_Citation
+
+        for pair in HLOM_Citation.text_counts():
+
+            # Write on the citation count.
+            pair.record.metadata['citation_count'] = pair.count
+            pair.record.save()
+
+
+    @classmethod
+    def write_blacklist(cls):
+        pass
+
+
+    @classmethod
+    def write_deduping_hash(cls):
+        pass
+
+
+    @classmethod
+    def write_teaching_rank(cls):
+        pass
 
 
     @property

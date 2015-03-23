@@ -12,7 +12,7 @@ class Document(BaseModel):
 
 
     path = CharField(unique=True)
-    metadata = BinaryJSONField(null=True)
+    metadata = BinaryJSONField(default={})
 
 
     @classmethod
