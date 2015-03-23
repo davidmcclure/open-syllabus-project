@@ -32,7 +32,7 @@ def test_write_citation_counts(models, add_hlom, add_doc):
     HLOM_Citation.create(record=r3, document=d2)
     HLOM_Citation.create(record=r3, document=d3)
 
-    HLOM_Record.write_citation_counts()
+    HLOM_Record.write_citation_count()
 
     r1 = HLOM_Record.reload(r1)
     r2 = HLOM_Record.reload(r2)

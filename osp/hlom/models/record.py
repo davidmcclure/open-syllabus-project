@@ -54,7 +54,7 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def write_citation_counts(cls):
+    def write_citation_count(cls):
 
         """
         Write a `citation_count` field into the metadata field.
