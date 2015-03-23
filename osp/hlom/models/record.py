@@ -63,21 +63,10 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def records_with_citations(cls):
-
-        """
-        Query records with at least citation, identified by the presences of
-        a `citation_count` key in the metadata field.
-        """
-
-        pass
-
-
-    @classmethod
     def write_citation_count(cls):
 
         """
-        Write a `citation_count` field into the metadata field.
+        Cache citation counts.
         """
 
         from osp.citations.hlom.models.citation import HLOM_Citation
@@ -91,7 +80,18 @@ class HLOM_Record(BaseModel):
 
     @classmethod
     def write_deduping_hash(cls):
-        pass
+
+        """
+        Cache deduping hashes counts.
+        """
+
+        query = cls.select().where(
+            cls.metadata.contains('citation_count')
+        )
+
+        for row in query:
+            row.metadata['deduping_hash'] = row.hash
+            row.save()
 
 
     @classmethod
