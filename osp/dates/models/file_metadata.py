@@ -11,9 +11,9 @@ from peewee import *
 class Document_Date_File_Metadata(BaseModel):
 
 
-    document = ForeignKeyField(Document, unique=True)
-    date = DateTimeField()
-
-
     class Meta:
         database = config.get_table_db('document_date_file_metadata')
+
+
+    document = ForeignKeyField(Document, unique=True)
+    date = DateTimeField()

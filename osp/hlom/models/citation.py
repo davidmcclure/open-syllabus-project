@@ -10,6 +10,10 @@ from peewee import *
 class HLOM_Citation(BaseModel):
 
 
+    class Meta:
+        database = config.get_table_db('hlom_citation')
+
+
     document = ForeignKeyField(Document)
     record = ForeignKeyField(HLOM_Record)
 
@@ -30,7 +34,3 @@ class HLOM_Citation(BaseModel):
             .distinct(cls.record)
             .order_by(count.desc())
         )
-
-
-    class Meta:
-        database = config.get_table_db('hlom_citation')

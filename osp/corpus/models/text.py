@@ -11,6 +11,10 @@ from peewee import *
 class Document_Text(BaseModel):
 
 
+    class Meta:
+        database = config.get_table_db('document_text')
+
+
     document = ForeignKeyField(Document, unique=True)
     text = TextField()
 
@@ -30,7 +34,3 @@ class Document_Text(BaseModel):
             'doc_id':   self.document.id,
             'body':     self.text
         }
-
-
-    class Meta:
-        database = config.get_table_db('document_text')

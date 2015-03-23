@@ -9,6 +9,10 @@ from peewee import *
 class Document_Format(BaseModel):
 
 
+    class Meta:
+        database = config.get_table_db('document_format')
+
+
     document = ForeignKeyField(Document, unique=True)
     format = CharField(index=True)
 
@@ -35,7 +39,3 @@ class Document_Format(BaseModel):
             counts.append((c.format, c.count))
 
         return counts
-
-
-    class Meta:
-        database = config.get_table_db('document_format')

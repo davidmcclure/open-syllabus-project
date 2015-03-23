@@ -11,6 +11,10 @@ from peewee import *
 class Document(BaseModel):
 
 
+    class Meta:
+        database = config.get_table_db('document')
+
+
     path = CharField(unique=True)
     metadata = BinaryJSONField(default={})
 
@@ -41,7 +45,3 @@ class Document(BaseModel):
         """
 
         return Syllabus.from_env(self.path)
-
-
-    class Meta:
-        database = config.get_table_db('document')

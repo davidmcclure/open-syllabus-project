@@ -11,9 +11,9 @@ from peewee import *
 class Document_Date_Archive_Url(BaseModel):
 
 
-    document = ForeignKeyField(Document, unique=True)
-    date = DateTimeField()
-
-
     class Meta:
         database = config.get_table_db('document_date_archive_url')
+
+
+    document = ForeignKeyField(Document, unique=True)
+    date = DateTimeField()
