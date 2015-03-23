@@ -1,6 +1,8 @@
 
 
 import sys
+import spacy.en
+import hashlib
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
@@ -9,6 +11,10 @@ from osp.citations.hlom.utils import sanitize_query
 from pymarc import Record
 from playhouse.postgres_ext import *
 from peewee import *
+
+
+# Load spaCy.
+nlp = spacy.en.English()
 
 
 class HLOM_Record(BaseModel):
@@ -130,3 +136,26 @@ class HLOM_Record(BaseModel):
         """
 
         return sanitize_query(self.pymarc.title())
+
+
+    @property
+    def hash(self):
+
+        """
+        Create a deduping hash for the record that tries to coalesce
+        differently-formatted editions of the same text.
+        """
+
+        text = self.pymarc.title()+' '+self.pymarc.author()
+        tokens = nlp(text.lower())
+
+        # Filter out articles and punctuation.
+        tokens = [t.orth_ for t in tokens if
+                  t.pos_ not in ['DET', 'PUNCT'] and
+                  t.orth_.strip()]
+
+        print(tokens)
+
+        sha1 = hashlib.sha1()
+        sha1.update(' '.join(tokens).encode('ascii', 'ignore'))
+        return sha1.hexdigest()

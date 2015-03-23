@@ -31,6 +31,7 @@ reportlab
 python-docx
 pdfminer3k
 pytest
+spacy
 
 -e git+https://github.com/davidmcclure/peewee.git@bug/postgres-ext-autorollback#egg=peewee
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc

@@ -49,6 +49,7 @@ setup(
         'python-docx',
         'pdfminer3k',
         'pytest',
+        'spacy',
 
         # Forks, via GitHub.
         'pymarc',

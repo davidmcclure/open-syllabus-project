@@ -12,8 +12,7 @@ def test_blacklist(models, add_hlom):
 
     record = add_hlom()
 
-    # Blacklist the record.
     HLOM_Record.blacklist(record.control_number)
-    record = HLOM_Record.reload(record)
 
+    record = HLOM_Record.reload(record)
     assert record.metadata['blacklisted'] == True
