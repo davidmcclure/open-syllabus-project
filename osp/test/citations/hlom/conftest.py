@@ -17,7 +17,7 @@ def add_hlom(models, mock_hlom):
         function
     """
 
-    def _hlom(title='', author=''):
+    def _hlom(title='title', author='author'):
 
         # Mock a MARC record.
         marc = mock_hlom.add_marc(
@@ -44,7 +44,7 @@ def add_doc(models, mock_osp):
         function
     """
 
-    def _doc(content):
+    def _doc(content='content'):
 
         # Mock a file.
         path = mock_osp.add_file(content=content)

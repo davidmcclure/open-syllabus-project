@@ -10,14 +10,13 @@ def test_omit_blacklisted(models, add_hlom, add_doc):
     Blacklisted records should be ignored.
     """
 
+    doc = add_doc()
+
     r1 = add_hlom('title1', 'author1')
     r2 = add_hlom('title2', 'author2')
 
-    d1 = add_doc('content1')
-    d2 = add_doc('content2')
-
-    HLOM_Citation.create(record=r1, document=d1)
-    HLOM_Citation.create(record=r2, document=d2)
+    HLOM_Citation.create(record=r1, document=doc)
+    HLOM_Citation.create(record=r2, document=doc)
     HLOM_Record.write_citation_count()
 
     # Blacklist r2.
@@ -34,14 +33,13 @@ def test_omit_uncited(models, add_hlom, add_doc):
     Records without citations should be ignored.
     """
 
+    doc = add_doc()
+
     r1 = add_hlom('title1', 'author1')
     r2 = add_hlom('title2', 'author2')
 
-    d1 = add_doc('content1')
-    d2 = add_doc('content2')
-
     # No citation for r2.
-    HLOM_Citation.create(record=r1, document=d1)
+    HLOM_Citation.create(record=r1, document=doc)
     HLOM_Record.write_citation_count()
 
     query = HLOM_Record.select_cited()
@@ -49,10 +47,37 @@ def test_omit_uncited(models, add_hlom, add_doc):
     assert query.first().id == r1.id
 
 
-def test_coalesce_duplicates():
+def test_coalesce_duplicates(models, add_hlom, add_doc):
 
     """
     Duplicate records should be combined.
     """
 
-    pass
+    doc = add_doc()
+
+    r1 = add_hlom('title1', 'author1')
+    r2 = add_hlom('title1', 'author1')
+
+    r3 = add_hlom('title2', 'author2')
+    r4 = add_hlom('title2', 'author2')
+
+    r5 = add_hlom('title3', 'author3')
+    r6 = add_hlom('title3', 'author3')
+
+    HLOM_Citation.create(record=r1, document=doc)
+    HLOM_Citation.create(record=r2, document=doc)
+    HLOM_Citation.create(record=r3, document=doc)
+    HLOM_Citation.create(record=r4, document=doc)
+    HLOM_Citation.create(record=r5, document=doc)
+    HLOM_Citation.create(record=r6, document=doc)
+    HLOM_Record.write_citation_count()
+
+    HLOM_Record.write_deduping_hash()
+
+    query = HLOM_Record.select_cited()
+    ids = [r.id for r in query]
+
+    assert len(ids) == 3
+    assert r1.id in ids
+    assert r3.id in ids
+    assert r5.id in ids
