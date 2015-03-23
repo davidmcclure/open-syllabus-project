@@ -7,7 +7,6 @@ import hashlib
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.hlom.dataset import Dataset
-from osp.citations.hlom.utils import sanitize_query
 from pymarc import Record
 from playhouse.postgres_ext import *
 from peewee import *
@@ -116,26 +115,6 @@ class HLOM_Record(BaseModel):
             ascii_handling='ignore',
             utf8_handling='ignore'
         )
-
-
-    @property
-    def author(self):
-
-        """
-        Get an Elasticsearch-sanitized author.
-        """
-
-        return sanitize_query(self.pymarc.author())
-
-
-    @property
-    def title(self):
-
-        """
-        Get an Elasticsearch-sanitized title.
-        """
-
-        return sanitize_query(self.pymarc.title())
 
 
     @property
