@@ -27,16 +27,14 @@ def test_write_deduping_hash(models, add_hlom, add_doc):
     HLOM_Record.write_citation_count()
     HLOM_Record.write_deduping_hash()
 
-    query = (
-        HLOM_Record
-        .select()
-        .where(HLOM_Record.metadata.contains('deduping_hash'))
-    )
+    r1 = HLOM_Record.reload(r1)
+    r2 = HLOM_Record.reload(r2)
+    r3 = HLOM_Record.reload(r3)
+    r4 = HLOM_Record.reload(r4)
 
-    ids = [r.id for r in query]
-    assert len(ids) == 3
+    assert r1.metadata['deduping_hash'] == r1.hash
+    assert r2.metadata['deduping_hash'] == r2.hash
+    assert r3.metadata['deduping_hash'] == r3.hash
 
-    # Should write hashes onto records with citations.
-    assert r1.id in ids
-    assert r2.id in ids
-    assert r3.id in ids
+    # No hash on r4.
+    assert 'deduping_hash' not in r4.metadata
