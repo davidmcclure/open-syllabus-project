@@ -70,11 +70,6 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def write_blacklist(cls):
-        pass
-
-
-    @classmethod
     def write_deduping_hash(cls):
         pass
 
@@ -82,6 +77,21 @@ class HLOM_Record(BaseModel):
     @classmethod
     def write_teaching_rank(cls):
         pass
+
+
+    @classmethod
+    def blacklist(cls, control_number):
+
+        """
+        Exclude a record from indexing.
+
+        Args:
+            control_number (str)
+        """
+
+        record = cls.get(cls.control_number==control_number)
+        record.metadata['blacklisted'] = True
+        record.save()
 
 
     @property

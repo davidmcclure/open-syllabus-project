@@ -14,6 +14,7 @@ def test_write_citation_counts(models, add_hlom, add_doc):
     r1 = add_hlom('title1', 'author1')
     r2 = add_hlom('title2', 'author2')
     r3 = add_hlom('title3', 'author3')
+    r4 = add_hlom('title4', 'author4')
 
     d1 = add_doc('content1')
     d2 = add_doc('content2')
@@ -33,10 +34,14 @@ def test_write_citation_counts(models, add_hlom, add_doc):
 
     HLOM_Record.write_citation_counts()
 
-    r1 = HLOM_Record.get(HLOM_Record.id==r1.id)
-    r2 = HLOM_Record.get(HLOM_Record.id==r2.id)
-    r3 = HLOM_Record.get(HLOM_Record.id==r3.id)
+    r1 = HLOM_Record.reload(r1)
+    r2 = HLOM_Record.reload(r2)
+    r3 = HLOM_Record.reload(r3)
+    r4 = HLOM_Record.reload(r4)
 
     assert r1.metadata['citation_count'] == 1
     assert r2.metadata['citation_count'] == 2
     assert r3.metadata['citation_count'] == 3
+
+    # No count on r4.
+    assert 'citation_count' not in r4.metadata
