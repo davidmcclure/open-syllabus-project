@@ -63,6 +63,17 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
+    def records_with_citations(cls):
+
+        """
+        Query records with at least citation, identified by the presences of
+        a `citation_count` key in the metadata field.
+        """
+
+        pass
+
+
+    @classmethod
     def write_citation_count(cls):
 
         """
