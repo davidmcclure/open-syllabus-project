@@ -106,7 +106,7 @@ class HLOM_Record(BaseModel):
 
 
     # Denormalization routines for Elasticsearch.
-    # TODO: Make this more generic, handle on-the-fly filtering.
+    # TODO: Make this more generic.
 
 
     @classmethod
@@ -143,6 +143,11 @@ class HLOM_Record(BaseModel):
 
     @classmethod
     def write_teaching_rank(cls):
+
+        """
+        Cache a 1,2,3... ranking, based on citation count.
+        """
+
         pass
 
 
@@ -159,3 +164,30 @@ class HLOM_Record(BaseModel):
         record = cls.get(cls.control_number==control_number)
         record.metadata['blacklisted'] = True
         record.save()
+
+
+    @classmethod
+    def select_cited(cls):
+
+        """
+        Select records that aren't blacklisted.
+        """
+
+        return (
+
+            cls.select()
+
+            # Omit blacklisted records.
+            .where(~cls.metadata.contains('blacklisted'))
+
+            # Omit records with no citations.
+            .where(cls.metadata.contains('citation_count'))
+
+            # Coalesce duplicates.
+            .distinct([cls.metadata['deduping_hash']])
+            .order_by(
+                cls.metadata['deduping_hash'],
+                cls.id
+            )
+
+        )
