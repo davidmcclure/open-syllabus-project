@@ -4,10 +4,10 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 
 
-def test_index(models, corpus_index, config):
+def test_index(models, corpus_index):
 
     """
-    Document_Text.es_index() should index all rows in Elasticsearch.
+    CorpusIndex.index() should index all rows in Elasticsearch.
     """
 
     # Index 100 documents.

@@ -9,7 +9,8 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 def test_write_teaching_rank(models, add_hlom, add_doc):
 
     """
-    HLOM_Record.write_teaching_rank() should write 1,2,3... rankings.
+    HLOM_Record.write_teaching_rank() should write 1,2,3... rankings and a
+    "percentile" scored, based on the log-ratio of the rank.
     """
 
     r1 = add_hlom('title1', 'author1')

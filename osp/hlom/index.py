@@ -25,7 +25,7 @@ class HLOMIndex:
         Set the Elasticsearch mapping.
         """
 
-        self.es.indices.create('osp', {
+        self.es.indices.create('hlom', {
             'mappings': {
                 'record': {
                     '_id': {
@@ -68,6 +68,7 @@ class HLOMIndex:
 
         query = HLOM_Record.select_cited()
         count = query.count()
+        print(count)
 
         def stream():
             for row in bar(ServerSide(query), expected_size=count):
@@ -82,7 +83,7 @@ class HLOMIndex:
         )
 
         # Commit the index.
-        self.es.indices.flush('osp')
+        self.es.indices.flush('hlom')
 
 
     def delete(self):
