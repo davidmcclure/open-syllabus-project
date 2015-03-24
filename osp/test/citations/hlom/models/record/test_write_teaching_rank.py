@@ -17,19 +17,23 @@ def test_write_teaching_rank(models, add_hlom, add_doc):
     r2 = add_hlom('title2', 'author2')
     r3 = add_hlom('title3', 'author3')
 
-    doc = add_doc('content')
-
     # 1 citation for r1.
-    HLOM_Citation.create(record=r1, document=doc)
+    d1 = add_doc('content1')
+    HLOM_Citation.create(record=r1, document=d1)
 
     # 2 citations for r2.
-    HLOM_Citation.create(record=r2, document=doc)
-    HLOM_Citation.create(record=r2, document=doc)
+    d2 = add_doc('content2')
+    d3 = add_doc('content3')
+    HLOM_Citation.create(record=r2, document=d2)
+    HLOM_Citation.create(record=r2, document=d3)
 
     # 3 citations for r3.
-    HLOM_Citation.create(record=r3, document=doc)
-    HLOM_Citation.create(record=r3, document=doc)
-    HLOM_Citation.create(record=r3, document=doc)
+    d4 = add_doc('content4')
+    d5 = add_doc('content5')
+    d6 = add_doc('content6')
+    HLOM_Citation.create(record=r3, document=d4)
+    HLOM_Citation.create(record=r3, document=d5)
+    HLOM_Citation.create(record=r3, document=d6)
 
     HLOM_Record.write_citation_count()
     HLOM_Record.write_deduping_hash()

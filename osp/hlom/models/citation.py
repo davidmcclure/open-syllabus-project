@@ -16,6 +16,7 @@ class HLOM_Citation(BaseModel):
 
     class Meta:
         database = config.get_table_db('hlom_citation')
+        indexes = ((('document', 'record'), True),)
 
 
     @classmethod

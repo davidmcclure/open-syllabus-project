@@ -2,14 +2,20 @@
 
 import pytest
 
-from osp.corpus.models.document import Document
+from osp.citations.hlom.models.citation import HLOM_Citation
 from peewee import IntegrityError
 
 
-def test_unique_pairs(models):
+def test_unique_pairs(models, add_hlom, add_doc):
 
     """
     Don't allow duplicate links between the same text -> syllabus pair.
     """
 
-    pass
+    d = add_doc()
+    r = add_hlom()
+
+    HLOM_Citation.create(document=d, record=r)
+
+    with pytest.raises(IntegrityError):
+        HLOM_Citation.create(document=d, record=r)
