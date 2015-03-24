@@ -1,13 +1,8 @@
 
 
 import click
-import math
 
-from osp.common.utils import query_bar
-from osp.corpus.models.text import Document_Text
 from osp.corpus.index import CorpusIndex
-from elasticsearch.helpers import bulk
-from playhouse.postgres_ext import ServerSide
 from blessings import Terminal
 
 

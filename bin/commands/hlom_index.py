@@ -1,15 +1,12 @@
 
 
-import math
 import click
-import re
 
-from osp.common.models.base import redis, elasticsearch as es
-from osp.common.utils import query_bar
-from osp.citations.hlom import queries
-from elasticsearch.helpers import bulk
+from osp.citations.hlom.index import HLOMIndex
 from blessings import Terminal
-from rq import Queue
+
+
+index = HLOMIndex()
 
 
 @click.group()
@@ -24,52 +21,7 @@ def create():
     Create the index.
     """
 
-    es.indices.create('hlom', {
-        'mappings': {
-            'record': {
-                '_id': {
-                    'index': 'not_analyzed',
-                    'store': True
-                },
-                'properties': {
-                    'title': {
-                        'type': 'string'
-                    },
-                    'author': {
-                        'type': 'string'
-                    },
-                    'publisher': {
-                        'type': 'string'
-                    },
-                    'pubyear': {
-                        'type': 'string'
-                    },
-                    'count': {
-                        'type': 'integer'
-                    },
-                    'rank': {
-                        'type': 'integer'
-                    },
-                    'percentile': {
-                        'type': 'float'
-                    },
-                    'stored_id': {
-                        'type': 'integer'
-                    },
-                    'lists': {
-                        'properties': {
-                            'subjects': {
-                                'type': 'string'
-                            },
-                            'notes': {
-                                'type': 'string'
-                            }
-                        }
-                    }
-                }
-            }
-        }
-    })
+    index.create()
 
 
 @cli.command()
@@ -79,7 +31,17 @@ def delete():
     Delete the index.
     """
 
-    es.indices.delete('hlom')
+    index.delete()
+
+
+@cli.command()
+def reset():
+
+    """
+    Reset the index.
+    """
+
+    index.reset()
 
 
 @cli.command()
@@ -89,7 +51,7 @@ def count():
     Count documents.
     """
 
-    click.echo(es.count('hlom', 'record')['count'])
+    click.echo(index.count())
 
 
 @cli.command()
@@ -99,14 +61,7 @@ def insert():
     Index documents.
     """
 
-    query = query_bar(queries.deduped_records())
-
-    def stream():
-        for row in query:
-            yield row.document
-
-    # Batch-insert the documents.
-    bulk(es, stream(), index='hlom', doc_type='record')
+    index.index()
 
 
 @cli.command()
@@ -119,7 +74,7 @@ def search(q, size, start):
     Search records.
     """
 
-    results = es.search('hlom', 'record', {
+    results = index.es.search('hlom', 'record', {
         'size': size,
         'from': start,
         'query': {
