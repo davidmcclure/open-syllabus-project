@@ -54,6 +54,36 @@ def queue_queries():
 
 
 @cli.command()
+def write_citation_count():
+
+    """
+    Cache citation counts.
+    """
+
+    HLOM_Record.write_citation_count()
+
+
+@cli.command()
+def write_deduping_hash():
+
+    """
+    Cache deduping hashes.
+    """
+
+    HLOM_Record.write_deduping_hash()
+
+
+@cli.command()
+def write_teaching_rank():
+
+    """
+    Cache teaching ranks.
+    """
+
+    HLOM_Record.write_teaching_rank()
+
+
+@cli.command()
 @click.argument('out_path', type=click.Path())
 def csv_text_counts(out_path):
 
@@ -64,7 +94,7 @@ def csv_text_counts(out_path):
     out_file = open(out_path, 'w')
 
     # CSV writer.
-    cols = ['title', 'author', 'count', 'subjects']
+    cols = ['title', 'author', 'count']
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
@@ -75,14 +105,10 @@ def csv_text_counts(out_path):
             HLOM_Record.control_number==c.record
         )
 
-        # Gather subject field values.
-        subjects = [s.format_field() for s in row.pymarc.subjects()]
-
         rows.append({
-            'title': row.pymarc.title(),
+            'title':  row.pymarc.title(),
             'author': row.pymarc.author(),
-            'count': c.count,
-            'subjects': ','.join(subjects)
+            'count':  c.count
         })
 
     writer.writerows(rows)

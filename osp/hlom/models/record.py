@@ -196,7 +196,7 @@ class HLOM_Record(BaseModel):
     def write_deduping_hash(cls):
 
         """
-        Cache deduping hashes counts.
+        Cache deduping hashes.
         """
 
         query = cls.select().where(
