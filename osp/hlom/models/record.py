@@ -7,7 +7,7 @@ import hashlib
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.citations.hlom.utils import clean_field
+from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from pymarc import Record
 from scipy.stats import rankdata
@@ -124,10 +124,10 @@ class HLOM_Record(BaseModel):
 
         return {
             '_id':          self.control_number,
-            'author':       clean_field(self.pymarc.author()),
-            'title':        clean_field(self.pymarc.title()),
-            'publisher':    clean_field(self.pymarc.publisher()),
-            'pubyear':      clean_field(self.pymarc.pubyear()),
+            'author':       prettify_field(self.pymarc.author()),
+            'title':        prettify_field(self.pymarc.title()),
+            'publisher':    prettify_field(self.pymarc.publisher()),
+            'pubyear':      prettify_field(self.pymarc.pubyear()),
             'count':        self.metadata['citation_count'],
             'rank':         self.metadata['teaching_rank'],
             'percent':      self.metadata['teaching_percent']

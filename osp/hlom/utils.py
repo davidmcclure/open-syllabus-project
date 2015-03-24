@@ -8,7 +8,6 @@ def sanitize_query(query):
 
     """
     Escape Lucene-reserved characters:
-    + - & | ! ( ) { } [ ] ^ " ~ * ? : \ /
 
     :param query: The query string.
     """
@@ -20,7 +19,7 @@ def sanitize_query(query):
     )
 
 
-def clean_field(field):
+def prettify_field(field):
 
     """
     Clean a field for public-facing display - strip spaces and non-word
