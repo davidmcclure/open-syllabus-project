@@ -2,6 +2,7 @@
 
 import pytest
 
+from osp.corpus.syllabus import Syllabus
 from osp.corpus.models.document import Document
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.corpus.jobs.ext_text import ext_text
@@ -49,11 +50,12 @@ def add_doc(models, mock_osp):
 
     def _doc(content='content'):
 
-        # Mock a file.
+        # Mock a syllabus.
         path = mock_osp.add_file(content=content)
+        syllabus = Syllabus(path)
 
         # Create a `document` row.
-        document = Document.create(path=path)
+        document = Document.create(path=syllabus.relative_path)
 
         # Extract text.
         text = ext_text(document.id)
