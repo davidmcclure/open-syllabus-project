@@ -9,14 +9,18 @@ def sanitize_query(query):
     """
     Escape Lucene-reserved characters:
 
-    :param query: The query string.
+    Args:
+        query (str): The query string.
+
+    Returns:
+        str: The cleaned query.
     """
 
-    return re.sub(
-        '([\+\-\&\|\!\(\)\{\}\[\]\^\"\~\*\?\:\\\/])',
-        r'\\\1',
-        query
-    )
+    # Remove non-letter characters.
+    letters = re.sub('[^a-z]', ' ', query.lower()).strip()
+
+    # Collapse whitespace to a single space.
+    return re.sub('\s{2,}', ' ', letters)
 
 
 def prettify_field(field):
@@ -25,7 +29,11 @@ def prettify_field(field):
     Clean a field for public-facing display - strip spaces and non-word
     characters from the beginning and end of the value.
 
-    :param field: The field value.
+    Args:
+        field (str): The field value.
+
+    Returns:
+        str: The cleaned value.
     """
 
     punct = '^[\W\s]*|[\W\s]*$'

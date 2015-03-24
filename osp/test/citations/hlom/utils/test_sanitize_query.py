@@ -3,28 +3,19 @@
 from osp.citations.hlom.utils import sanitize_query
 
 
-def test_sanitize_query():
+def test_remove_punctuation():
 
     """
-    Lucene reserved characters should be escaped.
+    Punctuation marks should be removed.
     """
 
-    assert sanitize_query('abc + def') == r'abc \+ def'
-    assert sanitize_query('abc - def') == r'abc \- def'
-    assert sanitize_query('abc & def') == r'abc \& def'
-    assert sanitize_query('abc | def') == r'abc \| def'
-    assert sanitize_query('abc ! def') == r'abc \! def'
-    assert sanitize_query('abc ( def') == r'abc \( def'
-    assert sanitize_query('abc ) def') == r'abc \) def'
-    assert sanitize_query('abc { def') == r'abc \{ def'
-    assert sanitize_query('abc } def') == r'abc \} def'
-    assert sanitize_query('abc [ def') == r'abc \[ def'
-    assert sanitize_query('abc ] def') == r'abc \] def'
-    assert sanitize_query('abc ^ def') == r'abc \^ def'
-    assert sanitize_query('abc " def') == r'abc \" def'
-    assert sanitize_query('abc ~ def') == r'abc \~ def'
-    assert sanitize_query('abc * def') == r'abc \* def'
-    assert sanitize_query('abc ? def') == r'abc \? def'
-    assert sanitize_query('abc : def') == r'abc \: def'
-    assert sanitize_query('abc \ def') == r'abc \\ def'
-    assert sanitize_query('abc / def') == r'abc \/ def'
+    assert sanitize_query('Antonio (Flaminio),') == 'antonio flaminio'
+
+
+def test_remove_numbers():
+
+    """
+    Number should be removed.
+    """
+
+    assert sanitize_query('Keats, John, 1795-1821') == 'keats john'
