@@ -106,7 +106,7 @@ class HLOM_Record(BaseModel):
 
 
     # Denormalization routines for Elasticsearch.
-    # TODO: Make this more generic.
+    # TODO: How to do this dynamically?
 
 
     @classmethod
