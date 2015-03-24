@@ -11,12 +11,12 @@ from peewee import *
 class Document_Text(BaseModel):
 
 
-    class Meta:
-        database = config.get_table_db('document_text')
-
-
     document = ForeignKeyField(Document, unique=True)
     text = TextField()
+
+
+    class Meta:
+        database = config.get_table_db('document_text')
 
 
     @property

@@ -10,12 +10,12 @@ from peewee import *
 class HLOM_Citation(BaseModel):
 
 
-    class Meta:
-        database = config.get_table_db('hlom_citation')
-
-
     document = ForeignKeyField(Document)
     record = ForeignKeyField(HLOM_Record)
+
+
+    class Meta:
+        database = config.get_table_db('hlom_citation')
 
 
     @classmethod

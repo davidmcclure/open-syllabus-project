@@ -12,14 +12,14 @@ from datetime import datetime
 class Document_Date_Semester(BaseModel):
 
 
-    class Meta:
-        database = config.get_table_db('document_date_semester')
-
-
     document = ForeignKeyField(Document, unique=True)
     offset = IntegerField()
     semester = CharField(index=True)
     year = CharField(index=True)
+
+
+    class Meta:
+        database = config.get_table_db('document_date_semester')
 
 
     @property

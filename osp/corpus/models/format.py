@@ -9,12 +9,12 @@ from peewee import *
 class Document_Format(BaseModel):
 
 
-    class Meta:
-        database = config.get_table_db('document_format')
-
-
     document = ForeignKeyField(Document, unique=True)
     format = CharField(index=True)
+
+
+    class Meta:
+        database = config.get_table_db('document_format')
 
 
     @classmethod

@@ -22,13 +22,13 @@ nlp = spacy.en.English()
 class HLOM_Record(BaseModel):
 
 
-    class Meta:
-        database = config.get_table_db('hlom_record')
-
-
     control_number = CharField(unique=True, null=False)
     record = BlobField(null=False)
     metadata = BinaryJSONField(default={})
+
+
+    class Meta:
+        database = config.get_table_db('hlom_record')
 
 
     @classmethod
