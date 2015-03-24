@@ -68,7 +68,6 @@ class HLOMIndex:
 
         query = HLOM_Record.select_cited()
         count = query.count()
-        print(count)
 
         def stream():
             for row in bar(ServerSide(query), expected_size=count):

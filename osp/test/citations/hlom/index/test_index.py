@@ -1,5 +1,7 @@
 
 
+import numpy as np
+
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 
@@ -10,9 +12,26 @@ def test_index(models, add_hlom, add_doc, hlom_index):
     CorpusIndex.index() should index cited records in Elasticsearch.
     """
 
-    r1 = add_hlom('title1', 'author1')
-    r2 = add_hlom('title2', 'author2')
-    r3 = add_hlom('title3', 'author3')
+    r1 = add_hlom(
+        author      ='author1',
+        title       ='title1',
+        publisher   ='publisher1',
+        pubyear     ='pubyear1'
+    )
+
+    r2 = add_hlom(
+        author      ='author2',
+        title       ='title2',
+        publisher   ='publisher2',
+        pubyear     ='pubyear2'
+    )
+
+    r3 = add_hlom(
+        author      ='author3',
+        title       ='title3',
+        publisher   ='publisher3',
+        pubyear     ='pubyear3'
+    )
 
     doc = add_doc('content')
 
@@ -35,3 +54,36 @@ def test_index(models, add_hlom, add_doc, hlom_index):
     hlom_index.index()
 
     assert hlom_index.count() == 3
+
+    doc1 = hlom_index.es.get('hlom', r1.control_number)
+
+    assert doc1['_source']['author']    == 'author1'
+    assert doc1['_source']['title']     == 'title1'
+    assert doc1['_source']['publisher'] == 'publisher1'
+    assert doc1['_source']['pubyear']   == 'pubyear1'
+    assert doc1['_source']['count']     == 1
+    assert doc1['_source']['rank']      == 3
+    assert doc1['_source']['percent']   == 0
+
+    doc2 = hlom_index.es.get('hlom', r2.control_number)
+
+    # Get the middle-document percentile.
+    pct = ((np.log(3)-np.log(2))/np.log(3))*100
+
+    assert doc2['_source']['author']    == 'author2'
+    assert doc2['_source']['title']     == 'title2'
+    assert doc2['_source']['publisher'] == 'publisher2'
+    assert doc2['_source']['pubyear']   == 'pubyear2'
+    assert doc2['_source']['count']     == 2
+    assert doc2['_source']['rank']      == 2
+    assert doc2['_source']['percent']   == pct
+
+    doc3 = hlom_index.es.get('hlom', r3.control_number)
+
+    assert doc3['_source']['author']    == 'author3'
+    assert doc3['_source']['title']     == 'title3'
+    assert doc3['_source']['publisher'] == 'publisher3'
+    assert doc3['_source']['pubyear']   == 'pubyear3'
+    assert doc3['_source']['count']     == 3
+    assert doc3['_source']['rank']      == 1
+    assert doc3['_source']['percent']   == 100

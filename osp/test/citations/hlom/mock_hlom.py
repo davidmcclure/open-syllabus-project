@@ -38,6 +38,24 @@ class MockMARC(Record):
         self.add_field(field)
 
 
+    def set_author(self, author):
+
+        """
+        Set 100.
+
+        Args:
+            author (str): The author.
+        """
+
+        field = Field(
+            tag='100',
+            indicators=['0', '1'],
+            subfields=['a', author]
+        )
+
+        self.add_field(field)
+
+
     def set_title(self, title):
 
         """
@@ -56,19 +74,41 @@ class MockMARC(Record):
         self.add_field(field)
 
 
-    def set_author(self, author):
+    def set_publisher(self, publisher, pubyear):
 
         """
-        Set 100.
+        Set 260 b.
 
         Args:
-            author (str): The author.
+            publisher (str): The publisher.
+            pubyear (str): The pubyear.
         """
 
         field = Field(
-            tag='100',
+            tag='260',
             indicators=['0', '1'],
-            subfields=['a', author]
+            subfields=[
+                'b', publisher,
+                'c', pubyear
+            ]
+        )
+
+        self.add_field(field)
+
+
+    def set_pubyear(self, pubyear):
+
+        """
+        Set 264 c.
+
+        Args:
+            year (str): The year.
+        """
+
+        field = Field(
+            tag='264',
+            indicators=['0', '1'],
+            subfields=['c', pubyear]
         )
 
         self.add_field(field)
@@ -103,7 +143,8 @@ class MockHLOM:
 
 
     def add_marc(self, data_file='hlom', control_number=None,
-                 title='', author=''):
+                 author='author', title='title',
+                 publisher='publisher', pubyear='pubyear'):
 
         """
         Add a MARC record to a .dat file.
@@ -111,8 +152,10 @@ class MockHLOM:
         Args:
             data_file (str): The file name.
             control_number (str): The control number.
-            title (str): The title.
             author (str): The author.
+            title (str): The title.
+            publisher (str): The publisher.
+            pubyear (str): The date.
 
         Returns:
             pymarc.Record
@@ -126,8 +169,9 @@ class MockHLOM:
 
             marc = MockMARC()
             marc.set_control_number(control_number)
-            marc.set_title(title)
             marc.set_author(author)
+            marc.set_title(title)
+            marc.set_publisher(publisher, pubyear)
 
             writer.write(marc)
             return marc

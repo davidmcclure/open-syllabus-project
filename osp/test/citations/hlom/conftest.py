@@ -17,12 +17,15 @@ def add_hlom(models, mock_hlom):
         function
     """
 
-    def _hlom(title='title', author='author'):
+    def _hlom(title='title', author='author',
+              publisher='publisher', pubyear='pubyear'):
 
         # Mock a MARC record.
         marc = mock_hlom.add_marc(
+            author=author,
             title=title,
-            author=author
+            publisher=publisher,
+            pubyear=pubyear
         )
 
         # Create a `hlom_record` row.

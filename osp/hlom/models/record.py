@@ -126,7 +126,7 @@ class HLOM_Record(BaseModel):
             '_id':          self.control_number,
             'author':       clean_field(self.pymarc.author()),
             'title':        clean_field(self.pymarc.title()),
-            'publisher':    clean_field(self.pymarc.title()),
+            'publisher':    clean_field(self.pymarc.publisher()),
             'pubyear':      clean_field(self.pymarc.pubyear()),
             'count':        self.metadata['citation_count'],
             'rank':         self.metadata['teaching_rank'],
