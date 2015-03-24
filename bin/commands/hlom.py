@@ -54,36 +54,6 @@ def queue_queries():
 
 
 @cli.command()
-def write_citation_count():
-
-    """
-    Cache citation counts.
-    """
-
-    HLOM_Record.write_citation_count()
-
-
-@cli.command()
-def write_deduping_hash():
-
-    """
-    Cache deduping hashes.
-    """
-
-    HLOM_Record.write_deduping_hash()
-
-
-@cli.command()
-def write_teaching_rank():
-
-    """
-    Cache teaching ranks.
-    """
-
-    HLOM_Record.write_teaching_rank()
-
-
-@cli.command()
 @click.argument('out_path', type=click.Path())
 def csv_text_counts(out_path):
 
@@ -112,3 +82,36 @@ def csv_text_counts(out_path):
         })
 
     writer.writerows(rows)
+
+
+# TODO|dev
+
+
+@cli.command()
+def write_citation_count():
+
+    """
+    Cache citation counts.
+    """
+
+    HLOM_Record.write_citation_count()
+
+
+@cli.command()
+def write_deduping_hash():
+
+    """
+    Cache deduping hashes.
+    """
+
+    HLOM_Record.write_deduping_hash()
+
+
+@cli.command()
+def write_teaching_rank():
+
+    """
+    Cache teaching ranks.
+    """
+
+    HLOM_Record.write_teaching_rank()

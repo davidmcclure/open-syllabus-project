@@ -212,7 +212,7 @@ class HLOM_Record(BaseModel):
     def write_teaching_rank(cls):
 
         """
-        Cache a 1,2,3... ranking, based on citation count.
+        Cache teaching ranks and percentiles.
         """
 
         # Get record -> count tuples.
