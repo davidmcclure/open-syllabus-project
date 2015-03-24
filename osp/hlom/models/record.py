@@ -2,12 +2,14 @@
 
 import sys
 import spacy.en
+import numpy as np
 import hashlib
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.hlom.dataset import Dataset
 from pymarc import Record
+from scipy.stats import rankdata
 from playhouse.postgres_ext import *
 from peewee import *
 
@@ -110,48 +112,6 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def write_citation_count(cls):
-
-        """
-        Cache citation counts.
-        """
-
-        from osp.citations.hlom.models.citation import HLOM_Citation
-
-        for pair in HLOM_Citation.text_counts():
-
-            # Write on the citation count.
-            pair.record.metadata['citation_count'] = pair.count
-            pair.record.save()
-
-
-    @classmethod
-    def write_deduping_hash(cls):
-
-        """
-        Cache deduping hashes counts.
-        """
-
-        query = cls.select().where(
-            cls.metadata.contains('citation_count')
-        )
-
-        for row in query:
-            row.metadata['deduping_hash'] = row.hash
-            row.save()
-
-
-    @classmethod
-    def write_teaching_rank(cls):
-
-        """
-        Cache a 1,2,3... ranking, based on citation count.
-        """
-
-        pass
-
-
-    @classmethod
     def blacklist(cls, control_number):
 
         """
@@ -191,3 +151,68 @@ class HLOM_Record(BaseModel):
             )
 
         )
+
+
+    @classmethod
+    def write_citation_count(cls):
+
+        """
+        Cache citation counts.
+        """
+
+        from osp.citations.hlom.models.citation import HLOM_Citation
+
+        for pair in HLOM_Citation.text_counts():
+
+            # Write on the citation count.
+            pair.record.metadata['citation_count'] = pair.count
+            pair.record.save()
+
+
+    @classmethod
+    def write_deduping_hash(cls):
+
+        """
+        Cache deduping hashes counts.
+        """
+
+        query = cls.select().where(
+            cls.metadata.contains('citation_count')
+        )
+
+        for row in query:
+            row.metadata['deduping_hash'] = row.hash
+            row.save()
+
+
+    @classmethod
+    def write_teaching_rank(cls):
+
+        """
+        Cache a 1,2,3... ranking, based on citation count.
+        """
+
+        # Get record -> count tuples.
+        records = list(cls.select_cited())
+
+        # Get min/max ranks.
+        counts = [r.metadata['citation_count'] for r in records]
+        max_ranks = rankdata(counts, 'max')
+        min_ranks = rankdata(counts, 'min')
+
+        # Rank in ascending order.
+        max_ranks = max_ranks.max()+1 - max_ranks
+        min_ranks = min_ranks.max()+1 - min_ranks
+        log_count = np.log(len(records))
+
+        for i, record in enumerate(records):
+
+            max_rank = int(max_ranks[i])
+            min_rank = int(min_ranks[i])
+
+            # Get the log ratio of the rank.
+            percent = ((log_count-np.log(min_rank))/log_count)*100
+
+            record.metadata['teaching_rank'] = max_rank
+            record.metadata['teaching_percent'] = percent
+            record.save()
