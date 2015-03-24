@@ -1,6 +1,6 @@
 
 
-from .conftest import insert_texts
+from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 
 
@@ -10,8 +10,11 @@ def test_index(models, corpus_index, config):
     Document_Text.es_index() should index all rows in Elasticsearch.
     """
 
-    # Index documents.
-    insert_texts(100)
+    # Index 100 documents.
+    for i in range(100):
+        doc = Document.create(path=str(i))
+        Document_Text.create(document=doc, text=str(i))
+
     corpus_index.index()
 
     # Should insert 100 docs.

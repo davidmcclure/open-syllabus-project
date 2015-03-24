@@ -7,7 +7,7 @@ from playhouse.postgres_ext import ServerSide
 from clint.textui.progress import bar
 
 
-class CorpusIndex:
+class HLOMIndex:
 
 
     def __init__(self):
