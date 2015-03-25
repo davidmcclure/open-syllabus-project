@@ -6,4 +6,3 @@
 - include: nginx.yml
 - include: uwsgi.yml
 - include: supervisor.yml
-- include: spacy.yml

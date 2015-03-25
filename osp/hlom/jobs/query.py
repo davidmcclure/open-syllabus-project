@@ -24,17 +24,19 @@ def query(id):
     results = config.es.search('osp', 'syllabus', timeout=30, body={
         'fields': ['doc_id'],
         'size': 100000,
-        'query': {
-            'bool': {
-                'must': [
-                    {
+        'filter': {
+            'and': [
+                {
+                    'query': {
                         'match_phrase': {
                             'body': {
                                 'query': title
                             }
                         }
-                    },
-                    {
+                    }
+                },
+                {
+                    'query': {
                         'match_phrase': {
                             'body': {
                                 'query': author,
@@ -42,8 +44,8 @@ def query(id):
                             }
                         }
                     }
-                ]
-            }
+                }
+            ]
         }
     })
 
