@@ -16,7 +16,7 @@ from peewee import *
 
 
 # Load spaCy.
-nlp = spacy.en.English()
+# nlp = spacy.en.English()
 
 
 class HLOM_Record(BaseModel):
