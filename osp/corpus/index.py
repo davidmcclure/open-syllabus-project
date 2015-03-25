@@ -4,7 +4,6 @@ from osp.common.config import config
 from osp.corpus.models.text import Document_Text
 from elasticsearch.helpers import bulk
 from playhouse.postgres_ext import ServerSide
-from clint.textui.progress import bar
 
 
 class CorpusIndex:
@@ -51,11 +50,8 @@ class CorpusIndex:
         Insert documents.
         """
 
-        query = Document_Text.select()
-        count = query.count()
-
         def stream():
-            for row in bar(ServerSide(query), expected_size=count):
+            for row in ServerSide(Document_Text.select()):
                 yield row.es_doc
 
         bulk( # Batch-insert the documents.

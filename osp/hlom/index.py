@@ -4,7 +4,6 @@ from osp.common.config import config
 from osp.citations.hlom.models.record import HLOM_Record
 from elasticsearch.helpers import bulk
 from playhouse.postgres_ext import ServerSide
-from clint.textui.progress import bar
 
 
 class HLOMIndex:
@@ -66,11 +65,8 @@ class HLOMIndex:
         Insert documents.
         """
 
-        query = HLOM_Record.select_cited()
-        count = query.count()
-
         def stream():
-            for row in bar(ServerSide(query), expected_size=count):
+            for row in ServerSide(HLOM_Record.select_cited()):
                 yield row.es_doc
 
         bulk( # Batch-insert the documents.
