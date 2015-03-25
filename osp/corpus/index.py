@@ -9,22 +9,13 @@ from playhouse.postgres_ext import ServerSide
 class CorpusIndex:
 
 
-    def __init__(self):
-
-        """
-        Set the Elasticsearch connection.
-        """
-
-        self.es = config.get_es()
-
-
     def create(self):
 
         """
         Set the Elasticsearch mapping.
         """
 
-        self.es.indices.create('osp', {
+        config.es.indices.create('osp', {
             'mappings': {
                 'syllabus': {
                     '_id': {
@@ -55,7 +46,7 @@ class CorpusIndex:
                 yield row.es_doc
 
         bulk( # Batch-insert the documents.
-            self.es,
+            config.es,
             stream(),
             raise_on_exception=False,
             index='osp',
@@ -63,7 +54,7 @@ class CorpusIndex:
         )
 
         # Commit the index.
-        self.es.indices.flush('osp')
+        config.es.indices.flush('osp')
 
 
     def delete(self):
@@ -72,8 +63,8 @@ class CorpusIndex:
         Delete the index.
         """
 
-        if self.es.indices.exists('osp'):
-            self.es.indices.delete('osp')
+        if config.es.indices.exists('osp'):
+            config.es.indices.delete('osp')
 
 
     def count(self):
@@ -85,7 +76,7 @@ class CorpusIndex:
             int: The number of docs.
         """
 
-        return self.es.count('osp', 'syllabus')['count']
+        return config.es.count('osp', 'syllabus')['count']
 
 
     def reset(self):

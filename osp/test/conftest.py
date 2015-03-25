@@ -137,9 +137,8 @@ def queue(config):
         The RQ queue.
     """
 
-    queue = config.get_rq()
-    queue.connection.flushdb()
-    yield queue
+    config.rq.connection.flushdb()
+    yield config.rq
 
 
 @pytest.yield_fixture

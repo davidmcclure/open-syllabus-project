@@ -9,22 +9,13 @@ from playhouse.postgres_ext import ServerSide
 class HLOMIndex:
 
 
-    def __init__(self):
-
-        """
-        Set the Elasticsearch connection.
-        """
-
-        self.es = config.get_es()
-
-
     def create(self):
 
         """
         Set the Elasticsearch mapping.
         """
 
-        self.es.indices.create('hlom', {
+        config.es.indices.create('hlom', {
             'mappings': {
                 'record': {
                     '_id': {
@@ -70,7 +61,7 @@ class HLOMIndex:
                 yield row.es_doc
 
         bulk( # Batch-insert the documents.
-            self.es,
+            config.es,
             stream(),
             raise_on_exception=False,
             index='hlom',
@@ -78,7 +69,7 @@ class HLOMIndex:
         )
 
         # Commit the index.
-        self.es.indices.flush('hlom')
+        config.es.indices.flush('hlom')
 
 
     def delete(self):
@@ -87,8 +78,8 @@ class HLOMIndex:
         Delete the index.
         """
 
-        if self.es.indices.exists('hlom'):
-            self.es.indices.delete('hlom')
+        if config.es.indices.exists('hlom'):
+            config.es.indices.delete('hlom')
 
 
     def count(self):
@@ -100,7 +91,7 @@ class HLOMIndex:
             int: The number of docs.
         """
 
-        return self.es.count('hlom', 'record')['count']
+        return config.es.count('hlom', 'record')['count']
 
 
     def reset(self):

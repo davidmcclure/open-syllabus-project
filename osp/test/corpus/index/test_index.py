@@ -4,7 +4,7 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 
 
-def test_index(models, corpus_index):
+def test_index(models, config, corpus_index):
 
     """
     CorpusIndex.index() should index all rows in Elasticsearch.
@@ -24,7 +24,7 @@ def test_index(models, corpus_index):
     for t in Document_Text.select():
 
         # A document should exist.
-        doc = corpus_index.es.get('osp', t.document.path)
+        doc = config.es.get('osp', t.document.path)
 
         # Should index text / doc ID.
         assert doc['_source']['doc_id'] == t.document.id
