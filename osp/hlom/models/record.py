@@ -1,7 +1,6 @@
 
 
 import sys
-import spacy.en
 import numpy as np
 import hashlib
 
@@ -13,10 +12,6 @@ from pymarc import Record
 from scipy.stats import rankdata
 from playhouse.postgres_ext import *
 from peewee import *
-
-
-# Load spaCy.
-# nlp = spacy.en.English()
 
 
 class HLOM_Record(BaseModel):
@@ -92,7 +87,7 @@ class HLOM_Record(BaseModel):
             self.pymarc.author()
         ])
 
-        tokens = nlp(text.lower())
+        tokens = config.spacy(text.lower())
 
         # Filter out articles / punctuation.
         tokens = [t.orth_ for t in tokens if
