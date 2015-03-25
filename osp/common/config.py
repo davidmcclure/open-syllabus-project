@@ -69,8 +69,10 @@ class Config:
         """
 
         self.config = anyconfig.load(self.paths, ignore_missing=True)
-        self.es = self.get_es()
-        self.rq = self.get_rq()
+
+        self.es     = self.get_es()
+        self.spacy  = self.get_spacy()
+        self.rq     = self.get_rq()
 
 
     def get_db(self, name='default'):
@@ -150,12 +152,12 @@ class Config:
             return Queue(connection=redis)
 
 
-    @property
     @lru_cache()
-    def spacy(self):
+    def get_spacy(self):
 
         """
-        Get a spaCy instance.
+        Get a spaCy instance. Cache the result, to avoid reading in the data
+        files more than once.
 
         Returns:
             spacy.en.English
