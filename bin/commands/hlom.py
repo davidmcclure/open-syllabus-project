@@ -11,6 +11,7 @@ from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from peewee import create_model_tables
 from playhouse.postgres_ext import ServerSide
+from clint.textui.progress import bar
 
 
 @click.group()
@@ -68,16 +69,16 @@ def csv_text_counts(out_path):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    rows = []
-    for c in HLOM_Citation.text_counts().naive().iterator():
+    query = HLOM_Citation.text_counts()
+    count = query.count()
 
-        row = HLOM_Record.get(
-            HLOM_Record.control_number==c.record
-        )
+    rows = []
+    for c in bar(query.naive().iterator(),
+                 expected_size=count):
 
         rows.append({
-            'title':  row.pymarc.title(),
-            'author': row.pymarc.author(),
+            'title':  c.record.pymarc.title(),
+            'author': c.record.pymarc.author(),
             'count':  c.count
         })
 
