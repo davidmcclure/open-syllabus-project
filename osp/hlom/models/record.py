@@ -87,8 +87,8 @@ class HLOM_Record(BaseModel):
             self.pymarc.author()
         ])
 
-        spacy = config.get_spacy()
-        tokens = spacy(text.lower())
+        # Parse the title / author.
+        tokens = config.get_spacy()(text.lower())
 
         # Filter out articles / punctuation.
         tokens = [t.orth_ for t in tokens if
