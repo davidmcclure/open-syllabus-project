@@ -69,10 +69,8 @@ class Config:
         """
 
         self.config = anyconfig.load(self.paths, ignore_missing=True)
-
-        self.es     = self.get_es()
-        self.spacy  = self.get_spacy()
-        self.rq     = self.get_rq()
+        self.es = self.get_es()
+        self.rq = self.get_rq()
 
 
     def get_db(self, name='default'):
