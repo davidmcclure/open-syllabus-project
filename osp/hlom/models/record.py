@@ -10,6 +10,7 @@ from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from pymarc import Record
 from scipy.stats import rankdata
+from clint.textui.progress import bar
 from playhouse.postgres_ext import *
 from peewee import *
 
@@ -181,7 +182,10 @@ class HLOM_Record(BaseModel):
 
         from osp.citations.hlom.models.citation import HLOM_Citation
 
-        for pair in HLOM_Citation.text_counts():
+        query = HLOM_Citation.text_counts()
+        count = query.count()
+
+        for pair in bar(query, expected_size=count):
 
             # Write on the citation count.
             pair.record.metadata['citation_count'] = pair.count
@@ -199,7 +203,9 @@ class HLOM_Record(BaseModel):
             cls.metadata.contains('citation_count')
         )
 
-        for row in query:
+        count = query.count()
+
+        for row in bar(query, expected_size=count):
             row.metadata['deduping_hash'] = row.hash
             row.save()
 
@@ -224,7 +230,7 @@ class HLOM_Record(BaseModel):
         min_ranks = min_ranks.max()+1 - min_ranks
         log_count = np.log(len(records))
 
-        for i, record in enumerate(records):
+        for i, record in enumerate(bar(records)):
 
             max_rank = int(max_ranks[i])
             min_rank = int(min_ranks[i])
