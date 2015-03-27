@@ -202,39 +202,24 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def write_citation_count(cls):
+    def write_stats(cls):
 
         """
-        Cache citation counts.
+        Cache citation counts and deduping hashes.
         """
 
         from osp.citations.hlom.models.citation import HLOM_Citation
 
         for pair in query_bar(HLOM_Citation.text_counts()):
 
-            # Write on the citation count.
+            # Write citation count / deduping hash.
             pair.record.metadata['citation_count'] = pair.count
+            pair.record.metadata['deduping_hash'] = pair.record.hash
             pair.record.save()
 
 
     @classmethod
-    def write_deduping_hash(cls):
-
-        """
-        Cache deduping hashes.
-        """
-
-        query = cls.select().where(
-            cls.metadata.contains('citation_count')
-        )
-
-        for row in query_bar(query):
-            row.metadata['deduping_hash'] = row.hash
-            row.save()
-
-
-    @classmethod
-    def write_teaching_rank(cls):
+    def write_metrics(cls):
 
         """
         Cache teaching ranks and percentiles.

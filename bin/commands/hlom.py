@@ -89,30 +89,20 @@ def csv_text_counts(out_path):
 
 
 @cli.command()
-def write_citation_count():
+def write_stats():
 
     """
-    Cache citation counts.
+    Cache citation counts / deduping hashes.
     """
 
-    HLOM_Record.write_citation_count()
+    HLOM_Record.write_stats()
 
 
 @cli.command()
-def write_deduping_hash():
+def write_metrics():
 
     """
-    Cache deduping hashes.
+    Cache teaching ranks / percentiles.
     """
 
-    HLOM_Record.write_deduping_hash()
-
-
-@cli.command()
-def write_teaching_rank():
-
-    """
-    Cache teaching ranks.
-    """
-
-    HLOM_Record.write_teaching_rank()
+    HLOM_Record.write_metrics()
