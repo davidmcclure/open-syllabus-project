@@ -8,6 +8,7 @@ from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
+from osp.citations.hlom.utils import sanitize_query
 from pymarc import Record
 from scipy.stats import rankdata
 from clint.textui.progress import bar
@@ -66,6 +67,9 @@ class HLOM_Record(BaseModel):
 
         """
         Wrap the raw record blob as a Pymarc record instance.
+
+        Returns:
+            pymarc.Record
         """
 
         return Record(
@@ -79,8 +83,11 @@ class HLOM_Record(BaseModel):
     def hash(self):
 
         """
-        Create a deduping hash for the record that tries to coalesce
-        differently-formatted editions of the same text.
+        Create a hash that tries to merge together differently-formatted
+        editions of the same text.
+
+        Returns:
+            str: The deduping hash.
         """
 
         text = ' '.join([
@@ -103,6 +110,22 @@ class HLOM_Record(BaseModel):
         sha1 = hashlib.sha1()
         sha1.update(' '.join(tokens).encode('ascii', 'ignore'))
         return sha1.hexdigest()
+
+
+    @property
+    def es_query(self):
+
+        """
+        Build an Elasticsearch query string.
+
+        Returns:
+            str: "[title] [author]"
+        """
+
+        return sanitize_query(' '.join([
+            self.pymarc.title(),
+            self.pymarc.author()
+        ]))
 
 
     # Denormalization routines for Elasticsearch.
@@ -150,7 +173,11 @@ class HLOM_Record(BaseModel):
     def select_cited(cls):
 
         """
-        Select records that aren't blacklisted.
+        Select records that have at least one citation, aren't blacklisted,
+        and aren't duplicates.
+
+        Returns:
+            The filtered query.
         """
 
         return (

@@ -3,7 +3,6 @@
 from osp.common.config import config
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.utils import sanitize_query
 
 
 def query(id):
@@ -16,36 +15,18 @@ def query(id):
 
     row = HLOM_Record.get(HLOM_Record.id==id)
 
-    # Scrub Lucene-reserved chars.
-    title  = sanitize_query(row.pymarc.title())
-    author = sanitize_query(row.pymarc.author())
-
     # Execute the query.
     results = config.es.search('osp', 'syllabus', timeout=30, body={
         'fields': ['doc_id'],
         'size': 100000,
         'filter': {
-            'and': [
-                {
-                    'query': {
-                        'match_phrase': {
-                            'body': {
-                                'query': title
-                            }
-                        }
-                    }
-                },
-                {
-                    'query': {
-                        'match_phrase': {
-                            'body': {
-                                'query': author,
-                                'slop': 2
-                            }
-                        }
+            'query': {
+                'match_phrase': {
+                    'body': {
+                        'query': row.es_query
                     }
                 }
-            ]
+            }
         }
     })
 
