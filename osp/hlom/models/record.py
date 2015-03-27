@@ -5,6 +5,7 @@ import numpy as np
 import hashlib
 
 from osp.common.config import config
+from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
@@ -209,10 +210,7 @@ class HLOM_Record(BaseModel):
 
         from osp.citations.hlom.models.citation import HLOM_Citation
 
-        query = HLOM_Citation.text_counts()
-        count = query.count()
-
-        for pair in bar(query, expected_size=count):
+        for pair in query_bar(HLOM_Citation.text_counts()):
 
             # Write on the citation count.
             pair.record.metadata['citation_count'] = pair.count
@@ -230,9 +228,7 @@ class HLOM_Record(BaseModel):
             cls.metadata.contains('citation_count')
         )
 
-        count = query.count()
-
-        for row in bar(query, expected_size=count):
+        for row in query_bar(query):
             row.metadata['deduping_hash'] = row.hash
             row.save()
 
