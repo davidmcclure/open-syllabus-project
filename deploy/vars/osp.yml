@@ -1,4 +1,4 @@
 ---
 
-osp_branch: develop
+osp_branch: feature/map
 osp_numprocs: 8

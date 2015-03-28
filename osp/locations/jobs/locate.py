@@ -1,6 +1,5 @@
 
 
-from osp.common.models.base import redis
 from osp.corpus.syllabus import Syllabus
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document

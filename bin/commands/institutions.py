@@ -1,20 +1,12 @@
 
 
-import os
 import click
 import csv
 
 from osp.common.config import config
-from osp.common.models.base import pg_local, redis
-from osp.common.overview import Overview
-from osp.common.utils import query_bar, grouper
 from osp.institutions.models.institution import Institution
-from osp.institutions.models.lonlat import Institution_LonLat
 from osp.institutions.jobs.geocode import geocode
-from osp.institutions import queries
-from clint.textui.progress import bar
-from rq import Queue
-from peewee import *
+from peewee import create_model_tables
 
 
 @click.group()
@@ -29,12 +21,9 @@ def init_db():
     Create the database tables.
     """
 
-    pg_local.connect()
-
-    pg_local.create_tables([
+    create_model_tables([
         Institution,
-        Institution_LonLat
-    ], safe=True)
+    ], fail_silently=True)
 
 
 @cli.command()

@@ -3,7 +3,6 @@
 import os
 
 from geopy.geocoders import Nominatim
-from osp.institutions.models.lonlat import Institution_LonLat
 
 
 def geocode(iid, query):
