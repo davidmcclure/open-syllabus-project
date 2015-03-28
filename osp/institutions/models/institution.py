@@ -1,5 +1,7 @@
 
 
+import csv
+
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from playhouse.postgres_ext import BinaryJSONField
@@ -9,12 +11,28 @@ from peewee import *
 class Institution(BaseModel):
 
 
-    stored_id = BigIntegerField(null=True)
     metadata = BinaryJSONField(default={})
 
 
     class Meta:
         database = config.get_table_db('institution')
+
+
+    #@classmethod
+    #def insert_institutions(cls):
+
+        #"""
+        #Write institution rows into the database.
+        #"""
+
+        #reader = csv.DictReader(in_file)
+
+        #rows = []
+        #for row in reader:
+            #rows.append({'metadata': row})
+
+        #with cls._meta.database.transaction():
+            #cls.insert_many(rows).execute()
 
 
     @property
