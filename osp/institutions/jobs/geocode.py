@@ -2,11 +2,12 @@
 
 import os
 
+from osp.common.config import config
 from osp.institutions.models.institution import Institution
-from geopy.geocoders import Nominatim
+from geopy.geocoders import OpenMapQuest
 
 
-coder = Nominatim()
+coder = OpenMapQuest(config['mapquest']['api_key'])
 
 
 def geocode(id):
@@ -18,14 +19,14 @@ def geocode(id):
         id (int): The institution id.
     """
 
-    row = Institution.get(Institution.id==id)
+    inst = Institution.get(Institution.id==id)
 
     # Geocode.
-    location = coder.geocode(row.geocoding_query, timeout=10)
+    location = coder.geocode(inst.geocoding_query, timeout=10)
 
     if location:
 
         # Write the coordinate.
-        row.metadata['Latitude']  = location.latitude
-        row.metadata['Longitude'] = location.longitude
-        row.save()
+        inst.metadata['Latitude']  = location.latitude
+        inst.metadata['Longitude'] = location.longitude
+        inst.save()
