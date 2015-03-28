@@ -2,28 +2,30 @@
 
 import os
 
+from osp.institutions.models.institution import Institution
 from geopy.geocoders import Nominatim
 
 
-def geocode(iid, query):
+coder = Nominatim()
+
+
+def geocode(id):
 
     """
-    Geocode a query, write the lon/lat to Postgres.
+    Geocode an institution.
 
-    :param int iid: The institution id.
-    :param str query: The query for the geocoder.
+    Args:
+        id (int): The institution id.
     """
 
-    coder = Nominatim()
+    row = Institution.get(Institution.id==id)
 
     # Geocode.
-    location = coder.geocode(query, timeout=10)
+    location = coder.geocode(row.geocoding_query, timeout=10)
 
     if location:
 
         # Write the coordinate.
-        Institution_LonLat.create(
-            institution=iid,
-            lat=location.latitude,
-            lon=location.longitude
-        )
+        row.metadata['Latitude']  = location.latitude
+        row.metadata['Longitude'] = location.longitude
+        row.save()

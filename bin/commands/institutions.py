@@ -35,11 +35,8 @@ def queue_geocoding():
     :param in_file: A handle on the input CSV.
     """
 
-    queue = Queue(connection=redis)
-
-    for inst in Institution.select().iterator():
-        query = inst.geocoding_query
-        if query: queue.enqueue(geocode, inst.id, query)
+    for inst in Institution.select():
+        config.rq.enqueue(geocode, inst.id)
 
 
 @cli.command()
@@ -57,12 +54,19 @@ def write_csv(out_path):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
+    # Select rows with coordinates.
+    geocoded = (
+        Institution
+        .select()
+        .where(Institution.metadata.contains('Latitude'))
+    )
+
     rows = []
-    for inst in queries.csv_rows().naive().iterator():
+    for inst in geocoded:
         rows.append({
             'name': inst.metadata['Institution_Name'],
-            'latitude': inst.lat,
-            'longitude': inst.lon
+            'longitude': inst.metadata['Longitude'],
+            'latitude': inst.metadata['Latitude']
         })
 
     writer.writerows(rows)
