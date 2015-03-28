@@ -6,10 +6,10 @@ from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 
 
-def test_write_teaching_rank(models, add_hlom, add_doc):
+def test_write_metrics(models, add_hlom, add_doc):
 
     """
-    HLOM_Record.write_teaching_rank() should write 1,2,3... rankings and a
+    HLOM_Record.write_metrics() should write 1,2,3... rankings and a
     "percentile" scored, based on the log-ratio of the rank.
     """
 
@@ -35,9 +35,8 @@ def test_write_teaching_rank(models, add_hlom, add_doc):
     HLOM_Citation.create(record=r3, document=d5)
     HLOM_Citation.create(record=r3, document=d6)
 
-    HLOM_Record.write_citation_count()
-    HLOM_Record.write_deduping_hash()
-    HLOM_Record.write_teaching_rank()
+    HLOM_Record.write_stats()
+    HLOM_Record.write_metrics()
 
     r1 = HLOM_Record.reload(r1)
     r2 = HLOM_Record.reload(r2)

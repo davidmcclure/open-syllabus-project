@@ -52,10 +52,8 @@ def test_index(models, config, add_hlom, add_doc, hlom_index):
     HLOM_Citation.create(record=r3, document=d5)
     HLOM_Citation.create(record=r3, document=d6)
 
-    HLOM_Record.write_citation_count()
-    HLOM_Record.write_deduping_hash()
-    HLOM_Record.write_teaching_rank()
-
+    HLOM_Record.write_stats()
+    HLOM_Record.write_metrics()
     hlom_index.index()
 
     assert hlom_index.count() == 3
