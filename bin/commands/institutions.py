@@ -27,29 +27,6 @@ def init_db():
 
 
 @cli.command()
-@click.argument('in_file', type=click.File('rt'))
-def insert(in_file):
-
-    """
-    Write the institutions into the database.
-
-    :param in_file: A handle on the input CSV.
-    """
-
-    if Institution.select().count():
-        click.confirm('Already inserted. Continue?', abort=True)
-
-    reader = csv.DictReader(in_file)
-
-    rows = []
-    for row in reader:
-        rows.append({'metadata': row})
-
-    with pg_local.transaction():
-        Institution.insert_many(rows).execute()
-
-
-@cli.command()
 def queue_geocoding():
 
     """

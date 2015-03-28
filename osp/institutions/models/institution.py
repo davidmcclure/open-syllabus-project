@@ -1,11 +1,12 @@
 
 
 import csv
+import pkgutil
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from playhouse.postgres_ext import BinaryJSONField
-from peewee import *
+from io import StringIO
 
 
 class Institution(BaseModel):
@@ -18,21 +19,26 @@ class Institution(BaseModel):
         database = config.get_table_db('institution')
 
 
-    #@classmethod
-    #def insert_institutions(cls):
+    @classmethod
+    def insert_institutions(cls):
 
-        #"""
-        #Write institution rows into the database.
-        #"""
+        """
+        Write institution rows into the database.
+        """
 
-        #reader = csv.DictReader(in_file)
+        data = pkgutil.get_data(
+            'osp.institutions',
+            'data/institutions.csv'
+        )
 
-        #rows = []
-        #for row in reader:
-            #rows.append({'metadata': row})
+        reader = csv.DictReader(StringIO(data.decode('utf8')))
 
-        #with cls._meta.database.transaction():
-            #cls.insert_many(rows).execute()
+        rows = []
+        for row in reader:
+            rows.append({'metadata': row})
+
+        with cls._meta.database.transaction():
+            cls.insert_many(rows).execute()
 
 
     @property
