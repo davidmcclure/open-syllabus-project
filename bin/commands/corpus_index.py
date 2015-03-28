@@ -2,6 +2,7 @@
 
 import click
 
+from osp.common.config import config
 from osp.corpus.index import CorpusIndex
 from blessings import Terminal
 
@@ -65,43 +66,34 @@ def insert():
 
 
 @cli.command()
-@click.argument('title')
-@click.argument('author')
-@click.option('--size', default=10)
+@click.argument('q')
+@click.option('--size', default=50)
 @click.option('--start', default=0)
-@click.option('--slop', default=2)
-def search(title, author, size, start, slop):
+@click.option('--slop', default=50)
+def search(q, size, start, slop):
 
     """
     Search documents.
     """
 
-    results = index.es.search('osp', 'syllabus', body={
+    results = config.es.search('osp', 'syllabus', body={
         'size': size,
         'from': start,
         'fields': [],
-        'filter': {
-            'and': [
-                {
-                    'query': {
-                        'match_phrase': {
-                            'body': {
-                                'query': title
-                            }
-                        }
-                    }
-                },
-                {
-                    'query': {
-                        'match_phrase': {
-                            'body': {
-                                'query': author,
-                                'slop': 2
-                            }
-                        }
-                    }
+        'query': {
+            'match_phrase': {
+                'body': {
+                    'query': q,
+                    'slop': slop
                 }
-            ]
+            }
+        },
+        'highlight': {
+            'pre_tags': ['\033[1m'],
+            'post_tags': ['\033[0m'],
+            'fields': {
+                'body': {}
+            }
         }
     })
 
@@ -110,3 +102,9 @@ def search(title, author, size, start, slop):
     # Total hits.
     hits = str(results['hits']['total'])+' docs'
     click.echo(term.standout_cyan(hits))
+
+    # Hit highlights.
+    for hit in results['hits']['hits']:
+        click.echo('\n'+term.underline(hit['_id']))
+        for hl in hit['highlight']['body']:
+            click.echo(hl)
