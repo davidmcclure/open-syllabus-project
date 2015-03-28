@@ -2,9 +2,9 @@
 
 import click
 
-from osp.common.utils import query_bar
+from osp.common.config import config
 from osp.locations.models.doc_inst import Document_Institution
-from osp.locations.jobs.locate import locate
+from osp.locations.jobs.match_doc import match_doc
 from peewee import create_model_tables
 
 
@@ -26,13 +26,11 @@ def init_db():
 
 
 @cli.command()
-def queue_matching():
+def queue_match_doc():
 
     """
     Queue institution matching tasks in the worker.
     """
 
-    queue = Queue(connection=redis)
-
-    for doc in query_bar(Document.select()):
-        queue.enqueue(locate, doc.id)
+    for doc in Document.select():
+        config.rq.enqueue(match_doc, doc.id)

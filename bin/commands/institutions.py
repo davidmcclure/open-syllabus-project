@@ -27,7 +27,7 @@ def init_db():
 
 
 @cli.command()
-def queue_geocoding():
+def queue_geocode():
 
     """
     Queue geocoding tasks in the worker.
