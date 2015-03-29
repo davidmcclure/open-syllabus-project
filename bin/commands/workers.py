@@ -149,6 +149,17 @@ def queue_hlom_query(max_id):
     queue('/hlom/query', max_id)
 
 
+@cli.command()
+@click.argument('max_id', type=int)
+def queue_match_doc_inst(max_id):
+
+    """
+    Queue document -> institution queries.
+    """
+
+    queue('/locations/match-doc', max_id)
+
+
 def queue(route, max_id):
 
     """
