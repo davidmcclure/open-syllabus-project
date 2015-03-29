@@ -8,7 +8,7 @@ from flask import Flask, Blueprint, request
 locations = Blueprint('locations', __name__)
 
 
-@corpus.route('/match-doc', methods=['POST'])
+@locations.route('/match-doc', methods=['POST'])
 def text():
 
     o1 = int(request.form['o1'])
