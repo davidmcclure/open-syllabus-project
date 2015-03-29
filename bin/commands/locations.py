@@ -3,6 +3,7 @@
 import click
 
 from osp.common.config import config
+from osp.corpus.models.document import Document
 from osp.locations.models.doc_inst import Document_Institution
 from osp.locations.jobs.match_doc import match_doc
 from peewee import create_model_tables

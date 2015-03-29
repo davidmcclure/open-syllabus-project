@@ -13,13 +13,13 @@ def text():
 
     o1 = int(request.form['o1'])
     o2 = int(request.form['o2'])
-    job = config.rq.enqueue(queue_text, o1, o2, timeout=3600)
+    job = config.rq.enqueue(meta_ext_text, o1, o2, timeout=3600)
 
     code = 200 if job.is_queued else 500
     return ('', 200)
 
 
-def queue_text(o1, o2):
+def meta_ext_text(o1, o2):
 
     """
     Queue text extraction tasks in the worker.

@@ -31,8 +31,6 @@ def match_doc(id):
         .first()
     )
 
-    print(q, inst.metadata['Institution_Web_Address'])
-
     if inst:
 
         Document_Institution.create(
