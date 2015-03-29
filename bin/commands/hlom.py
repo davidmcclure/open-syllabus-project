@@ -76,13 +76,11 @@ def csv_text_counts(out_path):
     for c in bar(query.naive().iterator(),
                  expected_size=count):
 
-        rows.append({
+        writer.writerow({
             'title':  c.record.pymarc.title(),
             'author': c.record.pymarc.author(),
             'count':  c.count
         })
-
-    writer.writerows(rows)
 
 
 # TODO|dev
