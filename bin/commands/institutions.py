@@ -27,6 +27,16 @@ def init_db():
 
 
 @cli.command()
+def insert_institutions():
+
+    """
+    Insert institution rows.
+    """
+
+    Institution.insert_institutions()
+
+
+@cli.command()
 def queue_geocode():
 
     """
