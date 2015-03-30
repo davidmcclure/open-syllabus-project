@@ -1,7 +1,4 @@
 env
 .ipynb_checkpoints
-
-/*.csv
 *.pyc
 *.egg-info
-*.sql
