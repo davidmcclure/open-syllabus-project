@@ -3,6 +3,7 @@
 import os
 import click
 import csv
+import random
 import sys
 
 from osp.common.config import config
@@ -93,6 +94,18 @@ def file_count():
 
     corpus = Corpus.from_env()
     click.echo(corpus.file_count)
+
+
+@cli.command()
+@click.argument('n', default=1000)
+def random_paths(n):
+
+    """
+    Print N random paths from the corpus.
+    """
+
+    paths = list(Corpus.from_env().file_paths())
+    click.echo(' '.join(random.sample(paths, n)))
 
 
 @cli.command()
