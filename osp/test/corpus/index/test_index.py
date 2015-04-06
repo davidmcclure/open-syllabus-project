@@ -11,14 +11,14 @@ def test_index(models, config, corpus_index):
     """
 
     # Index 100 documents.
-    for i in range(100):
+    for i in range(10):
         doc = Document.create(path=str(i))
         Document_Text.create(document=doc, text=str(i))
 
     corpus_index.index()
 
-    # Should insert 100 docs.
-    assert corpus_index.count() == 100
+    # Should insert 10 docs.
+    assert corpus_index.count() == 10
 
     # For each text row:
     for t in Document_Text.select():
