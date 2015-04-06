@@ -3,7 +3,6 @@
 import os
 import anyconfig
 import copy
-import spacy.en
 import logging
 
 from playhouse.postgres_ext import PostgresqlExtDatabase
@@ -148,20 +147,6 @@ class Config:
         if 'redis' in self.config:
             redis = StrictRedis(**self['redis'])
             return Queue(connection=redis)
-
-
-    @lru_cache()
-    def get_spacy(self):
-
-        """
-        Get a spaCy instance. Cache the result, to avoid reading in the data
-        files more than once.
-
-        Returns:
-            spacy.en.English
-        """
-
-        return spacy.en.English()
 
 
 # Global instance.

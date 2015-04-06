@@ -27,6 +27,7 @@ setup(
         'rq-dashboard',
         'click',
         'psycopg2',
+        'peewee',
         'python-magic',
         'requests',
         'clint',
@@ -49,11 +50,9 @@ setup(
         'python-docx',
         'pdfminer3k',
         'pytest',
-        'spacy',
 
-        # Forks, via GitHub.
+        # Via GitHub.
         'pymarc',
-        'peewee',
 
     ]
 

@@ -1,6 +1,7 @@
 
 
 import sys
+import re
 import numpy as np
 import hashlib
 
@@ -91,21 +92,17 @@ class HLOM_Record(BaseModel):
             str: The deduping hash.
         """
 
+        # Get "[title] [author]".
         text = ' '.join([
             self.pymarc.title(),
             self.pymarc.author()
         ])
 
-        # Parse the title / author.
-        tokens = config.get_spacy()(text.lower())
+        # Lowercase, tokenize, sort tokens.
+        tokens = sorted(re.findall('\w+', text.lower()))
 
-        # Filter out articles / punctuation.
-        tokens = [t.orth_ for t in tokens if
-                  t.pos_ not in ['DET', 'PUNCT'] and
-                  t.orth_.strip()]
-
-        # Ignore order.
-        tokens.sort()
+        # Remove articles.
+        tokens = [t for t in tokens if t not in ['a', 'an', 'the']]
 
         # Hash the filtered tokens.
         sha1 = hashlib.sha1()
