@@ -4,7 +4,7 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.text import Document_Text
 
 
-def test_index(models, config, corpus_index):
+def test_es_insert(models, config, corpus_index):
 
     """
     CorpusIndex.index() should index all rows in Elasticsearch.
@@ -15,10 +15,10 @@ def test_index(models, config, corpus_index):
         doc = Document.create(path=str(i))
         Document_Text.create(document=doc, text=str(i))
 
-    corpus_index.index()
+    Document_Text.es_insert()
 
     # Should insert 10 docs.
-    assert corpus_index.count() == 10
+    assert Document_Text.es_count() == 10
 
     # For each text row:
     for t in Document_Text.select():

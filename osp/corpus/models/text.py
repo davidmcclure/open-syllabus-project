@@ -1,14 +1,12 @@
 
 
 from osp.common.config import config
-from osp.common.models.base import BaseModel
+from osp.common.models.elasticsearch import ElasticsearchModel
 from osp.corpus.models.document import Document
-from elasticsearch.helpers import bulk
-from playhouse.postgres_ext import ServerSide
 from peewee import *
 
 
-class Document_Text(BaseModel):
+class Document_Text(ElasticsearchModel):
 
 
     document = ForeignKeyField(Document, unique=True)
@@ -17,6 +15,39 @@ class Document_Text(BaseModel):
 
     class Meta:
         database = config.get_table_db('document_text')
+
+
+    es_index = 'osp'
+    es_doc_type = 'syllabus'
+
+
+    es_mapping = {
+        '_id': {
+            'index': 'not_analyzed',
+            'store': True
+        },
+        'properties': {
+            'doc_id': {
+                'type': 'integer'
+            },
+            'body': {
+                'type': 'string'
+            }
+        }
+    }
+
+
+    @classmethod
+    def es_query(cls):
+
+        """
+        Select rows that should be indexed in Elasticsearch.
+
+        Returns:
+            peewee.SelectQuery
+        """
+
+        return cls.select()
 
 
     @property

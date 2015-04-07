@@ -11,25 +11,28 @@ def test_text_counts(corpus_index, add_hlom, add_doc):
     pairs, sorted in descending order.
     """
 
-    # 1 citation:
-    r1 = add_hlom('War and Peace', 'Leo Tolstoy')
-    add_doc('War and Peace, Leo Tolstoy')
+    r1 = add_hlom('title1', 'author1')
+    r2 = add_hlom('title2', 'author2')
+    r3 = add_hlom('title3', 'author3')
 
-    # 2 citations:
-    r2 = add_hlom('Anna Karenina', 'Leo Tolstoy')
-    add_doc('Anna Karenina, Leo Tolstoy b')
-    add_doc('Anna Karenina, Leo Tolstoy a')
+    d1 = add_doc('doc1')
+    d2 = add_doc('doc2')
+    d3 = add_doc('doc3')
+    d4 = add_doc('doc4')
+    d5 = add_doc('doc5')
+    d6 = add_doc('doc6')
 
-    # 3 citations:
-    r3 = add_hlom('Master and Man', 'Leo Tolstoy')
-    add_doc('Master and Man, Leo Tolstoy a')
-    add_doc('Master and Man, Leo Tolstoy b')
-    add_doc('Master and Man, Leo Tolstoy c')
+    # 1 citation for r1:
+    HLOM_Citation.create(record=r1, document=d1)
 
-    corpus_index.index()
-    query(r1.id)
-    query(r2.id)
-    query(r3.id)
+    # 2 citations for r2:
+    HLOM_Citation.create(record=r2, document=d2)
+    HLOM_Citation.create(record=r2, document=d3)
+
+    # 3 citations for r3:
+    HLOM_Citation.create(record=r3, document=d4)
+    HLOM_Citation.create(record=r3, document=d5)
+    HLOM_Citation.create(record=r3, document=d6)
 
     counts = HLOM_Citation.text_counts().naive().iterator()
 

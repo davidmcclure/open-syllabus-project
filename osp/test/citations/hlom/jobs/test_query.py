@@ -1,5 +1,6 @@
 
 
+from osp.corpus.models.text import Document_Text
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.jobs.query import query
 
@@ -16,7 +17,7 @@ def test_matches(corpus_index, mock_hlom, add_doc, add_hlom):
     d4 = add_doc('Anna Karenina, Leo Tolstoy 1')
     d5 = add_doc('Anna Karenina, Leo Tolstoy 2')
 
-    corpus_index.index()
+    Document_Text.es_insert()
 
     record = add_hlom('War and Peace', 'Leo Tolstoy')
     query(record.id)
@@ -40,7 +41,7 @@ def test_no_matches(corpus_index, add_doc, add_hlom):
     """
 
     add_doc('War and Peace, Leo Tolstoy')
-    corpus_index.index()
+    Document_Text.es_insert()
 
     record = add_hlom('Master and Man', 'Leo Tolstoy')
     query(record.id)
