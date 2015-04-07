@@ -42,7 +42,7 @@ class Document_Text(BaseModel, ElasticsearchModel):
     def es_query(cls):
 
         """
-        Select rows that should be indexed in Elasticsearch.
+        Index all texts.
 
         Returns:
             peewee.SelectQuery
