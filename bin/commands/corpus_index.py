@@ -3,11 +3,8 @@
 import click
 
 from osp.common.config import config
-from osp.corpus.index import CorpusIndex
+from osp.corpus.models.text import Document_Text
 from blessings import Terminal
-
-
-index = CorpusIndex()
 
 
 @click.group()
@@ -22,7 +19,7 @@ def create():
     Create the index.
     """
 
-    index.create()
+    Document_Text.es_create()
 
 
 @cli.command()
@@ -32,7 +29,7 @@ def delete():
     Delete the index.
     """
 
-    index.delete()
+    Document_Text.es_delete()
 
 
 @cli.command()
@@ -42,7 +39,7 @@ def reset():
     Reset the index.
     """
 
-    index.reset()
+    Document_Text.es_reset()
 
 
 @cli.command()
@@ -52,7 +49,7 @@ def count():
     Count documents.
     """
 
-    click.echo(index.count())
+    click.echo(Document_Text.es_count())
 
 
 @cli.command()
@@ -62,7 +59,7 @@ def insert():
     Index documents.
     """
 
-    index.index()
+    Document_Text.es_insert()
 
 
 @cli.command()

@@ -2,10 +2,7 @@
 
 import click
 
-from osp.citations.hlom.index import HLOMIndex
-
-
-index = HLOMIndex()
+from osp.citations.hlom.models.record import HLOM_Record
 
 
 @click.group()
@@ -17,30 +14,30 @@ def cli():
 def create():
 
     """
-    Create the index.
+    Create the HLOM_Record.
     """
 
-    index.create()
+    HLOM_Record.es_create()
 
 
 @cli.command()
 def delete():
 
     """
-    Delete the index.
+    Delete the HLOM_Record.
     """
 
-    index.delete()
+    HLOM_Record.es_delete()
 
 
 @cli.command()
 def reset():
 
     """
-    Reset the index.
+    Reset the HLOM_Record.
     """
 
-    index.reset()
+    HLOM_Record.es_reset()
 
 
 @cli.command()
@@ -50,14 +47,14 @@ def count():
     Count documents.
     """
 
-    click.echo(index.count())
+    click.echo(HLOM_Record.es_count())
 
 
 @cli.command()
 def insert():
 
     """
-    Index documents.
+    HLOM_Record documents.
     """
 
-    index.index()
+    HLOM_Record.es_insert()

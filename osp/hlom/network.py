@@ -53,10 +53,13 @@ class Network:
         # Add each record as a node.
         for node in ServerSide(nodes):
 
+            title   = node.record.pymarc.title()
+            author  = node.record.pymarc.author()
+
             self.graph.add_node(
                 node.record.control_number,
-                title=node.record.title(),
-                author=node.record.author()
+                title=title,
+                author=author
             )
 
         # add each cited HLOM record as a node DONE
