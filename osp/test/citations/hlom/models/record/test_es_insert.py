@@ -6,7 +6,7 @@ from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 
 
-def test_index(models, config, add_hlom, add_doc, hlom_index):
+def test_es_index(models, config, add_hlom, add_doc, hlom_index):
 
     """
     HLOMIndex.index() should index cited records in Elasticsearch.
@@ -54,9 +54,9 @@ def test_index(models, config, add_hlom, add_doc, hlom_index):
 
     HLOM_Record.write_stats()
     HLOM_Record.write_metrics()
-    hlom_index.index()
+    HLOM_Record.es_insert()
 
-    assert hlom_index.count() == 3
+    assert HLOM_Record.es_count() == 3
 
     doc1 = config.es.get('hlom', r1.control_number)
 

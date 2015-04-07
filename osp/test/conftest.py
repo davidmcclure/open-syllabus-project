@@ -7,7 +7,6 @@ from osp.test.corpus.mock_osp import MockOSP
 from osp.test.citations.hlom.mock_hlom import MockHLOM
 from osp.api.server import app
 
-from osp.citations.hlom.index import HLOMIndex
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
@@ -164,14 +163,11 @@ def corpus_index():
     Document_Text.es_reset()
 
 
-@pytest.yield_fixture
+@pytest.fixture
 def hlom_index(config):
 
     """
     Clear the HLOM index.
     """
 
-    index = HLOMIndex()
-    index.reset()
-
-    yield index
+    HLOM_Record.es_reset()

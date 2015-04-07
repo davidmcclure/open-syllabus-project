@@ -7,7 +7,7 @@ import hashlib
 
 from osp.common.config import config
 from osp.common.utils import query_bar
-from osp.common.models.base import BaseModel
+from osp.common.models.elasticsearch import ElasticsearchModel
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
@@ -18,7 +18,7 @@ from playhouse.postgres_ext import *
 from peewee import *
 
 
-class HLOM_Record(BaseModel):
+class HLOM_Record(ElasticsearchModel):
 
 
     control_number = CharField(unique=True, null=False)
@@ -28,6 +28,76 @@ class HLOM_Record(BaseModel):
 
     class Meta:
         database = config.get_table_db('hlom_record')
+
+
+    es_index = 'hlom'
+    es_doc_type = 'record'
+
+
+    es_mapping = {
+        '_id': {
+            'index': 'not_analyzed',
+            'store': True
+        },
+        'properties': {
+            'author': {
+                'type': 'string'
+            },
+            'title': {
+                'type': 'string'
+            },
+            'publisher': {
+                'type': 'string'
+            },
+            'pubyear': {
+                'type': 'string'
+            },
+            'count': {
+                'type': 'integer'
+            },
+            'rank': {
+                'type': 'integer'
+            },
+            'percent': {
+                'type': 'float'
+            }
+        }
+    }
+
+
+    @classmethod
+    def es_query(cls):
+
+        """
+        Just index cited rows.
+
+        Returns:
+            peewee.SelectQuery
+        """
+
+        return cls.select_cited()
+
+
+    @property
+    def es_doc(self):
+
+        """
+        Construct a document for Elasticsearch.
+
+        Returns:
+            dict: The document fields.
+        """
+
+        return {
+            '_id':          self.control_number,
+            'author':       prettify_field(self.pymarc.author()),
+            'title':        prettify_field(self.pymarc.title()),
+            'publisher':    prettify_field(self.pymarc.publisher()),
+            'pubyear':      prettify_field(self.pymarc.pubyear()),
+            'count':        self.metadata['citation_count'],
+            'rank':         self.metadata['teaching_rank'],
+            'percent':      self.metadata['teaching_percent']
+        }
 
 
     @classmethod
@@ -111,7 +181,7 @@ class HLOM_Record(BaseModel):
 
 
     @property
-    def es_query(self):
+    def query(self):
 
         """
         Build an Elasticsearch query string.
@@ -128,28 +198,6 @@ class HLOM_Record(BaseModel):
 
     # Denormalization routines for Elasticsearch.
     # TODO: How to do this dynamically?
-
-
-    @property
-    def es_doc(self):
-
-        """
-        Construct a document for Elasticsearch.
-
-        Returns:
-            dict: The document fields.
-        """
-
-        return {
-            '_id':          self.control_number,
-            'author':       prettify_field(self.pymarc.author()),
-            'title':        prettify_field(self.pymarc.title()),
-            'publisher':    prettify_field(self.pymarc.publisher()),
-            'pubyear':      prettify_field(self.pymarc.pubyear()),
-            'count':        self.metadata['citation_count'],
-            'rank':         self.metadata['teaching_rank'],
-            'percent':      self.metadata['teaching_percent']
-        }
 
 
     @classmethod

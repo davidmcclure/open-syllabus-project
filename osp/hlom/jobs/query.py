@@ -23,7 +23,7 @@ def query(id):
             'query': {
                 'match_phrase': {
                     'body': {
-                        'query': row.es_query,
+                        'query': row.query,
                         'slop': 50
                     }
                 }
