@@ -50,6 +50,7 @@ setup(
         'python-docx',
         'pdfminer3k',
         'pytest',
+        'networkx',
 
         # Via GitHub.
         'pymarc',
