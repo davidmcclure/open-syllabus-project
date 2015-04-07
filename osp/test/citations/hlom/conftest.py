@@ -18,16 +18,10 @@ def add_hlom(models, mock_hlom):
         function
     """
 
-    def _hlom(title='title', author='author',
-              publisher='publisher', pubyear='pubyear'):
+    def _hlom(*args, **kwargs):
 
-        # Mock a MARC record.
-        marc = mock_hlom.add_marc(
-            author=author,
-            title=title,
-            publisher=publisher,
-            pubyear=pubyear
-        )
+        # Write a MARC record.
+        marc = mock_hlom.add_marc(*args, **kwargs)
 
         # Create a `hlom_record` row.
         return HLOM_Record.create(
@@ -50,11 +44,11 @@ def add_doc(models, mock_osp):
 
     def _doc(content='content'):
 
-        # Mock a syllabus.
+        # Write a file.
         path = mock_osp.add_file(content=content)
         syllabus = Syllabus(path)
 
-        # Create a `document` row.
+        # Insert the document row.
         document = Document.create(path=syllabus.relative_path)
 
         # Extract text.

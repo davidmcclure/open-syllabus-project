@@ -142,9 +142,9 @@ class MockHLOM:
             yield MARCWriter(fh)
 
 
-    def add_marc(self, data_file='hlom', control_number=None,
-                 author='author', title='title',
-                 publisher='publisher', pubyear='pubyear'):
+    def add_marc(self, title='title', author='author',
+                 publisher='publisher', pubyear='pubyear',
+                 data_file='hlom', control_number=None):
 
         """
         Add a MARC record to a .dat file.
