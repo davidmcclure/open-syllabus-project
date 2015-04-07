@@ -1,11 +1,10 @@
 
 
 from osp.common.config import config
-from osp.common.models.base import BaseModel
 from elasticsearch.helpers import bulk
 
 
-class ElasticsearchModel(BaseModel):
+class ElasticsearchModel:
 
 
     @property
