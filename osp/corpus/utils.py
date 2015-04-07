@@ -108,23 +108,6 @@ def docx_text(path):
         return r.text
 
 
-def tika_is_online():
-
-    """
-    Is the Tika server available?
-
-    Returns:
-        bool: True if Tika is reachable.
-    """
-
-    try:
-        r = requests.get(config['tika']['server'])
-        return r.status_code == 200
-
-    except requests.exceptions.ConnectionError:
-        return False
-
-
 def pdf_date(path):
 
     """

@@ -1,9 +1,7 @@
 
 
-import pytest
-
-from osp.test.corpus.markers import requires_tika
 from osp.corpus.utils import docx_text
+from osp.test.utils import requires_tika
 
 
 @requires_tika

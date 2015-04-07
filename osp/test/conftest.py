@@ -2,23 +2,24 @@
 
 import pytest
 
-from osp.common.config import config as _config
-from osp.test.corpus.mock_osp import MockOSP
-from osp.test.citations.hlom.mock_hlom import MockHLOM
+# Globals:
 from osp.api.server import app
+from osp.common.config import config as _config
 
+# Models:
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
-
 from osp.dates.models.archive_url import Document_Date_Archive_Url
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from osp.dates.models.semester import Document_Date_Semester
-
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 
+# Helpers:
 from playhouse.test_utils import test_database
+from osp.test.corpus.mock_osp import MockOSP
+from osp.test.citations.hlom.mock_hlom import MockHLOM
 
 
 @pytest.fixture(scope='session', autouse=True)

@@ -1,9 +1,7 @@
 
 
-import pytest
-
-from osp.test.corpus.markers import requires_tika
 from osp.corpus.syllabus import Syllabus
+from osp.test.utils import requires_tika
 
 
 def test_empty(mock_osp):
