@@ -155,7 +155,18 @@ def api_client():
 
 
 @pytest.fixture
-def corpus_index():
+def requires_es(config):
+
+    """
+    Require Elasticsearch.
+    """
+
+    if not config.es.ping():
+        pytest.skip('Elasticsearch offline.')
+
+
+@pytest.fixture
+def corpus_index(requires_es):
 
     """
     Clear the corpus index.
@@ -165,7 +176,7 @@ def corpus_index():
 
 
 @pytest.fixture
-def hlom_index(config):
+def hlom_index(requires_es):
 
     """
     Clear the HLOM index.
