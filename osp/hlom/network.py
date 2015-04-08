@@ -2,16 +2,12 @@
 
 import networkx as nx
 
+from osp.common.utils import query_bar
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from itertools import combinations
-from playhouse.postgres_ext import ServerSide
 from clint.textui.progress import bar
 from peewee import fn
-
-
-def query_bar(q):
-    return bar(ServerSide(q), expected_size=q.count())
 
 
 class Network:

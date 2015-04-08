@@ -4,6 +4,7 @@ import math
 import numpy as np
 
 from itertools import islice, chain
+from playhouse.postgres_ext import ServerSide
 from clint.textui import progress
 
 
@@ -22,7 +23,7 @@ def query_bar(query):
     size = query.count()
 
     return progress.bar(
-        query.naive().iterator(),
+        ServerSide(query.naive()),
         expected_size=size
     )
 
