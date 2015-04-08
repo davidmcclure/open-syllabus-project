@@ -80,6 +80,8 @@ class Network:
             max_texts (int)
         """
 
+        self.clear_edges()
+
         # Aggregate the CNs.
         cns = (
             fn.array_agg(HLOM_Record.id)
@@ -107,6 +109,17 @@ class Network:
 
                 # Otherwise, initialize the edge.
                 else: self.graph.add_edge(id1, id2, weight=1)
+
+
+    def clear_edges(self):
+
+        """
+        Clear all edges.
+        """
+
+        cleared = nx.Graph()
+        cleared.add_nodes_from(self.graph.nodes(data=True))
+        self.graph = cleared
 
 
     def write_gml(self):

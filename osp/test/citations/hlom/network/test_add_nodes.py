@@ -6,6 +6,10 @@ from osp.citations.hlom.network import Network
 
 def test_build(models, add_hlom, add_doc):
 
+    """
+    Network#add_nodes() should register nodes, with title and author.
+    """
+
     # 5 HLOM texts.
     t1 = add_hlom(title='title1', author='author1')
     t2 = add_hlom(title='title2', author='author2')
