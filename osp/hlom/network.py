@@ -67,19 +67,19 @@ class Network:
             )
 
 
-    def add_edges(self):
+    def add_edges(self, max_citations=20):
 
         """
         For each syllabus, register citation pairs as edges.
 
         Args:
-            max_texts (int)
+            max_citations (int): Discard documents with > N citations.
         """
 
         self.clear_edges()
 
         # Aggregate the CNs.
-        cns = (
+        texts = (
             fn.array_agg(HLOM_Record.id)
             .coerce(False)
             .alias('texts')
@@ -88,8 +88,9 @@ class Network:
         # Select syllabi and cited CNs.
         documents = (
             HLOM_Citation
-            .select(HLOM_Citation.document, cns)
+            .select(HLOM_Citation.document, texts)
             .join(HLOM_Record)
+            .having(fn.count(HLOM_Record.id) <= max_citations)
             .distinct(HLOM_Citation.document)
             .group_by(HLOM_Citation.document)
         )
