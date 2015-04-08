@@ -3,6 +3,7 @@
 import networkx as nx
 
 from osp.citations.hlom.models.citation import HLOM_Citation
+from itertools import combinations
 from playhouse.postgres_ext import ServerSide
 
 
@@ -44,27 +45,49 @@ class Network:
         """
 
         # Select cited HLOM records.
-        nodes = (
+        texts = (
             HLOM_Citation
             .select(HLOM_Citation.record)
             .distinct(HLOM_Citation.record)
         )
 
         # Add each record as a node.
-        for node in ServerSide(nodes):
+        for row in ServerSide(texts):
 
-            title   = node.record.pymarc.title()
-            author  = node.record.pymarc.author()
+            title  = row.record.pymarc.title()
+            author = row.record.pymarc.author()
 
             self.graph.add_node(
-                node.record.control_number,
+                row.record.control_number,
                 title=title,
                 author=author
             )
 
-        # add each cited HLOM record as a node DONE
-        # for each syllabus, get all cited texts
-        # for each pair of texts, +1 the edge weight
+        syllabi = (
+            HLOM_Citation
+            .select(HLOM_Citation.document)
+            .distinct(HLOM_Citation.document)
+        )
+
+        for row in ServerSide(syllabi):
+
+            texts = (
+                HLOM_Citation
+                .select(HLOM_Citation.record)
+                .where(HLOM_Citation.document==row.document)
+            )
+
+            for t1, t2 in combinations(list(texts), 2):
+
+                cn1 = t1.record.control_number
+                cn2 = t2.record.control_number
+
+                # If the edge exists, +1 the weight.
+                if self.graph.has_edge(cn1, cn2):
+                    self.graph[cn1][cn2]['weight'] += 1
+
+                # Otherwise, initialize the edge.
+                else: self.graph.add_edge(cn1, cn2, weight=1)
 
 
     def write_gml(self):
