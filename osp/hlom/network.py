@@ -98,8 +98,6 @@ class Network:
             .group_by(HLOM_Citation.document)
         )
 
-        print(documents.sql())
-
         for row in query_bar(documents):
             for id1, id2 in combinations(row.texts, 2):
 
