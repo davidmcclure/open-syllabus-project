@@ -2,9 +2,16 @@
 
 import networkx as nx
 
+from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 from itertools import combinations
 from playhouse.postgres_ext import ServerSide
+from clint.textui.progress import bar
+from peewee import fn
+
+
+def query_bar(q):
+    return bar(ServerSide(q), expected_size=q.count())
 
 
 class Network:
@@ -52,7 +59,7 @@ class Network:
         )
 
         # Add each record as a node.
-        for row in ServerSide(texts):
+        for row in query_bar(texts):
 
             title  = row.record.pymarc.title()
             author = row.record.pymarc.author()
@@ -63,31 +70,32 @@ class Network:
                 author=author
             )
 
-        syllabi = (
-            HLOM_Citation
-            .select(HLOM_Citation.document)
-            .distinct(HLOM_Citation.document)
+        # Aggregate the CNs.
+        cns = (
+            fn.array_agg(HLOM_Record.control_number)
+            .coerce(False)
+            .alias('texts')
         )
 
-        for row in ServerSide(syllabi):
+        # Select syllabi and cited CNs.
+        documents = (
+            HLOM_Citation
+            .select(HLOM_Citation.document, cns)
+            .join(HLOM_Record)
+            .distinct(HLOM_Citation.document)
+            .group_by(HLOM_Citation.document)
+        )
 
-            texts = (
-                HLOM_Citation
-                .select(HLOM_Citation.record)
-                .where(HLOM_Citation.document==row.document)
-            )
+        for row in query_bar(documents):
+            if len(row.texts) < 20:
+                for cn1, cn2 in combinations(row.texts, 2):
 
-            for t1, t2 in combinations(list(texts), 2):
+                    # If the edge exists, +1 the weight.
+                    if self.graph.has_edge(cn1, cn2):
+                        self.graph[cn1][cn2]['weight'] += 1
 
-                cn1 = t1.record.control_number
-                cn2 = t2.record.control_number
-
-                # If the edge exists, +1 the weight.
-                if self.graph.has_edge(cn1, cn2):
-                    self.graph[cn1][cn2]['weight'] += 1
-
-                # Otherwise, initialize the edge.
-                else: self.graph.add_edge(cn1, cn2, weight=1)
+                    # Otherwise, initialize the edge.
+                    else: self.graph.add_edge(cn1, cn2, weight=1)
 
 
     def write_gml(self):
