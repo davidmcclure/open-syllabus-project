@@ -45,10 +45,10 @@ class Network:
         self.graph = graph if graph else nx.Graph()
 
 
-    def build(self):
+    def add_nodes(self):
 
         """
-        Build the network from the citation table.
+        Register unique HLOM records as nodes.
         """
 
         # Select cited HLOM records.
@@ -70,6 +70,16 @@ class Network:
                 author=author
             )
 
+
+    def add_edges(self, max_texts=20):
+
+        """
+        For each syllabus, register citation pairs as edges.
+
+        Args:
+            max_texts (int)
+        """
+
         # Aggregate the CNs.
         cns = (
             fn.array_agg(HLOM_Record.control_number)
@@ -86,16 +96,21 @@ class Network:
             .group_by(HLOM_Citation.document)
         )
 
+        print(documents.sql())
+
         for row in query_bar(documents):
-            if len(row.texts) < 20:
-                for cn1, cn2 in combinations(row.texts, 2):
 
-                    # If the edge exists, +1 the weight.
-                    if self.graph.has_edge(cn1, cn2):
-                        self.graph[cn1][cn2]['weight'] += 1
+            if len(row.texts) > max_texts:
+                continue
 
-                    # Otherwise, initialize the edge.
-                    else: self.graph.add_edge(cn1, cn2, weight=1)
+            for cn1, cn2 in combinations(row.texts, 2):
+
+                # If the edge exists, +1 the weight.
+                if self.graph.has_edge(cn1, cn2):
+                    self.graph[cn1][cn2]['weight'] += 1
+
+                # Otherwise, initialize the edge.
+                else: self.graph.add_edge(cn1, cn2, weight=1)
 
 
     def write_gml(self):
