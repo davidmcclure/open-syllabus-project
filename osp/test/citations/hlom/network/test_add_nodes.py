@@ -7,9 +7,9 @@ from osp.citations.hlom.network import Network
 def test_build(models, add_hlom, add_doc):
 
     # 5 HLOM texts.
-    t1 = add_hlom(control_number='cn1', title='title1', author='author1')
-    t2 = add_hlom(control_number='cn2', title='title2', author='author2')
-    t3 = add_hlom(control_number='cn3', title='title3', author='author3')
+    t1 = add_hlom(title='title1', author='author1')
+    t2 = add_hlom(title='title2', author='author2')
+    t3 = add_hlom(title='title3', author='author3')
 
     # 1 syllabus.
     s = add_doc('syllabus')
@@ -21,9 +21,9 @@ def test_build(models, add_hlom, add_doc):
     n = Network()
     n.add_nodes()
 
-    assert n.graph.node['cn1'] == {
+    assert n.graph.node[t1.id] == {
         'title': 'title1', 'author': 'author1'
     }
-    assert n.graph.node['cn2'] == {
+    assert n.graph.node[t2.id] == {
         'title': 'title2', 'author': 'author2'
     }

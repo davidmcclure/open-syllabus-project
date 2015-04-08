@@ -65,13 +65,13 @@ class Network:
             author = row.record.pymarc.author()
 
             self.graph.add_node(
-                row.record.control_number,
+                row.record.id,
                 title=title,
                 author=author
             )
 
 
-    def add_edges(self, max_texts=20):
+    def add_edges(self):
 
         """
         For each syllabus, register citation pairs as edges.
@@ -82,7 +82,7 @@ class Network:
 
         # Aggregate the CNs.
         cns = (
-            fn.array_agg(HLOM_Record.control_number)
+            fn.array_agg(HLOM_Record.id)
             .coerce(False)
             .alias('texts')
         )
@@ -99,18 +99,14 @@ class Network:
         print(documents.sql())
 
         for row in query_bar(documents):
-
-            if len(row.texts) > max_texts:
-                continue
-
-            for cn1, cn2 in combinations(row.texts, 2):
+            for id1, id2 in combinations(row.texts, 2):
 
                 # If the edge exists, +1 the weight.
-                if self.graph.has_edge(cn1, cn2):
-                    self.graph[cn1][cn2]['weight'] += 1
+                if self.graph.has_edge(id1, id2):
+                    self.graph[id1][id2]['weight'] += 1
 
                 # Otherwise, initialize the edge.
-                else: self.graph.add_edge(cn1, cn2, weight=1)
+                else: self.graph.add_edge(id1, id2, weight=1)
 
 
     def write_gml(self):
