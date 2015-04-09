@@ -65,7 +65,7 @@ def csv_text_counts(out_path):
     out_file = open(out_path, 'w')
 
     # CSV writer.
-    cols = ['title', 'author', 'count']
+    cols = ['id', 'title', 'author', 'count']
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
@@ -77,9 +77,10 @@ def csv_text_counts(out_path):
                  expected_size=count):
 
         writer.writerow({
-            'title':  c.record.pymarc.title(),
-            'author': c.record.pymarc.author(),
-            'count':  c.count
+            'id':       c.record.id,
+            'title':    c.record.pymarc.title(),
+            'author':   c.record.pymarc.author(),
+            'count':    c.count
         })
 
 

@@ -2,6 +2,7 @@
 
 import os
 import networkx as nx
+import numpy as np
 
 from osp.common.utils import query_bar
 from osp.citations.hlom.models.record import HLOM_Record
@@ -81,7 +82,39 @@ class Network:
                 else: self.graph.add_edge(id1, id2, weight=1)
 
 
-    def hydrate_nodes(self):
+    def max_edge_weight(self):
+
+        """
+        What is the highest edge weight in the network?
+
+        Returns:
+            int: The max edge weight.
+        """
+
+        edges = self.graph.edges_iter(data=True)
+        weights = [e[2]['weight'] for e in edges]
+        return max(weights)
+
+
+    def normalize_edge_weights(self):
+
+        """
+        Adjust edge weights to be real values between 0 and 1, where "close"
+        nodes have low weights.
+        """
+
+        max_weight = np.log(self.max_edge_weight())
+
+        for e in self.graph.edges_iter(data=True):
+
+            # Normalize against the max.
+            w = 1-(np.log(e[2]['weight'])/max_weight)
+
+            # Set the new value.
+            self.graph.edge[e[0]][e[1]]['weight'] = w
+
+
+    def hydrate_labels(self):
 
         """
         Hydrate node labels.
@@ -99,6 +132,25 @@ class Network:
             ])
 
             self.graph.node[nid]['title'] = label
+
+
+    def mlt(self, nid, cutoff=None):
+
+        """
+        Given a HLOM record ID, get the N "nearest" records.
+
+        Args:
+            nid (int): The ID of the source node.
+            cutoff (int): Depth to stop the search.
+        """
+
+        nearest = nx.single_source_dijkstra_path_length(
+            self.graph, nid, cutoff
+        )
+
+        # TODO|dev
+        for n in nearest:
+            print(self.graph.node[n]['title'])
 
 
     def write_gml(self, path):
