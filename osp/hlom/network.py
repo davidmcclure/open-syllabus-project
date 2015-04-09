@@ -6,6 +6,7 @@ import networkx as nx
 from osp.common.utils import query_bar
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.citations.hlom.utils import prettify_field
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
@@ -86,10 +87,18 @@ class Network:
         Hydrate node labels.
         """
 
-        # TODO|dev
         for nid in bar(self.graph.nodes()):
+
+            # Pop out the HLOM record.
             text = HLOM_Record.get(HLOM_Record.id==nid)
-            self.graph.node[nid]['label'] = text.pymarc.title()
+
+            # Prettify "[title] [author]".
+            label = ', '.join([
+                prettify_field(text.pymarc.title()),
+                prettify_field(text.pymarc.author())
+            ])
+
+            self.graph.node[nid]['title'] = label
 
 
     def write_gml(self, path):
@@ -101,4 +110,4 @@ class Network:
             path (str)
         """
 
-        nx.gml.write_gml(self.graph, path)
+        nx.write_gml(self.graph, path)
