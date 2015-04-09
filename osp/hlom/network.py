@@ -80,6 +80,18 @@ class Network:
                 else: self.graph.add_edge(id1, id2, weight=1)
 
 
+    def hydrate_nodes(self):
+
+        """
+        Hydrate node labels.
+        """
+
+        # TODO|dev
+        for nid in bar(self.graph.nodes()):
+            text = HLOM_Record.get(HLOM_Record.id==nid)
+            self.graph.node[nid]['label'] = text.pymarc.title()
+
+
     def write_gml(self, path):
 
         """
@@ -89,4 +101,4 @@ class Network:
             path (str)
         """
 
-        nx.readwrite.gml.write_gml(self.graph, path)
+        nx.gml.write_gml(self.graph, path)
