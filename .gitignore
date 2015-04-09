@@ -3,4 +3,5 @@ env
 *.egg-info
 *.pyc
 *.gml
+*.gexf
 *.csv

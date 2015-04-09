@@ -20,7 +20,7 @@ class Network:
     def from_gml(cls, path):
 
         """
-        Hydrate the network from a GML file.
+        Hydrate the network from a .gml file.
 
         Args:
             path (str)
@@ -30,6 +30,23 @@ class Network:
         """
 
         graph = nx.read_gml(os.path.abspath(path))
+        return cls(graph)
+
+
+    @classmethod
+    def from_gexf(cls, path):
+
+        """
+        Hydrate the network from a .gexf file.
+
+        Args:
+            path (str)
+
+        Returns:
+            Network
+        """
+
+        graph = nx.read_gexf(os.path.abspath(path))
         return cls(graph)
 
 
@@ -43,6 +60,30 @@ class Network:
         """
 
         self.graph = graph if graph else nx.Graph()
+
+
+    def write_gml(self, path):
+
+        """
+        Serialize the graph as .gml.
+
+        Args:
+            path (str)
+        """
+
+        nx.write_gml(self.graph, path)
+
+
+    def write_gexf(self, path):
+
+        """
+        Serialize the graph as .gexf.
+
+        Args:
+            path (str)
+        """
+
+        nx.write_gexf(self.graph, path)
 
 
     def add_edges(self, max_citations=20):
@@ -134,6 +175,42 @@ class Network:
             self.graph.node[nid]['title'] = label
 
 
+    def deduplicate(self):
+
+        """
+        Remove duplicate nodes.
+        """
+
+        seen = set()
+
+        for nid in bar(self.graph.nodes()):
+
+            # Pop out the HLOM record.
+            text = HLOM_Record.get(HLOM_Record.id==nid)
+
+            # If the node is a duplicate, remove it.
+            if text.hash in seen: self.graph.remove_node(nid)
+            else: seen.add(text.hash)
+
+
+    # TODO|dev
+
+
+    def degree_centrality(self, depth):
+
+        """
+        Print title -> degree centrality.
+
+        Args:
+            depth (int): The number of texts to display.
+        """
+
+        dc = sort_dict(nx.degree_centrality(self.graph))
+
+        return [(nid, self.graph.node[nid]['title'], d)
+                for nid, d in list(dc.items())[:depth]]
+
+
     def mlt(self, nid, cutoff=None):
 
         """
@@ -148,31 +225,5 @@ class Network:
             self.graph, nid, cutoff
         )
 
-        # TODO|dev
-        for n, d in nearest:
-            print(d, self.graph.node[n]['title'])
-
-
-    def degree_centrality(self):
-
-        """
-        Get title -> degree centrality, sorted in descending order.
-
-        Returns:
-            list: (title, degree)
-        """
-
-        dc = nx.degree_centrality(self.graph)
-        return sort_dict(dc)
-
-
-    def write_gml(self, path):
-
-        """
-        Serialize the graph as GML.
-
-        Args:
-            path (str)
-        """
-
-        nx.write_gml(self.graph, path)
+        for nid, d in sort_dict(nearest, False).items():
+            print(d, self.graph.node[nid]['title'])
