@@ -5,9 +5,9 @@ import networkx as nx
 import numpy as np
 
 from osp.common.utils import query_bar
+from osp.citations.hlom.utils import prettify_field, sort_dict
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.utils import prettify_field
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
@@ -149,8 +149,21 @@ class Network:
         )
 
         # TODO|dev
-        for n in nearest:
-            print(self.graph.node[n]['title'])
+        for n, d in nearest:
+            print(d, self.graph.node[n]['title'])
+
+
+    def degree_centrality(self):
+
+        """
+        Get title -> degree centrality, sorted in descending order.
+
+        Returns:
+            list: (title, degree)
+        """
+
+        dc = nx.degree_centrality(self.graph)
+        return sort_dict(dc)
 
 
     def write_gml(self, path):

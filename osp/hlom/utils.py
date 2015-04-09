@@ -3,6 +3,8 @@
 import itertools
 import re
 
+from collections import OrderedDict
+
 
 def sanitize_query(query):
 
@@ -38,3 +40,20 @@ def prettify_field(field):
 
     punct = '^(?!\()[\W\s]+|(?!\))[\W\s]+$'
     return re.sub(punct, '', field) if field else None
+
+
+def sort_dict(d, reverse=True):
+
+    """
+    Sort a dictionary (or OrderedDict) by value, descending.
+
+    Args:
+        d (dict): A dictionary.
+        reverse (bool): If true, sort in descending order.
+
+    Returns:
+        OrderedDict: The sorted dictionary.
+    """
+
+    sort = sorted(d.items(), key=lambda x: x[1], reverse=reverse)
+    return OrderedDict(sort)
