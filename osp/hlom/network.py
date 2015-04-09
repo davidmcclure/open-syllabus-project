@@ -1,5 +1,6 @@
 
 
+import os
 import networkx as nx
 
 from osp.common.utils import query_bar
@@ -14,19 +15,20 @@ class Network:
 
 
     @classmethod
-    def from_gml(cls, file_path):
+    def from_gml(cls, path):
 
         """
         Hydrate the network from a GML file.
 
         Args:
-            file_path (str)
+            path (str)
 
         Returns:
             Network
         """
 
-        pass
+        graph = nx.read_gml(os.path.abspath(path))
+        return cls(graph)
 
 
     def __init__(self, graph=None):
@@ -41,32 +43,6 @@ class Network:
         self.graph = graph if graph else nx.Graph()
 
 
-    def add_nodes(self):
-
-        """
-        Register unique HLOM records as nodes.
-        """
-
-        # Select cited HLOM records.
-        texts = (
-            HLOM_Citation
-            .select(HLOM_Citation.record)
-            .distinct(HLOM_Citation.record)
-        )
-
-        # Add each record as a node.
-        for row in query_bar(texts):
-
-            title  = row.record.pymarc.title()
-            author = row.record.pymarc.author()
-
-            self.graph.add_node(
-                row.record.id,
-                title=title,
-                author=author
-            )
-
-
     def add_edges(self, max_citations=20):
 
         """
@@ -75,8 +51,6 @@ class Network:
         Args:
             max_citations (int): Discard documents with > N citations.
         """
-
-        self.clear_edges()
 
         # Aggregate the CNs.
         texts = (
@@ -106,21 +80,13 @@ class Network:
                 else: self.graph.add_edge(id1, id2, weight=1)
 
 
-    def clear_edges(self):
-
-        """
-        Clear all edges.
-        """
-
-        cleared = nx.Graph()
-        cleared.add_nodes_from(self.graph.nodes(data=True))
-        self.graph = cleared
-
-
-    def write_gml(self):
+    def write_gml(self, path):
 
         """
         Serialize the graph as GML.
+
+        Args:
+            path (str)
         """
 
-        pass
+        nx.readwrite.gml.write_gml(self.graph, path)

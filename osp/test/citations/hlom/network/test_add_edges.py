@@ -42,7 +42,6 @@ def test_add_edges(models, add_hlom, add_doc):
     HLOM_Citation.create(document=s3, record=t6)
 
     n = Network()
-    n.add_nodes()
     n.add_edges()
 
     assert n.graph.edge[t1.id][t2.id]['weight'] == 1
@@ -50,31 +49,6 @@ def test_add_edges(models, add_hlom, add_doc):
     assert n.graph.edge[t3.id][t4.id]['weight'] == 3
     assert n.graph.edge[t4.id][t5.id]['weight'] == 2
     assert n.graph.edge[t5.id][t6.id]['weight'] == 1
-
-
-def test_clear_existing_edges(models, add_hlom, add_doc):
-
-    """
-    When add_edges() is called, existing edges in the network should be
-    cleared before the list is rebuilt.
-    """
-
-    t1 = add_hlom(title='title1', author='author2')
-    t2 = add_hlom(title='title2', author='author2')
-    s = add_doc('syllabus')
-
-    # 1 co-occurrence of t1 and t2
-    HLOM_Citation.create(document=s, record=t1)
-    HLOM_Citation.create(document=s, record=t2)
-
-    n = Network()
-    n.add_nodes()
-
-    # Add edges twice.
-    n.add_edges()
-    n.add_edges()
-
-    assert n.graph.edge[t1.id][t2.id]['weight'] == 1
 
 
 def test_max_citations(models, add_hlom, add_doc):
@@ -100,7 +74,6 @@ def test_max_citations(models, add_hlom, add_doc):
     HLOM_Citation.create(document=s2, record=t3)
 
     n = Network()
-    n.add_nodes()
     n.add_edges(2)
 
     # Just register citations from s1.

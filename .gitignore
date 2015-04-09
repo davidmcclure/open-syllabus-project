@@ -1,4 +1,6 @@
 env
 .ipynb_checkpoints
-*.pyc
 *.egg-info
+*.pyc
+*.gml
+*.csv
