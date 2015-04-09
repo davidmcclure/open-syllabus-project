@@ -36,5 +36,5 @@ def prettify_field(field):
         str: The cleaned value.
     """
 
-    punct = '^[\W\s]*|[\W\s]*$'
+    punct = '^(?!\()[\W\s]+|(?!\))[\W\s]+$'
     return re.sub(punct, '', field) if field else None

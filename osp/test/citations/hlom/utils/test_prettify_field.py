@@ -37,3 +37,13 @@ def test_punctuation_on_right():
     """
 
     assert prettify_field('abc.;,') == 'abc'
+
+
+def test_keep_parens():
+
+    """
+    Leave in parentheses, which are often legitimate.
+    """
+
+    assert prettify_field('(abc) def') == '(abc) def'
+    assert prettify_field('abc (def)') == 'abc (def)'
