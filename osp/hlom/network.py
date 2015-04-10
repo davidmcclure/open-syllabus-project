@@ -227,3 +227,15 @@ class Network:
 
         for nid, d in sort_dict(nearest, False).items():
             print(d, self.graph.node[nid]['title'])
+
+
+    def neighbors(self, nid):
+
+        """
+        Given a HLOM record ID, get all neighboring nodes.
+
+        Args:
+            nid (int): The ID of the source node.
+        """
+
+        return self.graph.neighbors(nid)
