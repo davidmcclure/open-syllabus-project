@@ -207,8 +207,11 @@ class Network:
 
         dc = sort_dict(nx.degree_centrality(self.graph))
 
-        return [(nid, self.graph.node[nid]['title'], d)
-                for nid, d in list(dc.items())[:depth]]
+        results = []
+        for nid, d in list(dc.items())[:depth]:
+            results.append((nid, self.graph.node[nid]['title'], d))
+
+        return results
 
 
     def mlt(self, nid, cutoff=None):
@@ -225,8 +228,11 @@ class Network:
             self.graph, nid, cutoff
         )
 
+        results = []
         for nid, d in sort_dict(nearest, False).items():
-            print(d, self.graph.node[nid]['title'])
+            results.append((d, self.graph.node[nid]['title']))
+
+        return results
 
 
     def neighbors(self, nid):
@@ -238,4 +244,12 @@ class Network:
             nid (int): The ID of the source node.
         """
 
-        return self.graph.neighbors(nid)
+        tids = self.graph.neighbors(nid)
+
+        results = []
+        for tid in tids:
+            edge = self.graph.edge[nid][tid]
+            node = self.graph.node[tid]
+            results.append((edge['weight'], node['title']))
+
+        return sorted(results, key=lambda x: x[0], reverse=True)
