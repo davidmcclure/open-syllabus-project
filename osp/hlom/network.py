@@ -11,26 +11,12 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
+from wand.drawing import Drawing
+from wand.image import Image
+from wand.color import Color
 
 
 class Network:
-
-
-    @classmethod
-    def from_gml(cls, path):
-
-        """
-        Hydrate the network from a .gml file.
-
-        Args:
-            path (str)
-
-        Returns:
-            Network
-        """
-
-        graph = nx.read_gml(os.path.abspath(path))
-        return cls(graph)
 
 
     @classmethod
@@ -60,18 +46,6 @@ class Network:
         """
 
         self.graph = graph if graph else nx.Graph()
-
-
-    def write_gml(self, path):
-
-        """
-        Serialize the graph as .gml.
-
-        Args:
-            path (str)
-        """
-
-        nx.write_gml(self.graph, path)
 
 
     def write_gexf(self, path):
@@ -123,6 +97,7 @@ class Network:
                 else: self.graph.add_edge(id1, id2, weight=1)
 
 
+    @property
     def max_edge_weight(self):
 
         """
@@ -144,7 +119,7 @@ class Network:
         nodes have low weights.
         """
 
-        max_weight = np.log(self.max_edge_weight())
+        max_weight = np.log(self.max_edge_weight)
 
         for e in self.graph.edges_iter(data=True):
 
@@ -193,13 +168,17 @@ class Network:
             else: seen.add(text.hash)
 
 
-    def draw_png(self):
+    def draw_png(self, path):
 
         """
         Render a PNG from the node coordinates.
+
+        Args:
+            path (str): The image path.
         """
 
-        pass
+        for n in self.graph.nodes_iter(data=True):
+            print(n)
 
 
     # TODO|dev
