@@ -3,6 +3,7 @@
 import os
 import networkx as nx
 import numpy as np
+import math
 
 from osp.common.utils import query_bar
 from osp.citations.hlom.utils import prettify_field, sort_dict
@@ -14,6 +15,7 @@ from peewee import fn
 from wand.drawing import Drawing
 from wand.image import Image
 from wand.color import Color
+from functools import lru_cache
 
 
 class Network:
@@ -97,21 +99,6 @@ class Network:
                 else: self.graph.add_edge(id1, id2, weight=1)
 
 
-    @property
-    def max_edge_weight(self):
-
-        """
-        What is the highest edge weight in the network?
-
-        Returns:
-            int: The max edge weight.
-        """
-
-        edges = self.graph.edges_iter(data=True)
-        weights = [e[2]['weight'] for e in edges]
-        return max(weights)
-
-
     def invert_edge_weights(self):
 
         """
@@ -119,7 +106,7 @@ class Network:
         nodes have low weights.
         """
 
-        max_weight = np.log(self.max_edge_weight)
+        max_weight = np.log(self.max_weight)
 
         for e in self.graph.edges_iter(data=True):
 
@@ -168,17 +155,19 @@ class Network:
             else: seen.add(text.hash)
 
 
-    def draw_png(self, path):
+    def trim_unconnected_components(self):
 
         """
-        Render a PNG from the node coordinates.
-
-        Args:
-            path (str): The image path.
+        Remove unconnected components.
         """
 
-        for n in self.graph.nodes_iter(data=True):
-            print(n)
+        subgraphs = sorted(
+            nx.connected_component_subgraphs(self.graph),
+            key=len,
+            reverse=True
+        )
+
+        self.graph = subgraphs[0]
 
 
     # TODO|dev
@@ -241,3 +230,149 @@ class Network:
             results.append((edge['weight'], node['title']))
 
         return sorted(results, key=lambda x: x[0], reverse=True)
+
+
+class GephiNetwork(Network):
+
+
+    def weights(self):
+
+        """
+        Yields:
+            float: The next edge weight.
+        """
+
+        for e in self.graph.edges_iter(data=True):
+            yield e[2]['weight'] if 'weight' in e[2] else 1
+
+
+    def xs(self):
+
+        """
+        Yields:
+            float: The next X-axis coordinate.
+        """
+
+        for n in self.graph.nodes_iter(data=True):
+            yield n[1]['viz']['position']['x']
+
+
+    def ys(self):
+
+        """
+        Yields:
+            float: The next Y-axis coordinate.
+        """
+
+        for n in self.graph.nodes_iter(data=True):
+            yield n[1]['viz']['position']['y']
+
+
+    @property
+    @lru_cache()
+    def max_weight(self):
+
+        """
+        Returns:
+            int: The heaviest edge weight.
+        """
+
+        return max(list(self.weights()))
+
+
+    @property
+    @lru_cache()
+    def min_x(self):
+
+        """
+        Returns:
+            float: The minimum X-axis coordinate.
+        """
+
+        return min(list(self.xs()))
+
+
+    @property
+    @lru_cache()
+    def max_x(self):
+
+        """
+        Returns:
+            float: The maximum X-axis coordinate.
+        """
+
+        return max(list(self.xs()))
+
+
+    @property
+    @lru_cache()
+    def min_y(self):
+
+        """
+        Returns:
+            float: The minimum Y-axis coordinate.
+        """
+
+        return min(list(self.ys()))
+
+
+    @property
+    @lru_cache()
+    def max_y(self):
+
+        """
+        Returns:
+            float: The maximum Y-axis coordinate.
+        """
+
+        return max(list(self.ys()))
+
+
+    @property
+    @lru_cache()
+    def height(self):
+
+        """
+        Returns:
+            int: The Y-axis coordinate range.
+        """
+
+        return math.ceil(self.max_y - self.min_y)
+
+
+    @property
+    @lru_cache()
+    def width(self):
+
+        """
+        Returns:
+            int: The X-axis coordinate range.
+        """
+
+        return math.ceil(self.max_x - self.min_x)
+
+
+    def draw_png(self, path):
+
+        """
+        Render a PNG from the node coordinates.
+
+        Args:
+            path (str): The image path.
+        """
+
+        with Image(width=self.width, height=self.height) as image:
+
+            # NODES
+            for n in self.graph.nodes_iter(data=True):
+                with Drawing() as draw:
+
+                    x = n[1]['viz']['position']['x']
+                    y = n[1]['viz']['position']['y']
+
+                    # Render the circle.
+                    draw.fill_color = Color('black')
+                    draw.circle((x, y), (x+5, y))
+                    draw(image)
+
+            image.save(filename=os.path.abspath(path))
