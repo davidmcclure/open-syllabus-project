@@ -352,27 +352,33 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def draw_png(self, path):
+    def draw_png(self, path, ppu=1, size=10000, radius=5):
 
         """
         Render a PNG from the node coordinates.
 
         Args:
             path (str): The image path.
+            ppu (float): Pixels per coordinate unit.
+            size (int): The height/width.
+            radius (int): The node radius.
         """
 
-        with Image(width=self.width, height=self.height) as image:
+        with Image(height=size, width=size,
+                   background=Color('white')) as image:
 
             # NODES
-            for n in self.graph.nodes_iter(data=True):
+            for id, node in bar(self.graph.nodes_iter(data=True),
+                         expected_size=len(self.graph)):
+
+                # Flip the Y-axis to document-space.
+                x =  (node['viz']['position']['x']*ppu) + (size/2)
+                y = -(node['viz']['position']['y']*ppu) + (size/2)
+
+                # Render the circle.
                 with Drawing() as draw:
-
-                    x = n[1]['viz']['position']['x']
-                    y = n[1]['viz']['position']['y']
-
-                    # Render the circle.
-                    draw.fill_color = Color('black')
-                    draw.circle((x, y), (x+5, y))
+                    draw.fill_color = Color('gray')
+                    draw.circle((x, y), (x+radius, y))
                     draw(image)
 
             image.save(filename=os.path.abspath(path))
