@@ -137,7 +137,7 @@ class Network:
         return max(weights)
 
 
-    def normalize_edge_weights(self):
+    def invert_edge_weights(self):
 
         """
         Adjust edge weights to be real values between 0 and 1, where "close"
@@ -191,6 +191,15 @@ class Network:
             # If the node is a duplicate, remove it.
             if text.hash in seen: self.graph.remove_node(nid)
             else: seen.add(text.hash)
+
+
+    def draw_png(self):
+
+        """
+        Render a PNG from the node coordinates.
+        """
+
+        pass
 
 
     # TODO|dev
