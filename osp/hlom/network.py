@@ -370,7 +370,6 @@ class GephiNetwork(Network):
         image = Image(Geometry(size, size), Color('white'))
         image.font(config['network']['font'])
 
-        # NODES
         for id, n in bar(self.graph.nodes_iter(data=True),
                         expected_size=len(self.graph)):
 
@@ -403,31 +402,5 @@ class GephiNetwork(Network):
             label.append(DrawablePointSize(font_size))
             label.append(DrawableText(x-(width/2), y, n['title']))
             image.draw(label)
-
-        # EDGES
-        for id1, id2 in bar(self.graph.edges_iter(),
-                        expected_size=nx.number_of_edges(self.graph)):
-
-            n1 = self.graph.node[id1]
-            n2 = self.graph.node[id2]
-
-            # Get the endpoints.
-            x1 =  (n1['viz']['position']['x']*scale) + (size/2)
-            y1 = -(n1['viz']['position']['y']*scale) + (size/2)
-            x2 =  (n2['viz']['position']['x']*scale) + (size/2)
-            y2 = -(n2['viz']['position']['y']*scale) + (size/2)
-
-            line = DrawableLine(
-                round(x1),
-                round(y1),
-                round(x2),
-                round(y2)
-            )
-
-            # Draw the edge.
-            edge = DrawableList()
-            edge.append(DrawableStrokeWidth(1))
-            edge.append(line)
-            image.draw(edge)
 
         image.write(os.path.abspath(path))
