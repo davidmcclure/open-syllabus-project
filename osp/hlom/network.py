@@ -14,8 +14,9 @@ from clint.textui.progress import bar
 from peewee import fn
 from functools import lru_cache
 
-from pgmagick import Image, Geometry, Color, DrawableList, DrawableCircle, \
-    DrawableFillColor, DrawableFillOpacity
+from pgmagick import Image, Geometry, Color, TypeMetric, DrawableList, \
+    DrawableCircle, DrawableFillColor, DrawableFillOpacity, DrawableText, \
+    DrawablePointSize, TypeMetric
 
 
 class Network:
@@ -366,6 +367,9 @@ class GephiNetwork(Network):
 
         image = Image(Geometry(size, size), Color('white'))
 
+        # TODO: Config-ify
+        image.font('/Users/davidmcclure/Library/Fonts/OpenSans-Regular.ttf')
+
         for id, node in bar(self.graph.nodes_iter(data=True),
                         expected_size=len(self.graph)):
 
@@ -376,10 +380,26 @@ class GephiNetwork(Network):
             # Get the scaled radius.
             r = (node['viz']['size']*ppu) / 2
 
+            # Draw the node.
             dl = DrawableList()
             dl.append(DrawableFillColor('gray'))
             dl.append(DrawableFillOpacity(0.9))
             dl.append(DrawableCircle(x, y, x+r, y+r))
+            image.draw(dl)
+
+            # TODO: Compute from size.
+            fontsize = 30
+            image.fontPointsize(fontsize)
+
+            # Measure the width of the label.
+            tm = TypeMetric()
+            image.fontTypeMetrics(node['title'], tm)
+            width = tm.textWidth()
+
+            # Draw the label.
+            dl = DrawableList()
+            dl.append(DrawablePointSize(fontsize))
+            dl.append(DrawableText(x-(width/2), y, node['title']))
             image.draw(dl)
 
         image.write(os.path.abspath(path))
