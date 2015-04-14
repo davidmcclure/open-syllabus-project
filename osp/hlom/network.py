@@ -15,8 +15,9 @@ from peewee import fn
 from functools import lru_cache
 
 from pgmagick import Image, Geometry, Color, TypeMetric, DrawableList, \
-    DrawableCircle, DrawableFillColor, DrawableFillOpacity, DrawableText, \
-    DrawablePointSize, TypeMetric
+    DrawableCircle, DrawableFillColor, DrawableStrokeColor, \
+    DrawableStrokeWidth, DrawableFillOpacity, DrawableText, DrawablePointSize, \
+    TypeMetric
 
 
 class Network:
@@ -353,16 +354,16 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def render(self, path, ppu=15, size=10000):
+    def render(self, path, scale=15, size=10000, font_size=40):
 
         """
         Render a PNG from the node coordinates.
 
         Args:
             path (str): The image path.
-            ppu (float): Pixels per coordinate unit.
+            scale (float): Pixels per coordinate unit.
             size (int): The height/width.
-            radius (int): The node radius.
+            font_size (int): The base font size.
         """
 
         image = Image(Geometry(size, size), Color('white'))
@@ -374,22 +375,23 @@ class GephiNetwork(Network):
                         expected_size=len(self.graph)):
 
             # Flip the Y-axis to document-space.
-            x =  (node['viz']['position']['x']*ppu) + (size/2)
-            y = -(node['viz']['position']['y']*ppu) + (size/2)
+            x =  (node['viz']['position']['x']*scale) + (size/2)
+            y = -(node['viz']['position']['y']*scale) + (size/2)
 
             # Get the scaled radius.
-            r = (node['viz']['size']*ppu) / 2
+            r = (node['viz']['size']*scale) / 2
 
             # Draw the node.
             dl = DrawableList()
             dl.append(DrawableFillColor('gray'))
+            dl.append(DrawableStrokeColor('black'))
+            dl.append(DrawableStrokeWidth(r/15))
             dl.append(DrawableFillOpacity(0.9))
             dl.append(DrawableCircle(x, y, x+r, y+r))
             image.draw(dl)
 
             # TODO: Compute from size.
-            fontsize = 30
-            image.fontPointsize(fontsize)
+            image.fontPointsize(font_size)
 
             # Measure the width of the label.
             tm = TypeMetric()
@@ -398,7 +400,7 @@ class GephiNetwork(Network):
 
             # Draw the label.
             dl = DrawableList()
-            dl.append(DrawablePointSize(fontsize))
+            dl.append(DrawablePointSize(font_size))
             dl.append(DrawableText(x-(width/2), y, node['title']))
             image.draw(dl)
 
