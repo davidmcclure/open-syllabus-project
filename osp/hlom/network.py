@@ -9,12 +9,10 @@ from osp.common.utils import query_bar
 from osp.citations.hlom.utils import prettify_field, sort_dict
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
+from pgmagick import Image, Geometry, Color, DrawableCircle
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
-from wand.drawing import Drawing
-from wand.image import Image
-from wand.color import Color
 from functools import lru_cache
 
 
@@ -352,7 +350,7 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def draw_png(self, path, ppu=1, size=10000, radius=5):
+    def draw_png(self, path, ppu=10, size=10000, radius=5):
 
         """
         Render a PNG from the node coordinates.
@@ -364,21 +362,17 @@ class GephiNetwork(Network):
             radius (int): The node radius.
         """
 
-        with Image(height=size, width=size,
-                   background=Color('white')) as image:
+        image = Image(Geometry(size, size), Color('white'))
 
-            # NODES
-            for id, node in bar(self.graph.nodes_iter(data=True),
-                         expected_size=len(self.graph)):
+        for id, node in bar(self.graph.nodes_iter(data=True),
+                        expected_size=len(self.graph)):
 
-                # Flip the Y-axis to document-space.
-                x =  (node['viz']['position']['x']*ppu) + (size/2)
-                y = -(node['viz']['position']['y']*ppu) + (size/2)
+            # Flip the Y-axis to document-space.
+            x =  (node['viz']['position']['x']*ppu) + (size/2)
+            y = -(node['viz']['position']['y']*ppu) + (size/2)
 
-                # Render the circle.
-                with Drawing() as draw:
-                    draw.fill_color = Color('gray')
-                    draw.circle((x, y), (x+radius, y))
-                    draw(image)
+            # Draw the node.
+            circle = DrawableCircle(x, y, x+radius, y+radius)
+            image.draw(circle)
 
-            image.save(filename=os.path.abspath(path))
+        image.write(os.path.abspath(path))

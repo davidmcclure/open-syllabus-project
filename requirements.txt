@@ -32,6 +32,7 @@ reportlab
 python-docx
 pdfminer3k
 pytest
-wand
+networkx
+pgmagick
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
