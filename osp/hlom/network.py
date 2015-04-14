@@ -9,11 +9,13 @@ from osp.common.utils import query_bar
 from osp.citations.hlom.utils import prettify_field, sort_dict
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
-from pgmagick import Image, Geometry, Color, DrawableCircle
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
 from functools import lru_cache
+
+from pgmagick import Image, Geometry, Color, DrawableList, DrawableCircle, \
+    DrawableFillColor, DrawableFillOpacity
 
 
 class Network:
@@ -350,7 +352,7 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def draw_png(self, path, ppu=10, size=10000, radius=5):
+    def render(self, path, ppu=15, size=10000):
 
         """
         Render a PNG from the node coordinates.
@@ -371,8 +373,13 @@ class GephiNetwork(Network):
             x =  (node['viz']['position']['x']*ppu) + (size/2)
             y = -(node['viz']['position']['y']*ppu) + (size/2)
 
-            # Draw the node.
-            circle = DrawableCircle(x, y, x+radius, y+radius)
-            image.draw(circle)
+            # Get the scaled radius.
+            r = (node['viz']['size']*ppu) / 2
+
+            dl = DrawableList()
+            dl.append(DrawableFillColor('gray'))
+            dl.append(DrawableFillOpacity(0.9))
+            dl.append(DrawableCircle(x, y, x+r, y+r))
+            image.draw(dl)
 
         image.write(os.path.abspath(path))
