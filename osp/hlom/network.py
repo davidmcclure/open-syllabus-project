@@ -17,8 +17,8 @@ from functools import lru_cache
 
 from pgmagick import Image, Geometry, Color, TypeMetric, DrawableList, \
     DrawableCircle, DrawableFillColor, DrawableStrokeColor, \
-    DrawableStrokeWidth, DrawableFillOpacity, DrawableText, DrawablePointSize, \
-    TypeMetric
+    DrawableStrokeWidth, DrawableFillOpacity, DrawableText, \
+    DrawablePointSize, DrawableLine, TypeMetric
 
 
 class Network:
@@ -370,37 +370,64 @@ class GephiNetwork(Network):
         image = Image(Geometry(size, size), Color('white'))
         image.font(config['network']['font'])
 
-        for id, node in bar(self.graph.nodes_iter(data=True),
+        # NODES
+        for id, n in bar(self.graph.nodes_iter(data=True),
                         expected_size=len(self.graph)):
 
             # Flip the Y-axis to document-space.
-            x =  (node['viz']['position']['x']*scale) + (size/2)
-            y = -(node['viz']['position']['y']*scale) + (size/2)
+            x =  (n['viz']['position']['x']*scale) + (size/2)
+            y = -(n['viz']['position']['y']*scale) + (size/2)
 
             # Get the scaled radius.
-            r = (node['viz']['size']*scale) / 2
+            r = (n['viz']['size']*scale) / 2
 
             # Draw the node.
-            dl = DrawableList()
-            dl.append(DrawableFillColor('gray'))
-            dl.append(DrawableStrokeColor('black'))
-            dl.append(DrawableStrokeWidth(r/15))
-            dl.append(DrawableFillOpacity(0.9))
-            dl.append(DrawableCircle(x, y, x+r, y+r))
-            image.draw(dl)
+            node = DrawableList()
+            node.append(DrawableFillColor('gray'))
+            node.append(DrawableStrokeColor('black'))
+            node.append(DrawableStrokeWidth(r/15))
+            node.append(DrawableFillOpacity(0.9))
+            node.append(DrawableCircle(x, y, x+r, y+r))
+            image.draw(node)
 
             # TODO: Compute from size.
             image.fontPointsize(font_size)
 
             # Measure the width of the label.
             tm = TypeMetric()
-            image.fontTypeMetrics(node['title'], tm)
+            image.fontTypeMetrics(n['title'], tm)
             width = tm.textWidth()
 
             # Draw the label.
-            dl = DrawableList()
-            dl.append(DrawablePointSize(font_size))
-            dl.append(DrawableText(x-(width/2), y, node['title']))
-            image.draw(dl)
+            label = DrawableList()
+            label.append(DrawablePointSize(font_size))
+            label.append(DrawableText(x-(width/2), y, n['title']))
+            image.draw(label)
+
+        # EDGES
+        for id1, id2 in bar(self.graph.edges_iter(),
+                        expected_size=nx.number_of_edges(self.graph)):
+
+            n1 = self.graph.node[id1]
+            n2 = self.graph.node[id2]
+
+            # Get the endpoints.
+            x1 =  (n1['viz']['position']['x']*scale) + (size/2)
+            y1 = -(n1['viz']['position']['y']*scale) + (size/2)
+            x2 =  (n2['viz']['position']['x']*scale) + (size/2)
+            y2 = -(n2['viz']['position']['y']*scale) + (size/2)
+
+            line = DrawableLine(
+                round(x1),
+                round(y1),
+                round(x2),
+                round(y2)
+            )
+
+            # Draw the edge.
+            edge = DrawableList()
+            edge.append(DrawableStrokeWidth(1))
+            edge.append(line)
+            image.draw(edge)
 
         image.write(os.path.abspath(path))
