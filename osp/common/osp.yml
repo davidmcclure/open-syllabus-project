@@ -30,3 +30,6 @@ redis:
 elasticsearch:
   host: localhost
   port: 9200
+
+network:
+  font: XXX

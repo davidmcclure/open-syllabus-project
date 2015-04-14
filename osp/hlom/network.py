@@ -5,6 +5,7 @@ import networkx as nx
 import numpy as np
 import math
 
+from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.citations.hlom.utils import prettify_field, sort_dict
 from osp.citations.hlom.models.record import HLOM_Record
@@ -367,9 +368,7 @@ class GephiNetwork(Network):
         """
 
         image = Image(Geometry(size, size), Color('white'))
-
-        # TODO: Config-ify
-        image.font('/Users/davidmcclure/Library/Fonts/OpenSans-Regular.ttf')
+        image.font(config['network']['font'])
 
         for id, node in bar(self.graph.nodes_iter(data=True),
                         expected_size=len(self.graph)):
