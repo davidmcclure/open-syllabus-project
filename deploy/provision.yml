@@ -79,3 +79,4 @@
       with_flattened:
         - workers.instances
         - servers.instances
+        - renderers.instances
