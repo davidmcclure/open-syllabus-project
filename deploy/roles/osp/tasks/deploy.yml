@@ -28,11 +28,6 @@
     path: /tmp/data
     state: absent
 
-- name: Install spaCy data
-  command: env/bin/python3 -m spacy.en.download
-  args:
-    chdir: '{{ osp_src }}'
-
 - name: Install the CLI suite
   command: env/bin/python3 setup.py develop
   args:
