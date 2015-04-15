@@ -355,7 +355,7 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def render(self, path, scale=5, size=320000, fsize=14):
+    def render(self, path, scale=5, size=320000, font_size=14):
 
         """
         Render a PNG from the node coordinates.
@@ -364,7 +364,7 @@ class GephiNetwork(Network):
             path (str): The image path.
             scale (float): Pixels per coordinate unit.
             size (int): The height/width.
-            fsize (int): The base font size.
+            font_size (int): The base font size.
         """
 
         image = Image(Geometry(size, size), Color('#11243a'))
@@ -390,7 +390,7 @@ class GephiNetwork(Network):
             image.draw(node)
 
             # TODO: Compute from size.
-            image.fontPointsize(fsize)
+            image.fontPointsize(font_size)
 
             # Measure the width of the label.
             tm = TypeMetric()
@@ -399,7 +399,7 @@ class GephiNetwork(Network):
 
             # Draw the label.
             label = DrawableList()
-            label.append(DrawablePointSize(fsize))
+            label.append(DrawablePointSize(font_size))
             label.append(DrawableFillColor('white'))
             label.append(DrawableText(x-(width/2), y, n['title']))
             image.draw(label)
