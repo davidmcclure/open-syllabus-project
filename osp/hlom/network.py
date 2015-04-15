@@ -355,7 +355,7 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def render(self, path, scale=15, size=10000, font_size=40):
+    def render(self, path, scale=5, size=320000, font_size=14):
 
         """
         Render a PNG from the node coordinates.

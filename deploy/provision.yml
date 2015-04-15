@@ -50,6 +50,26 @@
         count_tag:
           osp: worker
 
+    - name: Start the render box
+      register: renderers
+      ec2:
+
+        image: '{{ ec2_image }}'
+        instance_type: '{{ ec2_render_instance_type }}'
+        vpc_subnet_id: '{{ ec2_subnet_id }}'
+        group: osp-worker
+        region: '{{ ec2_region }}'
+        assign_public_ip: yes
+        keypair: '{{ ec2_keypair }}'
+        wait: yes
+
+        exact_count: '{{ ec2_render_count }}'
+        instance_tags:
+          Name: osp-render
+          osp: render
+        count_tag:
+          osp: render
+
     - name: Attach the OSP volume
       ec2_vol:
         instance: '{{ item.id }}'
