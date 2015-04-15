@@ -367,7 +367,7 @@ class GephiNetwork(Network):
             fsize (int): The base font size.
         """
 
-        image = Image(Geometry(size, size), Color('white'))
+        image = Image(Geometry(size, size), Color('#11243a'))
         image.font(config['network']['font'])
 
         for id, n in bar(self.graph.nodes_iter(data=True),
@@ -400,6 +400,7 @@ class GephiNetwork(Network):
             # Draw the label.
             label = DrawableList()
             label.append(DrawablePointSize(fsize))
+            label.append(DrawableFillColor('white'))
             label.append(DrawableText(x-(width/2), y, n['title']))
             image.draw(label)
 
