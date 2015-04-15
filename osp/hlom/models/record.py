@@ -67,16 +67,17 @@ class HLOM_Record(BaseModel, ElasticsearchModel):
 
 
     @classmethod
-    def es_query(cls):
+    def es_stream_docs(cls):
 
         """
         Just index cited rows.
 
-        Returns:
-            peewee.SelectQuery
+        Yields:
+            dict: The next document.
         """
 
-        return cls.select_cited()
+        for row in cls.select_cited():
+            yield row.es_doc
 
 
     @property

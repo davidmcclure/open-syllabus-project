@@ -39,16 +39,17 @@ class Document_Text(BaseModel, ElasticsearchModel):
 
 
     @classmethod
-    def es_query(cls):
+    def es_stream_docs(cls):
 
         """
         Index all texts.
 
-        Returns:
-            peewee.SelectQuery
+        Yields:
+            dict: The next document.
         """
 
-        return cls.select()
+        for row in cls.select():
+            yield row.es_doc
 
 
     @property

@@ -17,6 +17,11 @@ class ElasticsearchModel:
         raise NotImplementedError
 
 
+    @classmethod
+    def es_stream_docs(cls):
+        raise NotImplementedError
+
+
     @property
     def es_index(self):
         raise NotImplementedError
@@ -24,11 +29,6 @@ class ElasticsearchModel:
 
     @property
     def es_doc_type(self):
-        raise NotImplementedError
-
-
-    @classmethod
-    def es_query(cls):
         raise NotImplementedError
 
 
@@ -62,14 +62,10 @@ class ElasticsearchModel:
         Insert documents.
         """
 
-        def stream():
-            for row in cls.es_query():
-                yield row.es_doc
-
         # Batch-insert the documents.
         bulk(
             config.es,
-            stream(),
+            cls.es_stream_docs(),
             raise_on_exception=False,
             doc_type=cls.es_doc_type,
             index=cls.es_index
