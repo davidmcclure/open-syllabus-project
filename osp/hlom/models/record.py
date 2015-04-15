@@ -8,7 +8,7 @@ import hashlib
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
-from osp.common.models.elasticsearch import ElasticsearchModel
+from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
@@ -19,7 +19,7 @@ from playhouse.postgres_ext import *
 from peewee import *
 
 
-class HLOM_Record(BaseModel, ElasticsearchModel):
+class HLOM_Record(BaseModel, Elasticsearch):
 
 
     control_number = CharField(unique=True, null=False)

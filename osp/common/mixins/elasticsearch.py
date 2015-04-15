@@ -4,7 +4,7 @@ from osp.common.config import config
 from elasticsearch.helpers import bulk
 
 
-class ElasticsearchModel:
+class Elasticsearch:
 
 
     @property
