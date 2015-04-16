@@ -120,24 +120,25 @@ class Network:
             self.graph.edge[e[0]][e[1]]['weight'] = w
 
 
-    def hydrate_labels(self):
+    def hydrate_nodes(self):
 
         """
-        Hydrate node labels.
+        Hydrate node metadata.
         """
 
-        for nid in bar(self.graph.nodes()):
+        for nid in bar(self.graph.nodes_iter(),
+                       expected_size=len(self.graph)):
 
             # Pop out the HLOM record.
-            text = HLOM_Record.get(HLOM_Record.id==nid)
+            text = HLOM_Record.get(HLOM_Record.id==float(nid))
 
-            # Prettify "[title] [author]".
-            label = ', '.join([
-                prettify_field(text.pymarc.title()),
-                prettify_field(text.pymarc.author())
-            ])
+            # Prettify the title / author.
+            title   = prettify_field(text.pymarc.title())
+            author  = prettify_field(text.pymarc.author())
 
-            self.graph.node[nid]['title'] = label
+            self.graph.node[nid]['control_number'] = text.control_number
+            self.graph.node[nid]['title'] = title
+            self.graph.node[nid]['author'] = author
 
 
     def deduplicate(self):
@@ -148,10 +149,11 @@ class Network:
 
         seen = set()
 
-        for nid in bar(self.graph.nodes()):
+        for nid in bar(self.graph.nodes_iter(),
+                       expected_size=len(self.graph)):
 
             # Pop out the HLOM record.
-            text = HLOM_Record.get(HLOM_Record.id==nid)
+            text = HLOM_Record.get(HLOM_Record.id==float(nid))
 
             # If the node is a duplicate, remove it.
             if text.hash in seen: self.graph.remove_node(nid)
