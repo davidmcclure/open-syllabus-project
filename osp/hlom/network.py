@@ -175,68 +175,6 @@ class Network:
         self.graph = subgraphs[0]
 
 
-    # TODO|dev
-
-
-    def degree_centrality(self, depth):
-
-        """
-        Print title -> degree centrality.
-
-        Args:
-            depth (int): The number of texts to display.
-        """
-
-        dc = sort_dict(nx.degree_centrality(self.graph))
-
-        results = []
-        for nid, d in list(dc.items())[:depth]:
-            results.append((nid, self.graph.node[nid]['title'], d))
-
-        return results
-
-
-    def mlt(self, nid, cutoff=None):
-
-        """
-        Given a HLOM record ID, get the N "nearest" records.
-
-        Args:
-            nid (int): The ID of the source node.
-            cutoff (int): Depth to stop the search.
-        """
-
-        nearest = nx.single_source_dijkstra_path_length(
-            self.graph, nid, cutoff
-        )
-
-        results = []
-        for nid, d in sort_dict(nearest, False).items():
-            results.append((d, self.graph.node[nid]['title']))
-
-        return results
-
-
-    def neighbors(self, nid):
-
-        """
-        Given a HLOM record ID, get all neighboring nodes.
-
-        Args:
-            nid (int): The ID of the source node.
-        """
-
-        tids = self.graph.neighbors(nid)
-
-        results = []
-        for tid in tids:
-            edge = self.graph.edge[nid][tid]
-            node = self.graph.node[tid]
-            results.append((edge['weight'], node['title']))
-
-        return sorted(results, key=lambda x: x[0], reverse=True)
-
-
 class GephiNetwork(Network):
 
 
@@ -357,7 +295,21 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def render(self, path, scale=5, size=320000, font_size=14):
+    def get_xy(self, nid, scale, size):
+
+        """
+        Returns:
+            tuple: The X,Y position of the node.
+        """
+
+        pos = self.graph.node[nid]['viz']['position']
+        x =  (pos['x']*scale) + (size/2)
+        y = -(pos['y']*scale) + (size/2)
+
+        return (x, y)
+
+
+    def render(self, path, scale=5, size=10000, font_size=14):
 
         """
         Render a PNG from the node coordinates.
@@ -375,9 +327,8 @@ class GephiNetwork(Network):
         for id, n in bar(self.graph.nodes_iter(data=True),
                         expected_size=len(self.graph)):
 
-            # Flip the Y-axis to document-space.
-            x =  (n['viz']['position']['x']*scale) + (size/2)
-            y = -(n['viz']['position']['y']*scale) + (size/2)
+            # Get the X,Y coordinate.
+            x, y = self.get_xy(id, scale, size)
 
             # Get the scaled radius.
             r = (n['viz']['size']*scale) / 2
