@@ -175,6 +175,80 @@ class Network:
 class GephiNetwork(Network):
 
 
+    es_index = 'network'
+    es_doc_type = 'node'
+
+    es_mapping = {
+        '_id': {
+            'index': 'not_analyzed',
+            'store': True
+        },
+        'properties': {
+            'title': {
+                'type': 'string'
+            },
+            'author': {
+                'type': 'string'
+            },
+            'publisher': {
+                'type': 'string'
+            },
+            'pubyear': {
+                'type': 'string'
+            },
+            # TODO: X/Y
+        }
+    }
+
+
+    @classmethod
+    def es_create(cls):
+
+        """
+        Set the Elasticsearch mapping.
+        """
+
+        config.es.indices.create(cls.es_index, {
+            'mappings': { cls.es_doc_type: cls.es_mapping }
+        })
+
+
+    @classmethod
+    def es_delete(cls):
+
+        """
+        Delete the index.
+        """
+
+        if config.es.indices.exists(cls.es_index):
+            config.es.indices.delete(cls.es_index)
+
+
+    @classmethod
+    def es_count(cls):
+
+        """
+        Count the number of documents.
+
+        Returns:
+            int: The number of docs.
+        """
+
+        r = config.es.count(cls.es_index, cls.es_doc_type)
+        return r['count']
+
+
+    @classmethod
+    def es_reset(cls):
+
+        """
+        Clear and recreate the index.
+        """
+
+        cls.es_delete()
+        cls.es_create()
+
+
     def weights(self):
 
         """
