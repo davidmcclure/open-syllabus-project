@@ -313,29 +313,6 @@ class GephiNetwork(Network):
         return (x, y)
 
 
-    def position(self, scale, size):
-
-        """
-        Write (x,y) coordinates / radii onto the nodes.
-
-        Args:
-            scale (float): Pixels per coordinate unit.
-            size (int): The render height/width.
-        """
-
-        for cn, n in bar(self.graph.nodes_iter(data=True),
-                         expected_size=len(self.graph)):
-
-            # Write the X,Y coordinate.
-            x, y = self.get_xy(cn, scale, size)
-            self.graph.node[cn]['x'] = x
-            self.graph.node[cn]['y'] = y
-
-            # Write the node radius.
-            r = (n['viz']['size']*scale) / 2
-            self.graph.node[cn]['r'] = r
-
-
     def render(self, path, scale=5, size=10000, font_size=14):
 
         """
@@ -354,10 +331,16 @@ class GephiNetwork(Network):
         for cn, n in bar(self.graph.nodes_iter(data=True),
                          expected_size=len(self.graph)):
 
-            x = n['x']
-            y = n['y']
-            r = n['r']
+            # Get (x,y) / radius.
+            x, y = self.get_xy(cn, scale, size)
+            r = (n['viz']['size']*scale) / 2
 
+            # Index the coordinates.
+            self.graph.node[cn]['x'] = x
+            self.graph.node[cn]['y'] = y
+            self.graph.node[cn]['r'] = r
+
+            # Get the node label.
             label = ' '.join([
                 n.get('title', ''),
                 n.get('author', '')
