@@ -313,6 +313,29 @@ class GephiNetwork(Network):
         return (x, y)
 
 
+    def position(self, scale, size):
+
+        """
+        Write (x,y) coordinates / radii onto the nodes.
+
+        Args:
+            scale (float): Pixels per coordinate unit.
+            size (int): The render height/width.
+        """
+
+        for cn, n in bar(self.graph.nodes_iter(data=True),
+                         expected_size=len(self.graph)):
+
+            # Write the X,Y coordinate.
+            x, y = self.get_xy(cn, scale, size)
+            self.graph.node[cn]['x'] = x
+            self.graph.node[cn]['y'] = y
+
+            # Write the node radius.
+            r = (n['viz']['size']*scale) / 2
+            self.graph.node[cn]['r'] = r
+
+
     def render(self, path, scale=5, size=10000, font_size=14):
 
         """
@@ -329,36 +352,39 @@ class GephiNetwork(Network):
         image.font(config['network']['font'])
 
         for cn, n in bar(self.graph.nodes_iter(data=True),
-                        expected_size=len(self.graph)):
+                         expected_size=len(self.graph)):
 
-            # Get the X,Y coordinate.
-            x, y = self.get_xy(cn, scale, size)
+            x = n['x']
+            y = n['y']
+            r = n['r']
 
-            # Get the scaled radius.
-            r = (n['viz']['size']*scale) / 2
+            label = ' '.join([
+                n.get('title', ''),
+                n.get('author', '')
+            ])
 
             # Draw the node.
-            node = DrawableList()
-            node.append(DrawableFillColor('gray'))
-            node.append(DrawableStrokeColor('black'))
-            node.append(DrawableStrokeWidth(r/15))
-            node.append(DrawableFillOpacity(0.9))
-            node.append(DrawableCircle(x, y, x+r, y+r))
-            image.draw(node)
+            dl = DrawableList()
+            dl.append(DrawableFillColor('gray'))
+            dl.append(DrawableStrokeColor('black'))
+            dl.append(DrawableStrokeWidth(n['r']/15))
+            dl.append(DrawableFillOpacity(0.9))
+            dl.append(DrawableCircle(x, y, x+r, y+r))
+            image.draw(dl)
 
             # TODO: Compute from size.
             image.fontPointsize(font_size)
 
             # Measure the width of the label.
             tm = TypeMetric()
-            image.fontTypeMetrics(n['title'], tm)
+            image.fontTypeMetrics(label, tm)
             width = tm.textWidth()
 
             # Draw the label.
-            label = DrawableList()
-            label.append(DrawablePointSize(font_size))
-            label.append(DrawableFillColor('white'))
-            label.append(DrawableText(x-(width/2), y, n['title']))
-            image.draw(label)
+            dl = DrawableList()
+            dl.append(DrawablePointSize(font_size))
+            dl.append(DrawableFillColor('white'))
+            dl.append(DrawableText(x-(width/2), y, label))
+            image.draw(dl)
 
         image.write(os.path.abspath(path))
