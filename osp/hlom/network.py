@@ -13,6 +13,7 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
+from elasticsearch.helpers import bulk
 from functools import lru_cache
 
 from pgmagick import Image, Geometry, Color, TypeMetric, DrawableList, \
@@ -155,10 +156,10 @@ class Network:
             publisher   = prettify_field(text.pymarc.publisher())
             pubyear     = prettify_field(text.pymarc.pubyear())
 
-            self.graph.node[cn]['title']        = title
-            self.graph.node[cn]['author']       = author
-            self.graph.node[cn]['publisher']    = publisher
-            self.graph.node[cn]['pubyear']      = pubyear
+            self.graph.node[cn]['title']        = title or ''
+            self.graph.node[cn]['author']       = author or ''
+            self.graph.node[cn]['publisher']    = publisher or ''
+            self.graph.node[cn]['pubyear']      = pubyear or ''
 
 
     def trim_unconnected_components(self):
@@ -200,10 +201,7 @@ class GephiNetwork(Network):
             'pubyear': {
                 'type': 'string'
             },
-            'x': {
-                'type': 'geo_point'
-            },
-            'y': {
+            'location': {
                 'type': 'geo_point'
             }
         }
@@ -465,7 +463,20 @@ class GephiNetwork(Network):
         for cn, n in bar(self.graph.nodes_iter(data=True),
                          expected_size=len(self.graph)):
 
-            pass # TODO
+            yield {
+
+                '_id':          cn,
+                'title':        n['title'],
+                'author':       n['author'],
+                'publisher':    n['publisher'],
+                'pubyear':      n['pubyear'],
+
+                'location': {
+                    'lat': n['x'],
+                    'lon': n['y']
+                }
+
+            }
 
 
     def es_insert(self):
@@ -479,9 +490,9 @@ class GephiNetwork(Network):
             config.es,
             self.es_stream_docs(),
             raise_on_exception=False,
-            doc_type=cls.es_doc_type,
-            index=cls.es_index
+            doc_type=self.es_doc_type,
+            index=self.es_index
         )
 
         # Commit the index.
-        config.es.indices.flush(cls.es_index)
+        config.es.indices.flush(self.es_index)
