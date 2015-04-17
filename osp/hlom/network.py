@@ -150,11 +150,15 @@ class Network:
             text = HLOM_Record.get(HLOM_Record.control_number==cn)
 
             # Prettify the title / author.
-            title   = prettify_field(text.pymarc.title())
-            author  = prettify_field(text.pymarc.author())
+            title       = prettify_field(text.pymarc.title())
+            author      = prettify_field(text.pymarc.author())
+            publisher   = prettify_field(text.pymarc.publisher())
+            pubyear     = prettify_field(text.pymarc.pubyear())
 
-            self.graph.node[cn]['title'] = title
-            self.graph.node[cn]['author'] = author
+            self.graph.node[cn]['title']        = title
+            self.graph.node[cn]['author']       = author
+            self.graph.node[cn]['publisher']    = publisher
+            self.graph.node[cn]['pubyear']      = pubyear
 
 
     def trim_unconnected_components(self):
@@ -196,7 +200,12 @@ class GephiNetwork(Network):
             'pubyear': {
                 'type': 'string'
             },
-            # TODO: X/Y
+            'x': {
+                'type': 'geo_point'
+            },
+            'y': {
+                'type': 'geo_point'
+            }
         }
     }
 
@@ -445,3 +454,34 @@ class GephiNetwork(Network):
             image.draw(dl)
 
         image.write(os.path.abspath(path))
+
+
+    def es_stream_docs(self):
+
+        """
+        Generate Elasticsearch documents.
+        """
+
+        for cn, n in bar(self.graph.nodes_iter(data=True),
+                         expected_size=len(self.graph)):
+
+            pass # TODO
+
+
+    def es_insert(self):
+
+        """
+        Insert Elasticsearch documents.
+        """
+
+        # Batch-insert the documents.
+        bulk(
+            config.es,
+            self.es_stream_docs(),
+            raise_on_exception=False,
+            doc_type=cls.es_doc_type,
+            index=cls.es_index
+        )
+
+        # Commit the index.
+        config.es.indices.flush(cls.es_index)
