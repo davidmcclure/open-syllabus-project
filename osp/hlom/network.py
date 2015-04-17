@@ -65,7 +65,7 @@ class Network:
         nx.write_gexf(self.graph, path)
 
 
-    def add_edges(self, max_citations=20):
+    def add_edges(self, max_citations=50):
 
         """
         For each syllabus, register citation pairs as edges.
@@ -76,7 +76,7 @@ class Network:
 
         # Aggregate the CNs.
         texts = (
-            fn.array_agg(HLOM_Record.id)
+            fn.array_agg(HLOM_Record.control_number)
             .coerce(False)
             .alias('texts')
         )
@@ -92,14 +92,32 @@ class Network:
         )
 
         for row in query_bar(documents):
-            for id1, id2 in combinations(row.texts, 2):
+            for cn1, cn2 in combinations(row.texts, 2):
 
                 # If the edge exists, +1 the weight.
-                if self.graph.has_edge(id1, id2):
-                    self.graph[id1][id2]['weight'] += 1
+                if self.graph.has_edge(cn1, cn2):
+                    self.graph[cn1][cn2]['weight'] += 1
 
                 # Otherwise, initialize the edge.
-                else: self.graph.add_edge(id1, id2, weight=1)
+                else: self.graph.add_edge(cn1, cn2, weight=1)
+
+
+    def deduplicate(self):
+
+        """
+        Remove duplicate nodes.
+        """
+
+        seen = set()
+
+        for cn in bar(self.graph.nodes()):
+
+            # Pop out the HLOM record.
+            text = HLOM_Record.get(HLOM_Record.control_number==cn)
+
+            # If the node is a duplicate, remove it.
+            if text.hash in seen: self.graph.remove_node(cn)
+            else: seen.add(text.hash)
 
 
     def invert_edge_weights(self):
@@ -126,38 +144,17 @@ class Network:
         Hydrate node metadata.
         """
 
-        for nid in bar(self.graph.nodes_iter(),
-                       expected_size=len(self.graph)):
+        for cn in bar(self.graph.nodes()):
 
             # Pop out the HLOM record.
-            text = HLOM_Record.get(HLOM_Record.id==float(nid))
+            text = HLOM_Record.get(HLOM_Record.control_number==cn)
 
             # Prettify the title / author.
             title   = prettify_field(text.pymarc.title())
             author  = prettify_field(text.pymarc.author())
 
-            self.graph.node[nid]['control_number'] = text.control_number
-            self.graph.node[nid]['title'] = title
-            self.graph.node[nid]['author'] = author
-
-
-    def deduplicate(self):
-
-        """
-        Remove duplicate nodes.
-        """
-
-        seen = set()
-
-        for nid in bar(self.graph.nodes_iter(),
-                       expected_size=len(self.graph)):
-
-            # Pop out the HLOM record.
-            text = HLOM_Record.get(HLOM_Record.id==float(nid))
-
-            # If the node is a duplicate, remove it.
-            if text.hash in seen: self.graph.remove_node(nid)
-            else: seen.add(text.hash)
+            self.graph.node[cn]['title'] = title
+            self.graph.node[cn]['author'] = author
 
 
     def trim_unconnected_components(self):
@@ -185,8 +182,8 @@ class GephiNetwork(Network):
             float: The next edge weight.
         """
 
-        for e in self.graph.edges_iter(data=True):
-            yield e[2]['weight'] if 'weight' in e[2] else 1
+        for cn1, cn2, e in self.graph.edges_iter(data=True):
+            yield e['weight'] if 'weight' in e else 1
 
 
     def xs(self):
@@ -196,8 +193,8 @@ class GephiNetwork(Network):
             float: The next X-axis coordinate.
         """
 
-        for n in self.graph.nodes_iter(data=True):
-            yield n[1]['viz']['position']['x']
+        for cn, node in self.graph.nodes_iter(data=True):
+            yield node['viz']['position']['x']
 
 
     def ys(self):
@@ -207,8 +204,8 @@ class GephiNetwork(Network):
             float: The next Y-axis coordinate.
         """
 
-        for n in self.graph.nodes_iter(data=True):
-            yield n[1]['viz']['position']['y']
+        for cn, node in self.graph.nodes_iter(data=True):
+            yield node['viz']['position']['y']
 
 
     @property
@@ -295,14 +292,21 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def get_xy(self, nid, scale, size):
+    def get_xy(self, cn, scale, size):
 
         """
+        Get the X,Y position of a node.
+
+        Args:
+            cn (str): The text control number.
+            scale (float): Pixels per coordinate unit.
+            size (int): The render height/width.
+
         Returns:
-            tuple: The X,Y position of the node.
+            tuple: The (x, y) coordinate.
         """
 
-        pos = self.graph.node[nid]['viz']['position']
+        pos = self.graph.node[cn]['viz']['position']
         x =  (pos['x']*scale) + (size/2)
         y = -(pos['y']*scale) + (size/2)
 
@@ -324,11 +328,11 @@ class GephiNetwork(Network):
         image = Image(Geometry(size, size), Color('#11243a'))
         image.font(config['network']['font'])
 
-        for id, n in bar(self.graph.nodes_iter(data=True),
+        for cn, n in bar(self.graph.nodes_iter(data=True),
                         expected_size=len(self.graph)):
 
             # Get the X,Y coordinate.
-            x, y = self.get_xy(id, scale, size)
+            x, y = self.get_xy(cn, scale, size)
 
             # Get the scaled radius.
             r = (n['viz']['size']*scale) / 2
