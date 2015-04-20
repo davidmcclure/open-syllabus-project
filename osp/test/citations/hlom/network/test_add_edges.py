@@ -12,12 +12,12 @@ def test_add_edges(models, add_hlom, add_doc):
     Network#add_edges() should register edges from the citation table.
     """
 
-    t1 = add_hlom(title='title1', author='author1')
-    t2 = add_hlom(title='title2', author='author2')
-    t3 = add_hlom(title='title3', author='author3')
-    t4 = add_hlom(title='title4', author='author4')
-    t5 = add_hlom(title='title5', author='author5')
-    t6 = add_hlom(title='title6', author='author6')
+    t1 = add_hlom()
+    t2 = add_hlom()
+    t3 = add_hlom()
+    t4 = add_hlom()
+    t5 = add_hlom()
+    t6 = add_hlom()
 
     s1 = add_doc('syllabus1')
     s2 = add_doc('syllabus2')
@@ -44,11 +44,11 @@ def test_add_edges(models, add_hlom, add_doc):
     n = Network()
     n.add_edges()
 
-    assert n.graph.edge[t1.id][t2.id]['weight'] == 1
-    assert n.graph.edge[t2.id][t3.id]['weight'] == 2
-    assert n.graph.edge[t3.id][t4.id]['weight'] == 3
-    assert n.graph.edge[t4.id][t5.id]['weight'] == 2
-    assert n.graph.edge[t5.id][t6.id]['weight'] == 1
+    assert n.graph.edge[t1.control_number][t2.control_number]['weight'] == 1
+    assert n.graph.edge[t2.control_number][t3.control_number]['weight'] == 2
+    assert n.graph.edge[t3.control_number][t4.control_number]['weight'] == 3
+    assert n.graph.edge[t4.control_number][t5.control_number]['weight'] == 2
+    assert n.graph.edge[t5.control_number][t6.control_number]['weight'] == 1
 
 
 def test_max_citations(models, add_hlom, add_doc):
@@ -57,9 +57,9 @@ def test_max_citations(models, add_hlom, add_doc):
     Syllabi with more than `max_citations` should be ignored.
     """
 
-    t1 = add_hlom(title='title1', author='author1')
-    t2 = add_hlom(title='title2', author='author2')
-    t3 = add_hlom(title='title3', author='author3')
+    t1 = add_hlom()
+    t2 = add_hlom()
+    t3 = add_hlom()
 
     s1 = add_doc('syllabus1')
     s2 = add_doc('syllabus2')
@@ -77,5 +77,5 @@ def test_max_citations(models, add_hlom, add_doc):
     n.add_edges(2)
 
     # Just register citations from s1.
-    assert n.graph.edge[t1.id][t2.id]['weight'] == 1
+    assert n.graph.edge[t1.control_number][t2.control_number]['weight'] == 1
     assert nx.number_of_edges(n.graph) == 1
