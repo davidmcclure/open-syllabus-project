@@ -17,5 +17,4 @@
     - elasticsearch
     - redis
     - supervisor
-    - tika
     - nginx
