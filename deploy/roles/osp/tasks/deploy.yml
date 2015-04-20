@@ -23,11 +23,6 @@
   args:
     chdir: '{{ osp_src }}'
 
-- name: Ensure /tmp/data is empty
-  file:
-    path: /tmp/data
-    state: absent
-
 - name: Install the CLI suite
   command: env/bin/python3 setup.py develop
   args:
