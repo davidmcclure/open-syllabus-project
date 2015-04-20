@@ -1,3 +1,4 @@
 
 [program:osp-api]
 command={{ osp_src }}/env/bin/uwsgi --ini {{ osp_uwsgi_config }}/osp-api.ini
+autostart={{ supervisor_autostart }}
