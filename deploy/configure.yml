@@ -5,7 +5,6 @@
   hosts:
     - tag_osp_server
     - tag_osp_worker
-    - tag_osp_render
 
   vars_files:
     - vars/elasticsearch.yml

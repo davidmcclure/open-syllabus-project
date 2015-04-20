@@ -1,6 +1,6 @@
 ---
 
-- name: Deploy the OSP code
+- name: Deploy the OSP workers
   sudo: yes
   hosts:
     - tag_osp_server
@@ -10,4 +10,4 @@
     - vars/osp.yml
 
   roles:
-    - osp
+    - workers
