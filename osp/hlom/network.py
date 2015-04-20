@@ -203,6 +203,9 @@ class GephiNetwork(Network):
             },
             'location': {
                 'type': 'geo_point'
+            },
+            'degree': {
+                'type': 'integer'
             }
         }
     }
@@ -466,10 +469,11 @@ class GephiNetwork(Network):
             yield {
 
                 '_id':          cn,
-                'title':        n['title'],
-                'author':       n['author'],
-                'publisher':    n['publisher'],
-                'pubyear':      n['pubyear'],
+                'title':        n.get('title'),
+                'author':       n.get('author'),
+                'publisher':    n.get('publisher'),
+                'pubyear':      n.get('pubyear'),
+                'degree':       n.get('Degree'),
 
                 'location': {
                     'lat': n['x'],
