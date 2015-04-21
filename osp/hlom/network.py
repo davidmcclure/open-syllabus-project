@@ -522,4 +522,8 @@ class GephiNetwork(Network):
             w = self.graph.edge[anchor][cn].get('weight', 1)
             results.append({'node': n, 'weight': w})
 
-        return sorted(results, key=lambda x: x[1], reverse=True)
+        return sorted(
+            results,
+            key=lambda x: x['weight'],
+            reverse=True
+        )
