@@ -476,8 +476,8 @@ class GephiNetwork(Network):
                 'degree':       n.get('Degree'),
 
                 'location': {
-                    'lat': n['x'],
-                    'lon': n['y']
+                    'lon': n['x'],
+                    'lat': n['y']
                 }
 
             }
