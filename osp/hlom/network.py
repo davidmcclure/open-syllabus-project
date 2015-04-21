@@ -520,6 +520,6 @@ class GephiNetwork(Network):
         for cn in neighbors:
             n = self.graph.node[cn]
             w = self.graph.edge[anchor][cn].get('weight', 1)
-            results.append((n, w))
+            results.append({'node': n, 'weight': w})
 
         return sorted(results, key=lambda x: x[1], reverse=True)
