@@ -3,7 +3,6 @@
 osp_repo: https://github.com/overview/osp.git
 osp_branch: master
 osp_src: /home/{{ ansible_ssh_user }}/osp
-osp_uwsgi_config: /etc/uwsgi
 osp_numprocs: 4
 osp_data_host: localhost
 osp_init_db: yes
