@@ -500,3 +500,26 @@ class GephiNetwork(Network):
 
         # Commit the index.
         config.es.indices.flush(self.es_index)
+
+
+    def neighbors(self, anchor):
+
+        """
+        Get all adjacent nodes, sorted by co-occurrence count.
+
+        Args:
+            anchor (str): The anchor control number.
+
+        Returns:
+            list: Adjacent nodes.
+        """
+
+        neighbors = self.graph.neighbors(anchor)
+
+        results = []
+        for cn in neighbors:
+            n = self.graph.node[cn]
+            w = self.graph.edge[anchor][cn].get('weight', 1)
+            results.append((n, w))
+
+        return sorted(results, key=lambda x: x[1], reverse=True)
