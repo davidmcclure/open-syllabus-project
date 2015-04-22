@@ -304,6 +304,17 @@ class GephiNetwork(Network):
         config.es.indices.flush(self.es_index)
 
 
+    def pg_insert(self):
+
+        """
+        Insert Postgres nodes / edges.
+        """
+
+        # TODO
+        for cn, n in self.graph.nodes_iter(data=True):
+            print(cn, n)
+
+
     def weights(self):
 
         """

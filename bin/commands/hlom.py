@@ -7,6 +7,8 @@ import csv
 from osp.common.config import config
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.citations.hlom.models.node import HLOM_Node
+from osp.citations.hlom.models.edge import HLOM_Edge
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.jobs.query import query
 from peewee import create_model_tables
@@ -29,6 +31,8 @@ def init_db():
     create_model_tables([
         HLOM_Record,
         HLOM_Citation,
+        HLOM_Node,
+        HLOM_Edge,
     ], fail_silently=True)
 
 
