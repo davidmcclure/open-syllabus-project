@@ -10,6 +10,8 @@ from osp.common.utils import query_bar
 from osp.citations.hlom.utils import prettify_field, sort_dict
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.citations.hlom.models.node import HLOM_Node
+from osp.citations.hlom.models.edge import HLOM_Edge
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn
@@ -304,15 +306,17 @@ class GephiNetwork(Network):
         config.es.indices.flush(self.es_index)
 
 
-    def pg_insert(self):
+    def pg_insert_nodes(self):
 
         """
-        Insert Postgres nodes / edges.
+        Insert Postgres nodes.
         """
 
-        # TODO
-        for cn, n in self.graph.nodes_iter(data=True):
-            print(cn, n)
+        for cn, n in bar(self.graph.nodes_iter(data=True),
+                         expected_size=len(self.graph)):
+
+            # Insert the node.
+            HLOM_Node.create(control_number=cn, node=n)
 
 
     def weights(self):
