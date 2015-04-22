@@ -319,6 +319,28 @@ class GephiNetwork(Network):
             HLOM_Node.create(control_number=cn, node=n)
 
 
+    def pg_insert_edges(self):
+
+        """
+        Insert Postgres edges.
+        """
+
+        size = nx.number_of_edges(self.graph)
+
+        for cn1, cn2, e in bar(self.graph.edges_iter(data=True),
+                               expected_size=size):
+
+            # Pop out the nodes.
+            n1 = HLOM_Node.get(HLOM_Node.control_number==cn1)
+            n2 = HLOM_Node.get(HLOM_Node.control_number==cn2)
+
+            HLOM_Edge.create(
+                source=n1,
+                target=n2,
+                weight=e.get('weight', 1)
+            )
+
+
     def weights(self):
 
         """
@@ -327,7 +349,7 @@ class GephiNetwork(Network):
         """
 
         for cn1, cn2, e in self.graph.edges_iter(data=True):
-            yield e['weight'] if 'weight' in e else 1
+            yield e.get('weight', 1)
 
 
     def xs(self):
@@ -442,7 +464,6 @@ class GephiNetwork(Network):
         Get the X,Y position of a node.
 
         Args:
-            cn (str): The text control number.
             scale (float): Pixels per coordinate unit.
             size (int): The render height/width.
 
@@ -515,30 +536,3 @@ class GephiNetwork(Network):
             image.draw(dl)
 
         image.write(os.path.abspath(path))
-
-
-    def neighbors(self, anchor):
-
-        """
-        Get all adjacent nodes, sorted by co-occurrence count.
-
-        Args:
-            anchor (str): The anchor control number.
-
-        Returns:
-            list: Adjacent nodes.
-        """
-
-        neighbors = self.graph.neighbors(anchor)
-
-        results = []
-        for cn in neighbors:
-            n = self.graph.node[cn]
-            w = self.graph.edge[anchor][cn].get('weight', 1)
-            results.append({'node': n, 'weight': w})
-
-        return sorted(
-            results,
-            key=lambda x: x['weight'],
-            reverse=True
-        )
