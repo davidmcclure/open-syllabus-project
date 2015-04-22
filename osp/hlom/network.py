@@ -259,6 +259,51 @@ class GephiNetwork(Network):
         cls.es_create()
 
 
+    def es_stream_docs(self):
+
+        """
+        Generate Elasticsearch documents.
+        """
+
+        for cn, n in bar(self.graph.nodes_iter(data=True),
+                         expected_size=len(self.graph)):
+
+            yield {
+
+                '_id':          cn,
+                'title':        n.get('title'),
+                'author':       n.get('author'),
+                'publisher':    n.get('publisher'),
+                'pubyear':      n.get('pubyear'),
+                'degree':       n.get('Degree'),
+
+                'location': {
+                    'lon': n['x'],
+                    'lat': n['y']
+                }
+
+            }
+
+
+    def es_insert(self):
+
+        """
+        Insert Elasticsearch documents.
+        """
+
+        # Batch-insert the documents.
+        bulk(
+            config.es,
+            self.es_stream_docs(),
+            raise_on_exception=False,
+            doc_type=self.es_doc_type,
+            index=self.es_index
+        )
+
+        # Commit the index.
+        config.es.indices.flush(self.es_index)
+
+
     def weights(self):
 
         """
@@ -455,51 +500,6 @@ class GephiNetwork(Network):
             image.draw(dl)
 
         image.write(os.path.abspath(path))
-
-
-    def es_stream_docs(self):
-
-        """
-        Generate Elasticsearch documents.
-        """
-
-        for cn, n in bar(self.graph.nodes_iter(data=True),
-                         expected_size=len(self.graph)):
-
-            yield {
-
-                '_id':          cn,
-                'title':        n.get('title'),
-                'author':       n.get('author'),
-                'publisher':    n.get('publisher'),
-                'pubyear':      n.get('pubyear'),
-                'degree':       n.get('Degree'),
-
-                'location': {
-                    'lon': n['x'],
-                    'lat': n['y']
-                }
-
-            }
-
-
-    def es_insert(self):
-
-        """
-        Insert Elasticsearch documents.
-        """
-
-        # Batch-insert the documents.
-        bulk(
-            config.es,
-            self.es_stream_docs(),
-            raise_on_exception=False,
-            doc_type=self.es_doc_type,
-            index=self.es_index
-        )
-
-        # Commit the index.
-        config.es.indices.flush(self.es_index)
 
 
     def neighbors(self, anchor):
