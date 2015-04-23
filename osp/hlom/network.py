@@ -340,6 +340,12 @@ class GephiNetwork(Network):
                 weight=e.get('weight', 1)
             )
 
+            HLOM_Edge.create(
+                source=n2,
+                target=n1,
+                weight=e.get('weight', 1)
+            )
+
 
     def weights(self):
 
