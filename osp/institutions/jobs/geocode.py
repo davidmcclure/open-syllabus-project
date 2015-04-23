@@ -7,9 +7,6 @@ from osp.institutions.models.institution import Institution
 from geopy.geocoders import OpenMapQuest
 
 
-coder = OpenMapQuest(config['mapquest']['api_key'])
-
-
 def geocode(id):
 
     """
@@ -19,6 +16,7 @@ def geocode(id):
         id (int): The institution id.
     """
 
+    coder = OpenMapQuest(config['mapquest']['api_key'])
     inst = Institution.get(Institution.id==id)
 
     # Geocode.
