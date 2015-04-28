@@ -11,7 +11,7 @@ class HLOM_Edge(BaseModel):
 
     source = ForeignKeyField(HLOM_Node, related_name='sources')
     target = ForeignKeyField(HLOM_Node, related_name='targets')
-    weight = IntegerField()
+    weight = IntegerField(index=True)
 
 
     class Meta:
