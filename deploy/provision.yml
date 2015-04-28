@@ -30,6 +30,7 @@
         exact_count: '{{ ec2_server_count }}'
         instance_tags:
           Name: osp-server
+          Environment: osp-server
           osp: server
         count_tag:
           osp: server
@@ -50,6 +51,7 @@
         exact_count: '{{ ec2_worker_count }}'
         instance_tags:
           Name: osp-worker
+          Environment: osp-worker
           osp: worker
         count_tag:
           osp: worker
