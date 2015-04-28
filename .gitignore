@@ -1,9 +1,10 @@
 env
 .ipynb_checkpoints
 *.egg-info
+*.gexf
+*.json
 *.pyc
 *.gml
-*.gexf
 *.csv
 *.png
 *.jpg
