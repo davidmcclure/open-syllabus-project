@@ -485,7 +485,7 @@ class GephiNetwork(Network):
 
 
     def render(self, path, scale=5, width=10000, min_size=10, max_size=200,
-               min_fsize=14, max_fsize=200, bg_color='#11243a'):
+               min_fsize=14, max_fsize=200, bg_color='#003059'):
 
         """
         Render a PNG from the node coordinates.
@@ -516,14 +516,21 @@ class GephiNetwork(Network):
             self.graph.node[cn]['r'] = r
 
             # Get the node label.
-            label = ' '.join([
+            label = ', '.join([
                 n.get('title', ''),
                 n.get('author', '')
             ])
 
+            # Get the node color.
+            color = '#%02x%02x%02x' % (
+                n['viz']['color']['r'],
+                n['viz']['color']['g'],
+                n['viz']['color']['b']
+            )
+
             # Draw the node.
             dl = DrawableList()
-            dl.append(DrawableFillColor('gray'))
+            dl.append(DrawableFillColor(color))
             dl.append(DrawableStrokeColor('black'))
             dl.append(DrawableStrokeWidth(n['r']/15))
             dl.append(DrawableFillOpacity(0.9))
