@@ -485,7 +485,7 @@ class GephiNetwork(Network):
 
 
     def render(self, path, scale=5, width=10000, min_size=10, max_size=200,
-               min_fsize=14, max_fsize=50):
+               min_fsize=14, max_fsize=200, bg_color='#11243a'):
 
         """
         Render a PNG from the node coordinates.
@@ -500,7 +500,7 @@ class GephiNetwork(Network):
             max_fsize (int): The max font size.
         """
 
-        image = Image(Geometry(width, width), Color('#11243a'))
+        image = Image(Geometry(width, width), Color(bg_color))
         image.font(config['network']['font'])
 
         for cn, n in bar(self.graph.nodes_iter(data=True),
