@@ -484,7 +484,8 @@ class GephiNetwork(Network):
         return (x, y)
 
 
-    def render(self, path, scale=5, size=10000, font_size=14):
+    def render(self, path, scale=5, width=10000, min_size=10, max_size=200,
+               min_fsize=14, max_fsize=50):
 
         """
         Render a PNG from the node coordinates.
@@ -492,18 +493,21 @@ class GephiNetwork(Network):
         Args:
             path (str): The image path.
             scale (float): Pixels per coordinate unit.
-            size (int): The height/width.
-            font_size (int): The base font size.
+            width (int): The height/width.
+            min_size (int): The min node size.
+            max_size (int): The max node size.
+            min_fsize (int): The min font size.
+            max_fsize (int): The max font size.
         """
 
-        image = Image(Geometry(size, size), Color('#11243a'))
+        image = Image(Geometry(width, width), Color('#11243a'))
         image.font(config['network']['font'])
 
         for cn, n in bar(self.graph.nodes_iter(data=True),
                          expected_size=len(self.graph)):
 
             # Get (x,y) / radius.
-            x, y = self.get_xy(cn, scale, size)
+            x, y = self.get_xy(cn, scale, width)
             r = (n['viz']['size']*scale) / 2
 
             # Index the coordinates.
@@ -526,8 +530,10 @@ class GephiNetwork(Network):
             dl.append(DrawableCircle(x, y, x+r, y+r))
             image.draw(dl)
 
-            # TODO: Compute from size.
-            image.fontPointsize(font_size)
+            # Compute the font size.
+            ratio = (n['viz']['size']-min_size) / (max_size-min_size)
+            fsize = min_fsize + (ratio*(max_fsize-min_fsize))
+            image.fontPointsize(fsize)
 
             # Measure the width of the label.
             tm = TypeMetric()
@@ -536,7 +542,7 @@ class GephiNetwork(Network):
 
             # Draw the label.
             dl = DrawableList()
-            dl.append(DrawablePointSize(font_size))
+            dl.append(DrawablePointSize(fsize))
             dl.append(DrawableFillColor('white'))
             dl.append(DrawableText(x-(width/2), y, label))
             image.draw(dl)
