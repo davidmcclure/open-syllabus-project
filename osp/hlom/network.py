@@ -464,22 +464,22 @@ class GephiNetwork(Network):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def get_xy(self, cn, scale, size):
+    def get_xy(self, cn, scale, width):
 
         """
         Get the X,Y position of a node.
 
         Args:
             scale (float): Pixels per coordinate unit.
-            size (int): The render height/width.
+            width (int): The render height/width.
 
         Returns:
             tuple: The (x, y) coordinate.
         """
 
         pos = self.graph.node[cn]['viz']['position']
-        x =  (pos['x']*scale) + (size/2)
-        y = -(pos['y']*scale) + (size/2)
+        x =  (pos['x']*scale) + (width/2)
+        y = -(pos['y']*scale) + (width/2)
 
         return (x, y)
 
@@ -493,14 +493,17 @@ class GephiNetwork(Network):
         Args:
             path (str): The image path.
             scale (float): Pixels per coordinate unit.
-            width (int): The height/width.
+            width (int): The height/width, in pixels.
             min_size (int): The min node size.
             max_size (int): The max node size.
             min_fsize (int): The min font size.
             max_fsize (int): The max font size.
         """
 
+        # Initialize the canvas, set font.
         image = Image(Geometry(width, width), Color(bg_color))
+
+        # Set the label font.
         image.font(config['network']['font'])
 
         for cn, n in bar(self.graph.nodes_iter(data=True),
@@ -545,13 +548,13 @@ class GephiNetwork(Network):
             # Measure the width of the label.
             tm = TypeMetric()
             image.fontTypeMetrics(label, tm)
-            width = tm.textWidth()
+            tw = tm.textWidth()
 
             # Draw the label.
             dl = DrawableList()
             dl.append(DrawablePointSize(fsize))
             dl.append(DrawableFillColor('white'))
-            dl.append(DrawableText(x-(width/2), y, label))
+            dl.append(DrawableText(x-(tw/2), y, label))
             image.draw(dl)
 
         image.write(os.path.abspath(path))
