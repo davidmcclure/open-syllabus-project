@@ -18,6 +18,6 @@ def ext_text(doc_id):
     if doc.syllabus.text:
 
         return Document_Text.create(
-            text=doc.syllabus.unbroken_text,
+            text=doc.syllabus.text,
             document=doc
         )

@@ -16,15 +16,13 @@ def cli():
 
 
 @cli.command()
-@click.argument('out_path', type=click.Path())
+@click.argument('out_file', type=click.File('w'))
 @click.option('--frag_len', default=1500)
-def truncated(out_path, frag_len):
+def truncated(out_file, frag_len):
 
     """
     Write a CSV with truncated document texts.
     """
-
-    out_file = open(out_path, 'w')
 
     # CSV writer.
     cols = ['id', 'title', 'text']
@@ -50,15 +48,13 @@ def truncated(out_path, frag_len):
 
 
 @cli.command()
-@click.argument('out_path', type=click.Path())
+@click.argument('out_file', type=click.File('w'))
 @click.option('--n', default=10000)
-def random(out_path, n):
+def random(out_file, n):
 
     """
-    Write a CSV with truncated document texts.
+    Write a CSV with plaintext for N random docs.
     """
-
-    out_file = open(out_path, 'w')
 
     # CSV writer.
     cols = ['id', 'title', 'text']
@@ -80,3 +76,17 @@ def random(out_path, n):
             'title': row.path,
             'text': row.text
         })
+
+
+@cli.command()
+@click.argument('out_file', type=click.File('w'))
+@click.option('--n', default=10000)
+@click.option('--threshold', default=0.43)
+def syllabus_refinement(out_path, n, threshold):
+
+    """
+    Select the N documents around a given threshold in the
+    syllabus/not-syllabus classifier predictions.
+    """
+
+    pass
