@@ -20,6 +20,13 @@ postgres:
       user: osp
       password: {{ osp_password }}
 
+  remote:
+    args:
+      host: {{ osp_data_host }}
+      password: {{ osp_password }}
+    tables:
+      - document_text
+
 redis:
   host: localhost
   port: 6379
