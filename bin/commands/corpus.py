@@ -106,32 +106,3 @@ def random_paths(n):
 
     paths = list(Corpus.from_env().file_paths())
     click.echo(' '.join(random.sample(paths, n)))
-
-
-@cli.command()
-@click.argument('out_path', type=click.Path())
-@click.option('--frag_len', default=1500)
-@click.option('--page_len', default=10000)
-def truncated_csv(out_path, frag_len, page_len):
-
-    """
-    Write a CSV with truncated document texts.
-    """
-
-    out_file = open(out_path, 'w')
-
-    # CSV writer.
-    cols = ['id', 'title', 'text']
-    writer = csv.DictWriter(out_file, cols)
-    writer.writeheader()
-
-    for row in query_bar(Document_Text.select()):
-
-        # Truncate the text.
-        fragment = row.text[:frag_len]
-
-        writer.writerow({
-            'id': row.document,
-            'title': row.document,
-            'text': fragment
-        })
