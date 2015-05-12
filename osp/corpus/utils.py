@@ -64,7 +64,7 @@ def html_text(path, exclude=['script', 'style']):
     with open(path, 'rb') as fh:
 
         soup = BeautifulSoup(fh)
-        for script in soup(exclude):script.extract()
+        for script in soup(exclude): script.extract()
         return soup.get_text()
 
 
