@@ -50,7 +50,7 @@ def queue_geocode():
 
 
 @cli.command()
-@click.argument('out_file', type=click.Path('w'))
+@click.argument('out_file', type=click.File('w'))
 def write_csv(out_file):
 
     """
