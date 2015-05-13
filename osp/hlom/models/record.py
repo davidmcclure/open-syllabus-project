@@ -59,9 +59,9 @@ class HLOM_Record(BaseModel, Elasticsearch):
             'rank': {
                 'type': 'integer'
             },
-            'percent': {
+            'score': {
                 'type': 'float'
-            }
+            },
         }
     }
 
@@ -91,14 +91,14 @@ class HLOM_Record(BaseModel, Elasticsearch):
         """
 
         return {
-            '_id':          self.control_number,
-            'author':       prettify_field(self.pymarc.author()),
-            'title':        prettify_field(self.pymarc.title()),
-            'publisher':    prettify_field(self.pymarc.publisher()),
-            'pubyear':      prettify_field(self.pymarc.pubyear()),
-            'count':        self.metadata['citation_count'],
-            'rank':         self.metadata['teaching_rank'],
-            'percent':      self.metadata['teaching_percent']
+            '_id':              self.control_number,
+            'author':           prettify_field(self.pymarc.author()),
+            'title':            prettify_field(self.pymarc.title()),
+            'publisher':        prettify_field(self.pymarc.publisher()),
+            'pubyear':          prettify_field(self.pymarc.pubyear()),
+            'count':            self.metadata['citation_count'],
+            'rank':             self.metadata['rank'],
+            'score':            self.metadata['score'],
         }
 
 
@@ -275,24 +275,19 @@ class HLOM_Record(BaseModel, Elasticsearch):
         # Get record -> count tuples.
         records = list(cls.select_cited())
 
-        # Get min/max ranks.
+        # Get citation counts and ranks.
         counts = [r.metadata['citation_count'] for r in records]
-        max_ranks = rankdata(counts, 'max')
-        min_ranks = rankdata(counts, 'min')
+        ranks = rankdata(counts, 'max')
 
         # Rank in ascending order.
-        max_ranks = max_ranks.max()+1 - max_ranks
-        min_ranks = min_ranks.max()+1 - min_ranks
-        log_count = np.log(len(records))
+        ranks = ranks.max()+1 - ranks
+        log_max = np.log(max(counts))
 
         for i, record in enumerate(bar(records)):
 
-            max_rank = int(max_ranks[i])
-            min_rank = int(min_ranks[i])
+            # Compute the 1-10 score.
+            score = (np.log(counts[i])/log_max)*10
 
-            # Get the log ratio of the rank.
-            percent = ((log_count-np.log(min_rank))/log_count)*100
-
-            record.metadata['teaching_rank'] = max_rank
-            record.metadata['teaching_percent'] = percent
+            record.metadata['score'] = score
+            record.metadata['rank'] = int(ranks[i])
             record.save()
