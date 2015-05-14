@@ -1,11 +1,12 @@
 
 
 from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.citations.hlom.models.record import HLOM_Record
 from osp.locations.models.doc_inst import Document_Institution
 from peewee import fn
 
 
-def rank(iid):
+def ranks(iid, limit=500):
 
     """
     Get text rankings for an institution.
@@ -25,14 +26,31 @@ def rank(iid):
     count = fn.Count(HLOM_Citation.id)
 
     texts = (
-        HLOM_Citation
-        .select(HLOM_Citation.record, count.alias('count'))
+
+        HLOM_Record
+        .select(HLOM_Record, count)
+
+        # Coalesce duplicates.
+        .distinct([
+            HLOM_Record.metadata['deduping_hash'],
+            count
+        ])
+        .group_by(HLOM_Record.id)
+        .order_by(
+            HLOM_Record.metadata['deduping_hash'],
+            HLOM_Record.id
+        )
+
+        .join(HLOM_Citation)
         .where(HLOM_Citation.document << doc_ids)
-        .group_by(HLOM_Citation.record)
-        .distinct(HLOM_Citation.record)
         .order_by(count.desc())
-        .limit(100)
+        .limit(limit)
+
     )
 
     for t in texts.naive():
-        print(t.count, t.record.pymarc.title())
+        print(
+            t.count,
+            t.pymarc.title(),
+            t.pymarc.author()
+        )
