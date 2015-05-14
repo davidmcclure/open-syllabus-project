@@ -35,12 +35,12 @@ def ranks(iid, limit=500):
             HLOM_Record.metadata['deduping_hash'],
             count
         ])
-        .group_by(HLOM_Record.id)
         .order_by(
             HLOM_Record.metadata['deduping_hash'],
             HLOM_Record.id
         )
 
+        .group_by(HLOM_Record.id)
         .join(HLOM_Citation)
         .where(HLOM_Citation.document << doc_ids)
         .order_by(count.desc())

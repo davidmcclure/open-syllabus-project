@@ -4,9 +4,10 @@ import numpy as np
 
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
+from .utils import score
 
 
-def test_es_index(models, config, add_hlom, add_doc, hlom_index):
+def test_es_insert(models, config, add_hlom, add_doc, hlom_index):
 
     """
     HLOMIndex.index() should index cited records in Elasticsearch.
@@ -66,12 +67,9 @@ def test_es_index(models, config, add_hlom, add_doc, hlom_index):
     assert doc1['_source']['pubyear']   == 'pubyear1'
     assert doc1['_source']['count']     == 1
     assert doc1['_source']['rank']      == 3
-    assert doc1['_source']['percent']   == 0
+    assert doc1['_source']['score']     == score(1, 3)
 
     doc2 = config.es.get('hlom', r2.control_number)
-
-    # Get the middle-document percentile.
-    pct = ((np.log(3)-np.log(2))/np.log(3))*100
 
     assert doc2['_source']['author']    == 'author2'
     assert doc2['_source']['title']     == 'title2'
@@ -79,7 +77,7 @@ def test_es_index(models, config, add_hlom, add_doc, hlom_index):
     assert doc2['_source']['pubyear']   == 'pubyear2'
     assert doc2['_source']['count']     == 2
     assert doc2['_source']['rank']      == 2
-    assert doc2['_source']['percent']   == pct
+    assert doc2['_source']['score']     == score(2, 3)
 
     doc3 = config.es.get('hlom', r3.control_number)
 
@@ -89,4 +87,4 @@ def test_es_index(models, config, add_hlom, add_doc, hlom_index):
     assert doc3['_source']['pubyear']   == 'pubyear3'
     assert doc3['_source']['count']     == 3
     assert doc3['_source']['rank']      == 1
-    assert doc3['_source']['percent']   == 100
+    assert doc3['_source']['score']     == score(3, 3)

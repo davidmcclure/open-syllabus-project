@@ -4,6 +4,7 @@ import numpy as np
 
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
+from .utils import score
 
 
 def test_write_metrics(models, add_hlom, add_doc):
@@ -42,12 +43,10 @@ def test_write_metrics(models, add_hlom, add_doc):
     r2 = HLOM_Record.reload(r2)
     r3 = HLOM_Record.reload(r3)
 
-    assert r3.metadata['teaching_rank'] == 1
-    assert r2.metadata['teaching_rank'] == 2
-    assert r1.metadata['teaching_rank'] == 3
+    assert r3.metadata['rank'] == 1
+    assert r2.metadata['rank'] == 2
+    assert r1.metadata['rank'] == 3
 
-    pct = ((np.log(3)-np.log(2))/np.log(3))*100
-
-    assert r3.metadata['teaching_percent'] == 100
-    assert r2.metadata['teaching_percent'] == pct
-    assert r1.metadata['teaching_percent'] == 0
+    assert r3.metadata['score'] == score(3, 3)
+    assert r2.metadata['score'] == score(2, 3)
+    assert r1.metadata['score'] == score(1, 3)

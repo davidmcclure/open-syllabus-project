@@ -8,21 +8,21 @@ from osp.common.config import config
 from osp.corpus.utils import int_to_dir
 
 
-def segment_range(*args):
+def tika_is_online():
 
     """
-    Generate a range of segment names.
+    Is the Tika server available?
 
-    Args:
-        s1 (int): The first segment.
-        s2 (int): The last segment.
-
-    Yields:
-        str: The next segment name.
+    Returns:
+        bool: True if Tika is reachable.
     """
 
-    for i in range(*args):
-        yield int_to_dir(i)
+    try:
+        r = requests.get(config['tika']['server'])
+        return r.status_code == 200
+
+    except requests.exceptions.ConnectionError:
+        return False
 
 
 def sha1(value):
@@ -39,21 +39,21 @@ def sha1(value):
     return sha1.hexdigest()
 
 
-def tika_is_online():
+def segment_range(*args):
 
     """
-    Is the Tika server available?
+    Generate a range of segment names.
 
-    Returns:
-        bool: True if Tika is reachable.
+    Args:
+        s1 (int): The first segment.
+        s2 (int): The last segment.
+
+    Yields:
+        str: The next segment name.
     """
 
-    try:
-        r = requests.get(config['tika']['server'])
-        return r.status_code == 200
-
-    except requests.exceptions.ConnectionError:
-        return False
+    for i in range(*args):
+        yield int_to_dir(i)
 
 
 requires_tika = pytest.mark.skipif(
