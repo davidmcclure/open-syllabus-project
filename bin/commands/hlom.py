@@ -59,14 +59,12 @@ def queue_queries():
 
 
 @cli.command()
-@click.argument('out_path', type=click.Path())
-def csv_text_counts(out_path):
+@click.argument('out_file', type=click.File('w'))
+def csv_text_counts(out_file):
 
     """
     Write a CSV with text -> assignment count.
     """
-
-    out_file = open(out_path, 'w')
 
     # CSV writer.
     cols = ['id', 'title', 'author', 'count']
