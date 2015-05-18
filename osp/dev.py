@@ -85,13 +85,13 @@ def state_ranks(state, limit=500):
         ))
         .join(Institution)
 
-        .where(Institution.metadata.contains({
-            'Institution_State': state
-        }))
+        .where(Institution.metadata['Institution_State']==state)
 
         .order_by(count.desc())
 
     )
+
+    print(texts.sql())
 
     for t in texts.limit(limit).naive():
         print(
