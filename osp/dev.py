@@ -16,14 +16,6 @@ def institution_ranks(iid, limit=500):
         iid (int): The institution id.
     """
 
-    docs = (
-        Document_Institution
-        .select()
-        .where(Document_Institution.institution==iid)
-    )
-
-    doc_ids = [d._data['document'] for d in docs]
-
     count = fn.Count(HLOM_Citation.id)
 
     texts = (
@@ -48,6 +40,55 @@ def institution_ranks(iid, limit=500):
         ))
 
         .where(Document_Institution.institution==iid)
+        .order_by(count.desc())
+
+    )
+
+    for t in texts.limit(limit).naive():
+        print(
+            t.count,
+            t.pymarc.title(),
+            t.pymarc.author()
+        )
+
+
+def state_ranks(state, limit=500):
+
+    """
+    Get text rankings for a state.
+
+    Args:
+        state (str): The state abbreviation.
+    """
+
+    count = fn.Count(HLOM_Citation.id)
+
+    texts = (
+
+        HLOM_Record
+        .select(HLOM_Record, count)
+        .group_by(HLOM_Record.id)
+
+        # Coalesce duplicates.
+        .distinct([
+            HLOM_Record.metadata['deduping_hash'],
+            count
+        ])
+        .order_by(
+            HLOM_Record.metadata['deduping_hash'],
+            HLOM_Record.id
+        )
+
+        .join(HLOM_Citation)
+        .join(Document_Institution, on=(
+            HLOM_Citation.document==Document_Institution.document
+        ))
+        .join(Institution)
+
+        .where(Institution.metadata.contains({
+            'Institution_State': state
+        }))
+
         .order_by(count.desc())
 
     )
