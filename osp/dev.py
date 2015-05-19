@@ -80,7 +80,12 @@ def state_ranks(state, limit=500):
         )
 
         .join(HLOM_Citation)
-        .where(HLOM_Citation.state==state)
+        .join(Document_Institution, on=(
+            HLOM_Citation.document==Document_Institution.document
+        ))
+        .join(Institution)
+
+        .where(Institution.metadata['Institution_State']==state)
 
         .order_by(count.desc())
 
