@@ -16,7 +16,7 @@ class HLOM_Citation(BaseModel):
 
     document = ForeignKeyField(Document)
     record = ForeignKeyField(HLOM_Record)
-    state = CharField()
+    state = CharField(max_length=2, null=True)
 
 
     class Meta:
