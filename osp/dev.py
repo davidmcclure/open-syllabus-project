@@ -91,8 +91,6 @@ def state_ranks(state, limit=500):
 
     )
 
-    print(texts.sql())
-
     for t in texts.limit(limit).naive():
         print(
             t.count,

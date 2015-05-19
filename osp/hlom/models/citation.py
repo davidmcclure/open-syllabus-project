@@ -12,6 +12,7 @@ class HLOM_Citation(BaseModel):
 
     document = ForeignKeyField(Document)
     record = ForeignKeyField(HLOM_Record)
+    metadata = BinaryJSONField(default={})
 
 
     class Meta:
