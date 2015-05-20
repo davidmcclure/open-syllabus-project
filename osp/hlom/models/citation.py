@@ -16,7 +16,10 @@ class HLOM_Citation(BaseModel):
 
     document = ForeignKeyField(Document)
     record = ForeignKeyField(HLOM_Record)
-    state = CharField(max_length=2, null=True)
+
+    # Ranking metadata:
+    state = CharField(max_length=2, index=True, null=True)
+    institution = ForeignKeyField(Institution, null=True)
 
 
     class Meta:
@@ -50,18 +53,23 @@ class HLOM_Citation(BaseModel):
         """
 
         states = (
+
             cls
             .select(cls.id, Institution.metadata)
+
+            # Join institutions.
             .join(Document_Institution, on=(
                 HLOM_Citation.document==Document_Institution.document
             ))
             .join(Institution)
+
         )
 
         size = states.count()
 
         for s in bar(states.naive(), expected_size=size):
 
+            # Denormalize the states.
             query = (
                 HLOM_Citation
                 .update(state=s.metadata['Institution_State'])
