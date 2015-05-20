@@ -46,13 +46,13 @@ class HLOM_Citation(BaseModel):
 
 
     @classmethod
-    def index_state(cls):
+    def index_states(cls):
 
         """
         Index document states.
         """
 
-        states = (
+        query = (
 
             cls
             .select(cls.id, Institution.metadata)
@@ -65,14 +65,46 @@ class HLOM_Citation(BaseModel):
 
         )
 
-        size = states.count()
-
-        for s in bar(states.naive(), expected_size=size):
+        size = query.count()
+        for s in bar(query.naive(), expected_size=size):
 
             # Denormalize the states.
             query = (
                 HLOM_Citation
                 .update(state=s.metadata['Institution_State'])
+                .where(HLOM_Citation.id==s.id)
+            )
+
+            query.execute()
+
+
+    @classmethod
+    def index_institutions(cls):
+
+        """
+        Index document institutions.
+        """
+
+        query = (
+
+            cls
+            .select(cls.id, Institution.id.alias('iid'))
+
+            # Join institutions.
+            .join(Document_Institution, on=(
+                HLOM_Citation.document==Document_Institution.document
+            ))
+            .join(Institution)
+
+        )
+
+        size = query.count()
+        for s in bar(query.naive(), expected_size=size):
+
+            # Denormalize the states.
+            query = (
+                HLOM_Citation
+                .update(institution=s.iid)
                 .where(HLOM_Citation.id==s.id)
             )
 
