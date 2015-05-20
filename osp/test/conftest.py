@@ -55,9 +55,6 @@ def mock_osp(config):
     Provide a MockOSP instance, and automatically point the configuration
     object at the path of the mock corpus.
 
-    Args:
-        config (Config)
-
     Yields:
         MockOSP
     """
@@ -81,9 +78,6 @@ def mock_hlom(config):
     """
     Provide a MockHLOM instance, and automatically point the configuration
     object at the path of the mock corpus.
-
-    Args:
-        config (Config)
 
     Yields:
         MockHLOM
