@@ -1,10 +1,9 @@
 
 
 from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.jobs.query import query
 
 
-def test_text_counts(corpus_index, add_hlom, add_doc):
+def test_text_counts(add_hlom, add_doc):
 
     """
     HLOM_Citation.text_counts() should return a set of (HLOM_Record -> count)

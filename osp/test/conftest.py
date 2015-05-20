@@ -11,8 +11,9 @@ from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
 from osp.dates.models.archive_url import Document_Date_Archive_Url
-from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from osp.dates.models.semester import Document_Date_Semester
+from osp.dates.models.file_metadata import Document_Date_File_Metadata
+from osp.institutions.models.institution import Institution
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.models.citation import HLOM_Citation
 
@@ -118,6 +119,7 @@ def models(config):
         Document_Date_Archive_Url,
         Document_Date_Semester,
         Document_Date_File_Metadata,
+        Institution,
         HLOM_Record,
         HLOM_Citation,
     ]
