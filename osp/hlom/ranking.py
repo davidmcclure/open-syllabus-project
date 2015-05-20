@@ -4,10 +4,10 @@ from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
 from osp.institutions.models.institution import Institution
-from peewee import fn
+from peewee import fn, SelectQuery
 
 
-class Ranking:
+class Ranking(SelectQuery):
 
 
     def __init__(self):
@@ -16,22 +16,20 @@ class Ranking:
         Initialize the un-filtered query.
         """
 
+        super().__init__(self, HLOM_Record_Cited)
+
+        # Select record, count.
         count = fn.Count(HLOM_Citation.id)
+        self.select(HLOM_Record_Cited, count)
 
-        self.query = (
+        # Join citations.
+        self.join(HLOM_Citation, on=(
+            HLOM_Record_Cited.id==HLOM_Citation.record
+        ))
 
-            HLOM_Record_Cited
-            .select(HLOM_Record_Cited, count)
-
-            # Join citations.
-            .join(HLOM_Citation, on=(
-                HLOM_Record_Cited.id==HLOM_Citation.record
-            ))
-
-            .group_by(HLOM_Record_Cited.id)
-            .order_by(count.desc())
-
-        )
+        # Order by count.
+        self.group_by(HLOM_Record_Cited.id)
+        self.order_by(count.desc())
 
 
     def filter_institution(self, iid):
