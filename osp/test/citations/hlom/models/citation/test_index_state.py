@@ -41,22 +41,3 @@ def test_index_state(add_hlom, add_doc):
     assert c1.state == 'AL'
     assert c2.state == 'CT'
     assert c3.state == 'CA'
-
-
-def test_no_institution(add_hlom, add_doc):
-
-    """
-    When the citation is associated with a document that hasn't been paired
-    with an institution, do nothing.
-    """
-
-    t = add_hlom()
-    s = add_doc('syllabus1')
-    c = HLOM_Citation.create(document=s, record=t)
-
-    # No document->institution link.
-
-    HLOM_Citation.index_state()
-
-    c = HLOM_Citation.reload(c)
-    assert c.state == None
