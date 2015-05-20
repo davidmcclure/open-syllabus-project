@@ -1,7 +1,7 @@
 
 
 from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
 from osp.institutions.models.institution import Institution
 from peewee import fn
@@ -13,10 +13,25 @@ class Ranking:
     def __init__(self):
 
         """
-        Initialize the list of document id sets.
+        Initialize the un-filtered query.
         """
 
-        self.doc_ids = []
+        count = fn.Count(HLOM_Citation.id)
+
+        self.query = (
+
+            HLOM_Record_Cited
+            .select(HLOM_Record_Cited, count)
+
+            # Join citations.
+            .join(HLOM_Citation, on=(
+                HLOM_Record_Cited.id==HLOM_Citation.record
+            ))
+
+            .group_by(HLOM_Record_Cited.id)
+            .order_by(count.desc())
+
+        )
 
 
     def filter_institution(self, iid):
@@ -28,14 +43,7 @@ class Ranking:
             iid (int): The institution id.
         """
 
-        docs = (
-            Document_Institution
-            .select()
-            .where(Document_Institution.institution==iid)
-        )
-
-        ids = set([d._data['document'] for d in docs])
-        self.doc_ids.append(ids)
+        pass
 
 
     def filter_state(self, state):
@@ -47,56 +55,16 @@ class Ranking:
             state (str): The state abbreviation.
         """
 
-        institutions = (
-            Institution
-            .select()
-            .where(Institution.metadata.contains({
-                'Institution_State': state
-            }))
-        )
-
-        inst_ids = [i.id for i in institutions]
-
-        docs = (
-            Document_Institution
-            .select()
-            .where(Document_Institution.institution << inst_ids)
-        )
-
-        ids = set([d._data['document'] for d in docs])
-        self.doc_ids.append(ids)
+        pass
 
 
     def rank(self):
 
         """
-        Intersect the selected documents, pull the rankings.
+        Pull the rankings.
 
         Returns:
-            peewee.SelectQuery: An un-limited HLOM record query.
+            peewee.SelectQuery
         """
 
-        doc_ids = list(set.intersection(*self.doc_ids))
-        count = fn.Count(HLOM_Citation.id)
-
-        return (
-
-            HLOM_Record
-            .select(HLOM_Record, count)
-
-            # Coalesce duplicates.
-            .distinct([
-                HLOM_Record.metadata['deduping_hash'],
-                count
-            ])
-            .order_by(
-                HLOM_Record.metadata['deduping_hash'],
-                HLOM_Record.id
-            )
-
-            .group_by(HLOM_Record.id)
-            .join(HLOM_Citation)
-            .where(HLOM_Citation.document << doc_ids)
-            .order_by(count.desc())
-
-        )
+        pass
