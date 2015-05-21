@@ -39,7 +39,7 @@ def test_insert_records(models, mock_hlom):
         )
 
         # Should store the record body.
-        assert row.pymarc.as_marc() == marc.as_marc()
+        assert row.marc.as_marc() == marc.as_marc()
 
 
 def test_require_title_and_author(models, mock_hlom):

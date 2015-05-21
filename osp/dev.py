@@ -12,8 +12,8 @@ def print_rank(query):
             t['rank'],
             round(t['score'], 2),
             t['record'].count,
-            t['record'].pymarc.title(),
-            t['record'].pymarc.author()
+            t['record'].marc.title(),
+            t['record'].marc.author()
         )
 
 

@@ -82,8 +82,8 @@ def csv_text_counts(out_file):
 
         writer.writerow({
             'id':       c.record.id,
-            'title':    c.record.pymarc.title(),
-            'author':   c.record.pymarc.author(),
+            'title':    c.record.marc.title(),
+            'author':   c.record.marc.author(),
             'count':    c.count
         })
 

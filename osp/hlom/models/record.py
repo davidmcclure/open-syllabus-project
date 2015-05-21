@@ -12,7 +12,7 @@ from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
-from pymarc import Record
+from osp.citations.hlom.marc import MARC
 from scipy.stats import rankdata
 from clint.textui.progress import bar
 from playhouse.postgres_ext import *
@@ -92,10 +92,10 @@ class HLOM_Record(BaseModel, Elasticsearch):
 
         return {
             '_id':              self.control_number,
-            'author':           prettify_field(self.pymarc.author()),
-            'title':            prettify_field(self.pymarc.title()),
-            'publisher':        prettify_field(self.pymarc.publisher()),
-            'pubyear':          prettify_field(self.pymarc.pubyear()),
+            'author':           prettify_field(self.marc.author()),
+            'title':            prettify_field(self.marc.title()),
+            'publisher':        prettify_field(self.marc.publisher()),
+            'pubyear':          prettify_field(self.marc.pubyear()),
             'count':            self.metadata['citation_count'],
             'rank':             self.metadata['rank'],
             'score':            self.metadata['score'],
@@ -137,16 +137,16 @@ class HLOM_Record(BaseModel, Elasticsearch):
 
 
     @property
-    def pymarc(self):
+    def marc(self):
 
         """
-        Wrap the raw record blob as a Pymarc record instance.
+        Wrap the MARC blob as a Pymarc instance.
 
         Returns:
             pymarc.Record
         """
 
-        return Record(
+        return MARC(
             data=bytes(self.record),
             ascii_handling='ignore',
             utf8_handling='ignore'
@@ -166,8 +166,8 @@ class HLOM_Record(BaseModel, Elasticsearch):
 
         # Get "[title] [author]".
         text = ' '.join([
-            self.pymarc.title(),
-            self.pymarc.author()
+            self.marc.title(),
+            self.marc.author()
         ])
 
         # Lowercase, tokenize, sort tokens.
@@ -193,8 +193,8 @@ class HLOM_Record(BaseModel, Elasticsearch):
         """
 
         return sanitize_query(' '.join([
-            self.pymarc.title(),
-            self.pymarc.author()
+            self.marc.title(),
+            self.marc.author()
         ]))
 
 

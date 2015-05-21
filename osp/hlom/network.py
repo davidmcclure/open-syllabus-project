@@ -153,10 +153,10 @@ class Network:
             text = HLOM_Record.get(HLOM_Record.control_number==cn)
 
             # Prettify the title / author.
-            title       = prettify_field(text.pymarc.title())
-            author      = prettify_field(text.pymarc.author())
-            publisher   = prettify_field(text.pymarc.publisher())
-            pubyear     = prettify_field(text.pymarc.pubyear())
+            title       = prettify_field(text.marc.title())
+            author      = prettify_field(text.marc.author())
+            publisher   = prettify_field(text.marc.publisher())
+            pubyear     = prettify_field(text.marc.pubyear())
 
             self.graph.node[cn]['title']        = title or ''
             self.graph.node[cn]['author']       = author or ''
