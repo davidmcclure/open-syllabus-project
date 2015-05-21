@@ -3,22 +3,31 @@
 from osp.citations.hlom.ranking import Ranking
 
 
+r = Ranking()
+
+
 def print_rank(query):
     for t in query:
-        print(t.count, t.pymarc.title(), t.pymarc.author())
+        print(
+            t['rank'],
+            round(t['score'], 2),
+            t['record'].count,
+            t['record'].pymarc.title(),
+            t['record'].pymarc.author()
+        )
 
 
-def all_ranks(limit=100):
+def all_ranks(page_num=1, page_len=100):
 
     """
     Get unfiltered rankings.
     """
 
-    r = Ranking()
-    print_rank(r.rank(1, limit))
+    r.reset()
+    print_rank(r.rank(page_num, page_len))
 
 
-def institution_ranks(iid, limit=100):
+def institution_ranks(iid, page_num=1, page_len=100):
 
     """
     Get text rankings for an institution.
@@ -27,12 +36,12 @@ def institution_ranks(iid, limit=100):
         iid (int): The institution id.
     """
 
-    r = Ranking()
+    r.reset()
     r.filter_institution(iid)
-    print_rank(r.rank(1, limit))
+    print_rank(r.rank(page_num, page_len))
 
 
-def state_ranks(state, limit=100):
+def state_ranks(state, page_num=1, page_len=100):
 
     """
     Get text rankings for a state.
@@ -41,6 +50,6 @@ def state_ranks(state, limit=100):
         state (str): The state abbreviation.
     """
 
-    r = Ranking()
+    r.reset()
     r.filter_state(state)
-    print_rank(r.rank(1, limit))
+    print_rank(r.rank(page_num, page_len))

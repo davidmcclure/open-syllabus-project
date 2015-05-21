@@ -1,5 +1,7 @@
 
 
+import numpy as np
+
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
@@ -13,7 +15,17 @@ class Ranking:
     def __init__(self):
 
         """
-        Initialize the un-filtered query.
+        Cache the max citation log.
+        """
+
+        self.reset()
+        self.log_max = np.log(self._query.first().count)
+
+
+    def reset(self):
+
+        """
+        Initialize the un-filtered query, cache the max count log.
         """
 
         count = fn.Count(HLOM_Citation.id)
@@ -64,37 +76,10 @@ class Ranking:
         )
 
 
-    def filter_extent(self, x1, y1, x2, y2):
-
-        """
-        Filter by bounding box.
-
-        Args:
-            x1 (int)
-            y1 (int)
-            x2 (int)
-            y2 (int)
-        """
-
-        pass # TODO
-
-
-    def filter_query(self, query):
-
-        """
-        Filter by open text query.
-
-        Args:
-            query (str): The search query.
-        """
-
-        pass # TODO
-
-
     def rank(self, page_num=1, page_len=100):
 
         """
-        Pull the rankings.
+        Pull the rankings, compute scores.
 
         Args:
             page_num (int): The (1-indexed) page number.
@@ -104,8 +89,25 @@ class Ranking:
             peewee.SelectQuery
         """
 
-        return (
+        query = (
             self._query
             .paginate(page_num, page_len)
             .naive()
         )
+
+        ranks = []
+        for i, row in enumerate(query):
+
+            # Overall rank.
+            rank = (page_len*(page_num-1))+i+1
+
+            # 1-10 teaching score.
+            score = (np.log(row.count)/self.log_max)*10
+
+            ranks.append({
+                'score': score,
+                'rank': rank,
+                'record': row
+            })
+
+        return ranks
