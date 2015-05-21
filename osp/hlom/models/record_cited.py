@@ -39,31 +39,3 @@ class HLOM_Record_Cited(HLOM_Record):
 
         for c in cited:
             cls.create(**c._data)
-
-
-    @classmethod
-    def rank(cls):
-
-        """
-        Initialize a ranking query.
-
-        Returns:
-            peewee.SelectQuery
-        """
-
-        count = fn.Count(HLOM_Citation.id)
-
-        return (
-
-            cls.select(cls, count)
-
-            # Join citations.
-            .join(HLOM_Citation, on=(
-                cls.id==HLOM_Citation.record
-            ))
-
-            .group_by(cls.id)
-            .order_by(count.desc())
-            .naive()
-
-        )

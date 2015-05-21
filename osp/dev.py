@@ -1,7 +1,6 @@
 
 
-from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
-from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.citations.hlom.ranking import Ranking
 
 
 def print_rank(query):
@@ -9,21 +8,17 @@ def print_rank(query):
         print(t.count, t.pymarc.title(), t.pymarc.author())
 
 
-def all_ranks(page_num=1, page_len=100):
+def all_ranks(limit=100):
 
     """
     Get unfiltered rankings.
     """
 
-    query = (
-        HLOM_Record_Cited.rank()
-        .paginate(page_num, page_len)
-    )
-
-    print_rank(query)
+    r = Ranking()
+    print_rank(r.rank(1, limit))
 
 
-def institution_ranks(iid, page_num=1, page_len=100):
+def institution_ranks(iid, limit=100):
 
     """
     Get text rankings for an institution.
@@ -32,16 +27,12 @@ def institution_ranks(iid, page_num=1, page_len=100):
         iid (int): The institution id.
     """
 
-    query = (
-        HLOM_Record_Cited.rank()
-        .where(HLOM_Citation.institution==iid)
-        .paginate(page_num, page_len)
-    )
-
-    print_rank(query)
+    r = Ranking()
+    r.filter_institution(iid)
+    print_rank(r.rank(1, limit))
 
 
-def state_ranks(state, page_num=1, page_len=100):
+def state_ranks(state, limit=100):
 
     """
     Get text rankings for a state.
@@ -50,10 +41,6 @@ def state_ranks(state, page_num=1, page_len=100):
         state (str): The state abbreviation.
     """
 
-    query = (
-        HLOM_Record_Cited.rank()
-        .where(HLOM_Citation.state==state)
-        .paginate(page_num, page_len)
-    )
-
-    print_rank(query)
+    r = Ranking()
+    r.filter_state(state)
+    print_rank(r.rank(1, limit))
