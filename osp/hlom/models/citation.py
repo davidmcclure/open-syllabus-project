@@ -65,8 +65,8 @@ class HLOM_Citation(BaseModel):
 
         )
 
-        size = query.count()
-        for s in bar(query.naive(), expected_size=size):
+        for s in bar(query.naive(),
+                     expected_size=query.count()):
 
             # Denormalize the states.
             query = (
@@ -98,8 +98,8 @@ class HLOM_Citation(BaseModel):
 
         )
 
-        size = query.count()
-        for s in bar(query.naive(), expected_size=size):
+        for s in bar(query.naive(),
+                     expected_size=query.count()):
 
             # Denormalize the states.
             query = (
