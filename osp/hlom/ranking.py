@@ -64,6 +64,33 @@ class Ranking:
         )
 
 
+    def filter_extent(self, x1, y1, x2, y2):
+
+        """
+        Filter by bounding box.
+
+        Args:
+            x1 (int)
+            y1 (int)
+            x2 (int)
+            y2 (int)
+        """
+
+        pass # TODO
+
+
+    def filter_query(self, query):
+
+        """
+        Filter by open text query.
+
+        Args:
+            query (str): The search query.
+        """
+
+        pass # TODO
+
+
     def rank(self, page_num=1, page_len=100):
 
         """
