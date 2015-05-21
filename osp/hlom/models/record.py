@@ -120,7 +120,18 @@ class HLOM_Record(BaseModel):
             str|None: "[title] [author]", or None if invalid.
         """
 
-        t = self.marc.title()
-        a = self.marc.author()
+        t = sanitize_query(self.marc.title())
+        a = sanitize_query(self.marc.author())
 
-        return sanitize_query(' '.join([t,a]))
+        t_tokens = set(t.split())
+        a_tokens = set(a.split())
+
+        # Title or author empty.
+        if not t or not a:
+            return None
+
+        # Title and author share words.
+        if set.intersection(t_tokens, a_tokens):
+            return None
+
+        return t+' '+a

@@ -38,4 +38,5 @@ class HLOM_Record_Cited(HLOM_Record):
         )
 
         for c in cited:
-            cls.create(**c._data)
+            if c.query:
+                cls.create(**c._data)
