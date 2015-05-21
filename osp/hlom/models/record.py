@@ -131,7 +131,11 @@ class HLOM_Record(BaseModel):
             return None
 
         # Title and author share words.
-        if set.intersection(t_tokens, a_tokens):
+        elif set.intersection(t_tokens, a_tokens):
+            return None
+
+        # Single-word title and author.
+        elif len(t_tokens) == 1 or len(a_tokens) == 1:
             return None
 
         return t+' '+a

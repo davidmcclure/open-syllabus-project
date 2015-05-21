@@ -11,10 +11,9 @@ r = Ranking()
 def print_rank(query):
     for t in query:
         print(
-            t['record'].id,
             t['rank'],
-            round(t['score'], 2),
             t['record'].count,
+            round(t['score'], 2),
             t['record'].marc.title(),
             t['record'].marc.author()
         )
