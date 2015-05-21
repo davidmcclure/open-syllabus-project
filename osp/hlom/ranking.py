@@ -15,10 +15,12 @@ class Ranking:
     def __init__(self):
 
         """
-        Cache the max citation log.
+        Initialize the query and ranking stats.
         """
 
         self.reset()
+
+        # Cache the log of the max citation count.
         self.log_max = np.log(self._query.first().count)
 
 
