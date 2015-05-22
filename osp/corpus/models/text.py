@@ -75,7 +75,7 @@ class Document_Text(BaseModel, Elasticsearch):
 
 
     @classmethod
-    def term_counts(cls):
+    def term_counts(cls, limit=None):
 
         """
         Get frequency counts for all unique word types.
@@ -84,9 +84,10 @@ class Document_Text(BaseModel, Elasticsearch):
             dict: type -> count
         """
 
+        texts = cls.select().limit(limit)
         counts = Counter()
 
-        for row in query_bar(cls.select()):
+        for row in query_bar(texts):
             row.tokenize()
             for term, offsets in row.terms.items():
                 counts[term] += len(offsets)

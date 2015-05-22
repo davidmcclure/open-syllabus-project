@@ -124,3 +124,27 @@ def syllabus_refinement(in_file, out_file, r, threshold):
             'title': row.path,
             'text': row.text
         })
+
+
+@cli.command()
+@click.argument('out_file', type=click.File('w'))
+@click.option('--n', default=None)
+def term_counts(out_file, n):
+
+    """
+    Write word frequency counts for N docs.
+    """
+
+    # CSV writer.
+    cols = ['term', 'count']
+    writer = csv.DictWriter(out_file, cols)
+    writer.writeheader()
+
+    # Pull counts.
+    counts = Document_Text.term_counts(n)
+
+    for term, count in counts.most_common():
+        writer.writerow({
+            'term': term,
+            'count': count
+        })
