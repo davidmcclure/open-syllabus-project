@@ -51,6 +51,8 @@ setup(
         'pdfminer3k',
         'pytest',
         'networkx',
+        'pgmagick',
+        'nltk',
 
         # Via GitHub.
         'pymarc',

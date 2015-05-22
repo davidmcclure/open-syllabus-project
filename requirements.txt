@@ -34,5 +34,6 @@ pdfminer3k
 pytest
 networkx
 pgmagick
+nltk
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
