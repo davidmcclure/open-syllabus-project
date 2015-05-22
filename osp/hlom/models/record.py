@@ -11,16 +11,11 @@ from osp.common.models.base import BaseModel
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
-from osp.corpus.terms import Terms
 from pymarc import Record
 from scipy.stats import rankdata
 from clint.textui.progress import bar
 from playhouse.postgres_ext import *
 from peewee import *
-
-
-# TODO|dev
-terms = Terms()
 
 
 class HLOM_Record(BaseModel):
@@ -139,12 +134,8 @@ class HLOM_Record(BaseModel):
         elif set.intersection(t_tokens, a_tokens):
             return None
 
-        # Frequency threshold.
-        elif not terms.validate_query(set.union(t_tokens, a_tokens)):
-            return None
-
         # Single-word title and author.
-        #elif len(t_tokens) == 1 or len(a_tokens) == 1:
-            #return None
+        elif len(t_tokens) == 1 or len(a_tokens) == 1:
+            return None
 
         return t+' '+a

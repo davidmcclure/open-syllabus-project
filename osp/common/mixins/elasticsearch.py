@@ -1,6 +1,7 @@
 
 
 from osp.common.config import config
+from elasticsearch.client import _make_path
 from elasticsearch.helpers import bulk
 
 
@@ -98,23 +99,3 @@ class Elasticsearch:
 
         cls.es_delete()
         cls.es_create()
-
-
-    @classmethod
-    def es_term_freqs(cls):
-
-        """
-        Map terms -> total frequency.
-        """
-
-        pass
-
-
-    @classmethod
-    def es_term_zscores(cls):
-
-        """
-        Map terms -> zscores.
-        """
-
-        pass
