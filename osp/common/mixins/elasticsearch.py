@@ -98,3 +98,23 @@ class Elasticsearch:
 
         cls.es_delete()
         cls.es_create()
+
+
+    @classmethod
+    def es_term_freqs(cls):
+
+        """
+        Map terms -> total frequency.
+        """
+
+        pass
+
+
+    @classmethod
+    def es_term_zscores(cls):
+
+        """
+        Map terms -> zscores.
+        """
+
+        pass

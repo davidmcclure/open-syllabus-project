@@ -3,6 +3,7 @@
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.utils import query_bar
 from osp.corpus.models.document import Document
 from peewee import *
 
@@ -48,7 +49,7 @@ class Document_Text(BaseModel, Elasticsearch):
             dict: The next document.
         """
 
-        for row in cls.select():
+        for row in query_bar(cls.select()):
             yield row.es_doc
 
 
