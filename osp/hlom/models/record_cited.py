@@ -1,7 +1,6 @@
 
 
 from osp.common.config import config
-from osp.common.utils import query_bar
 from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
@@ -43,7 +42,7 @@ class HLOM_Record_Cited(HLOM_Record):
 
         counts = Counts()
 
-        for r in query_bar(cited):
+        for r in cited:
 
             t = [t['stemmed'] for t in tokenize(r.marc.title())]
             a = [t['stemmed'] for t in tokenize(r.marc.author())]
@@ -75,7 +74,10 @@ class HLOM_Record_Cited(HLOM_Record):
                 #if rank:
                     #ranks.append(rank)
 
-            if max(t_ranks) < min_rank or max(a_tanks) < min_rank:
+            if t_ranks and max(t_ranks) < min_rank:
+                continue
+
+            if a_ranks and max(a_ranks) < min_rank:
                 continue
 
             # No infrequent terms.
