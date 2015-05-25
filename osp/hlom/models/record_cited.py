@@ -16,10 +16,13 @@ class HLOM_Record_Cited(HLOM_Record):
 
 
     @classmethod
-    def copy_records(cls):
+    def copy_records(cls, min_rank=2000):
 
         """
         Copy in cited records.
+
+        Args:
+            min_rank (int): The cutoff for "frequent" words.
         """
 
         cited = (
@@ -54,6 +57,7 @@ class HLOM_Record_Cited(HLOM_Record):
             if set.intersection(set(t), set(a)):
                 continue
 
+            # Gather the ranks for all terms.
             ranks = []
             for token in set.union(set(t), set(a)):
                 rank = counts.rank(token)
@@ -61,7 +65,7 @@ class HLOM_Record_Cited(HLOM_Record):
                     ranks.append(rank)
 
             # No infrequent terms.
-            if max(ranks) < 2000:
+            if max(ranks) < min_rank:
                 continue
 
             cls.create(**r._data)
