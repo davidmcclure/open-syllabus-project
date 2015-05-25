@@ -1,8 +1,10 @@
 
 
 from osp.common.config import config
+from osp.citations.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.corpus.utils import tokenize
 from peewee import fn
 
 
@@ -37,6 +39,27 @@ class HLOM_Record_Cited(HLOM_Record):
 
         )
 
-        for c in cited:
-            if c.query:
-                cls.create(**c._data)
+        counts = Counts()
+
+        for r in cited:
+
+            t = [t['stemmed'] for t in tokenize(r.marc.title())]
+            a = [t['stemmed'] for t in tokenize(r.marc.author())]
+
+            # Title and author empty.
+            if not t or not a:
+                continue
+
+            # Title and author repeat words.
+            if set.intersection(set(t), set(a)):
+                continue
+
+            ranks = []
+            for token in set.union(set(t), set(a)):
+                ranks.append(counts.rank(token))
+
+            # No infrequent terms.
+            if max(ranks) < 2000:
+                continue
+
+            cls.create(**r._data)

@@ -123,21 +123,4 @@ class HLOM_Record(BaseModel):
         t = sanitize_query(self.marc.title())
         a = sanitize_query(self.marc.author())
 
-        t_tokens = set(t.split())
-        a_tokens = set(a.split())
-
-        # Title or author empty.
-        if not t or not a:
-            return None
-
-        # Title and author share words.
-        elif set.intersection(t_tokens, a_tokens):
-            return None
-
-        # TODO: Filter by frequency counts.
-
-        # Single-word title and author.
-        elif len(t_tokens) == 1 or len(a_tokens) == 1:
-            return None
-
         return t+' '+a

@@ -39,7 +39,7 @@ class Counts:
         Returns: int
         """
 
-        return self.counts[self.stem(term)]
+        return self.counts.get(self.stem(term))
 
 
     def rank(self, term):
@@ -53,4 +53,4 @@ class Counts:
         Returns: int
         """
 
-        return self.ranks[self.stem(term)]
+        return self.ranks.get(self.stem(term))
