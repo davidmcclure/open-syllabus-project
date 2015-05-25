@@ -1,56 +1,46 @@
 
 
-from osp.citations.hlom.models.record import HLOM_Record
+import pytest
 
 
-def test_ignore_capitalization(add_hlom):
+@pytest.mark.parametrize('pairs', [
 
-    hashes = set()
+    # Ignore capitalization.
+    [
+        ('Anna Karenina', 'Leo Tolstoy'),
+        ('anna karenina', 'leo tolstoy'),
+        ('ANNA KARENINA', 'LEO TOLSTOY')
+    ],
 
-    hashes.add(add_hlom('Anna Karenina', 'Leo Tolstoy').hash)
-    hashes.add(add_hlom('anna karenina', 'leo tolstoy').hash)
-    hashes.add(add_hlom('ANNA KARENINA', 'LEO TOLSTOY').hash)
+    # Ignore whitespace.
+    [
+        ('Anna  Karenina', 'Leo  Tolstoy'),
+        (' Anna Karenina ', ' Leo Tolstoy ')
+    ],
 
-    assert len(hashes) == 1
+    # Ignore punctuation.
+    [
+        ('Anna Karenina /', 'Leo Tolstoy /'),
+        ('Anna Karenina.', 'Leo Tolstoy.'),
+        ('"Anna Karenina,"', 'Leo Tolstoy')
+    ],
 
+    # Ignore articles.
+    [
+        ('The Republic', 'Plato'),
+        ('A Republic', 'Plato'),
+        ('An Republic"', 'Plato')
+    ],
 
-def test_ignore_whitespace(add_hlom):
+    # Ignore author order.
+    [
+        ('Anna Karenina', 'Leo Tolstoy'),
+        ('Anna Karenina', 'Tolstoy, Leo')
+    ],
 
-    hashes = set()
-
-    hashes.add(add_hlom('Anna  Karenina', 'Leo  Tolstoy').hash)
-    hashes.add(add_hlom(' Anna Karenina ', ' Leo Tolstoy ').hash)
-
-    assert len(hashes) == 1
-
-
-def test_ignore_punctuation(add_hlom):
-
-    hashes = set()
-
-    hashes.add(add_hlom('Anna Karenina /', 'Leo Tolstoy /').hash)
-    hashes.add(add_hlom('Anna Karenina.', 'Leo Tolstoy.').hash)
-    hashes.add(add_hlom('"Anna Karenina,"', 'Leo Tolstoy').hash)
-
-    assert len(hashes) == 1
-
-
-def test_ignore_articles(add_hlom):
-
-    hashes = set()
-
-    hashes.add(add_hlom('The Republic', 'Plato').hash)
-    hashes.add(add_hlom('A Republic', 'Plato').hash)
-    hashes.add(add_hlom('An Republic"', 'Plato').hash)
-
-    assert len(hashes) == 1
-
-
-def test_ignore_author_order(add_hlom):
+])
+def test_hash(pairs, add_hlom):
 
     hashes = set()
-
-    hashes.add(add_hlom('Anna Karenina', 'Leo Tolstoy').hash)
-    hashes.add(add_hlom('Anna Karenina', 'Tolstoy, Leo').hash)
-
+    for p in pairs: hashes.add(add_hlom(p[0], p[1]).hash)
     assert len(hashes) == 1
