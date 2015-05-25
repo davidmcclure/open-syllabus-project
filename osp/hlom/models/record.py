@@ -99,7 +99,7 @@ class HLOM_Record(BaseModel):
         ])
 
         # Lowercase, tokenize, sort tokens.
-        tokens = sorted(re.findall('\w+', text.lower()))
+        tokens = sorted(re.findall('[a-z]+', text.lower()))
 
         # Remove articles.
         tokens = [t for t in tokens if t not in ['a', 'an', 'the']]

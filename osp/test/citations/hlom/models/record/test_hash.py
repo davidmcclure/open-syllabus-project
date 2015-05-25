@@ -38,6 +38,13 @@ import pytest
         ('Anna Karenina', 'Tolstoy, Leo')
     ],
 
+    # Ignore numbers.
+    [
+        ('Republic 5', 'Plato'),
+        ('Republic 10', 'Plato'),
+        ('Republic', 'Plato, 1564-1616')
+    ],
+
 ])
 def test_hash(pairs, add_hlom):
 
