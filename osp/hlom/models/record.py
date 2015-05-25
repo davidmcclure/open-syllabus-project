@@ -64,6 +64,26 @@ class HLOM_Record(BaseModel):
             sys.stdout.flush()
 
 
+    @classmethod
+    def dedupe(cls):
+
+        """
+        Write deduping hashes.
+        """
+
+        from osp.citations.hlom.models.citation import HLOM_Citation
+
+        cited = (
+            cls.select()
+            .join(HLOM_Citation)
+            .group_by(cls.id)
+        )
+
+        for record in query_bar(cited):
+            record.metadata['deduping_hash'] = record.hash
+            record.save()
+
+
     @property
     def marc(self):
 

@@ -86,26 +86,3 @@ def csv_text_counts(out_file):
             'author':   c.record.marc.author(),
             'count':    c.count
         })
-
-
-# TODO|dev
-
-
-@cli.command()
-def write_stats():
-
-    """
-    Cache citation counts / deduping hashes.
-    """
-
-    HLOM_Record.write_stats()
-
-
-@cli.command()
-def write_metrics():
-
-    """
-    Cache teaching ranks / percentiles.
-    """
-
-    HLOM_Record.write_metrics()
