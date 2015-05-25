@@ -58,31 +58,3 @@ def queue_queries():
 
     for record in ServerSide(HLOM_Record.select()):
         config.rq.enqueue(query, record.id)
-
-
-@cli.command()
-@click.argument('out_file', type=click.File('w'))
-def csv_text_counts(out_file):
-
-    """
-    Write a CSV with text -> assignment count.
-    """
-
-    # CSV writer.
-    cols = ['id', 'title', 'author', 'count']
-    writer = csv.DictWriter(out_file, cols)
-    writer.writeheader()
-
-    query = HLOM_Citation.text_counts()
-    count = query.count()
-
-    rows = []
-    for c in bar(query.naive().iterator(),
-                 expected_size=count):
-
-        writer.writerow({
-            'id':       c.record.id,
-            'title':    c.record.marc.title(),
-            'author':   c.record.marc.author(),
-            'count':    c.count
-        })

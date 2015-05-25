@@ -28,24 +28,6 @@ class HLOM_Citation(BaseModel):
 
 
     @classmethod
-    def text_counts(cls):
-
-        """
-        Get an ordered list of HLOM record -> citation counts.
-        """
-
-        count = fn.Count(cls.id)
-
-        return (
-            cls
-            .select(cls.record, count.alias('count'))
-            .group_by(cls.record)
-            .distinct(cls.record)
-            .order_by(count.desc())
-        )
-
-
-    @classmethod
     def index_institutions(cls):
 
         """
