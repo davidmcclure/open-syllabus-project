@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.citations.counts import Counts
+from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.corpus.utils import tokenize
@@ -56,7 +56,9 @@ class HLOM_Record_Cited(HLOM_Record):
 
             ranks = []
             for token in set.union(set(t), set(a)):
-                ranks.append(counts.rank(token))
+                rank = counts.rank(token)
+                if rank:
+                    ranks.append(rank)
 
             # No infrequent terms.
             if max(ranks) < 2000:
