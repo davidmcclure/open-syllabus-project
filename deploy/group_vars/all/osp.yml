@@ -13,5 +13,5 @@ osp_db_modules:
   - corpus
   - hlom
   - dates
-  - institutions
+  - inst
   - locations

@@ -134,6 +134,8 @@ class HLOM_Record(BaseModel):
         elif set.intersection(t_tokens, a_tokens):
             return None
 
+        # TODO: Filter by frequency counts.
+
         # Single-word title and author.
         elif len(t_tokens) == 1 or len(a_tokens) == 1:
             return None

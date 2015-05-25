@@ -2,9 +2,12 @@
 
 import math
 import numpy as np
+import csv
+import pkgutil
 
 from itertools import islice, chain
 from playhouse.postgres_ext import ServerSide
+from io import StringIO
 from clint.textui import progress
 
 
@@ -66,3 +69,19 @@ def grouper(iterable, size):
     while True:
         group = islice(source, size)
         yield chain([next(group)], group)
+
+
+def read_csv(package, path):
+
+    """
+    Read a CSV from package data.
+
+    Args:
+        package (str): The package path.
+        path (str): The path of the data file.
+
+    Returns: csv.DictReader
+    """
+
+    data = pkgutil.get_data(package, path).decode('utf8')
+    return csv.DictReader(StringIO(data))

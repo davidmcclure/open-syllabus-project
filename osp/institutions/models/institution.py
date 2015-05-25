@@ -1,12 +1,9 @@
 
 
-import csv
-import pkgutil
-
 from osp.common.config import config
 from osp.common.models.base import BaseModel
+from osp.common.utils import read_csv
 from playhouse.postgres_ext import BinaryJSONField
-from io import StringIO
 
 
 class Institution(BaseModel):
@@ -26,12 +23,10 @@ class Institution(BaseModel):
         Write institution rows into the database.
         """
 
-        data = pkgutil.get_data(
+        reader = read_csv(
             'osp.institutions',
             'data/institutions.csv'
         )
-
-        reader = csv.DictReader(StringIO(data.decode('utf8')))
 
         rows = []
         for row in reader:
