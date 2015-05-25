@@ -1,6 +1,7 @@
 
 
 from osp.common.config import config
+from osp.common.utils import query_bar
 from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
@@ -16,7 +17,7 @@ class HLOM_Record_Cited(HLOM_Record):
 
 
     @classmethod
-    def copy_records(cls, min_rank=2000):
+    def copy_records(cls, min_rank=1000):
 
         """
         Copy in cited records.
@@ -27,8 +28,9 @@ class HLOM_Record_Cited(HLOM_Record):
 
         cited = (
 
-            HLOM_Record
-            .select()
+            HLOM_Record.select()
+            .join(HLOM_Citation)
+            .group_by(HLOM_Record.id)
 
             # Coalesce duplicates.
             .distinct([HLOM_Record.metadata['deduping_hash']])
@@ -37,14 +39,11 @@ class HLOM_Record_Cited(HLOM_Record):
                 HLOM_Record.id
             )
 
-            .group_by(HLOM_Record.id)
-            .join(HLOM_Citation)
-
         )
 
         counts = Counts()
 
-        for r in cited:
+        for r in query_bar(cited):
 
             t = [t['stemmed'] for t in tokenize(r.marc.title())]
             a = [t['stemmed'] for t in tokenize(r.marc.author())]
@@ -57,15 +56,30 @@ class HLOM_Record_Cited(HLOM_Record):
             if set.intersection(set(t), set(a)):
                 continue
 
-            # Gather the ranks for all terms.
-            ranks = []
-            for token in set.union(set(t), set(a)):
+            t_ranks = []
+            for token in set(t):
                 rank = counts.rank(token)
                 if rank:
-                    ranks.append(rank)
+                    t_ranks.append(rank)
+
+            a_ranks = []
+            for token in set(a):
+                rank = counts.rank(token)
+                if rank:
+                    a_ranks.append(rank)
+
+            # Gather the ranks for all terms.
+            #ranks = []
+            #for token in set.union(set(t), set(a)):
+                #rank = counts.rank(token)
+                #if rank:
+                    #ranks.append(rank)
+
+            if max(t_ranks) < min_rank or max(a_tanks) < min_rank:
+                continue
 
             # No infrequent terms.
-            if max(ranks) < min_rank:
-                continue
+            #if max(ranks) < min_rank:
+                #continue
 
             cls.create(**r._data)

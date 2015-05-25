@@ -71,7 +71,7 @@ class HLOM_Record(BaseModel):
         Write deduping hashes.
         """
 
-        from osp.citations.hlom.models.citation import HLOM_Citation
+        from .citation import HLOM_Citation
 
         cited = (
             cls.select()

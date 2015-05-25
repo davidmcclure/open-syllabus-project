@@ -29,26 +29,9 @@ def common(out_file, min_rank):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    cited = (
-
-        HLOM_Record
-        .select()
-
-        # Coalesce duplicates.
-        .distinct([HLOM_Record.metadata['deduping_hash']])
-        .order_by(
-            HLOM_Record.metadata['deduping_hash'],
-            HLOM_Record.id
-        )
-
-        .group_by(HLOM_Record.id)
-        .join(HLOM_Citation)
-
-    )
-
     counts = Counts()
 
-    for r in query_bar(cited):
+    for r in query_bar(HLOM_Record.select_unique()):
 
         t = [t['stemmed'] for t in tokenize(r.marc.title())]
         a = [t['stemmed'] for t in tokenize(r.marc.author())]
