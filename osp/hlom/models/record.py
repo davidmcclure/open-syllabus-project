@@ -145,29 +145,3 @@ class HLOM_Record(BaseModel):
         a = sanitize_query(self.marc.author())
 
         return t+' '+a
-
-
-    @property
-    def title_terms(self):
-
-        """
-        Get unique tokens in the title.
-
-        Returns: set
-        """
-
-        tokens = tokenize(self.marc.title())
-        return set([t['stemmed'] for t in tokens])
-
-
-    @property
-    def author_terms(self):
-
-        """
-        Get unique tokens in the author.
-
-        Returns: set
-        """
-
-        tokens = tokenize(self.marc.author())
-        return set([t['stemmed'] for t in tokens])

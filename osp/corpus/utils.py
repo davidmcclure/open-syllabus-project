@@ -173,3 +173,18 @@ def tokenize(text):
             'unstemmed':    unstemmed,
             'offset':       offset
         }
+
+
+def termify(text):
+
+    """
+    Extract word types from a string.
+
+    Args:
+        text (str): The original text.
+
+    Returns:
+        set: Unique, stemmed types.
+    """
+
+    return set([t['stemmed'] for t in tokenize(text)])
