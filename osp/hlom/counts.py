@@ -54,3 +54,20 @@ class Counts:
         """
 
         return self.ranks.get(self.stem(term))
+
+
+    def max_rank(self, terms):
+
+        """
+        Given a set of terms, return the rank of the "highest" ranking word
+        (lowest down on the list).
+
+        Returns: int
+        """
+
+        ranks = []
+        for term in terms:
+            rank = self.rank(term) or float('inf')
+            ranks.append(rank)
+
+        return max(ranks)

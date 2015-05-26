@@ -11,6 +11,7 @@ from osp.common.models.base import BaseModel
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
+from osp.corpus.utils import tokenize
 from pymarc import Record
 from scipy.stats import rankdata
 from clint.textui.progress import bar
@@ -147,7 +148,7 @@ class HLOM_Record(BaseModel):
 
 
     @property
-    def title_tokens(self):
+    def title_terms(self):
 
         """
         Get unique tokens in the title.
@@ -155,7 +156,8 @@ class HLOM_Record(BaseModel):
         Returns: set
         """
 
-        pass
+        tokens = tokenie(self.marc.title())
+        return set([t['stemmed'] for t in tokens])
 
 
     @property
@@ -167,4 +169,5 @@ class HLOM_Record(BaseModel):
         Returns: set
         """
 
-        pass
+        tokens = tokenie(self.marc.author())
+        return set([t['stemmed'] for t in tokens])

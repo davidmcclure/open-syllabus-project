@@ -4,7 +4,6 @@ from osp.common.config import config
 from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
-from osp.corpus.utils import tokenize
 from peewee import fn
 
 
