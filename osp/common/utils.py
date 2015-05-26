@@ -4,10 +4,12 @@ import math
 import numpy as np
 import csv
 import pkgutil
+import re
 
 from itertools import islice, chain
 from playhouse.postgres_ext import ServerSide
 from io import StringIO
+from nltk.stem import PorterStemmer
 from clint.textui import progress
 
 
@@ -85,3 +87,45 @@ def read_csv(package, path):
 
     data = pkgutil.get_data(package, path).decode('utf8')
     return csv.DictReader(StringIO(data))
+
+
+def tokenize(text):
+
+    """
+    Yield tokens.
+
+    Args:
+        text (str): The original text.
+
+    Yields:
+        dict: The next token.
+    """
+
+    stem = PorterStemmer().stem
+    tokens = re.finditer('[a-z]+', text.lower())
+
+    for offset, match in enumerate(tokens):
+
+        # Get the raw token.
+        unstemmed = match.group(0)
+
+        yield { # Emit the token.
+            'stemmed':      stem(unstemmed),
+            'unstemmed':    unstemmed,
+            'offset':       offset
+        }
+
+
+def termify(text):
+
+    """
+    Extract word types from a string.
+
+    Args:
+        text (str): The original text.
+
+    Returns:
+        set: Unique, stemmed types.
+    """
+
+    return set([t['stemmed'] for t in tokenize(text)])

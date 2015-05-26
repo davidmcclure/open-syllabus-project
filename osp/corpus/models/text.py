@@ -3,11 +3,10 @@
 import re
 
 from osp.common.config import config
+from osp.common.utils import query_bar, tokenize
 from osp.common.models.base import BaseModel
 from osp.common.mixins.elasticsearch import Elasticsearch
-from osp.common.utils import query_bar
 from osp.corpus.models.document import Document
-from osp.corpus.utils import tokenize
 from collections import Counter
 from peewee import *
 

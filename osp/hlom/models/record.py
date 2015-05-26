@@ -11,7 +11,6 @@ from osp.common.models.base import BaseModel
 from osp.citations.hlom.utils import prettify_field
 from osp.citations.hlom.dataset import Dataset
 from osp.citations.hlom.utils import sanitize_query
-from osp.corpus.utils import tokenize
 from pymarc import Record
 from scipy.stats import rankdata
 from clint.textui.progress import bar

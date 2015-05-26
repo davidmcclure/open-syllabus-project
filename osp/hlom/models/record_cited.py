@@ -1,10 +1,10 @@
 
 
 from osp.common.config import config
+from osp.common.utils import termify
 from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
-from osp.corpus.utils import termify
 from peewee import fn
 
 
@@ -45,7 +45,7 @@ class HLOM_Record_Cited(HLOM_Record):
         for r in cited:
 
             t = termify(r.marc.title())
-            t = termify(r.marc.author())
+            a = termify(r.marc.author())
 
             # Title and author empty.
             if not t or not a:
