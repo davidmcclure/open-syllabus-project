@@ -61,27 +61,18 @@ class HLOM_Record_Cited(HLOM_Record):
                 if rank:
                     t_ranks.append(rank)
 
+            # No focused words in title.
+            if t_ranks and max(t_ranks) < min_rank:
+                continue
+
             a_ranks = []
             for token in set(a):
                 rank = counts.rank(token)
                 if rank:
                     a_ranks.append(rank)
 
-            # Gather the ranks for all terms.
-            #ranks = []
-            #for token in set.union(set(t), set(a)):
-                #rank = counts.rank(token)
-                #if rank:
-                    #ranks.append(rank)
-
-            if t_ranks and max(t_ranks) < min_rank:
-                continue
-
+            # No focused words in author.
             if a_ranks and max(a_ranks) < min_rank:
                 continue
-
-            # No infrequent terms.
-            #if max(ranks) < min_rank:
-                #continue
 
             cls.create(**r._data)
