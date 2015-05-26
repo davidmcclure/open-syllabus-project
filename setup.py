@@ -54,9 +54,6 @@ setup(
         'pgmagick',
         'nltk',
 
-        # Via GitHub.
-        'pymarc',
-
     ]
 
 )
