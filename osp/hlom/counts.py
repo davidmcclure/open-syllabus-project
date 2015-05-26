@@ -1,6 +1,8 @@
 
 
-from osp.common.utils import read_csv
+import csv
+
+from osp.common.config import config
 from nltk.stem import PorterStemmer
 
 
@@ -13,19 +15,17 @@ class Counts:
         Read the csv, index counts / ranks.
         """
 
-        self.stem = PorterStemmer().stem
-
-        self.reader = read_csv(
-            'osp.citations.hlom',
-            'data/counts.csv'
-        )
-
+        self.stem   = PorterStemmer().stem
         self.counts = {}
         self.ranks  = {}
 
-        for i, row in enumerate(self.reader):
-            self.counts[row['term']] = row['count']
-            self.ranks[row['term']] = i
+        with open(config['osp']['counts']) as fh:
+
+            reader = csv.DictReader(fh)
+
+            for i, row in enumerate(reader):
+                self.counts[row['term']] = row['count']
+                self.ranks[row['term']] = i
 
 
     def count(self, term):
