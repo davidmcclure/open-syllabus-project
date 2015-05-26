@@ -144,3 +144,27 @@ class HLOM_Record(BaseModel):
         a = sanitize_query(self.marc.author())
 
         return t+' '+a
+
+
+    @property
+    def title_tokens(self):
+
+        """
+        Get unique tokens in the title.
+
+        Returns: set
+        """
+
+        pass
+
+
+    @property
+    def author_tokens(self):
+
+        """
+        Get unique tokens in the author.
+
+        Returns: set
+        """
+
+        pass
