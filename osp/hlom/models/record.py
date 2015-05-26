@@ -156,12 +156,12 @@ class HLOM_Record(BaseModel):
         Returns: set
         """
 
-        tokens = tokenie(self.marc.title())
+        tokens = tokenize(self.marc.title())
         return set([t['stemmed'] for t in tokens])
 
 
     @property
-    def author_tokens(self):
+    def author_terms(self):
 
         """
         Get unique tokens in the author.
@@ -169,5 +169,5 @@ class HLOM_Record(BaseModel):
         Returns: set
         """
 
-        tokens = tokenie(self.marc.author())
+        tokens = tokenize(self.marc.author())
         return set([t['stemmed'] for t in tokens])

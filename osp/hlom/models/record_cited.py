@@ -43,35 +43,23 @@ class HLOM_Record_Cited(HLOM_Record):
 
         for r in cited:
 
-            t = [t['stemmed'] for t in tokenize(r.marc.title())]
-            a = [t['stemmed'] for t in tokenize(r.marc.author())]
+            t = r.title_terms
+            a = r.author_terms
 
             # Title and author empty.
             if not t or not a:
                 continue
 
             # Title and author repeat words.
-            if set.intersection(set(t), set(a)):
+            if set.intersection(t, a):
                 continue
-
-            t_ranks = []
-            for token in set(t):
-                rank = counts.rank(token)
-                if rank:
-                    t_ranks.append(rank)
 
             # No focused words in title.
-            if t_ranks and max(t_ranks) < min_rank:
+            if counts.max_rank(t) < min_rank:
                 continue
 
-            a_ranks = []
-            for token in set(a):
-                rank = counts.rank(token)
-                if rank:
-                    a_ranks.append(rank)
-
             # No focused words in author.
-            if a_ranks and max(a_ranks) < min_rank:
+            if counts.max_rank(a) < min_rank:
                 continue
 
             cls.create(**r._data)
