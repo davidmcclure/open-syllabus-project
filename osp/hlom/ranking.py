@@ -18,18 +18,6 @@ class Ranking:
         Initialize the query and ranking stats.
         """
 
-        self.reset()
-
-        # Cache the log of the max citation count.
-        self.log_max = np.log(self._query.first().count)
-
-
-    def reset(self):
-
-        """
-        Initialize the un-filtered query, cache the max count log.
-        """
-
         count = fn.Count(HLOM_Citation.id)
 
         self._query = (
@@ -103,11 +91,7 @@ class Ranking:
             # Overall rank.
             rank = (page_len*(page_num-1))+i+1
 
-            # 1-10 teaching score.
-            score = (np.log(row.count)/self.log_max)*10
-
             ranks.append({
-                'score': score,
                 'rank': rank,
                 'record': row
             })
