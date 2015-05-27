@@ -12,7 +12,7 @@ from playhouse.postgres_ext import TSVectorField
 from peewee import *
 
 
-class Document_Search(BaseModel):
+class Document_TSVector(BaseModel):
 
 
     document = ForeignKeyField(Document, unique=True)
@@ -20,7 +20,7 @@ class Document_Search(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('document_search')
+        database = config.get_table_db('document_tsvector')
 
 
     @classmethod

@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from osp.corpus.models.search import Document_Search
+from osp.corpus.models.tsvector import Document_TSVector
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
@@ -77,22 +77,25 @@ class Ranking:
             query (str): An free text query.
         """
 
+        # AND-ify the query.
         query = ' & '.join(query.split())
 
         rank = fn.ts_rank(
-            Document_Search.text,
+            Document_TSVector.text,
             fn.to_tsquery(query)
         )
 
+        # Select top N documents, ordered by relevance.
         matching = (
-            Document_Search
-            .select(Document_Search.document)
-            .where(Document_Search.text.match(query))
+            Document_TSVector
+            .select(Document_TSVector.document)
+            .where(Document_TSVector.text.match(query))
             .order_by(rank.desc())
             .limit(tsv_limit)
             .alias('tsv')
         )
 
+        # Join the subquery onto the citations.
         self._query = (
             self._query
             .join(matching, on=(
