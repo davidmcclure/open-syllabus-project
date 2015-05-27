@@ -3,7 +3,7 @@
 from osp.common.config import config
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.models.base import BaseModel
-from osp.common.utils import read_csv
+from osp.common.utils import read_csv, query_bar
 from playhouse.postgres_ext import BinaryJSONField
 
 
@@ -67,7 +67,7 @@ class Institution(BaseModel, Elasticsearch):
 
         )
 
-        for inst in cited:
+        for inst in query_bar(cited):
 
             name = (
                 inst.metadata['Campus_Name'] or
