@@ -1,8 +1,6 @@
 
 
 from osp.citations.hlom.ranking import Ranking
-from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
-from playhouse.postgres_ext import ServerSide
 
 
 def print_rank(query):
