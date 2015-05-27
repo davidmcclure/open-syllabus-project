@@ -2,10 +2,12 @@
 
 import numpy as np
 
+from osp.corpus.models.search import Document_Search
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
 from osp.institutions.models.institution import Institution
+from playhouse.postgres_ext import Match
 from peewee import fn
 
 
@@ -63,6 +65,39 @@ class Ranking:
         self._query = (
             self._query
             .where(HLOM_Citation.institution==iid)
+        )
+
+
+    def filter_keywords(self, query, tsv_limit=1000):
+
+        """
+        Filter by keywords.
+
+        Args:
+            query (str): An free text query.
+        """
+
+        query = ' & '.join(query.split())
+
+        rank = fn.ts_rank(
+            Document_Search.text,
+            fn.to_tsquery(query)
+        )
+
+        matching = (
+            Document_Search
+            .select(Document_Search.document)
+            .where(Document_Search.text.match(query))
+            .order_by(rank.desc())
+            .limit(tsv_limit)
+            .alias('tsv')
+        )
+
+        self._query = (
+            self._query
+            .join(matching, on=(
+                HLOM_Citation.document==matching.c.document_id
+            ))
         )
 
 

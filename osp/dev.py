@@ -49,3 +49,17 @@ def state_ranks(state, page_num=1, page_len=100):
     r = Ranking()
     r.filter_state(state)
     print_rank(r.rank(page_num, page_len))
+
+
+def keyword_ranks(query, page_num=1, page_len=100, tsv_limit=1000):
+
+    """
+    Get text rankings for a keyword query.
+
+    Args:
+        query (str): A free text query.
+    """
+
+    r = Ranking()
+    r.filter_keywords(query)
+    print_rank(r.rank(page_num, page_len))
