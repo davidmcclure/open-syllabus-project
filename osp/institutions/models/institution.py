@@ -5,6 +5,7 @@ from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.models.base import BaseModel
 from osp.common.utils import read_csv, query_bar
 from playhouse.postgres_ext import BinaryJSONField
+from peewee import fn
 
 
 class Institution(BaseModel, Elasticsearch):
@@ -27,13 +28,16 @@ class Institution(BaseModel, Elasticsearch):
             'store': True
         },
         'properties': {
+            'count': {
+                'type': 'integer'
+            },
             'name': {
                 'type': 'string'
             },
-            'city': {
+            'state': {
                 'type': 'string'
             },
-            'state': {
+            'city': {
                 'type': 'string'
             }
         }
@@ -54,16 +58,20 @@ class Institution(BaseModel, Elasticsearch):
         from osp.locations.models.doc_inst import Document_Institution
         from osp.citations.hlom.models.citation import HLOM_Citation
 
+        count = fn.Count(HLOM_Citation.id)
+
         cited = (
 
-            cls.select()
-            .group_by(cls.id)
+            cls.select(cls, count)
 
             # Join citations.
             .join(Document_Institution)
             .join(HLOM_Citation, on=(
                 Document_Institution.document==HLOM_Citation.document
             ))
+
+            .group_by(cls.id)
+            .order_by(count.desc())
 
         )
 
@@ -83,6 +91,7 @@ class Institution(BaseModel, Elasticsearch):
 
             yield {
                 '_id': inst.id,
+                'count': inst.count,
                 'name': name,
                 'state': state,
                 'city': city
