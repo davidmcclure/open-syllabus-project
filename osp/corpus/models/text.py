@@ -7,6 +7,7 @@ from osp.common.utils import query_bar, tokenize
 from osp.common.models.base import BaseModel
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.corpus.models.document import Document
+from osp.citations.hlom.models.citation import HLOM_Citation
 from collections import Counter
 from peewee import *
 
@@ -43,16 +44,33 @@ class Document_Text(BaseModel, Elasticsearch):
 
 
     @classmethod
-    def es_stream_docs(cls):
+    def es_stream_docs(cls, just_cited=False):
 
         """
         Index all texts.
+
+        Args:
+            just_cited (bool): If true, just index texts with citations.
 
         Yields:
             dict: The next document.
         """
 
-        for row in query_bar(cls.select()):
+        # By default, index everything.
+        if not just_cited:
+            query = cls.select()
+
+        # Omit texts without citations.
+        else:
+            query = (
+                cls.select()
+                .group_by(cls.id)
+                .join(HLOM_Citation, on=(
+                    cls.document==HLOM_Citation.document
+                ))
+            )
+
+        for row in query_bar(query):
             yield row.es_doc
 
 

@@ -57,7 +57,7 @@ class Elasticsearch:
 
 
     @classmethod
-    def es_insert(cls):
+    def es_insert(cls, *args, **kwargs):
 
         """
         Insert documents.
@@ -66,7 +66,7 @@ class Elasticsearch:
         # Batch-insert the documents.
         bulk(
             config.es,
-            cls.es_stream_docs(),
+            cls.es_stream_docs(*args, **kwargs),
             raise_on_exception=False,
             doc_type=cls.es_doc_type,
             index=cls.es_index
