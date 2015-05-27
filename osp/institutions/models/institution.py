@@ -1,8 +1,8 @@
 
 
 from osp.common.config import config
-from osp.common.models.base import BaseModel
 from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.models.base import BaseModel
 from osp.common.utils import read_csv
 from playhouse.postgres_ext import BinaryJSONField
 
@@ -50,7 +50,43 @@ class Institution(BaseModel, Elasticsearch):
             dict: The next document.
         """
 
-        pass # TODO
+        # TODO: De-circularize.
+        from osp.locations.models.doc_inst import Document_Institution
+        from osp.citations.hlom.models.citation import HLOM_Citation
+
+        cited = (
+
+            cls.select()
+            .group_by(cls.id)
+
+            # Join citations.
+            .join(Document_Institution)
+            .join(HLOM_Citation, on=(
+                Document_Institution.document==HLOM_Citation.document
+            ))
+
+        )
+
+        for inst in cited:
+
+            name = (
+                inst.metadata['Campus_Name'] or
+                inst.metadata['Institution_Name']
+            )
+
+            city = (
+                inst.metadata['Campus_City'] or
+                inst.metadata['Institution_City']
+            )
+
+            state = inst.metadata['Institution_State']
+
+            yield {
+                '_id': inst.id,
+                'name': name,
+                'state': state,
+                'city': city
+            }
 
 
     @classmethod
