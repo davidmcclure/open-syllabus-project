@@ -12,7 +12,6 @@ from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
 from osp.corpus.models.format import Document_Format
 from osp.corpus.models.text import Document_Text
-from osp.corpus.models.tsvector import Document_TSVector
 from osp.corpus.jobs.ext_format import ext_format
 from osp.corpus.jobs.ext_text import ext_text
 from peewee import create_model_tables
@@ -34,7 +33,6 @@ def init_db():
     create_model_tables([
         Document,
         Document_Format,
-        Document_TSVector,
         Document_Text
     ], fail_silently=True)
 
