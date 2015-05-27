@@ -2,11 +2,12 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
+from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.utils import read_csv
 from playhouse.postgres_ext import BinaryJSONField
 
 
-class Institution(BaseModel):
+class Institution(BaseModel, Elasticsearch):
 
 
     metadata = BinaryJSONField(default={})
@@ -14,6 +15,42 @@ class Institution(BaseModel):
 
     class Meta:
         database = config.get_table_db('institution')
+
+
+    es_index = 'osp'
+    es_doc_type = 'institution'
+
+
+    es_mapping = {
+        '_id': {
+            'index': 'not_analyzed',
+            'store': True
+        },
+        'properties': {
+            'name': {
+                'type': 'string'
+            },
+            'city': {
+                'type': 'string'
+            },
+            'state': {
+                'type': 'string'
+            }
+        }
+    }
+
+
+    @classmethod
+    def es_stream_docs(cls):
+
+        """
+        Index institutions with cited syllabi.
+
+        Yields:
+            dict: The next document.
+        """
+
+        pass # TODO
 
 
     @classmethod
