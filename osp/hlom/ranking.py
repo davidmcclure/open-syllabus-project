@@ -2,7 +2,7 @@
 
 import numpy as np
 
-from osp.corpus.models.tsvector import Document_TSVector
+from osp.common.config import config
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
@@ -68,7 +68,7 @@ class Ranking:
         )
 
 
-    def filter_keywords(self, query, tsv_limit=1000):
+    def filter_keywords(self, query, doc_depth=1000):
 
         """
         Filter by keywords.
@@ -77,30 +77,26 @@ class Ranking:
             query (str): An free text query.
         """
 
-        # AND-ify the query.
-        query = ' & '.join(query.split())
+        # Query for top N docs.
+        docs = config.es.search('osp', 'syllabus', body={
+            'size': doc_depth,
+            'fields': ['doc_id'],
+            'query': {
+                'match': {
+                    'body': query
+                }
+            }
+        })
 
-        rank = fn.ts_rank(
-            Document_TSVector.text,
-            fn.to_tsquery(query)
-        )
+        # Gather up the document ids.
+        doc_ids = []
+        for d in docs['hits']['hits']:
+            doc_ids.append(d['fields']['doc_id'][0])
 
-        # Select top N documents, ordered by relevance.
-        matching = (
-            Document_TSVector
-            .select(Document_TSVector.document)
-            .where(Document_TSVector.text.match(query))
-            .order_by(rank.desc())
-            .limit(tsv_limit)
-            .alias('tsv')
-        )
-
-        # Join the subquery onto the citations.
+        # Filter the citations.
         self._query = (
             self._query
-            .join(matching, on=(
-                HLOM_Citation.document==matching.c.document_id
-            ))
+            .where(HLOM_Citation.document << doc_ids)
         )
 
 
