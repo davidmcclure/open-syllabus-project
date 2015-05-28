@@ -39,7 +39,16 @@ class Institution(BaseModel, Elasticsearch):
             },
             'city': {
                 'type': 'string'
-            }
+            },
+            'url': {
+                'type': 'string'
+            },
+            'lon': {
+                'type': 'float'
+            },
+            'lat': {
+                'type': 'float'
+            },
         }
     }
 
@@ -87,14 +96,15 @@ class Institution(BaseModel, Elasticsearch):
                 inst.metadata['Institution_City']
             )
 
-            state = inst.metadata['Institution_State']
-
             yield {
-                '_id': inst.id,
-                'count': inst.count,
-                'name': name,
-                'state': state,
-                'city': city
+                '_id':      inst.id,
+                'count':    inst.count,
+                'name':     name,
+                'city':     city,
+                'state':    inst.metadata['Institution_State'],
+                'url':      inst.metadata['Institution_Web_Address'],
+                'lon':      inst.metadata.get('Longitude'),
+                'lat':      inst.metadata.get('Latitude'),
             }
 
 
