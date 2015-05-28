@@ -113,6 +113,8 @@ class Ranking:
             peewee.SelectQuery
         """
 
+        count = self._query.count()
+
         query = (
             self._query
             .paginate(page_num, page_len)
@@ -130,4 +132,7 @@ class Ranking:
                 'record': row
             })
 
-        return ranks
+        return {
+            'count': count,
+            'ranks': ranks
+        }

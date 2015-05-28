@@ -3,13 +3,16 @@
 from osp.citations.hlom.ranking import Ranking
 
 
-def print_rank(query):
-    for t in query:
+def print_ranks(result):
+
+    print(result['count'])
+
+    for r in result['ranks']:
         print(
-            t['rank'],
-            t['record'].count,
-            t['record'].marc.title(),
-            t['record'].marc.author()
+            r['rank'],
+            r['record'].count,
+            r['record'].marc.title(),
+            r['record'].marc.author()
         )
 
 
@@ -20,7 +23,7 @@ def all_ranks(page_num=1, page_len=100):
     """
 
     r = Ranking()
-    print_rank(r.rank(page_num, page_len))
+    print_ranks(r.rank(page_num, page_len))
 
 
 def institution_ranks(iid, page_num=1, page_len=100):
@@ -34,7 +37,7 @@ def institution_ranks(iid, page_num=1, page_len=100):
 
     r = Ranking()
     r.filter_institution(iid)
-    print_rank(r.rank(page_num, page_len))
+    print_ranks(r.rank(page_num, page_len))
 
 
 def state_ranks(state, page_num=1, page_len=100):
@@ -48,7 +51,7 @@ def state_ranks(state, page_num=1, page_len=100):
 
     r = Ranking()
     r.filter_state(state)
-    print_rank(r.rank(page_num, page_len))
+    print_ranks(r.rank(page_num, page_len))
 
 
 def keyword_ranks(query, page_num=1, page_len=100, tsv_limit=1000):
@@ -62,4 +65,4 @@ def keyword_ranks(query, page_num=1, page_len=100, tsv_limit=1000):
 
     r = Ranking()
     r.filter_keywords(query)
-    print_rank(r.rank(page_num, page_len))
+    print_ranks(r.rank(page_num, page_len))
