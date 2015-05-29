@@ -78,7 +78,7 @@ class Ranking:
         """
 
         # Query for top N docs.
-        docs = config.es.search('osp', 'syllabus', body={
+        docs = config.es.search('osp', 'document', body={
             'size': doc_depth,
             'fields': ['doc_id'],
             'query': {
