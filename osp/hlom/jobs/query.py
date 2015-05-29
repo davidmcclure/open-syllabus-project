@@ -16,7 +16,7 @@ def query(id):
     row = HLOM_Record.get(HLOM_Record.id==id)
 
     # Execute the query.
-    results = config.es.search('corpus', 'document', timeout=30, body={
+    results = config.es.search('osp', 'document', timeout=30, body={
         'fields': ['doc_id'],
         'size': 100000,
         'filter': {

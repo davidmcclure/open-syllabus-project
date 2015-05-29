@@ -37,23 +37,33 @@ class Elasticsearch:
     def es_create(cls):
 
         """
-        Set the Elasticsearch mapping.
+        Set the mapping.
         """
 
-        config.es.indices.create(cls.es_index, {
-            'mappings': { cls.es_doc_type: cls.es_mapping }
-        })
+        # Ensure the index.
+        try: config.es.indices.exists(cls.es_index)
+        except: pass
+
+        # Create the mapping.
+        config.es.indices.put_mapping(
+            cls.es_doc_type,
+            cls.es_mapping
+        )
 
 
     @classmethod
     def es_delete(cls):
 
         """
-        Delete the index.
+        Delete the mapping.
         """
 
-        if config.es.indices.exists(cls.es_index):
-            config.es.indices.delete(cls.es_index)
+        try: config.es.indices.delete_mapping(
+            cls.es_index,
+            cls.es_doc_type
+        )
+
+        except: pass
 
 
     @classmethod
@@ -68,6 +78,7 @@ class Elasticsearch:
             config.es,
             cls.es_stream_docs(*args, **kwargs),
             raise_on_exception=False,
+            raise_on_error=False,
             doc_type=cls.es_doc_type,
             index=cls.es_index
         )

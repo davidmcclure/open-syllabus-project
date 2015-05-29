@@ -73,7 +73,7 @@ def search(q, size, start, slop):
     Search documents.
     """
 
-    results = config.es.search('corpus', 'document', body={
+    results = config.es.search('osp', 'document', body={
         'size': size,
         'from': start,
         'fields': [],

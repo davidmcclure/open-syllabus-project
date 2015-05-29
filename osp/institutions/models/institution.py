@@ -18,7 +18,7 @@ class Institution(BaseModel, Elasticsearch):
         database = config.get_table_db('institution')
 
 
-    es_index = 'institutions'
+    es_index = 'osp'
     es_doc_type = 'institution'
 
 

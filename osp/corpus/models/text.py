@@ -23,7 +23,7 @@ class Document_Text(BaseModel, Elasticsearch):
         database = config.get_table_db('document_text')
 
 
-    es_index = 'corpus'
+    es_index = 'osp'
     es_doc_type = 'document'
 
 
