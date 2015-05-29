@@ -4,15 +4,32 @@
 # /etc/osp/osp.yml
 
 osp:
+
+  # The top-level directory of the OSP corpus.
   corpus: XXX
+
+  # The location of executables installed by pip. (For worker jobs running
+  # outside of a virtual environment.) Eg, on Ubuntu: /home/ubuntu/osp/env/bin
   bin: XXX
+
+  # The location of a CSV file with term frequencies from the OSP corpus.
+  # Should have columns `term` and `count`.
   counts: XXX
 
 hlom:
+
+  # The directory that contains the raw Harvard MARC records.
   corpus: XXX
 
 tika:
+
+  # The file path of the tika-server jar.
   server: XXX
+
+network:
+
+  # The file path for a font to usefor labels in the network.
+  font: XXX
 
 postgres:
 
@@ -31,6 +48,3 @@ redis:
 elasticsearch:
   host: localhost
   port: 9200
-
-network:
-  font: XXX
