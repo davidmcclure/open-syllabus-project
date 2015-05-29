@@ -6,6 +6,8 @@ osp_src: /home/{{ ansible_ssh_user }}/osp
 osp_numprocs: 4
 osp_init_db: yes
 
+osp_wheelhouse: '{{ lookup("env", "OSP_WHEELHOUSE") }}'
+
 osp_profile:
   - . osp/env/bin/activate
 
