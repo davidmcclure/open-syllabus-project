@@ -47,7 +47,8 @@ class Elasticsearch:
         # Create the mapping.
         config.es.indices.put_mapping(
             cls.es_doc_type,
-            cls.es_mapping
+            cls.es_mapping,
+            cls.es_index
         )
 
 
