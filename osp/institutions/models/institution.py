@@ -67,21 +67,13 @@ class Institution(BaseModel, Elasticsearch):
         from osp.locations.models.doc_inst import Document_Institution
         from osp.citations.hlom.models.citation import HLOM_Citation
 
-        count = fn.Count(HLOM_Citation.id)
+        count = fn.Count(Document_Institution.id)
 
         cited = (
-
             cls.select(cls, count)
-
-            # Join citations.
             .join(Document_Institution)
-            .join(HLOM_Citation, on=(
-                Document_Institution.document==HLOM_Citation.document
-            ))
-
             .group_by(cls.id)
             .order_by(count.desc())
-
         )
 
         for inst in query_bar(cited):
