@@ -23,7 +23,7 @@ hlom:
 
 tika:
 
-  # The file path of the tika-server jar.
+  # The API endpoint for a Tika server instance.
   server: XXX
 
 network:
