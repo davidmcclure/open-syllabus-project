@@ -41,14 +41,13 @@ class Elasticsearch:
         """
 
         # Ensure the index.
-        try: config.es.indices.exists(cls.es_index)
+        try: config.es.indices.create(cls.es_index)
         except: pass
 
         # Create the mapping.
         config.es.indices.put_mapping(
             cls.es_doc_type,
-            cls.es_mapping,
-            cls.es_index
+            cls.es_mapping
         )
 
 
