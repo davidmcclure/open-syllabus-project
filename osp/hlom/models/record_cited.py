@@ -2,17 +2,82 @@
 
 from osp.common.config import config
 from osp.common.utils import termify, query_bar
+from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
+from osp.citations.hlom.utils import prettify_field
 from peewee import fn
 
 
-class HLOM_Record_Cited(HLOM_Record):
+class HLOM_Record_Cited(HLOM_Record, Elasticsearch):
 
 
     class Meta:
         database = config.get_table_db('hlom_record_cited')
+
+
+    es_index = 'osp'
+    es_doc_type = 'record'
+
+
+    es_mapping = {
+        '_id': {
+            'index': 'not_analyzed',
+            'store': True
+        },
+        'properties': {
+            'author': {
+                'type': 'string'
+            },
+            'title': {
+                'type': 'string'
+            },
+            'publisher': {
+                'type': 'string'
+            },
+            'count': {
+                'type': 'integer'
+            },
+            'rank': {
+                'type': 'integer'
+            }
+        }
+    }
+
+
+    @classmethod
+    def es_stream_docs(cls):
+
+        """
+        Index all rows.
+
+        Yields:
+            dict: The next document.
+        """
+
+        for row in query_bar(cls.select()):
+            yield row.es_doc
+
+
+    @property
+    def es_doc(self):
+
+        """
+        Construct a document for Elasticsearch.
+
+        Returns:
+            dict: The document fields.
+        """
+
+        return {
+            '_id':          self.control_number,
+            'author':       prettify_field(self.marc.author()),
+            'title':        prettify_field(self.marc.title()),
+            'publisher':    prettify_field(self.marc.publisher()),
+            'count':        self.metadata['citation_count'],
+            'rank':         self.metadata['rank'],
+        }
 
 
     @classmethod
