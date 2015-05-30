@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.common.utils import termify
+from osp.common.utils import termify, query_bar
 from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
@@ -64,3 +64,25 @@ class HLOM_Record_Cited(HLOM_Record):
                 continue
 
             cls.create(**r._data)
+
+
+    @classmethod
+    def rank(cls):
+
+        """
+        Write citation counts and ranks.
+        """
+
+        count = fn.COUNT(HLOM_Citation.id)
+
+        ranks = (
+            cls.select(cls, count)
+            .join(HLOM_Citation, on=(HLOM_Citation.record==cls.id))
+            .order_by(count.desc())
+            .group_by(cls.id)
+        )
+
+        for i, r in enumerate(query_bar(ranks)):
+            r.metadata['citation_count'] = r.count
+            r.metadata['rank'] = i+1
+            r.save()

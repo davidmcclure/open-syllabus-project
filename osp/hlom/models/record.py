@@ -65,26 +65,23 @@ class HLOM_Record(BaseModel):
 
 
     @classmethod
-    def write_stats(cls):
+    def dedupe(cls):
 
         """
-        Write deduping hashes and citation counts.
+        Write deduping hashes.
         """
 
         from .citation import HLOM_Citation
 
-        count = fn.COUNT(HLOM_Citation.id)
-
         cited = (
-            cls.select(cls, count)
+            cls.select()
             .join(HLOM_Citation)
             .group_by(cls.id)
         )
 
-        for r in query_bar(cited):
-            r.metadata['deduping_hash'] = r.hash
-            r.metadata['citation_count'] = r.count
-            r.save()
+        for record in query_bar(cited):
+            record.metadata['deduping_hash'] = record.hash
+            record.save()
 
 
     @property
