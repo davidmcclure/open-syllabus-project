@@ -36,10 +36,8 @@ class Document_Institution(BaseModel):
             .group_by(cls.institution)
         )
 
-        print(query.sql())
-
         counts = {}
         for row in query:
-            counts[row.count] = row._data['institution']
+            counts[row._data['institution']] = row.count
 
         return counts
