@@ -38,5 +38,5 @@ def test_institution_counts(models):
     assert Document_Institution.institution_counts() == {
         d1.id: 1,
         d2.id: 2,
-        d3.id: 3
+        d3.id: 3,
     }
