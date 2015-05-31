@@ -7,6 +7,7 @@ from osp.citations.hlom.counts import Counts
 from osp.citations.hlom.models.citation import HLOM_Citation
 from osp.citations.hlom.models.record import HLOM_Record
 from osp.citations.hlom.utils import prettify_field
+from scipy.stats import rankdata
 from peewee import fn
 
 
@@ -140,14 +141,21 @@ class HLOM_Record_Cited(HLOM_Record, Elasticsearch):
 
         count = fn.COUNT(HLOM_Citation.id)
 
-        ranks = (
+        query = (
             cls.select(cls, count)
             .join(HLOM_Citation, on=(HLOM_Citation.record==cls.id))
             .order_by(count.desc())
             .group_by(cls.id)
         )
 
-        for i, r in enumerate(query_bar(ranks)):
-            r.metadata['citation_count'] = r.count
-            r.metadata['rank'] = i+1
+        # Get up citation counts.
+        counts = [r.count for r in query]
+
+        # Rank in ascending order.
+        ranks = rankdata(counts, 'max')
+        ranks = ranks.max()+1 - ranks
+
+        for i, r in enumerate(query_bar(query)):
+            r.metadata['citation_count'] = counts[i]
+            r.metadata['rank'] = int(ranks[i])
             r.save()
