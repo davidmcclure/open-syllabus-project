@@ -30,6 +30,13 @@
     dest: '{{ osp_src }}'
 
 - name: Install pip dependencies
+  when: not wh.stat.exists
+  command: env/bin/pip3 install -r requirements.txt
+  args:
+    chdir: '{{ osp_src }}'
+
+- name: Install pip dependencies (from wheelhouse)
+  when: wh.stat.exists
   command: env/bin/pip3 install -r requirements.txt --find-links=wheelhouse
   args:
     chdir: '{{ osp_src }}'
