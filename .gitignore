@@ -1,6 +1,6 @@
 env
-.ipynb_checkpoints
 wheelhouse
+.ipynb_checkpoints
 *.egg-info
 *.gexf
 *.json

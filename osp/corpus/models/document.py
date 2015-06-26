@@ -26,15 +26,9 @@ class Document(BaseModel):
         Insert a document row for each syllabus in the corpus.
         """
 
-        for segment in Corpus.from_env().segments():
-
-            rows = []
-            for syllabus in segment.syllabi():
-                rows.append({'path': syllabus.relative_path})
-
-            # Bulk-insert the segment.
-            with cls._meta.database.transaction():
-                cls.insert_many(rows).execute()
+        for syllabus in Corpus.from_env().syllabi_bar():
+            try: cls.create(path=syllabus.relative_path)
+            except: pass
 
 
     @property

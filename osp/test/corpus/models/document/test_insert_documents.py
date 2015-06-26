@@ -32,3 +32,27 @@ def test_insert_documents(models, mock_osp):
             # Query for the document path.
             query = Document.select().where(Document.path==path)
             assert query.count() == 1
+
+
+def test_insert_new_documents(models, mock_osp):
+
+    """
+    When new documents are added to the corpus, just the new documents should
+    be registered in the database.
+    """
+
+    # 10 files in `000`.
+    for i in range(10):
+        mock_osp.add_file(segment='000', name='000-'+str(i))
+
+    # Should add 10 docs.
+    Document.insert_documents()
+    assert Document.select().count() == 10
+
+    # 10 new files in `001`.
+    for i in range(10):
+        mock_osp.add_file(segment='001', name='001-'+str(i))
+
+    # Should add 10 docs.
+    Document.insert_documents()
+    assert Document.select().count() == 20
