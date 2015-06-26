@@ -1,8 +1,8 @@
 ---
 
-tika_url: http://mirrors.sonic.net/apache/tika/tika-server-1.8.jar
+tika_url: http://apache.mirrors.lucidnetworks.net/tika/tika-server-1.9.jar
 tika_path: /etc/tika
-tika_jar: tika-server-1.7.jar
+tika_jar: tika-server-1.9.jar
 
 uwsgi_config: /etc/uwsgi
 
