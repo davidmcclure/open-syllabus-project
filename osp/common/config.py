@@ -97,7 +97,11 @@ class Config:
             list(db.items())
         )
 
-        return PostgresqlExtDatabase(autorollback=True, **args)
+        return PostgresqlExtDatabase(
+            autorollback=True,
+            register_hstore=False,
+            **args
+        )
 
 
     def get_table_db(self, table):
