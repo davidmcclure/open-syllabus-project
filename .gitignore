@@ -13,4 +13,5 @@ wheelhouse
 *.jpg
 
 /deploy/ansible.cfg
+/deploy/wheelhouse.tar.gz
 /deploy/vars/local.yml
