@@ -30,7 +30,7 @@ class Segment:
             str: The next file name.
         """
 
-        for name in os.listdir(self.path):
+        for name in sorted(os.listdir(self.path)):
 
             # Ignore `.log` files.
             if os.path.splitext(name)[1] != '.log':
