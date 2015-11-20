@@ -70,18 +70,8 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  workers = (1..2).map do |i|
-    "worker#{i}"
-  end
-
   config.vm.define "server" do |box|
     # TODO
-  end
-
-  workers.each do |w|
-    config.vm.define w do |box|
-      # TODO
-    end
   end
 
   config.vm.provision :vai do |ansible|
@@ -91,7 +81,6 @@ Vagrant.configure(2) do |config|
 
     ansible.groups = {
       'tag_osp_server' => ['server'],
-      'tag_osp_worker' => workers
     }
 
   end
