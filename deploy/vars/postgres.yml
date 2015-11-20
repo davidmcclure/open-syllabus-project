@@ -19,7 +19,7 @@ postgresql_pg_hba_custom:
 
 postgresql_databases:
   - name: osp
-    hstore: yes
+  - name: osp-test
 
 postgresql_users:
   - name: osp
