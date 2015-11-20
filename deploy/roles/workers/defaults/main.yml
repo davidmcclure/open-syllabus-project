@@ -1,8 +1,8 @@
 ---
 
-tika_url: http://apache.mirrors.lucidnetworks.net/tika/tika-server-1.9.jar
+tika_url: http://apache.cs.utah.edu/tika/tika-server-1.11.jar
 tika_path: /etc/tika
-tika_jar: tika-server-1.9.jar
+tika_jar: tika-server-1.11.jar
 
 uwsgi_config: /etc/uwsgi
 
