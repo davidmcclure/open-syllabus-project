@@ -6,6 +6,13 @@
     version: '{{ osp_branch }}'
     dest: '{{ osp_src }}'
 
+- name: Set source code permissions
+  file:
+    path: '{{ osp_src }}'
+    group: '{{ ansible_ssh_user }}'
+    owner: '{{ ansible_ssh_user }}'
+    recurse: yes
+
 - name: Check if a virtualenv exists
   register: env
   stat:
