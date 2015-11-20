@@ -35,5 +35,6 @@ pytest
 networkx
 pgmagick
 nltk
+wheel
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
