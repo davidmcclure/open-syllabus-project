@@ -11,3 +11,5 @@ wheelhouse
 *.csv
 *.png
 *.jpg
+
+/deploy/ansible.cfg
