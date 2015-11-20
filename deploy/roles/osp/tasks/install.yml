@@ -31,7 +31,10 @@
     path: /etc/osp
     state: directory
 
-- name: Apply the OSP config
+- name: Apply the OSP configs
   template:
-    src: osp.yml.j2
-    dest: /etc/osp/osp.yml
+    src: '{{ item }}.yml.j2'
+    dest: /etc/osp/{{ item }}.yml
+  with_items:
+    - osp
+    - osp.test
