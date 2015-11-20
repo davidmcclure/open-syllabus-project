@@ -26,7 +26,21 @@
 
   `ansible-playbook deploy.yml`
 
-  `ansible-playbook workers.yml`
+1. Once the playbooks run, log into VM with:
+
+  `vagrant ssh`
+
+1. And start the testing Elasticsearch process:
+
+  `sudo supervisorctl start es-test`
+
+  (This is stopped by default, to avoid consuming resources during real extraction runs.)
+
+1. Now, change into `/home/vagrant/osp` and run the test suite:
+
+  `py.test osp`
+
+  If this passes, the environment is fully configured and ready for work.
 
 On the first run, the `deploy` playbook will take 20-30 minutes to run on most systems, since the pip install has to compile a number of very large packages (`scipy`, `pgmagick`).
 
@@ -49,3 +63,5 @@ The slowness of the pip install is a real drag, especially when it comes time to
 1. Move the tarball into the synced directory:
 
   `mv wheelhouse.tar.gz /vagrant`
+
+  Now, any future deployments will automatically detect the wheelhouse and deploy it to the remote server.
