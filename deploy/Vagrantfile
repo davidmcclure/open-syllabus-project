@@ -70,14 +70,30 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
+  workers = (1..2).map do |i|
+    "worker#{i}"
+  end
+
   config.vm.define "server" do |box|
     # TODO
   end
 
-  2.times do |i|
-    config.vm.define "worker#{i}" do |box|
+  workers.each do |w|
+    config.vm.define w do |box|
       # TODO
     end
+  end
+
+  config.vm.provision :vai do |ansible|
+
+    ansible.inventory_dir = ".vagrant"
+    ansible.inventory_filename = "inventory"
+
+    ansible.groups = {
+      'tag_osp_server' => ['server'],
+      'tag_osp_worker' => workers
+    }
+
   end
 
 end
