@@ -8,9 +8,9 @@ import hashlib
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
-from osp.citations.hlom.utils import prettify_field
-from osp.citations.hlom.dataset import Dataset
-from osp.citations.hlom.utils import sanitize_query
+from osp.hlom.utils import prettify_field
+from osp.hlom.dataset import Dataset
+from osp.hlom.utils import sanitize_query
 from pymarc import Record
 from scipy.stats import rankdata
 from clint.textui.progress import bar

@@ -5,7 +5,7 @@ import os
 from flask import Flask
 from rq_dashboard import RQDashboard
 from osp.corpus.api import corpus
-from osp.citations.hlom.api import hlom
+from osp.hlom.api import hlom
 from osp.dates.api import dates
 from osp.locations.api import locations
 

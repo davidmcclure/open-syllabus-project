@@ -5,13 +5,13 @@ import numpy as np
 import csv
 
 from osp.common.config import config
-from osp.citations.hlom.models.record import HLOM_Record
-from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
-from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.models.node import HLOM_Node
-from osp.citations.hlom.models.edge import HLOM_Edge
-from osp.citations.hlom.dataset import Dataset
-from osp.citations.hlom.jobs.query import query
+from osp.hlom.models.record import HLOM_Record
+from osp.hlom.models.record_cited import HLOM_Record_Cited
+from osp.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.node import HLOM_Node
+from osp.hlom.models.edge import HLOM_Edge
+from osp.hlom.dataset import Dataset
+from osp.hlom.jobs.query import query
 from peewee import create_model_tables
 from playhouse.postgres_ext import ServerSide
 from clint.textui.progress import bar

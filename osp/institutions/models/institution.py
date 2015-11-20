@@ -65,7 +65,7 @@ class Institution(BaseModel, Elasticsearch):
 
         # TODO: De-circularize.
         from osp.locations.models.doc_inst import Document_Institution
-        from osp.citations.hlom.models.citation import HLOM_Citation
+        from osp.hlom.models.citation import HLOM_Citation
 
         count = fn.Count(Document_Institution.id)
 

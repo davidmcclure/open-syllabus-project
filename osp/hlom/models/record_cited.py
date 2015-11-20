@@ -3,10 +3,10 @@
 from osp.common.config import config
 from osp.common.utils import termify, query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
-from osp.citations.hlom.counts import Counts
-from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.models.record import HLOM_Record
-from osp.citations.hlom.utils import prettify_field
+from osp.hlom.counts import Counts
+from osp.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.record import HLOM_Record
+from osp.hlom.utils import prettify_field
 from scipy.stats import rankdata
 from peewee import fn
 

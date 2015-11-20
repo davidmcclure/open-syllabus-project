@@ -15,8 +15,8 @@ from osp.dates.models.semester import Document_Date_Semester
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
 from osp.institutions.models.institution import Institution
 from osp.locations.models.doc_inst import Document_Institution
-from osp.citations.hlom.models.record import HLOM_Record
-from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.record import HLOM_Record
+from osp.hlom.models.citation import HLOM_Citation
 
 # Helpers:
 from playhouse.test_utils import test_database

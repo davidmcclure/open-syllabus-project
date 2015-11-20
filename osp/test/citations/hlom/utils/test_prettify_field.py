@@ -1,6 +1,6 @@
 
 
-from osp.citations.hlom.utils import prettify_field
+from osp.hlom.utils import prettify_field
 
 
 def test_space_on_left():

@@ -4,7 +4,7 @@ import os
 
 from osp.common.config import config
 from osp.common.utils import grouper
-from osp.citations.hlom.segment import Segment
+from osp.hlom.segment import Segment
 
 
 class Dataset:

@@ -7,11 +7,11 @@ import math
 
 from osp.common.config import config
 from osp.common.utils import query_bar
-from osp.citations.hlom.utils import prettify_field, sort_dict
-from osp.citations.hlom.models.record import HLOM_Record
-from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.models.node import HLOM_Node
-from osp.citations.hlom.models.edge import HLOM_Edge
+from osp.hlom.utils import prettify_field, sort_dict
+from osp.hlom.models.record import HLOM_Record
+from osp.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.node import HLOM_Node
+from osp.hlom.models.edge import HLOM_Edge
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn

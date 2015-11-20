@@ -1,6 +1,6 @@
 
 
-from osp.citations.hlom.models.record import HLOM_Record
+from osp.hlom.models.record import HLOM_Record
 
 
 def test_insert_records(models, mock_hlom):

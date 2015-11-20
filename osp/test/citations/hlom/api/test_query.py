@@ -1,6 +1,6 @@
 
 
-from osp.citations.hlom.jobs.query import query
+from osp.hlom.jobs.query import query
 
 
 def test_semester(api_client, queue):

@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.citations.hlom.jobs.query import query as job
+from osp.hlom.jobs.query import query as job
 from flask import Flask, Blueprint, request
 from rq import Queue
 

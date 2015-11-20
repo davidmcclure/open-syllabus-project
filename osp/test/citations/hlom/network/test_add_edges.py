@@ -2,8 +2,8 @@
 
 import networkx as nx
 
-from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.network import Network
+from osp.hlom.models.citation import HLOM_Citation
+from osp.hlom.network import Network
 
 
 def test_add_edges(models, add_hlom, add_doc):

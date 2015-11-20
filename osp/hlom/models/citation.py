@@ -2,7 +2,7 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.citations.hlom.models.record import HLOM_Record
+from osp.hlom.models.record import HLOM_Record
 from osp.locations.models.doc_inst import Document_Institution
 from osp.institutions.models.institution import Institution
 from osp.corpus.models.document import Document

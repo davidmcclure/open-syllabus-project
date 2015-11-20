@@ -1,6 +1,6 @@
 
 
-from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.citation import HLOM_Citation
 from osp.institutions.models.institution import Institution
 from osp.locations.models.doc_inst import Document_Institution
 

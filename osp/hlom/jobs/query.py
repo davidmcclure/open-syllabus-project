@@ -1,8 +1,8 @@
 
 
 from osp.common.config import config
-from osp.citations.hlom.models.record import HLOM_Record
-from osp.citations.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.record import HLOM_Record
+from osp.hlom.models.citation import HLOM_Citation
 
 
 def query(id):

@@ -3,8 +3,8 @@
 import numpy as np
 
 from osp.common.config import config
-from osp.citations.hlom.models.citation import HLOM_Citation
-from osp.citations.hlom.models.record_cited import HLOM_Record_Cited
+from osp.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.record_cited import HLOM_Record_Cited
 from osp.locations.models.doc_inst import Document_Institution
 from osp.institutions.models.institution import Institution
 from playhouse.postgres_ext import Match

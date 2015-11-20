@@ -2,7 +2,7 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.citations.hlom.models.node import HLOM_Node
+from osp.hlom.models.node import HLOM_Node
 from peewee import *
 
 
