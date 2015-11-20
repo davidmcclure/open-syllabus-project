@@ -1,8 +1,9 @@
 ---
 
-- include: tika.yml
 - include: nginx.yml
 - include: uwsgi.yml
+- include: elasticsearch.yml
+- include: tika.yml
 - include: supervisor.yml
 
 - name: Reload supervisor

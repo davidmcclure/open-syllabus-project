@@ -41,7 +41,8 @@ class Elasticsearch:
         """
 
         # Ensure the index.
-        config.es.indices.create(cls.es_index)
+        try: config.es.indices.create(cls.es_index)
+        except: pass
 
         # Create the mapping.
         config.es.indices.put_mapping(
@@ -57,7 +58,8 @@ class Elasticsearch:
         Delete the mapping.
         """
 
-        config.es.indices.delete(cls.es_index)
+        try: config.es.indices.delete(cls.es_index)
+        except: pass
 
 
     @classmethod
