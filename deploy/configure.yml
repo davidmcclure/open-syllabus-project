@@ -19,4 +19,3 @@
     - redis
     - supervisor
     - nginx
-    - workers

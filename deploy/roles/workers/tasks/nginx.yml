@@ -1,7 +1,6 @@
 ---
 
 - name: Apply nginx configurations
-  notify: restart nginx
   template:
     src: nginx/{{ item }}.j2
     dest: /etc/nginx/sites-enabled/{{ item }}

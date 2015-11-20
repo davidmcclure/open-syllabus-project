@@ -4,3 +4,11 @@
 - include: nginx.yml
 - include: uwsgi.yml
 - include: supervisor.yml
+
+- name: Reload supervisor
+  shell: supervisorctl reload
+
+- name: Restart nginx
+  service:
+    name: nginx
+    state: restarted

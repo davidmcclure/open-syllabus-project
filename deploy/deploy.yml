@@ -12,3 +12,4 @@
 
   roles:
     - osp
+    - workers
