@@ -1,7 +1,7 @@
 ---
 
-osp_repo: https://github.com/overview/osp.git
-osp_branch: master
+osp_repo: https://github.com/davidmcclure/osp.git
+osp_branch: feature/vagrant
 osp_src: /home/{{ ansible_ssh_user }}/osp
 osp_numprocs: 4
 osp_init_db: yes
