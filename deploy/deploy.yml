@@ -8,6 +8,7 @@
 
   vars_files:
     - vars/osp.yml
+    - vars/local.yml
 
   roles:
     - osp
