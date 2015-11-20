@@ -8,3 +8,4 @@
     - osp-workers
     - osp-api
     - tika-server
+    - es-test
