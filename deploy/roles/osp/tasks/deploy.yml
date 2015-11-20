@@ -25,8 +25,24 @@
   args:
     chdir: '{{ osp_src }}'
 
+- name: Check for local wheelhouse
+  sudo: no
+  local_action: stat path={{ playbook_dir }}/wheelhouse.tar.gz
+  register: wh1
+
+- name: Check for remote wheelhouse
+  register: wh2
+  stat:
+    path: '{{ osp_src }}/wheelhouse'
+
+- name: Deploy the wheelhouse
+  when: wh1.stat.exists and not wh2.stat.exists
+  unarchive:
+    src: '{{ playbook_dir }}/wheelhouse.tar.gz'
+    dest: '{{ osp_src }}'
+
 - name: Install pip dependencies
-  command: env/bin/pip3 install -r requirements.txt
+  command: env/bin/pip3 install -r requirements.txt --find-links=wheelhouse
   args:
     chdir: '{{ osp_src }}'
 

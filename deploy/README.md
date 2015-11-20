@@ -23,7 +23,9 @@
 1. Then, provision the box with:
 
   `ansible-playbook configure.yml`
+
   `ansible-playbook deploy.yml`
+
   `ansible-playbook workers.yml`
 
 On the first run, the `deploy` playbook will take 20-30 minutes to run on most systems, since the pip install has to compile a number of very large packages (`scipy`, `pgmagick`).
