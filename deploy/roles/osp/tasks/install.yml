@@ -1,6 +1,6 @@
 ---
 
-- name: Install dependencies
+- name: Install system dependencies
   apt:
     pkg: '{{ item }}'
     update_cache: yes

@@ -25,31 +25,8 @@
   args:
     chdir: '{{ osp_src }}'
 
-- name: Check for the wheelhouse
-  register: wh1
-  stat:
-    path: '{{ osp_src }}/wheelhouse'
-
-- name: Deploy the wheelhouse
-  when: osp_wheelhouse != '' and not wh1.stat.exists
-  unarchive:
-    src: '{{ osp_wheelhouse }}'
-    dest: '{{ osp_src }}'
-
-- name: (Re-) check for the wheelhouse
-  register: wh2
-  stat:
-    path: '{{ osp_src }}/wheelhouse'
-
 - name: Install pip dependencies
-  when: not wh2.stat.exists
   command: env/bin/pip3 install -r requirements.txt
-  args:
-    chdir: '{{ osp_src }}'
-
-- name: Install pip dependencies (from wheelhouse)
-  when: wh2.stat.exists
-  command: env/bin/pip3 install -r requirements.txt --find-links=wheelhouse
   args:
     chdir: '{{ osp_src }}'
 
