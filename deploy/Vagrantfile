@@ -71,11 +71,13 @@ Vagrant.configure(2) do |config|
   # SHELL
 
   config.vm.provider "virtualbox" do |v|
+
+    # 2g of ram to compile SciPy.
     v.memory = 2048
+
   end
 
   config.vm.define "server" do |box|
-    # TODO
   end
 
   config.vm.provision :vai do |ansible|
@@ -88,5 +90,7 @@ Vagrant.configure(2) do |config|
     }
 
   end
+
+  config.vm.synced_folder "osp", "/home/vagrant/osp", create: true
 
 end

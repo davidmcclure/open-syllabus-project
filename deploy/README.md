@@ -38,7 +38,7 @@
 
   (This is stopped by default, to avoid consuming resources during real extraction runs.)
 
-1. Now, change into `/home/vagrant/osp` and run the test suite:
+1. Wait ~10s for Elasticsearch to start, and then change into `/home/vagrant/osp` and run the test suite:
 
   `py.test osp`
 

@@ -6,7 +6,6 @@
     state: directory
 
 - name: Apply uWSGI configurations
-  notify: reload supervisor
   template:
     src: uwsgi/{{ item }}.ini.j2
     dest: '{{ uwsgi_config }}/{{ item }}.ini'
