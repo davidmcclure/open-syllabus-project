@@ -16,6 +16,12 @@
 
   `osp_branch: feature/my-branch`
 
+1. Set an environment variable called `OSP_VAGRANT` that points to a location on the local filesystem where you want the Vagrant-depolyed OSP code to by synced. Eg, in my `~/.zshrc`, I have:
+
+  `export OSP_VAGRANT="/Users/dclure/Projects/osp-vagrant"`
+
+  The directory doesn't need to exist - it will be automatically created when the VM is started.
+
 1. Start the Vagrant box with:
 
   `vagrant up`
@@ -42,7 +48,7 @@
 
   `py.test osp`
 
-1. If this passes, the environment is fully configured on the VM. But, to actually work with the code, you probably want access from the local filesystem (so you can use regular editors, etc). To make this possible, when the Vagrant VM is started, a directory is created at `/deploy/osp`, which is synced with the deployed source code on the VM - touch a file here, and it's automatically updated on the VM.
+1. If this passes, the environment is fully configured and ready for work. Any changes to the code made in the synced directory (set by `OSP_VAGRANT`) will be automatically propagated to the VM, and vice versa.
 
 #### Make a wheelhouse to speed up deployments
 
