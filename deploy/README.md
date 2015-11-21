@@ -26,6 +26,8 @@
 
   `ansible-playbook deploy.yml`
 
+  On the first run, the `deploy` playbook will take 20-30 minutes to run on most systems, since the pip install has to compile a number of very large packages (`scipy`, `pgmagick`).
+
 1. Once the playbooks run, log into VM with:
 
   `vagrant ssh`
@@ -41,8 +43,6 @@
   `py.test osp`
 
   If this passes, the environment is fully configured and ready for work.
-
-On the first run, the `deploy` playbook will take 20-30 minutes to run on most systems, since the pip install has to compile a number of very large packages (`scipy`, `pgmagick`).
 
 #### Make a wheelhouse to speed up deployments
 
@@ -64,4 +64,4 @@ The slowness of the pip install is a real drag, especially when it comes time to
 
   `mv wheelhouse.tar.gz /vagrant`
 
-  Now, any future deployments will automatically detect the wheelhouse and deploy it to the remote server.
+Now, any future deployments will automatically detect the wheelhouse and deploy it to the remote server.
