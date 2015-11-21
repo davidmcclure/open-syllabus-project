@@ -42,7 +42,7 @@
 
   `py.test osp`
 
-  If this passes, the environment is fully configured and ready for work.
+1. If this passes, the environment is fully configured on the VM. But, to actually work with the code, you probably want access from the local filesystem (so you can use regular editors, etc). To make this possible, when the Vagrant VM is started, a directory is created at `/deploy/osp`, which is synced with the deployed source code on the VM - touch a file here, and it's automatically updated on the VM.
 
 #### Make a wheelhouse to speed up deployments
 
