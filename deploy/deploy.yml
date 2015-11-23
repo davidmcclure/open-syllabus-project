@@ -1,7 +1,8 @@
 ---
 
 - name: Deploy the OSP code
-  sudo: yes
+  become: yes
+
   hosts:
     - tag_osp_server
     - tag_osp_worker

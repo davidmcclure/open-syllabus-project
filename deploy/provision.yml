@@ -2,12 +2,9 @@
 
 - name: Provision a worker set
   hosts: localhost
-  gather_facts: False
-  sudo_user: ubuntu
 
   vars_files:
     - vars/ec2.yml
-    - vars/local.yml
 
   tasks:
 

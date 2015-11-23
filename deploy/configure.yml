@@ -1,7 +1,8 @@
 ---
 
 - name: Configure OSP workers
-  sudo: yes
+  become: yes
+
   hosts:
     - tag_osp_server
     - tag_osp_worker

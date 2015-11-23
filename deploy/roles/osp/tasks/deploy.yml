@@ -26,7 +26,7 @@
     chdir: '{{ osp_src }}'
 
 - name: Check for local wheelhouse
-  sudo: no
+  become: no
   local_action: stat path={{ playbook_dir }}/wheelhouse.tar.gz
   register: wh_local
 
