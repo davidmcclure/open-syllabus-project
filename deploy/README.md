@@ -10,10 +10,6 @@
 
 1. Symlink `config/ansible.vagrant.cfg` -> `ansible.cfg`
 
-1. Copy `vars/local.yml.changeme` -> `vars/local.yml`. Put any local variable overrides in this file (or just leave it empty, if you want to use the default values). For example, to deploy from a custom branch:
-
-  `osp_branch: feature/my-branch`
-
 1. Set an environment variable called `OSP_VAGRANT` that points to a location on the local filesystem where you want the Vagrant-depolyed OSP code to by synced. Eg, in my `~/.zshrc`, I have:
 
   `export OSP_VAGRANT="/Users/dclure/Projects/osp-vagrant"`
