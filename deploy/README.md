@@ -8,9 +8,7 @@
 
   `vagrant plugin install vai`
 
-1. Copy `ansible.cfg.changeme` -> `ansible.cfg`, un-comment the line:
-
-  `hostfile = .vagrant/inventory`
+1. Symlink `config/ansible.vagrant.cfg` -> `ansible.cfg`
 
 1. Copy `vars/local.yml.changeme` -> `vars/local.yml`. Put any local variable overrides in this file (or just leave it empty, if you want to use the default values). For example, to deploy from a custom branch:
 
