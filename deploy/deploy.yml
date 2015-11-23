@@ -6,10 +6,6 @@
     - tag_osp_server
     - tag_osp_worker
 
-  vars_files:
-    - vars/osp.yml
-    - vars/local.yml
-
   roles:
     - osp
     - workers

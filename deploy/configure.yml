@@ -7,10 +7,8 @@
     - tag_osp_worker
 
   vars_files:
-    - vars/osp.yml
     - vars/elasticsearch.yml
     - vars/postgres.yml
-    - vars/local.yml
 
   roles:
     - common
