@@ -22,6 +22,8 @@
 
   The directory doesn't need to exist - it will be automatically created when the VM is started.
 
+1. Create a file at `~/.osp-pw.txt`, and enter the Ansible password. (Used to decrpyt deployment secrets - email david@dclure.org.)
+
 1. Start the Vagrant box with:
 
   `vagrant up`
