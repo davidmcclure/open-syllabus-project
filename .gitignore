@@ -1,3 +1,4 @@
+
 env
 wheelhouse
 .vagrant
@@ -11,7 +12,3 @@ wheelhouse
 *.csv
 *.png
 *.jpg
-
-/deploy/ansible.cfg
-/deploy/wheelhouse.tar.gz
-/deploy/vars/local.yml
