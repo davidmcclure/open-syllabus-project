@@ -3,9 +3,6 @@
 - name: Provision a worker set
   hosts: localhost
 
-  vars_files:
-    - vars/ec2.yml
-
   tasks:
 
     - name: Start the data server
