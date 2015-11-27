@@ -1,4 +1,6 @@
 
-/ansible.cfg
-/wheelhouse.tar.gz
-/.local.yml
+env
+
+ansible.cfg
+wheelhouse.tar.gz
+.local.yml
