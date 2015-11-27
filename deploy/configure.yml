@@ -8,7 +8,6 @@
     - tag_osp_worker
 
   vars_files:
-    - vars/elasticsearch.yml
     - vars/postgres.yml
 
   roles:

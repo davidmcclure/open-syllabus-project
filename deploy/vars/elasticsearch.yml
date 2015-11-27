@@ -1,4 +1,0 @@
----
-
-es_data_dir: /osp/data/elasticsearch
-es_heap_size: 512m
