@@ -21,7 +21,7 @@ from osp.hlom.models.citation import HLOM_Citation
 # Helpers:
 from playhouse.test_utils import test_database
 from osp.test.corpus.mock_osp import MockOSP
-from osp.test.citations.hlom.mock_hlom import MockHLOM
+from osp.test.hlom.mock_hlom import MockHLOM
 
 
 @pytest.fixture(scope='session', autouse=True)
