@@ -5,11 +5,4 @@
 - include: elasticsearch.yml
 - include: tika.yml
 - include: supervisor.yml
-
-- name: Reload supervisor
-  shell: supervisorctl reload
-
-- name: Restart nginx
-  service:
-    name: nginx
-    state: restarted
+- include: reload.yml
