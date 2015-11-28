@@ -46,17 +46,20 @@
   stat:
     path: '{{ osp_src }}/wheelhouse'
 
-# Install from wheelhouse, when deployed.
-- name: Install pip dependencies (from wheelhouse)
-  when: wh_remote.stat.exists
-  command: env/bin/pip3 install -r requirements.txt --find-links=wheelhouse
+- name: Install the wheel package
+  when: not wh_remote.stat.exists
+  command: env/bin/pip3 install wheel
   args:
     chdir: '{{ osp_src }}'
 
-# Otherwise, compile from source.
-- name: Install pip dependencies (from source)
+- name: Create wheelhouse, if not deployed
   when: not wh_remote.stat.exists
-  command: env/bin/pip3 install -r requirements.txt
+  command: env/bin/pip3 wheel -r requirements.txt
+  args:
+    chdir: '{{ osp_src }}'
+
+- name: Install dependencies from wheelhouse
+  command: env/bin/pip3 install -r requirements.txt --find-links=wheelhouse
   args:
     chdir: '{{ osp_src }}'
 
