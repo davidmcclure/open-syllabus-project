@@ -11,11 +11,11 @@
 
         image: '{{ ec2_image }}'
         keypair: '{{ ec2_keypair }}'
+        group: '{{ ec2_group }}'
         region: '{{ ec2_region }}'
 
         instance_type: '{{ ec2_server_instance_type }}'
         vpc_subnet_id: '{{ ec2_subnet_id }}'
-        group: osp-worker
 
         assign_public_ip: yes
         wait: yes
@@ -40,11 +40,11 @@
 
         image: '{{ ec2_image }}'
         keypair: '{{ ec2_keypair }}'
+        group: '{{ ec2_group }}'
         region: '{{ ec2_region }}'
 
         instance_type: '{{ ec2_worker_instance_type }}'
         vpc_subnet_id: '{{ ec2_subnet_id }}'
-        group: osp-worker
 
         assign_public_ip: yes
         wait: yes

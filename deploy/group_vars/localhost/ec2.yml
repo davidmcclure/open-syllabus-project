@@ -2,6 +2,7 @@
 
 ec2_region: us-east-1
 ec2_image: ami-9eaa1cf6
+ec2_group: osp-worker
 
 ec2_server_instance_type: m3.medium
 ec2_server_count: 1
