@@ -12,7 +12,6 @@ from osp.hlom.utils import prettify_field
 from osp.hlom.dataset import Dataset
 from osp.hlom.utils import sanitize_query
 from pymarc import Record
-from scipy.stats import rankdata
 from clint.textui.progress import bar
 from playhouse.postgres_ext import *
 from peewee import *
