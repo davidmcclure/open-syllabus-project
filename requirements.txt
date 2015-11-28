@@ -1,6 +1,5 @@
 
 ipython
-matplotlib
 jsonschema
 tldextract
 geopy
