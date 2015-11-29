@@ -3,10 +3,10 @@
 - name: Provision a worker set
   hosts: localhost
 
-  tasks:
+  vars_files:
+    - vars/local.yml
 
-    - include_vars: local.yml
-      ignore_errors: yes
+  tasks:
 
     - name: Start the data repository
       register: servers

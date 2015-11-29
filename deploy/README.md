@@ -18,6 +18,8 @@
 
 1. Create a file at `~/.osp-pw.txt`, and enter the Ansible password. (Email david@dclure.org, if you don't already have it.)
 
+1. Copy `/vars/local.changeme.yml` -> `vars/local.yml`.
+
 1. Start the Vagrant box with:
 
   `vagrant up`

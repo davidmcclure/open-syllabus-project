@@ -7,9 +7,8 @@
     - tag_osp_server
     - tag_osp_worker
 
-  pre_tasks:
-    - include_vars: local.yml
-      ignore_errors: yes
+  vars_files:
+    - vars/local.yml
 
   roles:
     - osp
