@@ -18,6 +18,7 @@ from osp.locations.models.doc_inst import Document_Institution
 from osp.hlom.models.record import HLOM_Record
 from osp.hlom.models.citation import HLOM_Citation
 from osp.fields.models.field import Field
+from osp.fields.models.field_document import Field_Document
 
 # Helpers:
 from playhouse.test_utils import test_database
@@ -120,6 +121,7 @@ def models(config):
         HLOM_Record,
         HLOM_Citation,
         Field,
+        Field_Document,
     ]
 
     with test_database(config.get_db(), tables):

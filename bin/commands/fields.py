@@ -3,6 +3,7 @@
 import click
 
 from osp.fields.models.field import Field
+from osp.fields.models.field_document import Field_Document
 from peewee import create_model_tables
 
 
@@ -20,4 +21,5 @@ def init_db():
 
     create_model_tables([
         Field,
+        Field_Document,
     ], fail_silently=True)

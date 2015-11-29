@@ -2,8 +2,9 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from peewee import *
-from playhouse.postgres_ext import *
+
+from peewee import CharField
+from playhouse.postgres_ext import ArrayField
 
 
 class Field(BaseModel):
