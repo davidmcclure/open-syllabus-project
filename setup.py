@@ -18,7 +18,6 @@ setup(
     install_requires=[
 
         'ipython',
-        'jsonschema',
         'tldextract',
         'geopy',
         'redis',

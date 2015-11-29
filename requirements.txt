@@ -1,6 +1,5 @@
 
 ipython
-jsonschema
 tldextract
 geopy
 redis
