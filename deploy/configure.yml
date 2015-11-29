@@ -4,8 +4,8 @@
   become: yes
 
   hosts:
-    - tag_osp_server
-    - tag_osp_worker
+    - tag_osp_server:&tag_user_{{ ec2_namespace }}
+    - tag_osp_worker:&tag_user_{{ ec2_namespace }}
 
   vars_files:
     - vars/local.yml

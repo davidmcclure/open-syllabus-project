@@ -31,9 +31,11 @@
 
         instance_tags:
           Name: osp-server
+          user: '{{ ec2_namespace }}'
           osp: server
 
         count_tag:
+          user: '{{ ec2_namespace }}'
           osp: server
 
     - name: Start the workers
@@ -55,9 +57,11 @@
 
         instance_tags:
           Name: osp-worker
+          user: '{{ ec2_namespace }}'
           osp: worker
 
         count_tag:
+          user: '{{ ec2_namespace }}'
           osp: worker
 
     - name: Attach the OSP volume

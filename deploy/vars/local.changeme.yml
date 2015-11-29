@@ -9,6 +9,9 @@ ec2_keypair: XXX
 # ID of the OSP EBS snapshot.
 ec2_osp_snapshot: snap-XXX
 
+# A user-specific EC2 instance tag.
+ec2_namespace: XXX
+
 # IP address of the central data server.
 osp_data_host: XXX
 
