@@ -17,3 +17,22 @@ def clean_field_name(name):
     """
 
     return name.strip(string.punctuation + string.whitespace)
+
+
+def parse_abbrs(abbrs):
+
+    """
+    Parse comma-delimited abbreviations.
+
+    Args:
+        name (str): The raw abbreviations.
+
+    Returns:
+        list: The cleaned list.
+    """
+
+    # Strip trailing commas.
+    abbrs = abbrs.strip(string.punctuation)
+
+    # Strip spaces around edges.
+    return list(map(lambda x: x.strip(), abbrs.split(',')))
