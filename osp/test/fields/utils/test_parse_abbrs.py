@@ -15,3 +15,6 @@ def test_keep_interior_spaces():
 
 def test_ignore_trailing_comma():
     assert parse_abbrs('AB, CD, EF,') == ['AB', 'CD', 'EF']
+
+def test_parse_empty_string_to_empty_array():
+    assert parse_abbrs('') == []

@@ -31,8 +31,8 @@ def parse_abbrs(abbrs):
         list: The cleaned list.
     """
 
-    # Strip trailing commas.
-    abbrs = abbrs.strip(string.punctuation)
+    parsed = []
+    for abbr in abbrs.split(','):
+        if abbr: parsed.append(abbr.strip())
 
-    # Strip spaces around edges.
-    return list(map(lambda x: x.strip(), abbrs.split(',')))
+    return parsed
