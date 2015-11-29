@@ -5,6 +5,9 @@
 
   tasks:
 
+    - include_vars: local.yml
+      ignore_errors: yes
+
     - name: Start the data repository
       register: servers
       ec2:
