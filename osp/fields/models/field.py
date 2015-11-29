@@ -33,5 +33,19 @@ class Field(BaseModel):
             'data/fields.csv'
         )
 
+        rows = []
         for row in reader:
-            print(row)
+
+            # Split the abbreviations.
+            abbrs = row['ABBRV'].replace(' ', '').split(',')
+            alpha = bool(row['Alpha Category'])
+
+            rows.append({
+                'primary_field':    row['Primary Field'],
+                'secondary_field':  row['Secondary Field'],
+                'abbreviations':    abbrs,
+                'alpha_category':   alpha,
+            })
+
+        with cls._meta.database.transaction():
+            cls.insert_many(rows).execute()
