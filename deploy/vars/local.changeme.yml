@@ -1,15 +1,15 @@
 ---
 
-# The id of the VPC subnet to house the instances.
+# VPC subnet to house the instances.
 ec2_subnet_id: subnet-XXX
 
-# The name of the AWS keypair to use when creating instances.
+# AWS keypair to use when creating instances.
 ec2_keypair: XXX
 
-# The id of the OSP EBS snapshot.
+# ID of the OSP EBS snapshot.
 ec2_osp_snapshot: snap-XXX
 
-# The IP address of the central data server.
+# IP address of the central data server.
 osp_data_host: XXX
 
 # Other local overrides:
