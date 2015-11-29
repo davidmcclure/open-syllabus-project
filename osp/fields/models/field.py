@@ -3,6 +3,7 @@
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.common.utils import read_csv
+from osp.fields.utils import clean_field_name
 
 from peewee import CharField, BooleanField
 from playhouse.postgres_ext import ArrayField
@@ -36,13 +37,17 @@ class Field(BaseModel):
         rows = []
         for row in reader:
 
+            # Sanitize the field names.
+            pf = clean_field_name(row['Primary Field'])
+            sf = clean_field_name(row['Secondary Field'])
+
             # Split the abbreviations.
             abbrs = row['ABBRV'].replace(' ', '').split(',')
             alpha = bool(row['Alpha Category'])
 
             rows.append({
-                'primary_field':    row['Primary Field'],
-                'secondary_field':  row['Secondary Field'],
+                'primary_field':    pf,
+                'secondary_field':  sf,
                 'abbreviations':    abbrs,
                 'alpha_category':   alpha,
             })

@@ -1,6 +1,7 @@
 
 
 import re
+import string
 
 
 def clean_field_name(name):
@@ -15,4 +16,4 @@ def clean_field_name(name):
         str: The cleaned name.
     """
 
-    return re.sub('[^a-zA-Z]', '', name).strip()
+    return name.strip(string.punctuation + string.whitespace)
