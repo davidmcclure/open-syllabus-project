@@ -12,7 +12,7 @@ postgresql_databases:
 
 postgresql_users:
   - name: osp
-    pass: '{{ osp_password }}'
+    pass: '{{ osp_db_password }}'
 
 postgresql_user_privileges:
   - name: osp

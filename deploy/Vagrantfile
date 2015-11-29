@@ -70,11 +70,9 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  # 2g of ram to compile SciPy.
+  # 4g of ram to compile SciPy.
   config.vm.provider "virtualbox" do |v|
-    v.customize ["modifyvm", :id, "--ioapic", "on"]
-    v.cpus = 4
-    v.memory = 8192
+    v.memory = 4096
   end
 
   config.vm.define "server"

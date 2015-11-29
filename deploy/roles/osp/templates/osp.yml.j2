@@ -18,12 +18,11 @@ postgres:
       host: localhost
       port: 5432
       user: osp
-      password: {{ osp_password }}
+      password: {{ osp_db_password }}
 
   remote:
     args:
       host: {{ __osp_data_host }}
-      password: {{ osp_password }}
     tables:
       - document_text
 
