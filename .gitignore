@@ -5,10 +5,4 @@ wheelhouse
 .ipynb_checkpoints
 .cache
 *.egg-info
-*.gexf
-*.json
 *.pyc
-*.gml
-*.csv
-*.png
-*.jpg
