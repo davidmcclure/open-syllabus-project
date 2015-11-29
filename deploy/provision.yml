@@ -31,7 +31,6 @@
 
         instance_tags:
           Name: osp-server
-          Environment: osp-server
           osp: server
 
         count_tag:
@@ -56,7 +55,6 @@
 
         instance_tags:
           Name: osp-worker
-          Environment: osp-worker
           osp: worker
 
         count_tag:
