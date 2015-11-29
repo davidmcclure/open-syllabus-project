@@ -23,3 +23,13 @@ def init_db():
         Field,
         Field_Document,
     ], fail_silently=True)
+
+
+@cli.command()
+def insert_fields():
+
+    """
+    Insert field rows.
+    """
+
+    Field.insert_fields()
