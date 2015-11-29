@@ -72,7 +72,7 @@ Vagrant.configure(2) do |config|
 
   # 2g of ram to compile SciPy.
   config.vm.provider "virtualbox" do |v|
-    v.memory = 2048
+    v.memory = 4096
   end
 
   config.vm.define "server"
