@@ -70,7 +70,6 @@
         instance: '{{ item.id }}'
         snapshot: '{{ ec2_osp_snapshot }}'
         region: '{{ ec2_region }}'
-        volume_size: 1 # Ansible bug-fix.
 
       with_flattened:
         - workers.instances
