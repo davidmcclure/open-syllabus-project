@@ -18,3 +18,4 @@ osp_db_modules:
   - dates
   - inst
   - locations
+  - fields
