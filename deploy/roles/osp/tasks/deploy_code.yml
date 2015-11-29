@@ -25,6 +25,11 @@
   args:
     chdir: '{{ osp_src }}'
 
+- name: Update to pip 1.6
+  command: env/bin/pip install --upgrade pip
+  args:
+    chdir: '{{ osp_src }}'
+
 - name: Check for local wheelhouse
   become: no
   local_action: stat path={{ playbook_dir }}/wheelhouse.tar.gz
@@ -46,20 +51,17 @@
   stat:
     path: '{{ osp_src }}/wheelhouse'
 
-- name: Install the wheel package
-  when: not wh_remote.stat.exists
-  command: env/bin/pip3 install wheel
+# Install from wheelhouse, when deployed.
+- name: Install pip dependencies (from wheelhouse)
+  when: wh_remote.stat.exists
+  command: env/bin/pip install -r requirements.txt --find-links=wheelhouse
   args:
     chdir: '{{ osp_src }}'
 
-- name: Create wheelhouse, if not deployed
+# Otherwise, compile from source.
+- name: Install pip dependencies (from source)
   when: not wh_remote.stat.exists
-  command: env/bin/pip3 wheel -r requirements.txt
-  args:
-    chdir: '{{ osp_src }}'
-
-- name: Install dependencies from wheelhouse
-  command: env/bin/pip3 install -r requirements.txt --find-links=wheelhouse
+  command: env/bin/pip install -r requirements.txt
   args:
     chdir: '{{ osp_src }}'
 

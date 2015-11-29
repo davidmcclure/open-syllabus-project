@@ -75,8 +75,7 @@ Vagrant.configure(2) do |config|
     v.memory = 2048
   end
 
-  config.vm.define "server" do |box|
-  end
+  config.vm.define "server"
 
   config.vm.provision :vai do |ansible|
 
