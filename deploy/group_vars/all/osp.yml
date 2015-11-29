@@ -6,6 +6,9 @@ osp_src: /home/{{ ansible_ssh_user }}/osp
 osp_numprocs: 4
 osp_init_db: yes
 
+# Set in local vars with `osp_data_host`.
+__osp_data_host: localhost
+
 osp_profile:
   - . osp/env/bin/activate
 

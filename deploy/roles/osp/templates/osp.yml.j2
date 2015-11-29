@@ -22,7 +22,7 @@ postgres:
 
   remote:
     args:
-      host: {{ osp_data_host }}
+      host: {{ __osp_data_host }}
       password: {{ osp_password }}
     tables:
       - document_text
