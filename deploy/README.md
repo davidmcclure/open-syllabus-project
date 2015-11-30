@@ -18,7 +18,7 @@
 
 1. Create a file at `~/.osp-pw.txt`, and enter the Ansible password. (Email david@dclure.org, if you don't already have it.)
 
-1. Copy `/vars/local.changeme.yml` -> `vars/local.yml`. This file contains placeholders for a set of user-specific variables that need be set before deploying the code to AWS, but, when working with Vagrant, these can just be left blank. Also, this file can also be used to temporarily override variables used in the playbooks. For example, if you're working on a branch called `feature/new-thing` and want to deploy from that branch instead of master, just override the variable in `vars/local.yml`:
+1. Copy `/vars/local.changeme.yml` -> `vars/local.yml`. This file contains placeholders for a set of user-specific variables that need be set before deploying the code to AWS, but, when working with Vagrant, these can just be left blank. Also, this file can also be used to temporarily override variables used in the playbooks. For example, if you're working on a branch called `feature/new-thing` and want to deploy from that branch instead of master, just set a new value in `vars/local.yml`:
 
   `osp_branch: feature/new-thing`
 
