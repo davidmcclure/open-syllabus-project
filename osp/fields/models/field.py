@@ -54,3 +54,23 @@ class Field(BaseModel):
 
         with cls._meta.database.transaction():
             cls.insert_many(rows).execute()
+
+
+    def query_regexes(pattern='{:s}\s+[0-9]{{2,4}}'):
+
+        """
+        Produce regex queries.
+
+        Args:
+            pattern (str): The regex pattern.
+
+        Returns: list
+        """
+
+        names = [self.secondary_field] + self.abbreviations
+
+        queries = []
+        for n in names:
+            queries.append(pattern.format(n))
+
+        return queries
