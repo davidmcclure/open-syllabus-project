@@ -73,7 +73,8 @@ Vagrant.configure(2) do |config|
   #   sudo apt-get install -y apache2
   # SHELL
 
-  # 4g of ram to compile SciPy.
+  config.ssh.forward_agent = true
+
   config.vm.provider 'virtualbox' do |v|
     v.memory = 4096
   end
