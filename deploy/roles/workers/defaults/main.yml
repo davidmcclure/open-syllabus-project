@@ -1,6 +1,6 @@
 ---
 
-tika_url: http://apache.cs.utah.edu/tika/tika-server-1.11.jar
+tika_url: http://www.carfab.com/apachesoftware/tika/tika-server-1.11.jar
 tika_path: /etc/tika
 tika_jar: tika-server-1.11.jar
 
