@@ -1,5 +1,15 @@
 ---
 
+# *** Vagrant ***
+
+# Local path for synced OSP code.
+osp_sync_code: XXX
+
+# Local path for synced OSP data.
+osp_sync_data: XXX
+
+# *** EC2 ***
+
 # VPC subnet to house the instances.
 ec2_subnet_id: subnet-XXX
 

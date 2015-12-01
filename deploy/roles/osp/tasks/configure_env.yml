@@ -1,14 +1,17 @@
 ---
 
-- name: Configure .profile
-  lineinfile:
-    dest: /home/{{ ansible_ssh_user }}/.profile
-    line: '{{ item }}'
-  with_items: osp_profile
+- name: Create the OSP data directory
+  file:
+    path: /osp
+    group: '{{ ansible_ssh_user }}'
+    owner: '{{ ansible_ssh_user }}'
+    state: directory
 
 - name: Create the OSP config directory
   file:
     path: /etc/osp
+    group: '{{ ansible_ssh_user }}'
+    owner: '{{ ansible_ssh_user }}'
     state: directory
 
 - name: Apply the OSP configs
@@ -18,3 +21,9 @@
   with_items:
     - osp
     - osp.test
+
+- name: Configure .profile
+  lineinfile:
+    dest: /home/{{ ansible_ssh_user }}/.profile
+    line: '{{ item }}'
+  with_items: osp_profile
