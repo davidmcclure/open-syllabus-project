@@ -12,4 +12,6 @@ def query(id):
     """
 
     field = Field.get(Field.id==id)
-    print(field)
+
+    for pattern in field.query_regexes('{:s}\s+[0-9]{{2,4}}'):
+        pass
