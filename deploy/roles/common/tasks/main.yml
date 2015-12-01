@@ -7,6 +7,7 @@
     state: latest
   with_items:
     - git
+    - htop
 
 - name: Mount the OSP volume
   ignore_errors: yes
