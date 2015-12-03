@@ -1,7 +1,5 @@
 
 env
-wheelhouse
-.vagrant
 .ipynb_checkpoints
 .cache
 *.egg-info

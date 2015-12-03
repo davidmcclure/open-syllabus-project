@@ -1,4 +1,0 @@
----
-
-__osp_data_host: '{{ osp_data_host }}'
-osp_init_db: no

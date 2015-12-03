@@ -1,7 +1,0 @@
----
-
-- name: Apply the testing config
-  template:
-    src: elasticsearch/test.yml.j2
-    dest: /etc/elasticsearch/test.yml
-    mode: 0644

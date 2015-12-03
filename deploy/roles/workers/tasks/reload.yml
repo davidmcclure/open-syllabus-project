@@ -1,9 +1,0 @@
----
-
-- name: Reload supervisor
-  shell: supervisorctl reload
-
-- name: Restart nginx
-  service:
-    name: nginx
-    state: restarted

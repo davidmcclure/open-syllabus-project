@@ -1,7 +1,0 @@
----
-
-- name: Install Supervisor
-  apt:
-    pkg: supervisor
-    update_cache: yes
-    state: latest
