@@ -1,17 +1,16 @@
 
 
 from osp.fields.models.field import Field
+from osp.fields.models.field_document import Field_Document
+from osp.corpus.models.document import Document
 
 
-def query(id):
+def query(doc_id):
 
     """
-    Find syllabi that belong to a field.
+    Search for fields in a document.
 
-    :param id: The field id.
+    :param doc_id: The document id.
     """
 
-    field = Field.get(Field.id==id)
-
-    for pattern in field.query_regexes('{:s}\s+[0-9]{{2,4}}'):
-        pass
+    pass
