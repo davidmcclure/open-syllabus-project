@@ -13,6 +13,10 @@ from osp.fields.models.field import Field
     'Field 123',
     'Field 1234',
 
+    # Ignore caps:
+
+    'FIELD 101',
+
     # Dashes:
 
     'Field-101',
