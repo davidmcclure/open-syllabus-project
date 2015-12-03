@@ -56,7 +56,7 @@ class Field(BaseModel):
             cls.insert_many(rows).execute()
 
 
-    def query_regexes(self, pattern):
+    def query_regex(self, pattern):
 
         """
         Produce regex queries.

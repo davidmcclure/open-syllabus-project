@@ -10,9 +10,4 @@ from osp.fields.jobs.query import query
 
 @pytest.mark.fields
 def test_match_secondary_fields(corpus_index, add_doc):
-
-    """
-    Field queries should match secondary fields.
-    """
-
     pass
