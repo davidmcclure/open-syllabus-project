@@ -75,8 +75,7 @@ class Field(BaseModel):
         if self.abbreviations:
             names += self.abbreviations
 
-        queries = []
-        for n in names:
-            queries.append(pattern.format(n))
+        # Join names to (A|B|C...)
+        names = '({:s})'.format('|'.join(names))
 
-        return queries
+        return pattern.format(names)
