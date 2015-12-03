@@ -12,10 +12,10 @@ from playhouse.postgres_ext import ArrayField
 class Field(BaseModel):
 
 
-    primary_field = CharField(index=True)
-    secondary_field = CharField(index=True)
-    abbreviations = ArrayField(CharField)
-    alpha_category = BooleanField()
+    primary_field = CharField(index=True, null=True)
+    secondary_field = CharField(index=True, null=True)
+    abbreviations = ArrayField(CharField, default=[])
+    alpha_category = BooleanField(default=False)
 
 
     class Meta:
