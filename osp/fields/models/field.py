@@ -80,10 +80,7 @@ class Field(BaseModel):
         # Join names to (A|B|C...)
         names = '({:s})'.format('|'.join(names))
 
-        regex = pattern.format(names)
-
-        print(regex)
-        return regex
+        return pattern.format(names)
 
 
     def search(self, text):
