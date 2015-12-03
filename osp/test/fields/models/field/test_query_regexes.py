@@ -9,10 +9,10 @@ def test_secondary_field(models):
     Field#query_regexes() should build a query from the secondary field.
     """
 
-    field = Field.create(secondary_field='History')
+    field = Field.create(secondary_field='Field')
 
     assert field.query_regexes('{:s} regex') == [
-        'History regex'
+        'Field regex'
     ]
 
 
@@ -25,6 +25,26 @@ def test_abbreviations(models):
     field = Field.create(abbreviations=['AB', 'CD', 'EF'])
 
     assert field.query_regexes('{:s} regex') == [
+        'AB regex',
+        'CD regex',
+        'EF regex',
+    ]
+
+
+def test_secondary_field_and_abbreviations(models):
+
+    """
+    When both are defined, make queries from the secondary field and each
+    abbreviation.
+    """
+
+    field = Field.create(
+        secondary_field='Field',
+        abbreviations=['AB', 'CD', 'EF'],
+    )
+
+    assert field.query_regexes('{:s} regex') == [
+        'Field regex',
         'AB regex',
         'CD regex',
         'EF regex',
