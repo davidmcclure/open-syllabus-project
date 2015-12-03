@@ -3,11 +3,10 @@
 from osp.fields.models.field import Field
 
 
-def test_secondary_field():
+def test_secondary_field(models):
 
     """
-    Field#query_regexes() should build a query from the secondary field, when
-    one is provided.
+    Field#query_regexes() should build a query from the secondary field.
     """
 
     field = Field.create(secondary_field='History')
@@ -17,7 +16,7 @@ def test_secondary_field():
     ]
 
 
-def test_abbreviations():
+def test_abbreviations(models):
 
     """
     A query should be formed from each abbreviation.
