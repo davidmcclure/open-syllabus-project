@@ -98,6 +98,6 @@ class Field(BaseModel):
         """
 
         return re.search(
-            self.make_regex('{:s}\s+[0-9]{{2,4}}'),
-            text
+            self.make_regex('{:s}[\s-]+[0-9]{{2,4}}'),
+            text,
         )

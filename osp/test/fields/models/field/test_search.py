@@ -6,9 +6,22 @@ from osp.fields.models.field import Field
 
 
 @pytest.mark.parametrize('text', [
+
+    # 2-4 digits:
+
     'Field 12',
     'Field 123',
     'Field 1234',
+
+    # Dashes:
+
+    'Field-101',
+    'Field - 101',
+
+    # Multiple spaces:
+
+    'Field  101',
+
 ])
 def test_match_name(text, models):
 
@@ -22,6 +35,8 @@ def test_match_name(text, models):
 
 @pytest.mark.parametrize('text', [
 
+    # 2-4 digits:
+
     'AB 12',
     'CD 12',
     'EF 12',
@@ -33,6 +48,22 @@ def test_match_name(text, models):
     'AB 1234',
     'CD 1234',
     'EF 1234',
+
+    # Dashes:
+
+    'AB-101',
+    'CD-101',
+    'EF-101',
+
+    'AB - 101',
+    'CD - 101',
+    'EF - 101',
+
+    # Multiple spaces:
+
+    'AB  101',
+    'CD  101',
+    'EF  101',
 
 ])
 def test_match_abbreviations(text, models):
