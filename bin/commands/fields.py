@@ -45,3 +45,26 @@ def queue_queries():
 
     for field in Field.select():
         config.rq.enqueue(query, field.id)
+
+
+@cli.command()
+@click.argument('code')
+def query(code):
+
+    """
+    Debug a field code query.
+    """
+
+    results = config.es.search('osp', 'document', timeout=30, body={
+        'fields': ['doc_id'],
+        'size': 100000,
+        'filter': {
+            'query': {
+                'regexp': {
+                    'body': '{:s}\s+[0-9]{{2,4}}'.format(code)
+                }
+            }
+        }
+    })
+
+    print(results)
