@@ -11,9 +11,7 @@ def test_secondary_field(models):
 
     field = Field.create(secondary_field='Field')
 
-    assert field.query_regexes('{:s} regex') == [
-        'Field regex'
-    ]
+    assert field.query_regexes('{:s} regex') == '(Field) regex'
 
 
 def test_abbreviations(models):
@@ -24,11 +22,7 @@ def test_abbreviations(models):
 
     field = Field.create(abbreviations=['AB', 'CD', 'EF'])
 
-    assert field.query_regexes('{:s} regex') == [
-        'AB regex',
-        'CD regex',
-        'EF regex',
-    ]
+    assert field.query_regexes('{:s} regex') == '(AB|CD|EF) regex'
 
 
 def test_secondary_field_and_abbreviations(models):
@@ -43,9 +37,4 @@ def test_secondary_field_and_abbreviations(models):
         abbreviations=['AB', 'CD', 'EF'],
     )
 
-    assert field.query_regexes('{:s} regex') == [
-        'Field regex',
-        'AB regex',
-        'CD regex',
-        'EF regex',
-    ]
+    assert field.query_regexes('{:s} regex') == '(Field|AB|CD|EF) regex'
