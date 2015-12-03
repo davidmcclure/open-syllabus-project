@@ -14,7 +14,7 @@ class Field(BaseModel):
 
     primary_field = CharField(index=True, null=True)
     secondary_field = CharField(index=True, null=True)
-    abbreviations = ArrayField(CharField, default=[])
+    abbreviations = ArrayField(CharField, null=True)
     alpha_category = BooleanField(default=False)
 
 
@@ -67,7 +67,13 @@ class Field(BaseModel):
         Returns: list
         """
 
-        names = [self.secondary_field] + self.abbreviations
+        names = []
+
+        if self.secondary_field:
+            names.append(self.secondary_field)
+
+        if self.abbreviations:
+            names += self.abbreviations
 
         queries = []
         for n in names:

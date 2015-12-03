@@ -15,3 +15,18 @@ def test_secondary_field():
     assert field.query_regexes('{:s} regex') == [
         'History regex'
     ]
+
+
+def test_abbreviations():
+
+    """
+    A query should be formed from each abbreviation.
+    """
+
+    field = Field.create(abbreviations=['AB', 'CD', 'EF'])
+
+    assert field.query_regexes('{:s} regex') == [
+        'AB regex',
+        'CD regex',
+        'EF regex',
+    ]
