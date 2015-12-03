@@ -1,5 +1,7 @@
 
 
+import re
+
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.common.utils import read_csv
@@ -56,7 +58,7 @@ class Field(BaseModel):
             cls.insert_many(rows).execute()
 
 
-    def query_regex(self, pattern):
+    def make_regex(self, pattern):
 
         """
         Produce regex queries.
@@ -79,3 +81,20 @@ class Field(BaseModel):
         names = '({:s})'.format('|'.join(names))
 
         return pattern.format(names)
+
+
+    def search(self, text):
+
+        """
+        Find the first field code match in a string.
+
+        Args:
+            text (str): The subject text.
+
+        Returns: SRE_Match
+        """
+
+        return re.search(
+            self.make_regex('{:s}\s+[0-9]{{2,4}}'),
+            text
+        )
