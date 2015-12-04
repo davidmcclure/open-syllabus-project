@@ -26,10 +26,12 @@ def ext_fields(doc_id, radius=100):
         # If found, link field -> doc.
         if match:
 
-            # Get the hit snippet.
+            # Get snippet indexes.
             i1 = max(match.start() - radius, 0)
             i2 = min(match.end() + radius, len(doc_text.text))
-            snippet = doc_text.text[i1:i2]
+
+            # Pull out the snippet, scrub newlines.
+            snippet = doc_text.text[i1:i2].replace('\n', '')
 
             Field_Document.create(
                 field=field,
