@@ -31,3 +31,20 @@ def test_matches(models, add_doc):
             Field_Document.field==field,
             Field_Document.document==doc,
         )
+
+
+def test_no_matches(models, add_doc):
+
+    """
+    When no fields match, don't write any rows.
+    """
+
+    doc = add_doc('abc Field2 101 def')
+
+    f1 = Field.create(secondary_field='Field1')
+
+    Document_Text.es_insert()
+    ext_fields(doc.id)
+
+    # Shouldn't write any rows.
+    assert Field_Document.select().count() == 0
