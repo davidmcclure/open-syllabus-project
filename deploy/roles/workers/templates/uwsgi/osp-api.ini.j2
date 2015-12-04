@@ -1,9 +1,0 @@
-
-[uwsgi]
-
-base = {{ osp_src }}
-module = osp.api.server
-home = %(base)/env
-pythonpath = %(base)
-callable = app
-socket = 127.0.0.1:4242

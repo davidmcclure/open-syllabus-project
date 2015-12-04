@@ -1,0 +1,301 @@
+Alpha Category,Primary Field,Secondary Field,"JK mod
+",CIPCode,"Common words
+",ABBRV
+$,Agriculture,Agriculture,01,01.0000,Agriculture,"AG, AGRI, AT, FSTC"
+,Agriculture,Agricultural Business,01,01.0101,"Agricultural Business and Management, Farm, operations",AG BM
+,Agriculture,Agricultural Economics,01,01.0103,Agricultural Economics,AGEC
+,Agriculture,Agronomy and Crop Science,01,01.1102,"Agronomy and Crop Science, field crops, crop management",AGRO
+,Agriculture,Animal Science,01,01.0901,"Animal Science, Poultry","AN SC, ANSC, POSC"
+,Agriculture,Dairy Science,01,01.0905,"
+Dairy Science","DY SCI, DASC"
+,Agriculture,Soil Science,01,01.1201,"Soil Science, Management and Conservation","SOILS, SCSC"
+,Agriculture,Food Science,01,01.1001,Food Science Technology,"FS, FDSC"
+,Agriculture,Horticulture,01,01.1103,"Horticultural Science, fruit vegetable production, Ornamental Horticulture, floriculture, nursery science","HRT, HORT, HS"
+,Agriculture,Range Management,01,01.1106,Range Science and Management.,RNG
+$,Anthropology,Anthropology,45,45.0201,Anthropology,ANTH
+,Anthropology,Archeology,45,45.0301,Archeology,ARCHAE
+$,Architecture,Architecture,04,04.0201,"
+Architecture","ARCH, ARC"
+,Architecture,Interior Design,04,04.0501,"
+Interior design",IDS
+,Architecture,Environmental Design,04,04.0401,Environmental Design,"ED, EDP"
+,Architecture,Landscape Architecture,04,04.0601,Landscape Architecture,LAND
+,Architecture,Urban Planning,04,04.0301,"City/Urban, Community and Regional Planning, Architecture","CRP, PPPM, END, PD, PLAN"
+$,Area and Ethnic Studies,"Area, Ethnic, and Cultural Studies",6,05.9999,"Area, Ethnic, Cultural Studies, Race","AFRICA, EUROPE, ASIA"
+,Area and Ethnic Studies,Afro-American Studies,6,05.0201,"African-American, Black Studies.",AF AM
+,Area and Ethnic Studies,African Studies,6,05.0101,African Studies.,"AFST, "
+,Area and Ethnic Studies,American Studies,6,05.0102,American/United States Studies/Civilization.,"AM, AMST"
+,Area and Ethnic Studies,Asian Studies,6,05.0103,Asian Studies/Civilization.,"ASIA, AS, JAPN, KOR"
+,Area and Ethnic Studies,East Asian Studies,6,05.0104,East Asian Studies.,EASC
+,Area and Ethnic Studies,European Studies,6,05.0106,European Studies or Civilization.,"EUS, EURO, WES, NELC"
+,Area and Ethnic Studies,Latin American Studies,6,05.0107,Latin American Studies,"LAMS, LATAM, LAS"
+,Area and Ethnic Studies,Near and Middle Eastern Studies,6,05.0108,Near and Middle Eastern Studies,"MDES, ISLA, MENA"
+,Area and Ethnic Studies,Native American Studies,6,05.0202,"American Indian, Native American Studies.",NAS
+,Area and Ethnic Studies,Russian and Slavic Studies,6,05.0110,"Russian Studies, Russia","RUSS, RUS"
+,Area and Ethnic Studies,Latino Studies,6,05.0203,"Hispanic, American, Puerto Rican, Latino, Mexican-American, Chicano Studies.","CHC, CHCLAT"
+,Area and Ethnic Studies,Pacific Area Studies,6,05.0109,Pacific Area/Pacific Rim Studies.,PAC
+,Area and Ethnic Studies,"South Asian Studies
+",6,05.0112,"South Asian Studies, India","SAS, SALC"
+,Area and Ethnic Studies,Southeast Asian Studies.,6,05.0113,Southeast Asian Studies.,"SEASN, SEASIAN, FILIPN"
+$,Art,Fine Arts and Art Studies,50,50.0799,"Fine Arts and Art Studies, Painting, Drawing, Sculpture
+",ART
+,Art,"Art History, Criticism and Conservation.",50,50.0703,"Art History, Criticism and Conservation, Appreciation",AHIS
+,Art,Commercial and Advertising Art,50,50.0402,"Commercial and Advertising Art, Applied, Graphics, Crafts, Interior, Fashion","DES, DESIGN"
+,Art,Cinematography and Film and Video Production,50,50.0602,Cinematography and Film and Video Production.,"CINE, FMS"
+,Art,Photography.,50,50.0605,Photography,PHOTO
+$,Astronomy and Astrophysics,Astronomy,40,40.0201,Astronomy,ASTR
+,Astronomy and Astrophysics,Astrophysics,40,40.0202,Astrophysics.,ASTRO
+$,Biology,Biology,26,26.0101,"Biology/Biological Sciences, General.","BIOL, BIO"
+,Biology,Anatomy,26,26.0403,Anatomy.,ANT
+,Biology,Biochemistry,26,26.0202,Biochemistry.,"BIOC, BC"
+,Biology,Biometrics and Biostatistics,26,26.1101,Biometry/Biometrics.,BIOM
+,Biology,Biophysics,26,26.0203,Biophysics.,BIOP
+,Biology,Plant Biology,26,26.0301,"Botany, Plant Biology, Plant Pharmacology, Plant Physiology","BOT, PLPA"
+,Biology,Cell Biology,26,26.0401,"Cell, Cellular Biology and Histology, Cytology, Physiology","CELL, MCB"
+,Biology,Ecology,26,26.1301,"Ecology, Environmental Science","ECO, LIFE, ENV"
+,Biology,Entomology,26,26.0702,Entomology.,ENT
+,Biology,Molecular Biology,26,26.0204,Molecular Biology,MICB
+,Biology,Toxicology,26,26.1004,Toxicology,"TOX, CHEM, CHM"
+,Biology,Zoology,26,26.0701,"Zoology, Animal Biology",ZOO
+,Biology,Genetics,26,26.0804,Animal Genetics.,GENE
+,Biology,Marine Biology,26,26.1302,Marine Biology and Biological Oceanography,"MAR, MARB"
+,Biology,Pathology,26,26.0910,"Pathology, Experimental Pathology",
+,Biology,Pharmacology,26,26.1001,"Pharmacology, human, animal",
+,Biology,Physiology,26,26.0707,Animal Physiology.,
+,Biology,Radiobiology,26,26.0209,Radiation Biology/Radiobiology,
+,Biology,Nutrition Sciences,30,30.1901,Nutrition Sciences.,NUTR
+,Biology,Neuroscience,30,30.2401,Neuroscience.,"NROSCI, NURSC"
+$,Business,Business,,,,"BUS, IDIS, CIS, ISM, BU, ENT"
+,Business,Accounting,52,52.0301,"Accounting, Bookkeeping","ACCT, ACG, TAX, ACCT TECH"
+,Business,Business Administration,52,52.0201,Business Administration and Management,"BUAD, BUL, MAN, MGT, BUS, PROJ, MGMT, SCMT"
+,Business,Marketing,52,52.9999,"Marketing, Sales, Distribution","MAR, MKT, MKTG
+"
+,Business,Business Statistics,52,52.1302,Business Statistics.,"STAT, "
+,Business,"Finance
+",52,52.0801,"Finance, Banking","FIN, FINC, BFT"
+,Business,Hotel and Restaurant Management.,52,52.0904,"Hotel, Motel, Restaurant Administration/Management.",HRT
+,Business,International Business,52,52.1101,International Business/Trade/Commerce.,"IB, IBT, GEB, IBUS"
+,Business,Insurance,52,52.1701,Insurance,"INSUR, INS"
+,Business,Investments and Securities,52,52.0807,Investments and Securities,ISLM
+,Business,Real Estate,52,52.1501,Real Estate.,"RE, REE"
+,Business,Human Resources Management,52,52.1001,"Human Resources Management, Personnel Administration",HRM
+,Business,Secretarial Professions,52,52.0401,Administrative Assistant and Secretarial Science,AA
+$,Chemistry,Chemistry,40,40.0501,Chemistry,"CHEM, CHM"
+,Chemistry,Inorganic Chemistry,40,40.0503,Inorganic Chemistry.,
+,Chemistry,Organic Chemistry,40,40.0504,Organic Chemistry.,OChem
+,Chemistry,Physical Chemistry,40,40.0506,Physical and Theoretical Chemistry.,"PChem, PhysChem"
+$,Civil Engineering,Civil Engineering,15,15.0201,"Civil Engineering Technology/Technician, transportation","CT, CIV, CVEN, ET, EST"
+,Civil Engineering,Architectural Engineering,14,14.0401,"Architectural Engineering,  Drafting, CAD/CADD.","A E, ArchE, EGDT, CAD, ARC"
+,Civil Engineering,Instrumentation Technology,15,15.0404,"Instrumentation Technology, Technician.",INTC
+,Civil Engineering,Construction Engineering,15,15.1001,"Construction Engineering Technology/Technician, Building, Carpentry, Electrical","
+"
+,Civil Engineering,Electromechanical Engineering,15,15.0403,Electromechanical Technology/Electromechanical Engineering Technology.,
+,Civil Engineering,"Electrical, Electronic and Communications Engineering",15,15.0303,"Electrical, Electronic and Communications Engineering Technology/Technician, TV, Appliance Repair",EEL
+,Civil Engineering,Mechanical Engineering,15,15.0805,"Mechanical Engineering/Mechanical Technology/Technician, Drafting CAD/CADD.",CAD
+,Civil Engineering,Environmental Engineering,15,15.0507,"Environmental Engineering Technology/Environmental Technology, Sanitation, Public Health, Inspection",
+,Civil Engineering,Textile Sciences and Engineering,14,14.2801,Textile Sciences and Engineering.,
+$,Classics,Classics,,,"Classics and Classical Languages, Literatures, and Linguistics, General.","CLAS, CLA"
+,Classics,Classical Greek,16,16.1202,Ancient/Classical Greek Language and Literature.,"GR, GRK"
+,Classics,Ancient Near Eastern and Biblical Languages,16,16.1103,"Ancient Near Eastern and Biblical Languages, Literatures, and Linguistics.","HEB, BIB"
+,Classics,Latin,16,16.1203,Latin Language and Literature.,LAT
+$,Computer Science,Computer and Information Sciences,11,11.9999,"Computer and Information Sciences and Support Services, Other.","CIS, INFO, CSE, INFM, CS"
+,Computer Science,Computer Technology Services Administration,11,11.1099,"Computer, Information Technology Services Administration and Management",
+,Computer Science,Computer Programming,11,11.0201,Computer Programming/Programmer,CMPR
+,Computer Science,Data Processing,11,11.0301,"Data Processing and Data Processing Technology, Technician",
+,Computer Science,Computer Systems Analysis,11,11.0501,"Computer Systems Analysis, Analyst.",
+,Cosmetology,Cosmetology,12,12.0401,Cosmetology/Cosmetologist,
+$,Dentistry,Dentistry,51,51.0401,"Dentistry, Clinical Sciences",DENT
+,Dentistry,Dental Assisting and Lab Fields,51,51.0602,"Dental Hygiene/Hygienist, Assisting, Lab Technology","DHYG, DA"
+$,Earth Sciences,Earth Sciences,40,40.0601,"Geology and Earth Science, Physical Sciences","EARTH, ES, EM SC, EE SC"
+,Earth Sciences,Atmospheric Sciences and Meteorology,40,40.0401,Atmospheric Sciences and Meteorology,ATMO
+,Earth Sciences,Analytical Chemistry,40,40.0502,Analytical Chemistry,CHEM
+,Earth Sciences,Geology,40,40.0601,Geology/Earth Science,GEOL
+,Earth Sciences,Geophysics and Seismology,40,40.0603,Geophysics and Seismology,
+,Earth Sciences,Paleontology,40,40.0604,Paleontology,PALEO
+,Earth Sciences,Geochemistry,40,40.0602,Geochemistry,
+,Earth Sciences,"Oceanography, Chemical and Physical",40,40.0607,"
+Marine, Oceanographic",OCE
+$,Economics,Economics,45,45.0601,Economics,ECON
+$,Education,"Education
+",,,Teachers Education,"TEED, EDUC, ED"
+,Education,Adult and Continuing Education and Teaching.,13,13.1201,Adult and Continuing Education and Teaching.,ACE
+,Education,Arts and Music Teacher Education,13,13.1302,"Art Teacher Education, Methodology, Theory","ARED, MUED"
+,Education,"Physical Education
+",13,13.1314,Physical Education Teaching and Coaching.,PYED
+,Education,Special Education,13,13.1001,"Special Education and Teaching, Learning Disabilities.","SPLED, SPED, ADMIN SPED"
+,Education,Teaching English as a Second Language,13,13.1401,Teaching English as a Second or Foreign Language/ESL Language Instructor.,TESL
+,Education,Education of Individuals with Hearing Impairments Including Deafness.,13,13.1003,Education/Teaching of Individuals with Hearing Impairments Including Deafness.,
+,Education,Education of Individuals with Emotional Disturbances.,13,13.1005,Education/Teaching of Individuals with Emotional Disturbances.,
+,Education,Mental Retardation,13,13.1006,Mental Retardation,
+,Education,Physical Health Impairments,13,13.1008,"Orthopedic and Other Physical Health Impairments, Physically Handicapped, Education of the Visually Impaired, blind, blindness",
+,Education,Teachers Aide Programs,13,13.1501,Teacher Assistant/Aide,TA
+,Education,Educational Leadership and Administration,13,13.0401,Educational Leadership and Administration,ADMIN
+,Education,Educational Statistics and Research Methods.,13,13.0603,Educational Statistics and Research Methods.,
+,Education,"Educational Assessment, Testing, and Measurement.",13,13.0604,"Educational Assessment, Testing, and Measurement.",
+,Education,Health Teacher Education,13,13.1307,"Health Teacher Education, Family Life","
+"
+,Education,Higher Education,13,13.0406,"Higher Education/Higher Education Administration, Community College",
+,Education,Adolescent Education,13,13.1203,"Junior High, Intermediate, Middle School Education and Teaching, Secondary,",
+,Education,"Mathematics, Science, and Technology Teacher Education.",13,13.1311,"Mathematics, Science, and Technology Teacher Education","MSTC, SCED"
+,Education,Early Childhood and Childhood Education,13,13.1209,"Kindergarten/Preschool Education and Teaching, Elementary Education and Teaching",ELED
+,Education,Reading Teacher Education,13,13.1315,"Reading Teacher Education, Literacy, Methodology, Theory",
+,Education,Social and Philosophical Foundations of Education.,13,13.0901,"Social and Philosophical Foundations of Education, History, Philosophy",
+,Education,Education of the Speech or Language Impaired,13,13.1012,"Education/Teaching of the Speech or Language Impaired, Impairments, Speech Correction",
+,Education,Counseling and Guidance Services,13,13.1101,Counselor Education/School Counseling and Guidance Services.,CPPJ
+,Education,Curriculum and Teaching,,,Curriculum and Teaching,
+$,Engineering,Engineering,14,14.0101,Engineering,ENGR
+,Engineering,"Aerospace, Aeronautical and Astronautical Engineering",14,14.0201,"Aerospace, Aeronautical and Astronautical Engineering","AERO, AEST"
+,Engineering,Agricultural and Bioengineering,14,14.0301,Agricultural/Biological Engineering and Bioengineering.,AGEN
+,Engineering,Biomedical Engineering,14,14.0501,Biomedical and Medical Engineering.,"BME, BMED"
+,Engineering,Ceramic Engineering,14,14.0601,Ceramic Sciences and Engineering,CE
+,Engineering,Chemical Engineering,14,14.0701,"Chemical Engineering, Petroleum Refining","CHE, CHEN"
+,Engineering,Mechanical Engineering,14,14.1901,Mechanical Engineering,ME
+,Engineering,Materials Engineering,14,14.1801,"Materials Engineering, Science","MSE, MSEN"
+,Engineering,Nuclear Engineering,14,14.2301,Nuclear Engineering,"NE, NUEN"
+,Engineering,Engineering Physics,14,14.1201,Engineering Physics.,EP
+,Engineering,Environmental Health Enginnering,14,14.1401,"Environmental Health Engineering, Sanitary Engineering",ENVE
+,Engineering,Geological Engineering,14,14.3901,Geological and Geophysical Engineering.,
+,Engineering,Industrial Engineering,14,14.3501,Industrial Engineering,
+,Engineering,Metallurgical Engineering,14,14.2001,Metallurgical Engineering,
+,Engineering,Mining and Mineral Engineering,14,14.2101,Mining and Mineral Engineering,"MINE, MNGE"
+,Engineering,Naval Architecture and Marine Engineering,14,14.2201,Naval Architecture and Marine Engineering.,"NVSC, MARE"
+,Engineering,Ocean Engineering,14,14.2401,Ocean Engineering,OCNG
+,Engineering,Petroleum Engineering,14,14.2501,Petroleum Engineering,"PNGE, PE, PETE"
+$,English,"English
+",23,23.0101,"English Language and Literature, Letters","ENGL, ENED, ENG LIT"
+,English,Creative Writing,23,23.0501,Creative Writing.,CRW
+,English,"Speech and Rhetorical Studies
+",23,23.1001,"Speech and Rhetorical Studies, Public Address","RHET, WRD, LCC"
+$,Family and Consumer Sciences,Family and Consumer Sciences,,,"Family and Consumer Sciences, Human Sciences, Home Economics",
+,Family and Consumer Sciences,Apparel and Textiles,19,19.0901,"Apparel and Textiles, Clothing",TXC
+,Family and Consumer Sciences,Consumer Economics,19,19.0402,"Consumer Economics, Home Management",
+,Family and Consumer Sciences,Human Development and Family Studies,19,19.0701,"Human Development and Family Studies, Child Development
+",
+,Family and Consumer Sciences,"Food, Nutrition, and Wellness Studies
+",19,19.0501,"Foods, Nutrition, and Wellness Studies, Dietetics","FOOD, NUTR"
+,Family and Consumer Sciences,Housing and Human Environments,19,19.0601,"Housing and Human Environments, Home Decoration",
+,Family and Consumer Sciences,Foodservice Systems Administration/Management.,19,19.0505,"
+Institutional Management Cafeteria Food
+",
+$,Food Services,Culinary Arts and Related Services,12,12.0599,"Culinary Arts and Related Services, Food",
+$,Forestry,Forestry,03,03.0501,Forestry,"FORS, WILD, FRSC, FORT"
+,Forestry,Wildlife and Wildlands Management,03,03.0601,"Wildlife and Wildlands Science and Management, fish, game, fisheries","FGWT, FW"
+,Forestry,Natural Resources Management,03,03.0101,Agriculture and Forestry Technologies,NRSM
+$,Health Administration,Hospital and Health Care Facilities Management,51,51.0702,Hospital and Health Care Facilities Administration/Management.,"HCA, HSA, HSC, MHA"
+,Health Administration,Health Professions,51,51.9999,Health Professions Clinical,"HLTH, APPH"
+,Health Administration,Medical Illustration/Medical Illustrator.,51,51.2703,"Medical Illustration, Medical Illustrator, Biomedical Communication",ILLM
+,Health Administration,Health Unit Coordinator,51,51.0703,"Health Unit Coordinator, Ward Clerk, Institutional Management, Rest Home",IMT
+$,History,History,54,54.0101,History,"HIST, HST"
+$,Kinesiology,"Kinesiology
+",51.5,,Kinesiology,KINE
+,Kinesiology,Physical Therapy,51.5,51.2308,Physical Therapy/Therapist.,"PHT, PT"
+,Kinesiology,Occupational Therapy,51.5,51.2306,Occupational Therapy/Therapist.,"OT, OTH"
+$,Languages and Literature (Modern),Modern Languages and Literature,,,"Modern Languages, Literature",MODL
+,Languages and Literature (Modern),Arabic Language and Literature,16,16.1101,Arabic Language and Literature.,"ARAB, ARA, AKA"
+,Languages and Literature (Modern),Chinese Language and Literature,16,16.0301,Chinese Language and Literature.,CHIN
+,Languages and Literature (Modern),Comparative Literature,16,16.0104,Comparative Literature,"COLI, COMP LIT, COLT"
+,Languages and Literature (Modern),French Language and Literature.,16,16.0901,French Language and Literature.,"FR, FREN"
+,Languages and Literature (Modern),German Language and Literature.,16,16.0501,German Language and Literature.,"GERM, GER, GRMN"
+,Languages and Literature (Modern),South Asian Languages and Literatures,16,16.0700,"South Asian Languages, Literatures, and Linguistics, Indian","BANG, HIND, MALA, SANS"
+,Languages and Literature (Modern),Scandinavian Languages and Literatures,16,16.0502,"Scandinavian Languages, Literatures, and Linguistics.",SCAND
+,Languages and Literature (Modern),Hebrew Language and Literature.,16,16.1102,Hebrew Language and Literature.,HEBR
+,Languages and Literature (Modern),Italian Language and Literature.,16,16.0902,Italian Language and Literature.,ITAL
+,Languages and Literature (Modern),Japanese Language and Literature.,16,16.0302,Japanese Language and Literature.,"JAPA, JP, JAP"
+,Languages and Literature (Modern),African Languages and Literature,16,16.9999,African Languages and Literature,LA-LD
+,Languages and Literature (Modern),Russian Language and Literature,16,16.0402,Russian Language and Literature,"RUSS, RUS"
+,Languages and Literature (Modern),Slavic Languages and Literatures,16,16.0400,"Slavic Languages, Literatures, and Linguistics","SLAV, UKRN"
+,Languages and Literature (Modern),Spanish Language and Literature,16,16.0905,Spanish Language and Literature.,SPAN
+$,Law,Law,22,22.0101,"Law, L.L.M., Legal Professions and Studies.",LAW
+,Liberal Studies,Liberal Studies,24,24.0101,"Liberal Arts and Sciences/Liberal Studies, Humanities, Humanistic Studies.","CHSS, CC, FYSP, LBAR, HUM, UGC, HUMA"
+$,Library and Information Science,Library and Information Science,25,25.0101,"Library Science, Librarianship, Information Studies","IRL, MLIS"
+$,Linguistics,Linguistics,16,16.0102,"Linguistics, Phonetics, Semantics, Philology","LING, LIN, WLAN"
+$,Maritime Professions,Maritime Professions,,,"Maritime Professions, Transport, Marine Administration","MART, MARA"
+,Mathematics,"Mathematics
+",27,27.0101,Mathematics,"MATH, MASC"
+,Mathematics,Applied Mathematics,27,27.0301,Applied Mathematics,AMATH
+,Mathematics,Statistics,27,27.0501,Statistics,STAT
+$,"Media, Communications, Journalism","Media, Communications, and Journalism
+",,,"
+Media, Communications, and Journalism Studies, Mass","COJO, JMC, MEDIA"
+,"Media, Communications, Journalism",Communications,09,09.0101,"Communication Studies, Speech Communication and Rhetoric.","CMST, COMM, COM"
+,"Media, Communications, Journalism",Journalism,09,09.0401,Journalism,"JOUR, JR"
+,"Media, Communications, Journalism",Advertising and Public Relations,09,09.0903,Advertising and Public Relations,ADVT
+,"Media, Communications, Journalism",Radio and Television,09,09.0701,Radio and Television,RT
+,"Media, Communications, Journalism",Radio and Television Broadcasting Technology,10,10.0202,"Radio and Television Broadcasting Technology, Technician.","BCOM, BCMN"
+,"Media, Communications, Journalism",Photographic and Film/Video Technology,10,10.0201,Photographic and Film/Video Technology/Technician and Assistant.,
+,"Media, Communications, Journalism",Graphic and Printing Equipment Operator,10,10.0305,Graphic and Printing Equipment Operator,
+$,Medicine,Medicine,51,51.1201,"Medicine, Medical Science","MED, GMS, MSCI"
+,Medicine,Pharmacy,51,51.2001,"Pharmacy (PharmD [USA], PharmD or BS/BPharm [Canada]).",PHRD
+,Medicine,Cardiovascular Technology/Technologist,51,51.0901,"Cardiovascular Technology/Technologist, Electro Diagnostic Technologies, E.K.G.,",
+,Medicine,Health Professions and Related Clinical Sciences,51,51.9999,Health Professions and Related Clinical Sciences,
+,Medicine,Respiratory Care Therapy,51,51.0908,"Respiratory Care Therapy/Therapist, Inhalation Therapy",
+,Medicine,Medical/Clinical Assistant.,51,51.0801,"Medical/Clinical Assistant, Office",MA
+,Medicine,Medical Technology,51,51.1005,Clinical Laboratory Science/Medical Technology/Technologist.,
+,Medicine,Medical Records Administration,51,51.0706,"Health Information, Medical Records Administration/Administrator, Librarianship",
+,Medicine,Optometric Technician/Assistant,51,51.1802,Optical Technologies,OPT
+,Medicine,Optometry,51,51.1701,Optometry,OPT
+,Medicine,Osteopathic Medicine,51,51.1901,"Osteopathic Medicine, Osteopathy",OSTEO
+,Medicine,Medicinal and Pharmaceutical Chemistry,51,51.2004,Medicinal and Pharmaceutical Chemistry,PHARM
+,Medicine,Podiatry,51,51.2101,"Podiatric Medicine, Podiatry",POD
+,Medicine,Psychiatry,51,51.1502,"Psychiatric, Mental Health Services",MPHY
+,Medicine,Radiology,51,51.0907,"Medical Radiologic Technology/Science - Radiation Therapist, X-Ray",MRAD
+,Medicine,Speech Pathology and Audiology,51,51.0204,Audiology/Audiologist and Speech-Language Pathology/Pathologist.,CSD
+,Medicine,Chiropractic,51,51.0101,Chiropractic,CHIRO
+,Medicine,"Surgery
+",51,51.0909,"Surgical technology, technologist, techniques",SURG
+$,Military Science,Military Science,56,,,"MLSC, SOMS"
+$,Nursing,Nursing,51,51.1601,"Nursing, Registered Nurse (RN, ASN, BSN, MSN).","NURS, NGR"
+$,Parks and Recreation,Parks and Recreation Management,31,31.0301,"Parks, Recreation and Leisure Facilities Management.","PATH, RPTS"
+$,Performing Arts,Visual and Performing Arts,50,50.9999,"Visual and Performing Arts, Fine and Applied ",FA
+,Performing Arts,Performance Studies,,,Performance Studies,PERF
+,Performing Arts,Dance,50,50.0301,Dance,"DANC, DCED"
+,Performing Arts,Drama and Theater Arts,50,50.0501,"Drama and Dramatics/Theatre Arts, General.","DRAMA, THEA"
+,Performing Arts,Music History and Theory,50,50.0902,"Music History, Literature, and Theory.","MUHL, MUCO"
+,Performing Arts,Music Performance,50,50.0903,"Music Performance, General.","MUPF, MP"
+,Performing Arts,"Music
+",50,50.0901,Music,"MUS, MUSC"
+$,Philosophy,Philosophy,37,37.0101,Philosophy.,"PHIL, PHI, PHL"
+,Physics,Physics,40,40.0801,Physics,"PHYS, PH"
+,Physics,Molecular Physics,40,40.0802,Atomic/Molecular Physics.,
+,Physics,Nuclear Physics,40,40.0806,Nuclear Physics.,"NUCL, NUCL PHYS"
+$,Politics,Political Science and Government,45,45.1001,Political Science and Government,"POLS, POSC, POLI SCI, PSC, POLI, GOVT, PLS, PSCI"
+,Politics,Geography,45,45.0701,Geography,"GEOG, GGS"
+,Politics,International Relations,45,45.0901,"International Relations and Affairs, International Public Service","IR, INST, INTA, INTS"
+$,Psychology,Psychology,42,42.0101,"Psychology, Psychometrics","PSYCH, PSYC"
+,Psychology,Clinical Psychology,42,42.0201,Clinical Psychology,CLP
+,Psychology,Developmental and Child Psychology,42,42.0701,Developmental and Child Psychology,
+,Psychology,Educational Psychology,42,42.1801,"Educational Psychology, Learning Theory",
+,Psychology,Experimental Psychology,42,42.0801,Experimental Psychology.,EXP
+,Psychology,Physiological Psychology,42,42.1101,Physiological Psychology/Psychobiology.,
+,Psychology,Counseling Psychology,42,42.0601,Counseling Psychology.,
+,Psychology,Social Psychology,42,42.1601,Social Psychology,"
+"
+$,Public Affairs and Administration,Public Affairs and Public Adminstration,5,,"Public Affairs, Public Adminstration","PUAD, PPPA, PADM,MSLA, PPPM, SPEA"
+,Public Affairs and Administration,Non-Profit Management,5,,"Non-Profit Management, Philanthropy",
+,Public Affairs and Administration,"City, Community, and Regional Planning",5,04.2.0301,"City/Urban, Community and Regional Planning, Urban Planning","CRP, URPN, URSC"
+$,Public Health,"Public Health
+",5,,"Public Health, Health Policy","CHS, HPM, PUBH, PHC, CHS, HPM, SOPH"
+$,Public Safety,Criminal Justice Enforcement Administration,43,43.0103,"Criminal Justice/Law Enforcement Administration, Police, Corrections",CJ
+,Public Safety,Fire Protection and Safety,43,43.0201,"Fire Protection and Safety Technology/Technician, Control",
+$,Religious Studies,Religious Studies,38,38.0201,Religion Religious Studies.,"REST, RL ST, RS, RGST"
+,Religious Studies,Islamic Studies,38,38.0205,Islamic Studies,
+$,Social Work,Social Work,44,44.0701,"Social Work, Helping",SOWK
+,Social Work,Community Organization and Advocacy.,44,44.0201,Community Organization and Advocacy.,"CST, CS"
+$,Sociology,Sociology,45,45.1101,Sociology,"SOCI, SOC, STS, SOCCRIM"
+,Sociology,Criminology,45,45.0401,"Criminology, Crime, Justice","CRIM, CRIJ"
+,Sociology,Social Sciences,45,45.9999,Social Sciences,"SSC, SO SC"
+,Sociology,Urban Studies,45,45.1201,"Urban Studies, Urban Affairs",URBANST
+,Sociology,Demography,45,45.0501,"Demography, Population Studies",DEMO
+$,Theology and Religious Education,Theology and Religious Education,39,39.9999,"Theology and Religious Vocations, Education","BIB, THEO, GTHEO, BGRI"
+,Theology and Religious Education,Religious Music,39,39.0501,Religious Sacred Music.,MSCR
+$,Transportation Technologies,Avionics Maintenance Technology,47,47.0609,"Avionics Maintenance Technology/Technician, Technologies",AEST
+,Transportation Technologies,Automotive Mechanics Technology,47,47.0604,"Automobile/Automotive Mechanics Technology/Technician, Technologies",AUTO
+,Transportation Technologies,Computer Installation and Repair Technology,47,47.0104,"Computer Installation and Repair Technology/Technician, Data Processing",
+,Transportation Technologies,Diesel Mechanics Technology,47,47.0605,Diesel Mechanics Technology/Technician.,
+$,Veterinary Medicine,Veterinary Medicine,51,51.2401,"Veterinary Medicine, Veterinary Clinical Sciences","VET, VPAR, VPAT, VTPB, VTPP, VSCS"
+,Veterinary Medicine,Veterinary/Animal Health Technician,51,51.0808,"Veterinary/Animal Health Technology/Technician, Veterinary Assistant.",ALAT
+$,Women's Studies,"Women's Studies
+",55,45.1121,"
+Gender Studies, Women's Studies
+","WOMS, GSWS, WGST"
+$,Writing and Composition,Writing and Composition,,,Writing Composition Vocabulary,"ELIC, ELIR, WRIT, ELIV"

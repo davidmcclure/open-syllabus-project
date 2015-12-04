@@ -1,8 +1,0 @@
----
-
-- include: nginx.yml
-- include: uwsgi.yml
-- include: elasticsearch.yml
-- include: tika.yml
-- include: supervisor.yml
-- include: reload.yml

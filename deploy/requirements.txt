@@ -1,5 +1,0 @@
-
-boto
-six
-
--e git+https://github.com/ansible/ansible.git#egg=ansible

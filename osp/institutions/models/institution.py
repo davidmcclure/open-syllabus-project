@@ -1,14 +1,13 @@
 
 
 from osp.common.config import config
-from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.models.base import BaseModel
 from osp.common.utils import read_csv, query_bar
 from playhouse.postgres_ext import BinaryJSONField
 from peewee import fn
 
 
-class Institution(BaseModel, Elasticsearch):
+class Institution(BaseModel):
 
 
     metadata = BinaryJSONField(default={})
@@ -16,88 +15,6 @@ class Institution(BaseModel, Elasticsearch):
 
     class Meta:
         database = config.get_table_db('institution')
-
-
-    es_index = 'osp'
-    es_doc_type = 'institution'
-
-
-    es_mapping = {
-        '_id': {
-            'index': 'not_analyzed',
-            'store': True
-        },
-        'properties': {
-            'count': {
-                'type': 'integer'
-            },
-            'name': {
-                'type': 'string'
-            },
-            'state': {
-                'type': 'string'
-            },
-            'city': {
-                'type': 'string'
-            },
-            'url': {
-                'type': 'string'
-            },
-            'lon': {
-                'type': 'float'
-            },
-            'lat': {
-                'type': 'float'
-            },
-        }
-    }
-
-
-    @classmethod
-    def es_stream_docs(cls):
-
-        """
-        Index institutions with cited syllabi.
-
-        Yields:
-            dict: The next document.
-        """
-
-        # TODO: De-circularize.
-        from osp.locations.models.doc_inst import Document_Institution
-        from osp.hlom.models.citation import HLOM_Citation
-
-        count = fn.Count(Document_Institution.id)
-
-        cited = (
-            cls.select(cls, count)
-            .join(Document_Institution)
-            .group_by(cls.id)
-            .order_by(count.desc())
-        )
-
-        for inst in query_bar(cited):
-
-            name = (
-                inst.metadata['Campus_Name'] or
-                inst.metadata['Institution_Name']
-            )
-
-            city = (
-                inst.metadata['Campus_City'] or
-                inst.metadata['Institution_City']
-            )
-
-            yield {
-                '_id':      inst.id,
-                'count':    inst.count,
-                'name':     name,
-                'city':     city,
-                'state':    inst.metadata['Institution_State'],
-                'url':      inst.metadata['Institution_Web_Address'],
-                'lon':      inst.metadata.get('Longitude'),
-                'lat':      inst.metadata.get('Latitude'),
-            }
 
 
     @classmethod
