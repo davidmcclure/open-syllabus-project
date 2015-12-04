@@ -26,6 +26,10 @@ from osp.fields.models.field import Field
 
     'Field  101',
 
+    # Wrapped:
+
+    'abc Field 101 def',
+
 ])
 def test_match_name(text, models):
 
@@ -68,6 +72,12 @@ def test_match_name(text, models):
     'AB  101',
     'CD  101',
     'EF  101',
+
+    # Wrapped:
+
+    'abc AB 101 def',
+    'abc CD 101 def',
+    'abc EF 101 def',
 
 ])
 def test_match_abbreviations(text, models):
