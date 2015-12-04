@@ -6,22 +6,28 @@ from osp.fields.models.field_document import Field_Document
 from osp.fields.jobs.ext_fields import ext_fields
 
 
-def test_write_doc_field_matches(models, add_doc):
+def test_matches(models, add_doc):
 
     """
     When a document contains a field code, write a doc->field link.
     """
 
-    # doc = add_doc('abc History 101 def')
-    # Document_Text.es_insert()
+    doc = add_doc('abc Field1 101 def Field2 101 ghi')
 
-    # f1 = Field.create(secondary_field='History')
-    # f2 = Field.create(secondary_field='History')
-    # ext_fields(doc.id)
+    f1 = Field.create(secondary_field='Field1')
+    f2 = Field.create(secondary_field='Field2')
+    f3 = Field.create(secondary_field='Field3')
 
-    # create doc
-    # create field
-    # ext_fields
-    # check for link
+    Document_Text.es_insert()
+    ext_fields(doc.id)
 
-    pass
+    # Should write 2 citation links.
+    assert Field_Document.select().count() == 2
+
+    # Should match the right fields.
+    for field in [f1, f2]:
+
+        assert Field_Document.select().where(
+            Field_Document.field==field,
+            Field_Document.document==doc,
+        )
