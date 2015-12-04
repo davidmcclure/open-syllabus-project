@@ -46,8 +46,9 @@ class Field(BaseModel):
             # Parse the abbreviations.
             abbrs = parse_abbrs(row['ABBRV'])
 
-            # Remove semantically-unfocused strings.
-            abbrs = filter_abbrs(abbrs)
+            # Scrub unfocused strings.
+            if abbrs:
+                abbrs = filter_abbrs(abbrs)
 
             alpha = bool(row['Alpha Category'])
 

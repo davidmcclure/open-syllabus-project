@@ -58,7 +58,6 @@ def filter_abbrs(abbrs, blacklist=[
     'JAN',
     'FEB',
     'MAR',
-    'MAR',
     'APR',
     'MAY',
     'JUN',
