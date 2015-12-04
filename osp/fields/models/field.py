@@ -4,8 +4,8 @@ import re
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
+from osp.fields.utils import clean_field_name, parse_abbrs, filter_abbrs
 from osp.common.utils import read_csv
-from osp.fields.utils import clean_field_name, parse_abbrs
 
 from peewee import CharField, BooleanField
 from playhouse.postgres_ext import ArrayField
