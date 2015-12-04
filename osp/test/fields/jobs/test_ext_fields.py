@@ -33,27 +33,6 @@ def test_matches(models, add_doc):
         )
 
 
-def test_write_snippet(models, add_doc):
-
-    """
-    Write a N-character snippet around the match, for QA.
-    """
-
-    doc = add_doc(('a'*100)+'Field 101'+('b'*100))
-
-    field = Field.create(secondary_field='Field')
-
-    Document_Text.es_insert()
-    ext_fields(doc.id, 50)
-
-    link = Field_Document.get(
-        Field_Document.field==field,
-        Field_Document.document==doc,
-    )
-
-    assert link.snippet == ('a'*50)+'Field 101'+('b'*50)
-
-
 def test_no_matches(models, add_doc):
 
     """

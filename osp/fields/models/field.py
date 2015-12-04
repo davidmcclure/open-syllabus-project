@@ -94,7 +94,6 @@ class Field(BaseModel):
         Returns: SRE_Match
         """
 
-        return re.search(
-            self.make_regex('{:s}[\s-]+[0-9]{{2,4}}'),
-            text,
-        )
+        regex = self.make_regex('(^|\s){:s}[\s-]+[0-9]{{2,4}}')
+
+        return re.search(regex, text, re.I)

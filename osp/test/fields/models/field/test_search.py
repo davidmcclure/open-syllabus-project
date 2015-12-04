@@ -37,7 +37,7 @@ def test_match_name(text, models):
     Field#search() should match a field name code in the passed text.
     """
 
-    field = Field.create(secondary_name='Field')
+    field = Field.create(secondary_field='Field')
     assert field.search(text) is not None
 
 
@@ -88,3 +88,13 @@ def test_match_abbreviations(text, models):
 
     field = Field.create(abbreviations=['AB', 'CD', 'EF'])
     assert field.search(text) is not None
+
+
+def test_ignore_suffix_names(models):
+
+    """
+    Don't match names that are right-side suffixes of longer strings.
+    """
+
+    field = Field.create(abbreviations=['NE'])
+    assert field.search('KINE 101') is None
