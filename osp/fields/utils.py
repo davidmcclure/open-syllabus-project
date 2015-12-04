@@ -36,3 +36,18 @@ def parse_abbrs(abbrs):
         if abbr: parsed.append(abbr.strip())
 
     return parsed
+
+
+def crunch(snippet):
+
+    """
+    Remove whitespace and linebreaks.
+
+    Args:
+        snippet (str): A text snippet.
+
+    Returns:
+        str: The crunched string.
+    """
+
+    return re.sub('\s{2,}', ' ', snippet).replace('\n', '')
