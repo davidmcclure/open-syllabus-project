@@ -13,7 +13,7 @@ from osp.fields.models.field import Field
     'Field 123',
     'Field 1234',
 
-    # Ignore caps:
+    # Capitalized:
 
     'FIELD 101',
 

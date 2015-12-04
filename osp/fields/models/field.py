@@ -71,8 +71,10 @@ class Field(BaseModel):
 
         names = []
 
+        # English + ENGLISH
         if self.secondary_field:
             names.append(self.secondary_field)
+            names.append(self.secondary_field.upper())
 
         if self.abbreviations:
             names += self.abbreviations
@@ -96,4 +98,4 @@ class Field(BaseModel):
 
         regex = self.make_regex('(^|\s){:s}[\s-]+[0-9]{{2,4}}')
 
-        return re.search(regex, text, re.I)
+        return re.search(regex, text)
