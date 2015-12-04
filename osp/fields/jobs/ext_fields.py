@@ -1,5 +1,7 @@
 
 
+import re
+
 from osp.corpus.models.text import Document_Text
 from osp.fields.models.field import Field
 from osp.fields.models.field_document import Field_Document
@@ -26,12 +28,13 @@ def ext_fields(doc_id, radius=100):
         # If found, link field -> doc.
         if match:
 
-            # Get snippet indexes.
+            # Slice out the snippet.
             i1 = max(match.start() - radius, 0)
             i2 = min(match.end() + radius, len(doc_text.text))
+            snippet = doc_text.text[i1:i2]
 
-            # Pull out the snippet, scrub newlines.
-            snippet = doc_text.text[i1:i2].replace('\n', '')
+            # Replace linebreaks / whitespace.
+            snippet = re.sub('\s{2,}', ' ', snippet).strip()
 
             Field_Document.create(
                 field=field,
