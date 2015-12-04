@@ -55,6 +55,8 @@ def parse_abbrs(abbrs):
 
 
 def filter_abbrs(abbrs, blacklist=[
+
+    # months
     'JAN',
     'FEB',
     'MAR',
@@ -67,6 +69,12 @@ def filter_abbrs(abbrs, blacklist=[
     'OCT',
     'NOV',
     'DEC',
+
+    # time
+    'AM',
+    'PM',
+    'CE',
+
 ]):
 
     """

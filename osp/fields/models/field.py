@@ -39,17 +39,17 @@ class Field(BaseModel):
         rows = []
         for row in reader:
 
-            # Sanitize the field names.
+            # Sanitize field names.
             pf = clean_field_name(row['Primary Field'])
             sf = clean_field_name(row['Secondary Field'])
 
-            # Parse the abbreviations.
+            # Parse abbreviations.
             abbrs = parse_abbrs(row['ABBRV'])
 
             # Scrub unfocused strings.
-            if abbrs:
-                abbrs = filter_abbrs(abbrs)
+            if abbrs: abbrs = filter_abbrs(abbrs)
 
+            # '$' -> True.
             alpha = bool(row['Alpha Category'])
 
             rows.append({
