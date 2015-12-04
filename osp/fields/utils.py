@@ -33,9 +33,10 @@ def parse_abbrs(abbrs):
 
     parsed = []
     for abbr in abbrs.split(','):
-        if abbr: parsed.append(abbr.strip())
+        if abbr.strip():
+            parsed.append(abbr.strip())
 
-    return parsed
+    return parsed if len(parsed) else None
 
 
 def crunch(snippet):

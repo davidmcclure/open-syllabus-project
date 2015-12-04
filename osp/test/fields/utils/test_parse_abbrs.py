@@ -20,8 +20,9 @@ from osp.fields.utils import parse_abbrs
     # Ignore trailing comma:
     ('AB, CD, EF,', ['AB', 'CD', 'EF']),
 
-    # Empty string -> []:
-    ('', []),
+    # Empty string -> None:
+    ('', None),
+    (' ', None),
 
 ])
 def test_parse_abbrs(raw, parsed):
