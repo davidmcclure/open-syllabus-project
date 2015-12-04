@@ -43,8 +43,12 @@ class Field(BaseModel):
             pf = clean_field_name(row['Primary Field'])
             sf = clean_field_name(row['Secondary Field'])
 
-            # Split the abbreviations.
+            # Parse the abbreviations.
             abbrs = parse_abbrs(row['ABBRV'])
+
+            # Remove semantically-unfocused strings.
+            abbrs = filter_abbrs(abbrs)
+
             alpha = bool(row['Alpha Category'])
 
             rows.append({
