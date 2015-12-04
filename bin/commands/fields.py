@@ -40,11 +40,12 @@ def insert_fields():
 
 
 @cli.command()
-def queue_queries():
+@click.option('--n', default=10000)
+def queue_queries(n):
 
     """
     Queue query tasks in the worker.
     """
 
-    for text in Document_Text.select():
+    for text in Document_Text.select().limit(n):
         config.rq.enqueue(ext_fields, text.document_id)
