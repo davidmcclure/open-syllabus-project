@@ -86,8 +86,8 @@ def random(out_file, n):
 def syllabus_refinement(in_file, out_file, r, threshold):
 
     """
-    Select the N documents around a given threshold in the
-    syllabus/not-syllabus classifier predictions.
+    Select the N documents around a given threshold in the syllabus /
+    not-syllabus classifier predictions.
     """
 
     cols = ['path', 'score']
