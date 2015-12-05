@@ -15,43 +15,4 @@ setup(
     packages=find_packages(),
     scripts=['bin/osp'],
 
-    install_requires=[
-
-        'ipython',
-        'tldextract',
-        'geopy',
-        'redis',
-        'rq',
-        'rq-dashboard',
-        'click',
-        'psycopg2',
-        'peewee',
-        'python-magic',
-        'requests',
-        'clint',
-        'prettytable',
-        'circus',
-        'beautifulsoup4',
-        'jsonstream',
-        'ijson',
-        'pypdf2',
-        'elasticsearch',
-        'blessings',
-        'anyconfig',
-        'PyYAML',
-        'uwsgi',
-        'flask',
-        'boto',
-        'numpy',
-        'scipy',
-        'reportlab',
-        'python-docx',
-        'pdfminer3k',
-        'pytest',
-        'networkx',
-        'pgmagick',
-        'nltk',
-
-    ]
-
 )
