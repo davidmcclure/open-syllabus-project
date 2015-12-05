@@ -1,11 +1,8 @@
 
 
 import click
-import csv
 
-from osp.common.config import config
 from osp.institutions.models.institution import Institution
-from osp.institutions.jobs.geocode import geocode
 from peewee import create_model_tables
 
 
@@ -33,4 +30,4 @@ def insert_us():
     Insert US institutions.
     """
 
-    Institution.ingest_us()
+    Institution.insert_us()

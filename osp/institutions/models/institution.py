@@ -15,7 +15,12 @@ class Institution(BaseModel):
 
 
     class Meta:
+
         database = config.get_table_db('institution')
+
+        indexes = (
+            (('name', 'website'), True),
+        )
 
 
     @classmethod
@@ -32,7 +37,4 @@ class Institution(BaseModel):
 
         rows = []
         for row in reader:
-            pass # TODO
-
-        with cls._meta.database.transaction():
-            cls.insert_many(rows).execute()
+            pass

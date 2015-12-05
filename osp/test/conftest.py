@@ -13,11 +13,11 @@ from osp.corpus.models.text import Document_Text
 from osp.dates.models.archive_url import Document_Date_Archive_Url
 from osp.dates.models.semester import Document_Date_Semester
 from osp.dates.models.file_metadata import Document_Date_File_Metadata
-from osp.institutions.models.institution import Institution
 from osp.hlom.models.record import HLOM_Record
 from osp.hlom.models.citation import HLOM_Citation
 from osp.fields.models.field import Field
 from osp.fields.models.field_document import Field_Document
+from osp.institutions.models.institution import Institution
 
 # Helpers:
 from playhouse.test_utils import test_database
@@ -115,11 +115,11 @@ def models(config):
         Document_Date_Archive_Url,
         Document_Date_Semester,
         Document_Date_File_Metadata,
-        Institution,
         HLOM_Record,
         HLOM_Citation,
         Field,
         Field_Document,
+        Institution,
     ]
 
     with test_database(config.get_db(), tables):
