@@ -1,6 +1,6 @@
 
 
-from osp.hlom.jobs.query import query
+from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
 
 
 def test_semester(api_client, queue):
@@ -19,5 +19,5 @@ def test_semester(api_client, queue):
 
     # Should queue the query jobs.
     for i, job in enumerate(queue.jobs):
-        assert job.func == query
+        assert job.func == hlom_to_docs
         assert job.args == (i+1,)

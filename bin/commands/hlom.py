@@ -11,7 +11,7 @@ from osp.hlom.models.citation import HLOM_Citation
 from osp.hlom.models.node import HLOM_Node
 from osp.hlom.models.edge import HLOM_Edge
 from osp.hlom.dataset import Dataset
-from osp.hlom.jobs.query import query
+from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
 from peewee import create_model_tables
 from playhouse.postgres_ext import ServerSide
 from clint.textui.progress import bar
@@ -57,4 +57,4 @@ def queue_queries():
     """
 
     for record in ServerSide(HLOM_Record.select()):
-        config.rq.enqueue(query, record.id)
+        config.rq.enqueue(hlom_to_docs, record.id)

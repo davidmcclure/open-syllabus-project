@@ -2,7 +2,7 @@
 
 from osp.corpus.models.text import Document_Text
 from osp.hlom.models.citation import HLOM_Citation
-from osp.hlom.jobs.query import query
+from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
 
 
 def test_matches(corpus_index, mock_hlom, add_doc, add_hlom):
@@ -20,7 +20,7 @@ def test_matches(corpus_index, mock_hlom, add_doc, add_hlom):
     Document_Text.es_insert()
 
     record = add_hlom('War and Peace', 'Leo Tolstoy')
-    query(record.id)
+    hlom_to_docs(record.id)
 
     # Should write 3 citation links.
     assert HLOM_Citation.select().count() == 3
@@ -44,7 +44,7 @@ def test_no_matches(corpus_index, add_doc, add_hlom):
     Document_Text.es_insert()
 
     record = add_hlom('Master and Man', 'Leo Tolstoy')
-    query(record.id)
+    hlom_to_docs(record.id)
 
     # Shouldn't write any rows.
     assert HLOM_Citation.select().count() == 0

@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.hlom.jobs.query import query as job
+from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
 from flask import Flask, Blueprint, request
 from rq import Queue
 
@@ -31,4 +31,4 @@ def meta_job(o1, o2):
     """
 
     for i in range(o1, o2+1):
-        config.rq.enqueue(job, i)
+        config.rq.enqueue(hlom_to_docs, i)

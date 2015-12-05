@@ -5,7 +5,7 @@ from osp.hlom.models.record import HLOM_Record
 from osp.hlom.models.citation import HLOM_Citation
 
 
-def query(hlom_id):
+def hlom_to_docs(hlom_id):
 
     """
     Query a MARC record against the OSP corpus.
