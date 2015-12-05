@@ -27,23 +27,10 @@ def init_db():
 
 
 @cli.command()
-def insert_institutions():
+def insert_us():
 
     """
-    Insert institution rows.
+    Insert US institutions.
     """
 
-    Institution.insert_institutions()
-
-
-@cli.command()
-def queue_geocode():
-
-    """
-    Queue geocoding tasks in the worker.
-
-    :param in_file: A handle on the input CSV.
-    """
-
-    for inst in Institution.select():
-        config.rq.enqueue(geocode, inst.id)
+    Institution.ingest_us()

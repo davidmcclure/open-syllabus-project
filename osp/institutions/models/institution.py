@@ -19,7 +19,7 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def ingest_us(cls):
+    def insert_us(cls):
 
         """
         Write institution rows into the database.
