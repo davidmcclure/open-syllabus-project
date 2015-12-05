@@ -40,6 +40,8 @@ class Institution(BaseModel):
 
             name = row['Institution_Name'].strip()
 
+            # TODO: Normalize the URL?
+
             # Downcase the URL.
             website = row['Institution_Web_Address'].strip().lower()
 
