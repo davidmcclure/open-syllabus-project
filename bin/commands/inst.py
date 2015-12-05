@@ -31,3 +31,13 @@ def insert_us():
     """
 
     Institution.insert_us()
+
+
+@cli.command()
+def insert_uk():
+
+    """
+    Insert UK institutions.
+    """
+
+    Institution.insert_uk()
