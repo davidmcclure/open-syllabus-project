@@ -2,15 +2,16 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.common.utils import read_csv, query_bar
-from playhouse.postgres_ext import BinaryJSONField
-from peewee import fn
+from osp.common.utils import read_csv
+
+from peewee import CharField
 
 
 class Institution(BaseModel):
 
 
-    metadata = BinaryJSONField(default={})
+    name = CharField()
+    website = CharField()
 
 
     class Meta:
@@ -18,7 +19,7 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def insert_institutions(cls):
+    def ingest_us(cls):
 
         """
         Write institution rows into the database.
@@ -26,12 +27,12 @@ class Institution(BaseModel):
 
         reader = read_csv(
             'osp.institutions',
-            'data/institutions.csv'
+            'data/us-inst.csv',
         )
 
         rows = []
         for row in reader:
-            rows.append({'metadata': row})
+            pass # TODO
 
         with cls._meta.database.transaction():
             cls.insert_many(rows).execute()
