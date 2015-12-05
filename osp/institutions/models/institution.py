@@ -37,4 +37,14 @@ class Institution(BaseModel):
 
         rows = []
         for row in reader:
-            pass
+
+            name = row['Institution_Name'].strip()
+            website = row['Institution_Web_Address'].strip()
+
+            query = cls.select().where(
+                cls.name==name,
+                cls.website==website,
+            )
+
+            if name and website and not query.exists():
+                cls.create(name=name, website=website)
