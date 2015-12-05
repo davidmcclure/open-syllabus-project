@@ -15,6 +15,7 @@ from osp.hlom.models.hlom_citation import HLOM_Citation
 from osp.fields.models.field import Field
 from osp.fields.models.field_document import Field_Document
 from osp.institutions.models.institution import Institution
+from osp.institutions.models.institution_document import Institution_Document
 
 # Helpers:
 from playhouse.test_utils import test_database
@@ -114,6 +115,7 @@ def models(config):
         Field,
         Field_Document,
         Institution,
+        Institution_Document,
     ]
 
     with test_database(config.get_db(), tables):

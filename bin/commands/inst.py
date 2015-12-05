@@ -3,6 +3,7 @@
 import click
 
 from osp.institutions.models.institution import Institution
+from osp.institutions.models.institution_document import Institution_Document
 from peewee import create_model_tables
 
 
@@ -20,6 +21,7 @@ def init_db():
 
     create_model_tables([
         Institution,
+        Institution_Document,
     ], fail_silently=True)
 
 
