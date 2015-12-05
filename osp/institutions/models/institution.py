@@ -1,8 +1,8 @@
 
 
 from osp.common.config import config
+from osp.common.utils import read_csv, parse_domain
 from osp.common.models.base import BaseModel
-from osp.common.utils import read_csv
 
 from peewee import CharField
 
@@ -40,10 +40,8 @@ class Institution(BaseModel):
 
             name = row['Institution_Name'].strip()
 
-            # TODO: Normalize the URL?
-
-            # Downcase the URL.
-            website = row['Institution_Web_Address'].strip().lower()
+            # Extract the domain name.
+            website = parse_domain(row['Institution_Web_Address'])
 
             query = cls.select().where(
                 cls.name==name,

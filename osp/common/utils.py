@@ -5,6 +5,7 @@ import numpy as np
 import csv
 import pkgutil
 import re
+import tldextract
 
 from itertools import islice, chain
 from playhouse.postgres_ext import ServerSide
@@ -129,3 +130,23 @@ def termify(text):
     """
 
     return set([t['stemmed'] for t in tokenize(text)])
+
+
+def parse_domain(url):
+
+    """
+    Extract a domain from a URL.
+
+    Args:
+        url (str)
+    """
+
+    parsed = tldextract.extract(url)
+    domain = parsed.registered_domain.lower()
+    subdomain = parsed.subdomain.lower()
+
+    # Join non-www subdomains.
+    if subdomain and subdomain != 'www':
+        domain = '.'.join([subdomain.lstrip('www.'), domain])
+
+    return domain.lower()
