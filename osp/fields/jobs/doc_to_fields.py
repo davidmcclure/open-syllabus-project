@@ -6,7 +6,7 @@ from osp.fields.models.field_document import Field_Document
 from osp.fields.utils import crunch
 
 
-def ext_fields(doc_id, radius=100):
+def doc_to_fields(doc_id, radius=100):
 
     """
     Search for field / department codes in a document.
