@@ -8,6 +8,7 @@ import re
 
 from osp.corpus import utils
 from osp.common.config import config
+from osp.common.utils import parse_domain
 from contextlib import contextmanager
 from datetime import datetime
 from functools import lru_cache
@@ -228,7 +229,7 @@ class Syllabus:
 
     @property
     @utils.requires_attr('url')
-    def parsed_domain(self):
+    def domain(self):
 
         """
         Get the parsed domain of the syllabus' URL.
@@ -241,22 +242,7 @@ class Syllabus:
         http = re.compile('http[s]?:/{1,2}')
         last = http.split(self.url)[-1]
 
-        return tldextract.extract(last)
-
-
-    @property
-    @utils.requires_attr('url')
-    def registered_domain(self):
-
-        """
-        Get the registered domain of the syllabus' URL. Eg:
-        http://www.yale.edu/syllabus.pdf -> yale.edu
-
-        Returns:
-            str: The base URL.
-        """
-
-        return self.parsed_domain.registered_domain
+        return parse_domain(last)
 
 
     @property

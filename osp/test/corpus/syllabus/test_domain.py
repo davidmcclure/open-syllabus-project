@@ -6,7 +6,7 @@ from osp.corpus.syllabus import Syllabus
 def test_regular_url(mock_osp):
 
     """
-    Syllabys#registered_domain should return the "base" URL.
+    Syllabys#domain should return the "base" URL.
     """
 
     log = {'url': 'http://www.yale.edu/syllabus.pdf'}
@@ -14,7 +14,7 @@ def test_regular_url(mock_osp):
     path = mock_osp.add_file(log=log)
     syllabus = Syllabus(path)
 
-    assert syllabus.registered_domain == 'yale.edu'
+    assert syllabus.domain == 'yale.edu'
 
 
 def test_double_url(mock_osp):
@@ -34,4 +34,4 @@ def test_double_url(mock_osp):
     path = mock_osp.add_file(log={'url': url1+'/'+url2})
     syllabus = Syllabus(path)
 
-    assert syllabus.registered_domain == 'yale.edu'
+    assert syllabus.domain == 'yale.edu'
