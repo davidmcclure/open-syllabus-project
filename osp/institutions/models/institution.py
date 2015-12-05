@@ -11,16 +11,11 @@ class Institution(BaseModel):
 
 
     name = CharField()
-    website = CharField()
+    domain = CharField(unique=True)
 
 
     class Meta:
-
         database = config.get_table_db('institution')
-
-        indexes = (
-            (('name', 'website'), True),
-        )
 
 
     @classmethod
@@ -30,23 +25,4 @@ class Institution(BaseModel):
         Write institution rows into the database.
         """
 
-        reader = read_csv(
-            'osp.institutions',
-            'data/us-inst.csv',
-        )
-
-        rows = []
-        for row in reader:
-
-            name = row['Institution_Name'].strip()
-
-            # Extract the domain name.
-            website = parse_domain(row['Institution_Web_Address'])
-
-            query = cls.select().where(
-                cls.name==name,
-                cls.website==website,
-            )
-
-            if name and website and not query.exists():
-                cls.create(name=name, website=website)
+        pass
