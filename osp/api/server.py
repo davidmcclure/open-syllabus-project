@@ -7,7 +7,6 @@ from rq_dashboard import RQDashboard
 from osp.corpus.api import corpus
 from osp.hlom.api import hlom
 from osp.dates.api import dates
-from osp.locations.api import locations
 
 
 # RQ dashboard:
@@ -15,10 +14,9 @@ app = Flask(__name__)
 RQDashboard(app)
 
 
-# OSP REST APIs:
+# OSP endpoints:
 app.register_blueprint(corpus, url_prefix='/corpus')
 app.register_blueprint(hlom, url_prefix='/hlom')
-app.register_blueprint(locations, url_prefix='/locations')
 app.register_blueprint(dates, url_prefix='/dates')
 
 
