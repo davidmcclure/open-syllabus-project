@@ -1,8 +1,8 @@
 
 
 from osp.common.config import config
-from osp.hlom.models.record import HLOM_Record
-from osp.hlom.models.citation import HLOM_Citation
+from osp.hlom.models.hlom_record import HLOM_Record
+from osp.hlom.models.hlom_citation import HLOM_Citation
 
 
 def hlom_to_docs(hlom_id):

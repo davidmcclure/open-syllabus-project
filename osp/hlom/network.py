@@ -8,10 +8,10 @@ import math
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.hlom.utils import prettify_field, sort_dict
-from osp.hlom.models.record import HLOM_Record
-from osp.hlom.models.citation import HLOM_Citation
-from osp.hlom.models.node import HLOM_Node
-from osp.hlom.models.edge import HLOM_Edge
+from osp.hlom.models.hlom_record import HLOM_Record
+from osp.hlom.models.hlom_citation import HLOM_Citation
+from osp.hlom.models.hlom_node import HLOM_Node
+from osp.hlom.models.hlom_edge import HLOM_Edge
 from itertools import combinations
 from clint.textui.progress import bar
 from peewee import fn

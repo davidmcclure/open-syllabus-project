@@ -5,11 +5,11 @@ import numpy as np
 import csv
 
 from osp.common.config import config
-from osp.hlom.models.record import HLOM_Record
-from osp.hlom.models.record_cited import HLOM_Record_Cited
-from osp.hlom.models.citation import HLOM_Citation
-from osp.hlom.models.node import HLOM_Node
-from osp.hlom.models.edge import HLOM_Edge
+from osp.hlom.models.hlom_record import HLOM_Record
+from osp.hlom.models.hlom_record_cited import HLOM_Record_Cited
+from osp.hlom.models.hlom_citation import HLOM_Citation
+from osp.hlom.models.hlom_node import HLOM_Node
+from osp.hlom.models.hlom_edge import HLOM_Edge
 from osp.hlom.dataset import Dataset
 from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
 from peewee import create_model_tables

@@ -2,7 +2,7 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.hlom.models.record import HLOM_Record
+from osp.hlom.models.hlom_record import HLOM_Record
 from osp.corpus.models.document import Document
 from playhouse.postgres_ext import *
 from peewee import *
