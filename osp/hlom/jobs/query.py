@@ -5,15 +5,15 @@ from osp.hlom.models.record import HLOM_Record
 from osp.hlom.models.citation import HLOM_Citation
 
 
-def query(id):
+def query(hlom_id):
 
     """
     Query a MARC record against the OSP corpus.
 
-    :param id: The hlom_record row id.
+    :param hlom_id: The hlom_record row id.
     """
 
-    row = HLOM_Record.get(HLOM_Record.id==id)
+    row = HLOM_Record.get(HLOM_Record.id==hlom_id)
 
     # Execute the query.
     results = config.es.search('osp', 'document', timeout=30, body={
