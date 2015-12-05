@@ -6,7 +6,7 @@ import random
 
 from osp.common.utils import query_bar
 from osp.corpus.models.document import Document
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_text import Document_Text
 from peewee import fn
 
 

@@ -1,6 +1,6 @@
 
 
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_text import Document_Text
 from osp.fields.models.field import Field
 from osp.fields.models.field_document import Field_Document
 from osp.fields.utils import crunch

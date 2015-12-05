@@ -3,7 +3,7 @@
 import click
 
 from osp.common.config import config
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_text import Document_Text
 from osp.fields.models.field import Field
 from osp.fields.models.field_document import Field_Document
 from osp.fields.jobs.ext_fields import ext_fields

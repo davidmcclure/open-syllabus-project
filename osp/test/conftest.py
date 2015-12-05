@@ -8,8 +8,8 @@ from osp.common.config import config as _config
 
 # Models:
 from osp.corpus.models.document import Document
-from osp.corpus.models.format import Document_Format
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_format import Document_Format
+from osp.corpus.models.document_text import Document_Text
 from osp.hlom.models.record import HLOM_Record
 from osp.hlom.models.citation import HLOM_Citation
 from osp.fields.models.field import Field

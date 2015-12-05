@@ -3,7 +3,7 @@
 import click
 
 from osp.common.config import config
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_text import Document_Text
 from blessings import Terminal
 
 

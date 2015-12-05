@@ -10,8 +10,8 @@ from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.corpus.corpus import Corpus
 from osp.corpus.models.document import Document
-from osp.corpus.models.format import Document_Format
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_format import Document_Format
+from osp.corpus.models.document_text import Document_Text
 from osp.corpus.jobs.ext_format import ext_format
 from osp.corpus.jobs.ext_text import ext_text
 from peewee import create_model_tables

@@ -1,6 +1,6 @@
 
 
-from osp.corpus.models.text import Document_Text
+from osp.corpus.models.document_text import Document_Text
 from osp.hlom.models.citation import HLOM_Citation
 from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
 
