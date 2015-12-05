@@ -39,7 +39,9 @@ class Institution(BaseModel):
         for row in reader:
 
             name = row['Institution_Name'].strip()
-            website = row['Institution_Web_Address'].strip()
+
+            # Downcase the URL.
+            website = row['Institution_Web_Address'].strip().lower()
 
             query = cls.select().where(
                 cls.name==name,
