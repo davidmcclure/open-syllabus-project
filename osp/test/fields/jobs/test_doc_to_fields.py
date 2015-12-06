@@ -3,7 +3,7 @@
 from osp.corpus.models import Document_Text
 from osp.fields.models import Field
 from osp.fields.models import Field_Document
-from osp.fields.jobs.doc_to_fields import doc_to_fields
+from osp.fields.jobs import doc_to_fields
 
 
 def test_matches(models, add_doc):

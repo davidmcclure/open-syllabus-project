@@ -2,7 +2,7 @@
 
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
-from osp.corpus.jobs.ext_format import ext_format
+from osp.corpus.jobs import ext_format
 
 
 def test_read_format(models, mock_osp):

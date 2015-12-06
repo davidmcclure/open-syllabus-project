@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.hlom.jobs.hlom_to_docs import hlom_to_docs
+from osp.hlom.jobs import hlom_to_docs
 from flask import Flask, Blueprint, request
 from rq import Queue
 

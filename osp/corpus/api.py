@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.corpus.jobs.ext_text import ext_text
+from osp.corpus.jobs import ext_text
 from flask import Flask, Blueprint, request
 
 

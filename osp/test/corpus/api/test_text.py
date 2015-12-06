@@ -1,6 +1,6 @@
 
 
-from osp.corpus.jobs.ext_text import ext_text
+from osp.corpus.jobs import ext_text
 
 
 def test_text(api_client, queue):

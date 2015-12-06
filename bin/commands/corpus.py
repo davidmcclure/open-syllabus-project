@@ -12,8 +12,8 @@ from osp.corpus.corpus import Corpus
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
-from osp.corpus.jobs.ext_format import ext_format
-from osp.corpus.jobs.ext_text import ext_text
+from osp.corpus.jobs import ext_format
+from osp.corpus.jobs import ext_text
 from peewee import create_model_tables
 from prettytable import PrettyTable
 
