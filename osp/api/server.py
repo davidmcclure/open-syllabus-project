@@ -3,11 +3,12 @@
 import os
 import importlib
 
+from osp.common.config import config
 from osp.common.utils import partitions
 from osp.hlom.api import hlom
 from osp.corpus.api import corpus
 
-from flask import Flask
+from flask import Flask, request
 from rq_dashboard import RQDashboard
 from pydoc import locate
 
@@ -45,16 +46,22 @@ def queue():
     # Get id range.
     (id1, id2) = partitions(1, model.max_id(), count)[index]
 
-    # Meta-job to spool the order.
-    def _meta(id1, id2):
-        for idx in range(id1, id2+1):
-            config.rq.enqueue(job, idx)
-
     # Queue the meta-job.
-    job = config.rq.enqueue(_meta, id1, id2, timeout=3600)
+    job = config.rq.enqueue(spool, job, id1, id2, timeout=3600)
 
     code = 200 if job.is_queued else 500
     return ('', code)
+
+
+def spool(job, id1, id2):
+
+    """
+    Spool a range of ids for a job.
+    """
+
+    for idx in range(id1, id2+1):
+        config.rq.enqueue(job, idx)
+
 
 
 if __name__ == '__main__':

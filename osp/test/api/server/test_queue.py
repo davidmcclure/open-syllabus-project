@@ -1,10 +1,13 @@
 
 
+import pytest
+
 from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
 from osp.common.utils import partitions
 
 
+@pytest.mark.api
 def test_queue(models, api_client, queue):
 
     """
@@ -15,7 +18,7 @@ def test_queue(models, api_client, queue):
     for i in range(1000):
         Document.create(path=str(i))
 
-    api_client.get('/queue', data={
+    r = api_client.post('/queue', data={
         'model':    'osp.corpus.models.Document',
         'job':      'osp.corpus.jobs.ext_text',
         'index':    5,
@@ -35,6 +38,6 @@ def test_queue(models, api_client, queue):
     # Should spool work jobs.
     assert queue.count == id2-id1+1
 
-    for i, doc_id in enumerate(range(id1, i2+1)):
+    for i, doc_id in enumerate(range(id1, id2+1)):
         assert queue.jobs[i].func == ext_text
         assert queue.jobs[i].args == (doc_id,)
