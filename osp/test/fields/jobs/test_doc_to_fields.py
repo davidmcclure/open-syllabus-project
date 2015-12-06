@@ -12,7 +12,7 @@ def test_matches(models, add_doc):
     When a document contains a field code, write a doc->field link.
     """
 
-    doc = add_doc('abc Field1 101 def Field2 101 ghi')
+    doc = add_doc(content='abc Field1 101 def Field2 101 ghi')
 
     f1 = Field.create(secondary_field='Field1')
     f2 = Field.create(secondary_field='Field2')
@@ -39,7 +39,7 @@ def test_no_matches(models, add_doc):
     When no fields match, don't write any rows.
     """
 
-    doc = add_doc('abc Field2 101 def')
+    doc = add_doc(content='abc Field2 101 def')
 
     f1 = Field.create(secondary_field='Field1')
 

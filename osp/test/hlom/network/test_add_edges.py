@@ -19,9 +19,9 @@ def test_add_edges(models, add_hlom, add_doc):
     t5 = add_hlom()
     t6 = add_hlom()
 
-    s1 = add_doc('syllabus1')
-    s2 = add_doc('syllabus2')
-    s3 = add_doc('syllabus3')
+    s1 = add_doc(content='syllabus1')
+    s2 = add_doc(content='syllabus2')
+    s3 = add_doc(content='syllabus3')
 
     # texts 1-4 in s1.
     HLOM_Citation.create(document=s1, record=t1)
@@ -61,8 +61,8 @@ def test_max_citations(models, add_hlom, add_doc):
     t2 = add_hlom()
     t3 = add_hlom()
 
-    s1 = add_doc('syllabus1')
-    s2 = add_doc('syllabus2')
+    s1 = add_doc(content='syllabus1')
+    s2 = add_doc(content='syllabus2')
 
     # 2 citations in s1.
     HLOM_Citation.create(document=s1, record=t1)

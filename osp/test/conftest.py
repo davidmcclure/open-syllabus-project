@@ -2,11 +2,11 @@
 
 import pytest
 
-# Globals:
+# Globals
 from osp.api.server import app
 from osp.common.config import config as _config
 
-# Models:
+# Models
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
@@ -17,10 +17,11 @@ from osp.fields.models import Field_Document
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 
-# Helpers:
+# Helpers
 from playhouse.test_utils import test_database
-from osp.test.corpus.mock_osp import MockOSP
-from osp.test.hlom.mock_hlom import MockHLOM
+from osp.test.mock_osp import MockOSP
+from osp.test.mock_hlom import MockHLOM
+from osp.test.helpers import *
 
 
 @pytest.fixture(scope='session', autouse=True)

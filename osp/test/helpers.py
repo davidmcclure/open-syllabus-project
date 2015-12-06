@@ -4,8 +4,8 @@ import pytest
 
 from osp.corpus.syllabus import Syllabus
 from osp.corpus.models import Document
-from osp.hlom.models import HLOM_Record
 from osp.corpus.jobs.ext_text import ext_text
+from osp.hlom.models import HLOM_Record
 
 
 @pytest.fixture()
@@ -42,10 +42,10 @@ def add_doc(models, mock_osp):
         function
     """
 
-    def _doc(content='content'):
+    def _doc(*args, **kwargs):
 
         # Write a file.
-        path = mock_osp.add_file(content=content)
+        path = mock_osp.add_file(*args, **kwargs)
         syllabus = Syllabus(path)
 
         # Insert the document row.
