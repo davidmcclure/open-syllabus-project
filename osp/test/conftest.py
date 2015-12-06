@@ -7,15 +7,15 @@ from osp.api.server import app
 from osp.common.config import config as _config
 
 # Models:
-from osp.corpus.models.document import Document
-from osp.corpus.models.document_format import Document_Format
-from osp.corpus.models.document_text import Document_Text
-from osp.hlom.models.hlom_record import HLOM_Record
-from osp.hlom.models.hlom_citation import HLOM_Citation
-from osp.fields.models.field import Field
-from osp.fields.models.field_document import Field_Document
-from osp.institutions.models.institution import Institution
-from osp.institutions.models.institution_document import Institution_Document
+from osp.corpus.models import Document
+from osp.corpus.models import Document_Format
+from osp.corpus.models import Document_Text
+from osp.hlom.models import HLOM_Record
+from osp.hlom.models import HLOM_Citation
+from osp.fields.models import Field
+from osp.fields.models import Field_Document
+from osp.institutions.models import Institution
+from osp.institutions.models import Institution_Document
 
 # Helpers:
 from playhouse.test_utils import test_database

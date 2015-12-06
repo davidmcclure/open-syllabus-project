@@ -6,8 +6,8 @@ from osp.common.config import config
 from osp.common.utils import query_bar, tokenize
 from osp.common.models.base import BaseModel
 from osp.common.mixins.elasticsearch import Elasticsearch
-from osp.corpus.models.document import Document
-from osp.hlom.models.hlom_citation import HLOM_Citation
+from osp.corpus.models import Document
+from osp.hlom.models import HLOM_Citation
 from collections import Counter
 from peewee import *
 

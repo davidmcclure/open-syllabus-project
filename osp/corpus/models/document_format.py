@@ -2,7 +2,7 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.corpus.models.document import Document
+from osp.corpus.models import Document
 from peewee import *
 
 

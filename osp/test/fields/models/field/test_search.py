@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.fields.models.field import Field
+from osp.fields.models import Field
 
 
 @pytest.mark.parametrize('text', [

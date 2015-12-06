@@ -1,6 +1,6 @@
 
 
-from osp.fields.models.field import Field
+from osp.fields.models import Field
 
 
 def test_secondary_field(models):

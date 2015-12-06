@@ -3,8 +3,8 @@
 import csv
 import click
 
-from osp.fields.models.field import Field
-from osp.fields.models.field_document import Field_Document
+from osp.fields.models import Field
+from osp.fields.models import Field_Document
 from osp.common.utils import query_bar
 
 

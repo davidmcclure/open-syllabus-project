@@ -1,7 +1,7 @@
 
 
-from osp.corpus.models.document import Document
-from osp.corpus.models.document_format import Document_Format
+from osp.corpus.models import Document
+from osp.corpus.models import Document_Format
 
 
 def ext_format(doc_id):

@@ -3,7 +3,7 @@
 import peewee
 import pytest
 
-from osp.institutions.models.institution import Institution
+from osp.institutions.models import Institution
 
 
 def test_unique_domain(models):

@@ -2,8 +2,8 @@
 
 import click
 
-from osp.institutions.models.institution import Institution
-from osp.institutions.models.institution_document import Institution_Document
+from osp.institutions.models import Institution
+from osp.institutions.models import Institution_Document
 from peewee import create_model_tables
 
 

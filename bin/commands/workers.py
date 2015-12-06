@@ -5,7 +5,7 @@ import requests
 
 from osp.common.utils import partitions
 from osp.common.inventory import Inventory
-from osp.corpus.models.document import Document
+from osp.corpus.models import Document
 from blessings import Terminal
 
 

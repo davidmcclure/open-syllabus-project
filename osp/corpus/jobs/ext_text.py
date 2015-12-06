@@ -1,7 +1,7 @@
 
 
-from osp.corpus.models.document import Document
-from osp.corpus.models.document_text import Document_Text
+from osp.corpus.models import Document
+from osp.corpus.models import Document_Text
 
 
 def ext_text(doc_id):

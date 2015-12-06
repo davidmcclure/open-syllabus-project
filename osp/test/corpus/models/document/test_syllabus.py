@@ -1,6 +1,6 @@
 
 
-from osp.corpus.models.document import Document
+from osp.corpus.models import Document
 from osp.corpus.syllabus import Syllabus
 
 

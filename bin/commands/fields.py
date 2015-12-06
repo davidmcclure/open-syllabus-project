@@ -3,9 +3,9 @@
 import click
 
 from osp.common.config import config
-from osp.corpus.models.document_text import Document_Text
-from osp.fields.models.field import Field
-from osp.fields.models.field_document import Field_Document
+from osp.corpus.models import Document_Text
+from osp.fields.models import Field
+from osp.fields.models import Field_Document
 from osp.fields.jobs.ext_fields import ext_fields
 
 from peewee import create_model_tables

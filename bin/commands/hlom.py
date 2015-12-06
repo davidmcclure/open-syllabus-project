@@ -5,9 +5,9 @@ import numpy as np
 import csv
 
 from osp.common.config import config
-from osp.hlom.models.hlom_record import HLOM_Record
+from osp.hlom.models import HLOM_Record
 from osp.hlom.models.hlom_record_cited import HLOM_Record_Cited
-from osp.hlom.models.hlom_citation import HLOM_Citation
+from osp.hlom.models import HLOM_Citation
 from osp.hlom.models.hlom_node import HLOM_Node
 from osp.hlom.models.hlom_edge import HLOM_Edge
 from osp.hlom.dataset import Dataset
