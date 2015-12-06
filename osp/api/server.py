@@ -5,8 +5,6 @@ import importlib
 
 from osp.common.config import config
 from osp.common.utils import partitions
-from osp.hlom.api import hlom
-from osp.corpus.api import corpus
 
 from rq_dashboard import RQDashboard
 from flask import Flask, request, jsonify
@@ -16,11 +14,6 @@ from pydoc import locate
 # RQ dashboard:
 app = Flask(__name__)
 RQDashboard(app)
-
-
-# OSP endpoints:
-app.register_blueprint(corpus, url_prefix='/corpus')
-app.register_blueprint(hlom, url_prefix='/hlom')
 
 
 @app.route('/ping')
