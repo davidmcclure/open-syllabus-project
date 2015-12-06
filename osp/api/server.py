@@ -1,6 +1,7 @@
 
 
 import os
+import importlib
 
 from flask import Flask
 from rq_dashboard import RQDashboard
@@ -21,6 +22,11 @@ app.register_blueprint(hlom, url_prefix='/hlom')
 @app.route('/ping')
 def ping():
     return ('pong', 200)
+
+
+@app.route('/queue', methods=['POST'])
+def queue():
+    pass # TODO
 
 
 if __name__ == '__main__':
