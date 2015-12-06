@@ -18,7 +18,6 @@ def test_matches(models, add_doc):
     f2 = Field.create(secondary_field='Field2')
     f3 = Field.create(secondary_field='Field3')
 
-    Document_Text.es_insert()
     doc_to_fields(doc.id)
 
     # Should write 2 citation links.
@@ -43,7 +42,6 @@ def test_no_matches(models, add_doc):
 
     f1 = Field.create(secondary_field='Field1')
 
-    Document_Text.es_insert()
     doc_to_fields(doc.id)
 
     # Shouldn't write any rows.
