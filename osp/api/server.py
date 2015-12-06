@@ -8,8 +8,8 @@ from osp.common.utils import partitions
 from osp.hlom.api import hlom
 from osp.corpus.api import corpus
 
-from flask import Flask, request
 from rq_dashboard import RQDashboard
+from flask import Flask, request, jsonify
 from pydoc import locate
 
 
@@ -49,8 +49,7 @@ def queue():
     # Queue the meta-job.
     job = config.rq.enqueue(spool, job, id1, id2, timeout=3600)
 
-    code = 200 if job.is_queued else 500
-    return ('', code)
+    return jsonify(id1=id1, id2=id2)
 
 
 def spool(job, id1, id2):
@@ -61,7 +60,6 @@ def spool(job, id1, id2):
 
     for idx in range(id1, id2+1):
         config.rq.enqueue(job, idx)
-
 
 
 if __name__ == '__main__':

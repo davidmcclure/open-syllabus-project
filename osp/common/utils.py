@@ -49,7 +49,7 @@ def partitions(min_val, max_val, n):
 
     bounds = []
     for pt in pts:
-        bounds.append((pt[0], pt[-1]))
+        bounds.append((int(pt[0]), int(pt[-1])))
 
     return bounds
 

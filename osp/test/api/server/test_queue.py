@@ -1,6 +1,7 @@
 
 
 import pytest
+import json
 
 from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
@@ -35,9 +36,13 @@ def test_queue(models, api_client, queue):
     meta = queue.dequeue()
     meta.perform()
 
-    # Should spool work jobs.
-    assert queue.count == id2-id1+1
-
+    # Should spool the work jobs.
     for i, doc_id in enumerate(range(id1, id2+1)):
         assert queue.jobs[i].func == ext_text
         assert queue.jobs[i].args == (doc_id,)
+
+    # Should return the id range.
+    assert json.loads(r.data.decode('utf8')) == {
+        'id1': id1,
+        'id2': id2,
+    }
