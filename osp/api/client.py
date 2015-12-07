@@ -5,7 +5,7 @@ import os
 from boto import ec2
 
 
-class Inventory:
+class Client:
 
 
     def __init__(self):
