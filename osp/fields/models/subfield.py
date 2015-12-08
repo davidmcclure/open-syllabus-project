@@ -22,43 +22,43 @@ class Subfield(BaseModel):
         database = config.get_table_db('subfield')
 
 
-    @classmethod
-    def insert_fields(cls):
+    # @classmethod
+    # def insert_fields(cls):
 
-        """
-        Write field rows into the database.
-        """
+        # """
+        # Write field rows into the database.
+        # """
 
-        reader = read_csv(
-            'osp.fields',
-            'data/fields.csv'
-        )
+        # reader = read_csv(
+            # 'osp.fields',
+            # 'data/fields.csv'
+        # )
 
-        rows = []
-        for row in reader:
+        # rows = []
+        # for row in reader:
 
-            # Sanitize field names.
-            pf = clean_field_name(row['Primary Field'])
-            sf = clean_field_name(row['Secondary Field'])
+            # # Sanitize field names.
+            # pf = clean_field_name(row['Primary Field'])
+            # sf = clean_field_name(row['Secondary Field'])
 
-            # Parse abbreviations.
-            abbrs = parse_abbrs(row['ABBRV'])
+            # # Parse abbreviations.
+            # abbrs = parse_abbrs(row['ABBRV'])
 
-            # Scrub unfocused strings.
-            if abbrs: abbrs = filter_abbrs(abbrs)
+            # # Scrub unfocused strings.
+            # if abbrs: abbrs = filter_abbrs(abbrs)
 
-            # '$' -> True.
-            alpha = bool(row['Alpha Category'])
+            # # '$' -> True.
+            # alpha = bool(row['Alpha Category'])
 
-            rows.append({
-                'primary_field':    pf,
-                'secondary_field':  sf,
-                'abbreviations':    abbrs,
-                'alpha_category':   alpha,
-            })
+            # rows.append({
+                # 'primary_field':    pf,
+                # 'secondary_field':  sf,
+                # 'abbreviations':    abbrs,
+                # 'alpha_category':   alpha,
+            # })
 
-        with cls._meta.database.transaction():
-            cls.insert_many(rows).execute()
+        # with cls._meta.database.transaction():
+            # cls.insert_many(rows).execute()
 
 
     def make_regex(self, pattern):
