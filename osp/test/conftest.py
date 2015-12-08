@@ -51,6 +51,33 @@ def config():
 
 
 @pytest.yield_fixture
+def models(config):
+
+    """
+    Assign models to the testing database.
+
+    Yields:
+        A context with the wrapped model.
+    """
+
+    tables = [
+        Document,
+        Document_Format,
+        Document_Text,
+        HLOM_Record,
+        HLOM_Citation,
+        Institution,
+        Institution_Document,
+        Field,
+        Subfield,
+        Subfield_Document,
+    ]
+
+    with test_database(config.get_db(), tables):
+        yield
+
+
+@pytest.yield_fixture
 def mock_osp(config):
 
     """
@@ -96,33 +123,6 @@ def mock_hlom(config):
 
     yield hlom
     hlom.teardown()
-
-
-@pytest.yield_fixture
-def models(config):
-
-    """
-    Assign models to the testing database.
-
-    Yields:
-        A context with the wrapped model.
-    """
-
-    tables = [
-        Document,
-        Document_Format,
-        Document_Text,
-        HLOM_Record,
-        HLOM_Citation,
-        Institution,
-        Institution_Document,
-        Field,
-        Subfield,
-        Subfield_Document,
-    ]
-
-    with test_database(config.get_db(), tables):
-        yield
 
 
 @pytest.yield_fixture
