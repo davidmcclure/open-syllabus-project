@@ -6,7 +6,9 @@ import click
 
 from osp.common.config import config
 from osp.api.utils import print_code
+
 from boto import ec2
+from blessings import Terminal
 
 
 class Client:
@@ -62,19 +64,6 @@ class Client:
         return ['http://'+ip for ip in self.worker_ips]
 
 
-    def queue(self, model, job):
-
-        """
-        Queue a job against a model.
-
-        Args:
-            model (str) - Model import path.
-            job (str) - Job import path.
-        """
-
-        pass
-
-
     def ping(self):
 
         """
@@ -89,13 +78,75 @@ class Client:
             print_code(r.status_code)
 
 
+    def queue(self, model, job):
+
+        """
+        Queue a job against a model.
+
+        Args:
+            model (str) - Model import path.
+            job (str) - Job import path.
+        """
+
+        count = len(self.worker_urls)
+
+        for i, url in enumerate(self.worker_urls):
+
+            r = requests.post(url+'/queue', data={
+                'model':    model,
+                'job':      job,
+                'count':    count,
+                'index':    i,
+            })
+
+            # TODO: format
+            click.echo(r.json()['id1'])
+            click.echo(r.json()['id2'])
+
+
+    def clear(self):
+
+        """
+        Clear all queues in all workers.
+        """
+
+        for url in self.worker_urls:
+
+            click.echo(url)
+
+            # Default:
+            r1 = requests.post(url+'/rq/queue/default/empty')
+            print_code(r1.status_code)
+
+            # Failed:
+            r1 = requests.post(url+'/rq/queue/failed/empty')
+            print_code(r1.status_code)
+
+
     def status(self):
 
         """
         List pending/failed counts for each worker.
         """
 
-        pass
+        term = Terminal()
+
+        for url in self.worker_urls:
+
+            click.echo(url)
+
+            # Get the queue counts.
+            r = requests.get(url+'/rq/queues.json')
+
+            for queue in r.json()['queues']:
+
+                # Pending jobs:
+                if queue['name'] == 'default':
+                    click.echo(term.green(str(queue['count'])))
+
+                # Failed jobs:
+                if queue['name'] == 'failed':
+                    click.echo(term.red(str(queue['count'])))
 
 
     def requeue(self):
@@ -104,4 +155,9 @@ class Client:
         Requeue all tasks in all workers.
         """
 
-        pass
+        for url in self.worker_urls:
+
+            click.echo(url)
+
+            r = requests.post(url+'/rq/requeue-all')
+            print_code(r.status_code)
