@@ -5,6 +5,7 @@ import requests
 import click
 
 from osp.common.config import config
+from osp.api.utils import print_code
 from boto import ec2
 
 
@@ -80,7 +81,12 @@ class Client:
         Ping the workers.
         """
 
-        pass
+        for url in self.worker_urls:
+
+            r = requests.get(url+'/ping')
+
+            click.echo(url)
+            print_code(r.status_code)
 
 
     def status(self):

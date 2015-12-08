@@ -1,15 +1,8 @@
 
 
 import click
-import requests
 
-from osp.common.utils import partitions
-from osp.common.inventory import Inventory
-from osp.corpus.models import Document
-from blessings import Terminal
-
-
-term = Terminal()
+from osp.api.client import Client
 
 
 @click.group()
@@ -24,182 +17,182 @@ def ping():
     Ping the workers.
     """
 
-    for url in Inventory().worker_urls:
-
-        click.echo(url)
-
-        # Hit /ping.
-        r = requests.get(url+'/ping')
-        print_code(r.status_code)
+    Client().ping()
 
 
-@cli.command()
-def status():
-
-    """
-    List the number of pending jobs for each worker.
-    """
-
-    for url in Inventory().worker_urls:
-
-        click.echo(url)
-
-        # Get the queue counts.
-        r = requests.get(url+'/rq/queues.json')
-
-        for queue in r.json()['queues']:
-
-            # Pending jobs:
-            if queue['name'] == 'default':
-                click.echo(term.green(str(queue['count'])))
-
-            # Failed jobs:
-            if queue['name'] == 'failed':
-                click.echo(term.red(str(queue['count'])))
 
 
-@cli.command()
-def requeue():
-
-    """
-    Requeue all tasks in all workers.
-    """
-
-    for url in Inventory().worker_urls:
-
-        click.echo(url)
-
-        # Hit /ping.
-        r = requests.post(url+'/rq/requeue-all')
-        print_code(r.status_code)
 
 
-@cli.command()
-def reset():
-
-    """
-    Clear `default` and `failed` queues on all workers.
-    """
-
-    for url in Inventory().worker_urls:
-
-        click.echo(url)
-
-        # Default:
-        r1 = requests.post(url+'/rq/queue/default/empty')
-        print_code(r1.status_code)
-
-        # Failed:
-        r2 = requests.post(url+'/rq/queue/failed/empty')
-        print_code(r2.status_code)
 
 
-@cli.command()
-@click.argument('max_id', type=int)
-def queue_corpus_text(max_id):
+# @cli.command()
+# def status():
 
-    """
-    Queue text extraction.
-    """
+    # """
+    # List the number of pending jobs for each worker.
+    # """
 
-    queue('/corpus/text', max_id)
+    # for url in Inventory().worker_urls:
 
+        # click.echo(url)
 
-@cli.command()
-@click.argument('max_id', type=int)
-def queue_date_archive_url(max_id):
+        # # Get the queue counts.
+        # r = requests.get(url+'/rq/queues.json')
 
-    """
-    Queue archive URL date extraction.
-    """
+        # for queue in r.json()['queues']:
 
-    queue('/dates/archive-url', max_id)
+            # # Pending jobs:
+            # if queue['name'] == 'default':
+                # click.echo(term.green(str(queue['count'])))
 
-
-@cli.command()
-@click.argument('max_id', type=int)
-def queue_date_semester(max_id):
-
-    """
-    Queue semester date extraction.
-    """
-
-    queue('/dates/semester', max_id)
+            # # Failed jobs:
+            # if queue['name'] == 'failed':
+                # click.echo(term.red(str(queue['count'])))
 
 
-@cli.command()
-@click.argument('max_id', type=int)
-def queue_date_file_metadata(max_id):
+# @cli.command()
+# def requeue():
 
-    """
-    Queue file metadata date extraction.
-    """
+    # """
+    # Requeue all tasks in all workers.
+    # """
 
-    queue('/dates/file-metadata', max_id)
+    # for url in Inventory().worker_urls:
 
+        # click.echo(url)
 
-@cli.command()
-@click.argument('max_id', type=int)
-def queue_hlom_query(max_id):
-
-    """
-    Queue HLOM queries.
-    """
-
-    queue('/hlom/query', max_id)
+        # # Hit /ping.
+        # r = requests.post(url+'/rq/requeue-all')
+        # print_code(r.status_code)
 
 
-@cli.command()
-@click.argument('max_id', type=int)
-def queue_match_doc_inst(max_id):
+# @cli.command()
+# def reset():
 
-    """
-    Queue document -> institution queries.
-    """
+    # """
+    # Clear `default` and `failed` queues on all workers.
+    # """
 
-    queue('/locations/match-doc', max_id)
+    # for url in Inventory().worker_urls:
 
+        # click.echo(url)
 
-def queue(route, max_id):
+        # # Default:
+        # r1 = requests.post(url+'/rq/queue/default/empty')
+        # print_code(r1.status_code)
 
-    """
-    Queue partitions in EC2 workers.
-
-    Args:
-        route (str): The API endpoint.
-        max_id (int): The highest ID.
-    """
-
-    urls = Inventory().worker_urls
-    pts = partitions(1, max_id, len(urls))
-
-    for i, url in enumerate(urls):
-
-        o1 = pts[i][0]
-        o2 = pts[i][1]
-
-        # Post the boundaries.
-        r = requests.post(
-            url+route,
-            data={'o1': o1, 'o2': o2}
-        )
-
-        code = r.status_code
-        click.echo(url)
-
-        if code == 200:
-            click.echo(term.green(str(o1)+'-'+str(o2)))
-        else:
-            click.echo(term.red(str(code)))
+        # # Failed:
+        # r2 = requests.post(url+'/rq/queue/failed/empty')
+        # print_code(r2.status_code)
 
 
-def print_code(code):
+# @cli.command()
+# @click.argument('max_id', type=int)
+# def queue_corpus_text(max_id):
 
-    """
-    Print a colored status code.
-    """
+    # """
+    # Queue text extraction.
+    # """
 
-    if code == 200:
-        click.echo(term.green('200'))
-    else:
-        click.echo(term.red(str(code)))
+    # queue('/corpus/text', max_id)
+
+
+# @cli.command()
+# @click.argument('max_id', type=int)
+# def queue_date_archive_url(max_id):
+
+    # """
+    # Queue archive URL date extraction.
+    # """
+
+    # queue('/dates/archive-url', max_id)
+
+
+# @cli.command()
+# @click.argument('max_id', type=int)
+# def queue_date_semester(max_id):
+
+    # """
+    # Queue semester date extraction.
+    # """
+
+    # queue('/dates/semester', max_id)
+
+
+# @cli.command()
+# @click.argument('max_id', type=int)
+# def queue_date_file_metadata(max_id):
+
+    # """
+    # Queue file metadata date extraction.
+    # """
+
+    # queue('/dates/file-metadata', max_id)
+
+
+# @cli.command()
+# @click.argument('max_id', type=int)
+# def queue_hlom_query(max_id):
+
+    # """
+    # Queue HLOM queries.
+    # """
+
+    # queue('/hlom/query', max_id)
+
+
+# @cli.command()
+# @click.argument('max_id', type=int)
+# def queue_match_doc_inst(max_id):
+
+    # """
+    # Queue document -> institution queries.
+    # """
+
+    # queue('/locations/match-doc', max_id)
+
+
+# def queue(route, max_id):
+
+    # """
+    # Queue partitions in EC2 workers.
+
+    # Args:
+        # route (str): The API endpoint.
+        # max_id (int): The highest ID.
+    # """
+
+    # urls = Inventory().worker_urls
+    # pts = partitions(1, max_id, len(urls))
+
+    # for i, url in enumerate(urls):
+
+        # o1 = pts[i][0]
+        # o2 = pts[i][1]
+
+        # # Post the boundaries.
+        # r = requests.post(
+            # url+route,
+            # data={'o1': o1, 'o2': o2}
+        # )
+
+        # code = r.status_code
+        # click.echo(url)
+
+        # if code == 200:
+            # click.echo(term.green(str(o1)+'-'+str(o2)))
+        # else:
+            # click.echo(term.red(str(code)))
+
+
+# def print_code(code):
+
+    # """
+    # Print a colored status code.
+    # """
+
+    # if code == 200:
+        # click.echo(term.green('200'))
+    # else:
+        # click.echo(term.red(str(code)))
