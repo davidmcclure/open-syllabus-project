@@ -24,43 +24,17 @@ class Subfield(BaseModel):
         database = config.get_table_db('subfield')
 
 
-    # @classmethod
-    # def insert_fields(cls):
+    @classmethod
+    def ingest(cls):
 
-        # """
-        # Write field rows into the database.
-        # """
+        """
+        Ingest subfields.
+        """
 
-        # reader = read_csv(
-            # 'osp.fields',
-            # 'data/fields.csv'
-        # )
+        # name -> secondary field
+        # query for Field
 
-        # rows = []
-        # for row in reader:
-
-            # # Sanitize field names.
-            # pf = clean_field_name(row['Primary Field'])
-            # sf = clean_field_name(row['Secondary Field'])
-
-            # # Parse abbreviations.
-            # abbrs = parse_abbrs(row['ABBRV'])
-
-            # # Scrub unfocused strings.
-            # if abbrs: abbrs = filter_abbrs(abbrs)
-
-            # # '$' -> True.
-            # alpha = bool(row['Alpha Category'])
-
-            # rows.append({
-                # 'primary_field':    pf,
-                # 'secondary_field':  sf,
-                # 'abbreviations':    abbrs,
-                # 'alpha_category':   alpha,
-            # })
-
-        # with cls._meta.database.transaction():
-            # cls.insert_many(rows).execute()
+        pass
 
 
     def make_regex(self, pattern):
