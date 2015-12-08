@@ -20,6 +20,29 @@ def ping():
     Client().ping()
 
 
+@cli.command()
+def status():
+
+    """
+    Print queue counts.
+    """
+
+    Client().status()
+
+
+@cli.command()
+def queue_ext_text():
+
+    """
+    Queue text extraction.
+    """
+
+    Client().queue(
+        'osp.corpus.models.Document',
+        'osp.corpus.jobs.ext_text',
+    )
+
+
 
 
 
