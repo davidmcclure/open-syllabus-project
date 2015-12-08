@@ -34,11 +34,11 @@ from osp.fields.models import Subfield
 def test_match_name(text, models):
 
     """
-    Field#search() should match a field name code in the passed text.
+    Subfield#search() should match a field name code in the passed text.
     """
 
-    field = Subfield.create(name='Field')
-    assert field.search(text) is not None
+    subfield = Subfield.create(name='Field')
+    assert subfield.search(text) is not None
 
 
 @pytest.mark.parametrize('text', [
@@ -86,8 +86,8 @@ def test_match_abbreviations(text, models):
     Should match abbreviated codes.
     """
 
-    field = Subfield.create(abbreviations=['AB', 'CD', 'EF'])
-    assert field.search(text) is not None
+    subfield = Subfield.create(abbreviations=['AB', 'CD', 'EF'])
+    assert subfield.search(text) is not None
 
 
 def test_ignore_suffix_names(models):
@@ -96,5 +96,5 @@ def test_ignore_suffix_names(models):
     Don't match names that are right-side suffixes of longer strings.
     """
 
-    field = Subfield.create(abbreviations=['NE'])
-    assert field.search('KINE 101') is None
+    subfield = Subfield.create(abbreviations=['NE'])
+    assert subfield.search('KINE 101') is None

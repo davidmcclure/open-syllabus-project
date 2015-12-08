@@ -11,17 +11,15 @@ from peewee import CharField, BooleanField
 from playhouse.postgres_ext import ArrayField
 
 
-class Field(BaseModel):
+class Subfield(BaseModel):
 
 
-    primary_field = CharField(index=True, null=True)
-    secondary_field = CharField(index=True, null=True)
+    name = CharField(index=True, null=True)
     abbreviations = ArrayField(CharField, null=True)
-    alpha_category = BooleanField(default=False)
 
 
     class Meta:
-        database = config.get_table_db('field')
+        database = config.get_table_db('subfield')
 
 
     @classmethod
@@ -77,9 +75,9 @@ class Field(BaseModel):
         names = []
 
         # English + ENGLISH
-        if self.secondary_field:
-            names.append(self.secondary_field)
-            names.append(self.secondary_field.upper())
+        if self.name:
+            names.append(self.name)
+            names.append(self.name.upper())
 
         if self.abbreviations:
             names += self.abbreviations
