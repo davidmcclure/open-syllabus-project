@@ -61,14 +61,14 @@ class Client:
         return ['http://'+ip for ip in self.worker_ips]
 
 
-    def queue(self, job, model):
+    def queue(self, model, job):
 
         """
         Queue a job against a model.
 
         Args:
-            job (str) - Job import path.
             model (str) - Model import path.
+            job (str) - Job import path.
         """
 
         pass
