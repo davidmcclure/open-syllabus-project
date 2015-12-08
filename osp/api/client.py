@@ -1,6 +1,8 @@
 
 
 import os
+import requests
+import click
 
 from osp.common.config import config
 from boto import ec2
@@ -57,3 +59,43 @@ class Client:
         """
 
         return ['http://'+ip for ip in self.worker_ips]
+
+
+    def queue(self, job, model):
+
+        """
+        Queue a job against a model.
+
+        Args:
+            job (str) - Job import path.
+            model (str) - Model import path.
+        """
+
+        pass
+
+
+    def ping(self):
+
+        """
+        Ping the workers.
+        """
+
+        pass
+
+
+    def status(self):
+
+        """
+        List pending/failed counts for each worker.
+        """
+
+        pass
+
+
+    def requeue(self):
+
+        """
+        Requeue all tasks in all workers.
+        """
+
+        pass
