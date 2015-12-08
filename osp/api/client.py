@@ -29,8 +29,11 @@ class Client:
         Return: list
         """
 
+        ips = []
         for r in self.conn.get_all_reservations(filters=filters):
-            return [i.ip_address for i in r.istances]
+            ips += [i.ip_address for i in r.instances]
+
+        return ips
 
 
     @property
@@ -40,7 +43,7 @@ class Client:
         Get a list of worker IP addresses.
         """
 
-        return self.ips_by_tag({
+        return self.filter_ips({
             'tag:osp': 'worker',
             'tag:user': config['ec2']['namespace'],
         })
