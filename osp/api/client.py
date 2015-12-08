@@ -2,6 +2,7 @@
 
 import os
 
+from osp.common.config import config
 from boto import ec2
 
 
@@ -14,25 +15,22 @@ class Client:
         Initialize the EC2 connection.
         """
 
-        self.conn = ec2.connect_to_region(os.environ['OSP_REGION'])
+        self.conn = ec2.connect_to_region(config['ec2']['region'])
 
 
-    def ips_by_tag(self, key, value):
+    def filter_ips(self, filters):
 
         """
-        Get a list of IP addresses by tag.
+        Get a list of filtered IP addresses.
 
-        :param key: The tag key.
-        :param value: The tag value.
+        Args:
+            filters (dict)
+
+        Return: list
         """
 
-        ips = []
-        for r in self.conn.get_all_reservations():
-            for i in r.instances:
-                if i.tags.get(key, False) == value and i.ip_address:
-                    ips.append(i.ip_address)
-
-        return ips
+        for r in self.conn.get_all_reservations(filters=filters):
+            return [i.ip_address for i in r.istances]
 
 
     @property
@@ -42,7 +40,10 @@ class Client:
         Get a list of worker IP addresses.
         """
 
-        return self.ips_by_tag('osp', 'worker')
+        return self.ips_by_tag({
+            'tag:osp': 'worker',
+            'tag:user': config['ec2']['namespace'],
+        })
 
 
     @property
