@@ -4,10 +4,11 @@ import re
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.fields.utils import clean_field_name, parse_abbrs, filter_abbrs
 from osp.common.utils import read_csv
+from osp.fields.utils import clean_field_name, parse_abbrs, filter_abbrs
+from osp.fields.models import Field
 
-from peewee import CharField, BooleanField
+from peewee import CharField, BooleanField, ForeignKeyField
 from playhouse.postgres_ext import ArrayField
 
 
@@ -16,6 +17,7 @@ class Subfield(BaseModel):
 
     name = CharField(index=True)
     abbreviations = ArrayField(CharField, null=True)
+    field = ForeignKeyField(Field)
 
 
     class Meta:
