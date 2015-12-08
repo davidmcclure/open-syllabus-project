@@ -6,7 +6,7 @@ from osp.common.config import config
 from osp.corpus.models import Document_Text
 from osp.fields.models import Field
 from osp.fields.models import Field_Document
-from osp.fields.jobs.ext_fields import ext_fields
+from osp.fields.jobs import doc_to_fields
 
 from peewee import create_model_tables
 
@@ -48,4 +48,4 @@ def queue_queries(n):
     """
 
     for text in Document_Text.select().limit(n):
-        config.rq.enqueue(ext_fields, text.document_id)
+        config.rq.enqueue(doc_to_fields, text.document_id)
