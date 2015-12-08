@@ -99,9 +99,9 @@ class Client:
                 'index':    i,
             })
 
-            # TODO: format
-            click.echo(r.json()['id1'])
-            click.echo(r.json()['id2'])
+            json = r.json()
+
+            click.echo(json['id1']+' - '+json['id2'])
 
 
     def clear(self):
