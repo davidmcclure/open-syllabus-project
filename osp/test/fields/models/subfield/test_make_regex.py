@@ -14,17 +14,6 @@ def test_name(models):
     assert subfield.make_regex('{:s} regex') == '(Field|FIELD) regex'
 
 
-def test_abbreviations(models):
-
-    """
-    A query should be formed from each abbreviation.
-    """
-
-    subfield = Subfield.create(abbreviations=['AB', 'CD', 'EF'])
-
-    assert subfield.make_regex('{:s} regex') == '(AB|CD|EF) regex'
-
-
 def test_name_and_abbreviations(models):
 
     """

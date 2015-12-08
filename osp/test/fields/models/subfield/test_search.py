@@ -86,7 +86,11 @@ def test_match_abbreviations(text, models):
     Should match abbreviated codes.
     """
 
-    subfield = Subfield.create(abbreviations=['AB', 'CD', 'EF'])
+    subfield = Subfield.create(
+        name='Field',
+        abbreviations=['AB', 'CD', 'EF'],
+    )
+
     assert subfield.search(text) is not None
 
 
@@ -96,5 +100,9 @@ def test_ignore_suffix_names(models):
     Don't match names that are right-side suffixes of longer strings.
     """
 
-    subfield = Subfield.create(abbreviations=['NE'])
+    subfield = Subfield.create(
+        name='Field',
+        abbreviations=['NE'],
+    )
+
     assert subfield.search('KINE 101') is None

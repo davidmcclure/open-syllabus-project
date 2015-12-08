@@ -14,7 +14,7 @@ from playhouse.postgres_ext import ArrayField
 class Subfield(BaseModel):
 
 
-    name = CharField(index=True, null=True)
+    name = CharField(index=True)
     abbreviations = ArrayField(CharField, null=True)
 
 
