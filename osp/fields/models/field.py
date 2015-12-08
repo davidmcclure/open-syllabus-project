@@ -32,4 +32,5 @@ class Field(BaseModel):
         reader = read_csv(package, path)
 
         for row in reader:
-            cls.create(name=clean_field_name(row['Primary Field']))
+            if bool(row['Alpha Category']):
+                cls.create(name=clean_field_name(row['Primary Field']))

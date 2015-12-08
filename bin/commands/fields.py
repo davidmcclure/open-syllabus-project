@@ -29,3 +29,13 @@ def init_db():
         Subfield,
         Subfield_Document,
     ], fail_silently=True)
+
+
+@cli.command()
+def ingest():
+
+    """
+    Load fields.
+    """
+
+    Field.ingest()
