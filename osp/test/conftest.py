@@ -12,8 +12,8 @@ from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
 from osp.hlom.models import HLOM_Record
 from osp.hlom.models import HLOM_Citation
-from osp.fields.models import Field
-from osp.fields.models import Field_Document
+from osp.fields.models import Subfield
+from osp.fields.models import Subfield_Document
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 
@@ -113,8 +113,8 @@ def models(config):
         Document_Text,
         HLOM_Record,
         HLOM_Citation,
-        Field,
-        Field_Document,
+        Subfield,
+        Subfield_Document,
         Institution,
         Institution_Document,
     ]
