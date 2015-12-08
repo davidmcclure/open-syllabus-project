@@ -1,6 +1,6 @@
 
 
-def test_name(models, add_subfield):
+def test_name(add_subfield):
 
     """
     Subfield#make_regex() should build a query from the field name.
@@ -11,7 +11,7 @@ def test_name(models, add_subfield):
     assert subfield.make_regex('{:s} regex') == '(Field|FIELD) regex'
 
 
-def test_name_and_abbreviations(models, add_subfield):
+def test_name_and_abbreviations(add_subfield):
 
     """
     When both are defined, make queries from the name + abbreviations.

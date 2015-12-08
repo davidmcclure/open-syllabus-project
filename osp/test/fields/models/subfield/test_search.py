@@ -31,7 +31,7 @@ from osp.fields.models import Subfield
     'abc Field 101 def',
 
 ])
-def test_match_name(text, models, add_subfield):
+def test_match_name(text, add_subfield):
 
     """
     Subfield#search() should match a field name code in the passed text.
@@ -80,7 +80,7 @@ def test_match_name(text, models, add_subfield):
     'abc EF 101 def',
 
 ])
-def test_match_abbreviations(text, models, add_subfield):
+def test_match_abbreviations(text, add_subfield):
 
     """
     Should match abbreviated codes.
@@ -90,7 +90,7 @@ def test_match_abbreviations(text, models, add_subfield):
     assert subfield.search(text) is not None
 
 
-def test_ignore_suffix_names(models, add_subfield):
+def test_ignore_suffix_names(add_subfield):
 
     """
     Don't match names that are right-side suffixes of longer strings.

@@ -6,7 +6,7 @@ from osp.fields.models import Subfield_Document
 from osp.fields.jobs import doc_to_fields
 
 
-def test_matches(models, add_doc, add_subfield):
+def test_matches(add_doc, add_subfield):
 
     """
     When a document contains a field code, write a doc->field link.
@@ -32,7 +32,7 @@ def test_matches(models, add_doc, add_subfield):
         )
 
 
-def test_no_matches(models, add_doc, add_subfield):
+def test_no_matches(add_doc, add_subfield):
 
     """
     When no fields match, don't write any rows.
