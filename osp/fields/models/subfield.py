@@ -31,28 +31,7 @@ class Subfield(BaseModel):
         Ingest subfields.
         """
 
-        reader = read_csv(package, path)
-
-        for row in reader:
-
-            # Sanitize the field names.
-            pf = clean_field_name(row['Primary Field'])
-            sf = clean_field_name(row['Secondary Field'])
-
-            # Parse abbreviations.
-            abbrs = parse_abbrs(row['ABBRV'])
-            if abbrs: abbrs = filter_abbrs(abbrs)
-
-            # Query for a parent field.
-            field = Field.select().where(Field.name==pf).first()
-
-            if field:
-
-                Subfield.create(
-                    name=sf,
-                    abbreviations=abbrs,
-                    field=field,
-                )
+        pass
 
 
     def make_regex(self, pattern):
