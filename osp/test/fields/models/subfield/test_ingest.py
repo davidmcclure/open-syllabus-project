@@ -81,3 +81,23 @@ def test_parse_abbrs(models):
     assert sf1.abbreviations == ['AB1', 'AB2']
     assert sf2.abbreviations == ['AB3', 'AB4']
     assert sf3.abbreviations == ['AB5', 'AB6']
+
+
+def test_filter_abbrs(models):
+
+    """
+    Blacklisted abbreviations should be filtered out.
+    """
+
+    Subfield.ingest(
+        'osp.test.fields.models.subfield',
+        'fixtures/ingest/filter_abbrs.csv',
+    )
+
+    sf1 = Subfield.get(Subfield.name=='Subfield1')
+    sf2 = Subfield.get(Subfield.name=='Subfield2')
+    sf3 = Subfield.get(Subfield.name=='Subfield3')
+
+    assert sf1.abbreviations == ['SF1']
+    assert sf2.abbreviations == ['SF2']
+    assert sf3.abbreviations == ['SF3']

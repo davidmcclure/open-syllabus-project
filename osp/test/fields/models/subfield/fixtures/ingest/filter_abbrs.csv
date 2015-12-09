@@ -1,0 +1,4 @@
+Alpha Category,Primary Field,Secondary Field,JK mod,CIPCode,Common words,ABBRV
+$,Field1,Subfield1,01,01.0000,Field1,"SF1, JAN"
+,Field1,Subfield2,02,02.0000,Field2,"SF2, FEB"
+,Field1,Subfield3,03,03.0000,Field3,"SF3, MAR"
