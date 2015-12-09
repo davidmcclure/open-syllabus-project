@@ -26,9 +26,7 @@ def tokenize_query(title, author):
     query = ' '.join([title, author]).lower()
 
     # Split out tokens.
-    tokens = sorted(re.findall('[a-z]+', query))
-
-    return tokens
+    return re.findall('[a-z]+', query)
 
 
 def normalize_field(query):
