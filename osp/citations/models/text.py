@@ -82,7 +82,10 @@ class Text(BaseModel):
             str|None: "[title] [author]", or None if invalid.
         """
 
-        t = sanitize_query(self.marc.title())
-        a = sanitize_query(self.marc.author())
+        # Get "[title] [author]".
+        query = ' '.join([
+            sanitize_query(self.title),
+            sanitize_query(self.author),
+        ])
 
-        return t+' '+a
+        return query
