@@ -50,7 +50,7 @@ def test_hash(pairs, add_text):
 
     hashes = set()
 
-    for p in pairs:
-        hashes.add(add_text(title=p[0], author=p[1]).hash)
+    for title, author in pairs:
+        hashes.add(add_text(title=title, author=author).hash)
 
     assert len(hashes) == 1

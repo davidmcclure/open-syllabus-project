@@ -21,7 +21,7 @@ def normalize_field(query):
         str: The cleaned query.
     """
 
-    # Remove non-letter characters.
+    # Remove non-letter characters, downcase, strip.
     letters = re.sub('[^a-z]', ' ', query.lower()).strip()
 
     # Collapse whitespace to a single space.

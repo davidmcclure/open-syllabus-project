@@ -5,48 +5,36 @@ import pytest
 
 @pytest.mark.parametrize('inputs,query', [
 
-    # Ignore capitalization.
+    # Downcase.
     (
-
-        [('Anna Karenina', 'Leo Tolstoy'),
-         ('anna karenina', 'leo tolstoy'),
-         ('ANNA KARENINA', 'LEO TOLSTOY')],
-
+        [
+            ('Anna Karenina', 'Leo Tolstoy'),
+            ('anna karenina', 'leo tolstoy'),
+            ('ANNA KARENINA', 'LEO TOLSTOY'),
+        ],
         'anna karenina leo tolstoy'
-
     ),
 
-    # # Ignore capitalization.
-    # (
-        # 'Anna Karenina',
-        # 'Leo Tolstoy',
-        # 'anna karenina leo tolstoy'
-    # ),
-    # [
-        # ('Anna Karenina', 'Leo Tolstoy'),
-        # ('anna karenina', 'leo tolstoy'),
-        # ('ANNA KARENINA', 'LEO TOLSTOY')
-    # ],
+    # Remove whitespace.
+    (
+        [
+            ('Anna  Karenina', 'Leo  Tolstoy'),
+            (' Anna Karenina ', ' Leo Tolstoy '),
+            ('Anna Karenina\n', 'Leo Tolstoy\n'),
+        ],
+        'anna karenina leo tolstoy'
+    ),
 
-    # # Ignore whitespace.
-    # [
-        # ('Anna  Karenina', 'Leo  Tolstoy'),
-        # (' Anna Karenina ', ' Leo Tolstoy ')
-    # ],
+    # Remove punctuation.
+    (
+        [
+            ('Anna Karenina /', 'Leo Tolstoy /'),
+            ('Anna Karenina.', 'Leo Tolstoy.'),
+            ('"Anna Karenina."', '"Leo Tolstoy."'),
+        ],
+        'anna karenina leo tolstoy'
+    ),
 
-    # # Ignore punctuation.
-    # [
-        # ('Anna Karenina /', 'Leo Tolstoy /'),
-        # ('Anna Karenina.', 'Leo Tolstoy.'),
-        # ('"Anna Karenina,"', 'Leo Tolstoy')
-    # ],
-
-    # # Ignore articles.
-    # [
-        # ('The Republic', 'Plato'),
-        # ('A Republic', 'Plato'),
-        # ('An Republic"', 'Plato')
-    # ],
 
     # # Ignore author order.
     # [
