@@ -5,44 +5,23 @@ import pytest
 
 @pytest.mark.parametrize('pairs', [
 
-    # Ignore capitalization.
+    # Coalesce formattings.
     [
         ('Anna Karenina', 'Leo Tolstoy'),
         ('anna karenina', 'leo tolstoy'),
-        ('ANNA KARENINA', 'LEO TOLSTOY')
-    ],
-
-    # Ignore whitespace.
-    [
+        ('ANNA KARENINA', 'LEO TOLSTOY'),
         ('Anna  Karenina', 'Leo  Tolstoy'),
-        (' Anna Karenina ', ' Leo Tolstoy ')
-    ],
-
-    # Ignore punctuation.
-    [
+        (' Anna Karenina ', ' Leo Tolstoy '),
         ('Anna Karenina /', 'Leo Tolstoy /'),
         ('Anna Karenina.', 'Leo Tolstoy.'),
-        ('"Anna Karenina,"', 'Leo Tolstoy')
+        ('"Anna Karenina,"', 'Leo Tolstoy'),
+        ('Anna Karenina 2', 'Leo Tolstoy, 1828-1910'),
     ],
 
-    # Ignore articles.
-    [
-        ('The Republic', 'Plato'),
-        ('A Republic', 'Plato'),
-        ('An Republic"', 'Plato')
-    ],
-
-    # Ignore author order.
+    # Ignore name order.
     [
         ('Anna Karenina', 'Leo Tolstoy'),
-        ('Anna Karenina', 'Tolstoy, Leo')
-    ],
-
-    # Ignore numbers.
-    [
-        ('Republic 5', 'Plato'),
-        ('Republic 10', 'Plato'),
-        ('Republic', 'Plato, 1564-1616')
+        ('Anna Karenina', 'Tolstoy, Leo'),
     ],
 
 ])

@@ -54,19 +54,10 @@ class Text(BaseModel):
             str: The deduping hash.
         """
 
-        # Get "[title] [author]".
-        text = ' '.join([
-            self.title,
-            self.author,
-        ])
+        # Tokenize and sort.
+        tokens = sorted(tokenize_query(self.title, self.author))
 
-        # Lowercase, tokenize, sort tokens.
-        tokens = sorted(re.findall('[a-z]+', text.lower()))
-
-        # Remove articles.
-        tokens = [t for t in tokens if t not in ['a', 'an', 'the']]
-
-        # Hash the filtered tokens.
+        # Hash the tokens.
         sha1 = hashlib.sha1()
         sha1.update(' '.join(tokens).encode('ascii', 'ignore'))
         return sha1.hexdigest()
