@@ -5,7 +5,7 @@ import os
 from pymarc import MARCReader
 
 
-class Segment:
+class HLOM_Segment:
 
 
     def __init__(self, path):

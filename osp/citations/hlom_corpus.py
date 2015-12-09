@@ -4,7 +4,7 @@ import os
 
 from osp.common.config import config
 from osp.common.utils import grouper
-from osp.citations.segment import Segment
+from osp.citations.hlom_segment import HLOM_Segment
 
 
 class HLOM_Corpus:
@@ -35,11 +35,11 @@ class HLOM_Corpus:
     def segments(self):
 
         """
-        Generate `Segment` instances for each directory.
+        Generate segment instances for each directory.
         """
 
         for name in os.listdir(self.path):
-            yield Segment(os.path.join(self.path, name))
+            yield HLOM_Segment(os.path.join(self.path, name))
 
 
     def records(self):
