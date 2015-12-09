@@ -45,8 +45,22 @@ def test_insert_rows(models):
     assert sf9.field == f3
 
 
-def test_clean_field_names():
-    pass
+def test_clean_field_names(models):
+
+    """
+    Field and subfield names should be sanitized.
+    """
+
+    Subfield.ingest(
+        'osp.test.fields.models.subfield',
+        'fixtures/ingest/clean_field_names.csv',
+    )
+
+    assert Field.select().where(Field.name=='Field1')
+
+    assert Subfield.select().where(Subfield.name=='Subfield1')
+    assert Subfield.select().where(Subfield.name=='Subfield2')
+    assert Subfield.select().where(Subfield.name=='Subfield3')
 
 
 def test_filter_abbrs():
