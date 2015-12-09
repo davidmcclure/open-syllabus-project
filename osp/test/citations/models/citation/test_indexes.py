@@ -6,16 +6,16 @@ from osp.citations.models import Citation
 from peewee import IntegrityError
 
 
-def test_unique_pairs(models, add_hlom, add_doc):
+def test_unique_pairs(models, add_doc, add_text):
 
     """
     Don't allow duplicate links between the same text -> syllabus pair.
     """
 
     d = add_doc()
-    r = add_hlom()
+    t = add_text()
 
-    Citation.create(document=d, record=r)
+    Citation.create(document=d, record=t)
 
     with pytest.raises(IntegrityError):
-        Citation.create(document=d, record=r)
+        Citation.create(document=d, record=t)
