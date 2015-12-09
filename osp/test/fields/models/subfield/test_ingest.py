@@ -63,5 +63,21 @@ def test_clean_field_names(models):
     assert Subfield.select().where(Subfield.name=='Subfield3')
 
 
-def test_filter_abbrs():
-    pass
+def test_parse_abbrs(models):
+
+    """
+    Abbreviations should be parsed.
+    """
+
+    Subfield.ingest(
+        'osp.test.fields.models.subfield',
+        'fixtures/ingest/parse_abbrs.csv',
+    )
+
+    sf1 = Subfield.get(Subfield.name=='Subfield1')
+    sf2 = Subfield.get(Subfield.name=='Subfield2')
+    sf3 = Subfield.get(Subfield.name=='Subfield3')
+
+    assert sf1.abbreviations == ['AB1', 'AB2']
+    assert sf2.abbreviations == ['AB3', 'AB4']
+    assert sf3.abbreviations == ['AB5', 'AB6']
