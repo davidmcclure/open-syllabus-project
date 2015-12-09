@@ -38,5 +38,4 @@ def ingest():
     Load fields.
     """
 
-    Field.ingest()
     Subfield.ingest()
