@@ -48,11 +48,9 @@ import pytest
 ])
 def test_hash(pairs, add_text):
 
-    # hashes = set()
+    hashes = set()
 
-    # for p in pairs:
-        # hashes.add(add_hlom(p[0], p[1]).hash)
+    for p in pairs:
+        hashes.add(add_text(title=p[0], author=p[1]).hash)
 
-    # assert len(hashes) == 1
-
-    pass
+    assert len(hashes) == 1

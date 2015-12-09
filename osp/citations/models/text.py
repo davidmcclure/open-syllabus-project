@@ -56,8 +56,8 @@ class Text(BaseModel):
 
         # Get "[title] [author]".
         text = ' '.join([
-            self.marc.title(),
-            self.marc.author()
+            self.title,
+            self.author,
         ])
 
         # Lowercase, tokenize, sort tokens.
