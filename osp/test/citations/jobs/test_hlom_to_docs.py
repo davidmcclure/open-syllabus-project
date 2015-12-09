@@ -1,8 +1,8 @@
 
 
 from osp.corpus.models import Document_Text
-from osp.hlom.models import HLOM_Citation
-from osp.hlom.jobs import hlom_to_docs
+from osp.citations.models import HLOM_Citation
+from osp.citations.jobs import hlom_to_docs
 
 
 def test_matches(corpus_index, mock_hlom, add_doc, add_hlom):

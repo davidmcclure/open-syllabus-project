@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.hlom.models import HLOM_Citation
+from osp.citations.models import HLOM_Citation
 from peewee import IntegrityError
 
 

@@ -5,7 +5,7 @@ import pytest
 from osp.corpus.syllabus import Syllabus
 from osp.corpus.jobs import ext_text
 from osp.corpus.models import Document
-from osp.hlom.models import HLOM_Record
+from osp.citations.models import HLOM_Record
 from osp.fields.models import Field
 from osp.fields.models import Subfield
 

@@ -1,6 +1,6 @@
 
 
-from osp.hlom.utils import sanitize_query
+from osp.citations.utils import sanitize_query
 
 
 def test_remove_punctuation():

@@ -8,9 +8,9 @@ import hashlib
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
-from osp.hlom.utils import prettify_field
-from osp.hlom.dataset import Dataset
-from osp.hlom.utils import sanitize_query
+from osp.citations.utils import prettify_field
+from osp.citations.dataset import Dataset
+from osp.citations.utils import sanitize_query
 from pymarc import Record
 from clint.textui.progress import bar
 from playhouse.postgres_ext import *

@@ -10,8 +10,8 @@ from osp.common.config import config as _config
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
-from osp.hlom.models import HLOM_Record
-from osp.hlom.models import HLOM_Citation
+from osp.citations.models import HLOM_Record
+from osp.citations.models import HLOM_Citation
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 from osp.fields.models import Field

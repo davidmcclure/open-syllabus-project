@@ -5,7 +5,7 @@ import tempfile
 import shutil
 import random
 
-from osp.hlom.models import HLOM_Record
+from osp.citations.models import HLOM_Record
 from contextlib import contextmanager
 from pymarc import Record, Field, MARCWriter
 
