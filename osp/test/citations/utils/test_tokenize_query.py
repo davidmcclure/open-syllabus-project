@@ -37,12 +37,22 @@ from osp.citations.utils import tokenize_query
         ['anna', 'karenina', 'leo', 'tolstoy']
     ),
 
-    # Ignore numbers.
+    # Remove numbers.
     (
         [
             ('Republic 5', 'Plato'),
             ('Republic 10', 'Plato'),
-            ('Republic', 'Plato, 1564-1616')
+            ('Republic', 'Plato, 1564-1616'),
+        ],
+        ['republic', 'plato']
+    ),
+
+    # Remove articles.
+    (
+        [
+            ('The Republic', 'Plato'),
+            ('A Republic', 'Plato'),
+            ('An Republic', 'Plato'),
         ],
         ['republic', 'plato']
     )

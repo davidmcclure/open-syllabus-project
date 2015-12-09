@@ -8,8 +8,8 @@ import hashlib
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
-from osp.citations.utils import prettify_field, normalize_field
 from osp.citations.hlom_corpus import HLOM_Corpus
+from osp.citations.utils import tokenize_query
 from pymarc import Record
 from clint.textui.progress import bar
 
@@ -82,10 +82,6 @@ class Text(BaseModel):
             str|None: "[title] [author]", or None if invalid.
         """
 
-        # Get "[title] [author]".
-        query = ' '.join([
-            normalize_field(self.title),
-            normalize_field(self.author),
-        ])
+        tokens = tokenize_query(self.title, self.author)
 
-        return query
+        return ' '.join(tokens)
