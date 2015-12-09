@@ -3,7 +3,7 @@
 from osp.citations.models import Text
 
 
-def test_insert_records(models, mock_hlom):
+def test_ingest_hlom(models, mock_hlom):
 
     """
     Text.insert_records() should create a row for each MARC record.
@@ -25,8 +25,7 @@ def test_insert_records(models, mock_hlom):
 
             records.append(marc)
 
-    # Insert record rows.
-    Text.insert_records()
+    Text.ingest_hlom()
 
     # Should insert 100 records.
     assert Text.select().count() == 100
@@ -60,7 +59,7 @@ def test_require_title_and_author(models, mock_hlom):
     # Title and author:
     m4 = mock_hlom.add_marc(title='War and Peace', author='Leo Tolstoy')
 
-    Text.insert_records()
+    Text.ingest_hlom()
 
     # Should just insert 1 record.
     assert Text.select().count() == 1

@@ -37,7 +37,7 @@ class Text(BaseModel):
 
 
     @classmethod
-    def insert_records(cls, page_size=10000):
+    def ingest_hlom(cls, page_size=10000):
 
         """
         Insert an row for each record in the HLOM corpus.
