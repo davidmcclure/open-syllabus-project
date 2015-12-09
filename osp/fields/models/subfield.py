@@ -25,16 +25,34 @@ class Subfield(BaseModel):
 
 
     @classmethod
-    def ingest(cls):
+    def ingest(cls, package='osp.fields', path='data/fields.csv'):
 
         """
         Ingest subfields.
         """
 
-        # name -> secondary field
-        # query for Field
+        reader = read_csv(package, path)
 
-        pass
+        for row in reader:
+
+            # Sanitize the field names.
+            pf = clean_field_name(row['Primary Field'])
+            sf = clean_field_name(row['Secondary Field'])
+
+            # Parse abbreviations.
+            abbrs = parse_abbrs(row['ABBRV'])
+            if abbrs: abbrs = filter_abbrs(abbrs)
+
+            # Query for a parent field.
+            field = Field.select().where(Field.name==pf).first()
+
+            if field:
+
+                Subfield.create(
+                    name=sf,
+                    abbreviations=abbrs,
+                    field=field,
+                )
 
 
     def make_regex(self, pattern):

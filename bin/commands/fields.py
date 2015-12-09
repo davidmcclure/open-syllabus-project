@@ -39,3 +39,4 @@ def ingest():
     """
 
     Field.ingest()
+    Subfield.ingest()
