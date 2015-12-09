@@ -9,6 +9,28 @@ from osp.common.utils import read_csv
 from collections import OrderedDict
 
 
+def tokenize_query(title, author):
+
+    """
+    Extract normalized query tokens.
+
+    Args:
+        title (str): The text title.
+        author (str): The text author.
+
+    Returns:
+        list: The cleaned tokens.
+    """
+
+    # Down case the query.
+    query = ' '.join([title, author]).lower()
+
+    # Split out tokens.
+    tokens = sorted(re.findall('[a-z]+', query))
+
+    return tokens
+
+
 def normalize_field(query):
 
     """
