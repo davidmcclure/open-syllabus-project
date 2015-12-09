@@ -9,7 +9,7 @@ from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.citations.utils import prettify_field
-from osp.citations.dataset import Dataset
+from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.utils import sanitize_query
 from pymarc import Record
 from clint.textui.progress import bar
@@ -39,7 +39,7 @@ class HLOM_Record(BaseModel):
             page_size (int): Batch-insert page size.
         """
 
-        dataset = Dataset.from_env()
+        dataset = HLOM_Corpus.from_env()
 
         i = 0
         for group in dataset.grouped_records(page_size):

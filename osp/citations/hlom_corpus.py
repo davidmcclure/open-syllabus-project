@@ -7,7 +7,7 @@ from osp.common.utils import grouper
 from osp.citations.segment import Segment
 
 
-class Dataset:
+class HLOM_Corpus:
 
 
     @classmethod
