@@ -6,7 +6,6 @@ import csv
 
 from osp.common.config import config
 from osp.hlom.models import HLOM_Record
-from osp.hlom.models.hlom_record_cited import HLOM_Record_Cited
 from osp.hlom.models import HLOM_Citation
 from osp.hlom.models.hlom_node import HLOM_Node
 from osp.hlom.models.hlom_edge import HLOM_Edge
@@ -31,7 +30,6 @@ def init_db():
 
     create_model_tables([
         HLOM_Record,
-        HLOM_Record_Cited,
         HLOM_Citation,
         HLOM_Node,
         HLOM_Edge,
