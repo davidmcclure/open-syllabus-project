@@ -1,12 +1,12 @@
 
 
-from osp.citations.models import HLOM_Record
+from osp.citations.models import Text
 
 
 def test_insert_records(models, mock_hlom):
 
     """
-    HLOM_Record.insert_records() should create a row for each MARC record.
+    Text.insert_records() should create a row for each MARC record.
     """
 
     records = []
@@ -26,16 +26,16 @@ def test_insert_records(models, mock_hlom):
             records.append(marc)
 
     # Insert record rows.
-    HLOM_Record.insert_records()
+    Text.insert_records()
 
     # Should insert 100 records.
-    assert HLOM_Record.select().count() == 100
+    assert Text.select().count() == 100
 
     for marc in records:
 
         # Pop out the `hlom_record` row.
-        row = HLOM_Record.get(
-            HLOM_Record.control_number==marc.control_number()
+        row = Text.get(
+            Text.control_number==marc.control_number()
         )
 
         # Should store the record body.
@@ -60,12 +60,12 @@ def test_require_title_and_author(models, mock_hlom):
     # Title and author:
     m4 = mock_hlom.add_marc(title='War and Peace', author='Leo Tolstoy')
 
-    HLOM_Record.insert_records()
+    Text.insert_records()
 
     # Should just insert 1 record.
-    assert HLOM_Record.select().count() == 1
+    assert Text.select().count() == 1
 
     # Should insert the record with title/author.
-    assert HLOM_Record.get(
-        HLOM_Record.control_number==m4.control_number()
+    assert Text.get(
+        Text.control_number==m4.control_number()
     )

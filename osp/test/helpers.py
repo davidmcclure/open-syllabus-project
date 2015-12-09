@@ -5,7 +5,7 @@ import pytest
 from osp.corpus.syllabus import Syllabus
 from osp.corpus.jobs import ext_text
 from osp.corpus.models import Document
-from osp.citations.models import HLOM_Record
+from osp.citations.models import Text
 from osp.fields.models import Field
 from osp.fields.models import Subfield
 
@@ -26,7 +26,7 @@ def add_hlom(models, mock_hlom):
         marc = mock_hlom.add_marc(*args, **kwargs)
 
         # Create a `hlom_record` row.
-        return HLOM_Record.create(
+        return Text.create(
             control_number=marc.control_number(),
             record=marc.as_marc()
         )

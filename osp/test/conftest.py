@@ -10,7 +10,7 @@ from osp.common.config import config as _config
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
-from osp.citations.models import HLOM_Record
+from osp.citations.models import Text
 from osp.citations.models import HLOM_Citation
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
@@ -64,7 +64,7 @@ def models(config):
         Document,
         Document_Format,
         Document_Text,
-        HLOM_Record,
+        Text,
         HLOM_Citation,
         Institution,
         Institution_Document,
@@ -181,4 +181,4 @@ def hlom_index(requires_es):
     Clear the HLOM index.
     """
 
-    HLOM_Record.es_reset()
+    Text.es_reset()

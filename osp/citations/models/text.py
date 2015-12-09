@@ -17,7 +17,7 @@ from playhouse.postgres_ext import *
 from peewee import *
 
 
-class HLOM_Record(BaseModel):
+class Text(BaseModel):
 
 
     control_number = CharField(unique=True, null=False)
@@ -26,7 +26,7 @@ class HLOM_Record(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('hlom_record')
+        database = config.get_table_db('text')
 
 
     @classmethod
@@ -56,7 +56,7 @@ class HLOM_Record(BaseModel):
                     })
 
             if rows:
-                HLOM_Record.insert_many(rows).execute()
+                Text.insert_many(rows).execute()
 
             i += 1
             sys.stdout.write('\r'+str(page_size*i))

@@ -1,7 +1,7 @@
 
 
 from osp.common.config import config
-from osp.citations.models import HLOM_Record
+from osp.citations.models import Text
 from osp.citations.models import HLOM_Citation
 
 
@@ -13,7 +13,7 @@ def hlom_to_docs(hlom_id):
     :param hlom_id: The hlom_record row id.
     """
 
-    row = HLOM_Record.get(HLOM_Record.id==hlom_id)
+    row = Text.get(Text.id==hlom_id)
 
     # Execute the query.
     results = config.es.search('osp', 'document', timeout=30, body={
