@@ -1,11 +1,18 @@
 
 
+import pytest
+
 from osp.citations.utils import sanitize_query
 
 
-def test_remove_punctuation():
-    assert sanitize_query('Antonio (Flaminio),') == 'antonio flaminio'
+@pytest.mark.parametrize('raw,sanitized', [
 
+    # Remove punctuation.
+    ('Antonio (Flaminio),', 'antonio flaminio'),
 
-def test_remove_numbers():
-    assert sanitize_query('Keats, John, 1795-1821') == 'keats john'
+    # Remove numbers.
+    ('Keats, John, 1795-1821', 'keats john')
+
+])
+def test_sanitize_query(raw, sanitized):
+    assert sanitize_query(raw) == sanitized
