@@ -8,7 +8,7 @@ import hashlib
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
-from osp.citations.utils import prettify_field, sanitize_query
+from osp.citations.utils import prettify_field, normalize_field
 from osp.citations.hlom_corpus import HLOM_Corpus
 from pymarc import Record
 from clint.textui.progress import bar
@@ -84,8 +84,8 @@ class Text(BaseModel):
 
         # Get "[title] [author]".
         query = ' '.join([
-            sanitize_query(self.title),
-            sanitize_query(self.author),
+            normalize_field(self.title),
+            normalize_field(self.author),
         ])
 
         return query

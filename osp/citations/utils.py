@@ -9,10 +9,10 @@ from osp.common.utils import read_csv
 from collections import OrderedDict
 
 
-def sanitize_query(query):
+def normalize_field(query):
 
     """
-    Escape Lucene-reserved characters:
+    Normalize a field for querying.
 
     Args:
         query (str): The query string.
