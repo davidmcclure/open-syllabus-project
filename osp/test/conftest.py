@@ -11,7 +11,7 @@ from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
 from osp.citations.models import Text
-from osp.citations.models import HLOM_Citation
+from osp.citations.models import Citation
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 from osp.fields.models import Field
@@ -65,7 +65,7 @@ def models(config):
         Document_Format,
         Document_Text,
         Text,
-        HLOM_Citation,
+        Citation,
         Institution,
         Institution_Document,
         Field,

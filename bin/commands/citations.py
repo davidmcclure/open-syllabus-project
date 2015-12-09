@@ -6,7 +6,7 @@ import csv
 
 from osp.common.config import config
 from osp.citations.models import Text
-from osp.citations.models import HLOM_Citation
+from osp.citations.models import Citation
 from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.jobs import hlom_to_docs
 from peewee import create_model_tables
@@ -28,7 +28,7 @@ def init_db():
 
     create_model_tables([
         Text,
-        HLOM_Citation,
+        Citation,
     ], fail_silently=True)
 
 

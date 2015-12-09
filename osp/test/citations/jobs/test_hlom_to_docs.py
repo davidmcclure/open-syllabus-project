@@ -1,7 +1,7 @@
 
 
 from osp.corpus.models import Document_Text
-from osp.citations.models import HLOM_Citation
+from osp.citations.models import Citation
 from osp.citations.jobs import hlom_to_docs
 
 
@@ -23,14 +23,14 @@ def test_matches(corpus_index, mock_hlom, add_doc, add_hlom):
     hlom_to_docs(record.id)
 
     # Should write 3 citation links.
-    assert HLOM_Citation.select().count() == 3
+    assert Citation.select().count() == 3
 
     # Should match the right documents.
     for doc in [d1, d2, d3]:
 
-        assert HLOM_Citation.select().where(
-            HLOM_Citation.document==doc,
-            HLOM_Citation.record==record
+        assert Citation.select().where(
+            Citation.document==doc,
+            Citation.record==record
         )
 
 
@@ -47,4 +47,4 @@ def test_no_matches(corpus_index, add_doc, add_hlom):
     hlom_to_docs(record.id)
 
     # Shouldn't write any rows.
-    assert HLOM_Citation.select().count() == 0
+    assert Citation.select().count() == 0

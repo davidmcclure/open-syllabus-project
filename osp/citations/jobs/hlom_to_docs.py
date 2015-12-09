@@ -2,7 +2,7 @@
 
 from osp.common.config import config
 from osp.citations.models import Text
-from osp.citations.models import HLOM_Citation
+from osp.citations.models import Citation
 
 
 def hlom_to_docs(hlom_id):
@@ -41,4 +41,4 @@ def hlom_to_docs(hlom_id):
             })
 
         # Write the citation links.
-        HLOM_Citation.insert_many(citations).execute()
+        Citation.insert_many(citations).execute()

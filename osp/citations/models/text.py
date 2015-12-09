@@ -70,11 +70,11 @@ class Text(BaseModel):
         Write deduping hashes.
         """
 
-        from .citation import HLOM_Citation
+        from .citation import Citation
 
         cited = (
             cls.select()
-            .join(HLOM_Citation)
+            .join(Citation)
             .group_by(cls.id)
         )
 

@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.citations.models import HLOM_Citation
+from osp.citations.models import Citation
 from peewee import IntegrityError
 
 
@@ -15,7 +15,7 @@ def test_unique_pairs(models, add_hlom, add_doc):
     d = add_doc()
     r = add_hlom()
 
-    HLOM_Citation.create(document=d, record=r)
+    Citation.create(document=d, record=r)
 
     with pytest.raises(IntegrityError):
-        HLOM_Citation.create(document=d, record=r)
+        Citation.create(document=d, record=r)

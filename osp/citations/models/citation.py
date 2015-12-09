@@ -8,7 +8,7 @@ from playhouse.postgres_ext import *
 from peewee import *
 
 
-class HLOM_Citation(BaseModel):
+class Citation(BaseModel):
 
 
     document = ForeignKeyField(Document)
