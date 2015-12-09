@@ -12,9 +12,9 @@ class Citation(BaseModel):
 
 
     document = ForeignKeyField(Document)
-    record = ForeignKeyField(Text)
+    text = ForeignKeyField(Text)
 
 
     class Meta:
-        database = config.get_table_db('hlom_citation')
-        indexes = ((('document', 'record'), True),)
+        database = config.get_table_db('citation')
+        indexes = ((('document', 'text'), True),)

@@ -15,7 +15,7 @@ def test_unique_pairs(models, add_doc, add_text):
     d = add_doc()
     t = add_text()
 
-    Citation.create(document=d, record=t)
+    Citation.create(document=d, text=t)
 
     with pytest.raises(IntegrityError):
-        Citation.create(document=d, record=t)
+        Citation.create(document=d, text=t)
