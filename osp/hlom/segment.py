@@ -13,7 +13,8 @@ class Segment:
         """
         Initialize the segment reader.
 
-        :param path: The segment path.
+        Args:
+            path (str): The segment path.
         """
 
         self.path = os.path.abspath(path)

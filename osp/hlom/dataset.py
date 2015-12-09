@@ -25,7 +25,8 @@ class Dataset:
         """
         Set the dataset path.
 
-        :param path: A relative path to the dataset.
+        Args:
+            path (str): A relative path to the dataset.
         """
 
         self.path = os.path.abspath(path)
@@ -57,7 +58,8 @@ class Dataset:
         """
         Generate groups of N records.
 
-        :param n: The group length.
+        Args:
+            n (int): The group length.
         """
 
         for segment in self.segments():
