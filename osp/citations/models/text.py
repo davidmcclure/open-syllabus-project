@@ -25,11 +25,11 @@ class Text(BaseModel):
     record = BlobField(null=False)
     metadata = BinaryJSONField(default={})
 
-    # title       = CharField()
-    # author      = CharField()
-    # publisher   = CharField(null=True)
-    # date        = CharField(null=True)
-    # journal     = CharField(null=True)
+    title       = CharField(null=True) # TODO: null=False
+    author      = CharField(null=True) # TODO: null=False
+    publisher   = CharField(null=True)
+    date        = CharField(null=True)
+    journal     = CharField(null=True)
 
 
     class Meta:
