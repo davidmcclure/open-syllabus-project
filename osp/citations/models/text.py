@@ -41,7 +41,20 @@ class Text(BaseModel):
             page_size (int): Batch-insert page size.
         """
 
-        pass
+        corpus = HLOM_Corpus.from_env()
+
+        for group in corpus.grouped_records(page_size):
+
+            rows = []
+            for record in group:
+
+                rows.append({
+                    'identifier': record['001'].format_field(),
+                    'title': record.title(),
+                    'author': record.author(),
+                })
+
+            cls.insert_many(rows).execute()
 
 
     @classmethod
