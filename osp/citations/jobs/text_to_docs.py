@@ -5,15 +5,16 @@ from osp.citations.models import Text
 from osp.citations.models import Citation
 
 
-def hlom_to_docs(hlom_id):
+def text_to_docs(text_id):
 
     """
-    Query a MARC record against the OSP corpus.
+    Query a text against the OSP corpus.
 
-    :param hlom_id: The hlom_record row id.
+    Args:
+        text_id (int): A text row id.
     """
 
-    row = Text.get(Text.id==hlom_id)
+    row = Text.get(Text.id==text_id)
 
     # Execute the query.
     results = config.es.search('osp', 'document', timeout=30, body={
@@ -37,7 +38,7 @@ def hlom_to_docs(hlom_id):
         for hit in results['hits']['hits']:
             citations.append({
                 'document': hit['fields']['doc_id'][0],
-                'record': row.id
+                'text': row.id
             })
 
         # Write the citation links.

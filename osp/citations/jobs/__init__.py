@@ -1,3 +1,3 @@
 
 
-from .hlom_to_docs import hlom_to_docs
+from .text_to_docs import text_to_docs
