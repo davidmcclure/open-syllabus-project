@@ -118,3 +118,27 @@ class Text(BaseModel):
         tokens = tokenize_query(self.title, self.author)
 
         return ' '.join(tokens)
+
+
+    @property
+    def queries(self):
+
+        """
+        Build a set of Elasticsearch query strings.
+
+        Returns:
+            list: The set of queries.
+        """
+
+        # Extract tokens.
+        t_tokens = tokenize_field(self.title)
+        a_tokens = tokenize_field(self.author)
+
+        # Title + complete name.
+        queries = [' '.join(t_tokens + a_tokens)]
+
+        # Title + partial names.
+        for name in a_tokens:
+            queries.append(' '.join(t_tokens + [name]))
+
+        return queries
