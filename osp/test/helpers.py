@@ -1,6 +1,7 @@
 
 
 import pytest
+import uuid
 
 from osp.corpus.syllabus import Syllabus
 from osp.corpus.jobs import ext_text
@@ -70,9 +71,13 @@ def add_text(models):
         function
     """
 
-    def _text(title='Title', author='Author'):
+    def _text(title='Title', author='Author', identifier=None):
+
+        if not identifier:
+            identifier = uuid.uuid4()
 
         return Text.create(
+            identifier=identifier,
             title=title,
             author=author,
         )

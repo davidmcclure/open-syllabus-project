@@ -19,6 +19,7 @@ from peewee import CharField
 class Text(BaseModel):
 
 
+    identifier  = CharField(index=True)
     title       = CharField()
     author      = CharField()
     publisher   = CharField(null=True)
