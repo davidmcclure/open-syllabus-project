@@ -22,20 +22,19 @@ def test_load_rows(models, mock_hlom):
 
             records.append(mock_hlom.add_marc(
 
-                control_number = cn,
                 data_file = str(i),
+                control_number = cn,
 
-                title       = 'title'+cn,
-                author      = 'author'+cn,
-                publisher   = 'publisher'+cn,
-                pubyear     = 'pubyear'+cn,
+                title       = 't'+cn,
+                author      = 'a'+cn,
+                publisher   = 'p'+cn,
+                pubyear     = 'd'+cn,
 
             ))
 
     Text.ingest_hlom()
 
     # Should ingest 100 records.
-
     assert Text.select().count() == 100
 
     for r in records:
@@ -44,10 +43,10 @@ def test_load_rows(models, mock_hlom):
 
         assert Text.select().where(
             Text.identifier == cn,
-            Text.title      == 'title'+cn,
-            Text.author     == 'author'+cn,
-            Text.publisher  == 'publisher'+cn,
-            Text.date       == 'pubyear'+cn,
+            Text.title      == 't'+cn,
+            Text.author     == 'a'+cn,
+            Text.publisher  == 'p'+cn,
+            Text.date       == 'd'+cn,
         )
 
 
