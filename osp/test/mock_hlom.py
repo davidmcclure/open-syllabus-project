@@ -3,7 +3,7 @@
 import os
 import tempfile
 import shutil
-import random
+import uuid
 
 from osp.citations.models import Text
 from contextlib import contextmanager
@@ -161,9 +161,9 @@ class MockHLOM:
             pymarc.Record
         """
 
-        # Use a random string, if no CN.
+        # Use a random uuid, if no CN.
         if not control_number:
-            control_number = str(random.getrandbits(32))
+            control_number = str(uuid.uuid4())
 
         with self.writer(data_file) as writer:
 

@@ -57,9 +57,11 @@ class Text(BaseModel):
                 if len(tokens) >= 2:
 
                     rows.append({
-                        'identifier': record['001'].format_field(),
-                        'title': record.title(),
-                        'author': record.author(),
+                        'identifier':   record['001'].format_field(),
+                        'title':        record.title(),
+                        'author':       record.author(),
+                        'publisher':    record.publisher(),
+                        'date':         record.pubyear(),
                     })
 
             if rows:

@@ -1,6 +1,7 @@
 
 
 import pytest
+import uuid
 
 from osp.citations.models import Text
 
@@ -16,13 +17,38 @@ def test_load_rows(models, mock_hlom):
     # 10 segments, each with 10 records.
     for i in range(10):
         for j in range(10):
-            marc = mock_hlom.add_marc(data_file=str(i))
-            records.append(marc)
+
+            cn = str(uuid.uuid4())
+
+            records.append(mock_hlom.add_marc(
+
+                control_number = cn,
+                data_file = str(i),
+
+                title       = 'title'+cn,
+                author      = 'author'+cn,
+                publisher   = 'publisher'+cn,
+                pubyear     = 'pubyear'+cn,
+
+            ))
 
     Text.ingest_hlom()
 
-    # Should insert 100 records.
+    # Should ingest 100 records.
+
     assert Text.select().count() == 100
+
+    for r in records:
+
+        cn = r.control_number()
+
+        assert Text.select().where(
+            Text.identifier == cn,
+            Text.title      == 'title'+cn,
+            Text.author     == 'author'+cn,
+            Text.publisher  == 'publisher'+cn,
+            Text.date       == 'pubyear'+cn,
+        )
 
 
 @pytest.mark.parametrize('title,author', [
