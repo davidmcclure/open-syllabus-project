@@ -3,26 +3,14 @@
 import pytest
 
 
-@pytest.mark.parametrize('pairs', [
+def test_hash(add_text):
 
-    # Coalesce formatting.
-    [
-        ('Anna Karenina', 'Leo Tolstoy'),
-        ('ANNA KARENINA', 'LEO TOLSTOY'),
-    ],
+    """
+    Text#hash should generate a unique hash for a text.
+    """
 
-    # Ignore name order.
-    [
-        ('Anna Karenina', 'Leo Tolstoy'),
-        ('Anna Karenina', 'Tolstoy, Leo'),
-    ],
+    t1 = add_text(title='Anna Karenina', author='Leo Tolstoy')
+    t2 = add_text(title='ANNA KARENINA', author='LEO TOLSTOY')
+    t3 = add_text(title='War and Peace', author='Leo Tolstoy')
 
-])
-def test_hash(pairs, add_text):
-
-    hashes = set()
-
-    for title, author in pairs:
-        hashes.add(add_text(title=title, author=author).hash)
-
-    assert len(hashes) == 1
+    assert t1.hash == t2.hash != t3.hash

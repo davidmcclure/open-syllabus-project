@@ -34,7 +34,20 @@ class Text(BaseModel):
     def ingest_hlom(cls, page_size=10000):
 
         """
-        Ingest the HLOM MARC records.
+        Ingest HLOM MARC records.
+
+        Args:
+            page_size (int): Batch-insert page size.
+        """
+
+        pass
+
+
+    @classmethod
+    def ingest_jstor(cls, page_size=10000):
+
+        """
+        Ingest JSTOR records.
 
         Args:
             page_size (int): Batch-insert page size.
@@ -54,8 +67,7 @@ class Text(BaseModel):
             str: The deduping hash.
         """
 
-        # Tokenize and sort.
-        tokens = sorted(tokenize_query(self.title, self.author))
+        tokens = tokenize_query(self.title, self.author)
 
         # Hash the tokens.
         sha1 = hashlib.sha1()

@@ -55,7 +55,16 @@ from osp.citations.utils import tokenize_query
             ('An Republic', 'Plato'),
         ],
         ['republic', 'plato']
-    )
+    ),
+
+    # Sort author names.
+    (
+        [
+            ('Anna Karenina', 'Leo Tolstoy'),
+            ('Anna Karenina', 'Tolstoy, Leo'),
+        ],
+        ['anna', 'karenina', 'leo', 'tolstoy']
+    ),
 
 ])
 def test_tokenize_query(inputs, tokens, add_text):

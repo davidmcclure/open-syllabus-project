@@ -16,11 +16,14 @@ def tokenize_query(title, author):
         list: The cleaned tokens.
     """
 
-    # Join title + author.
-    query = ' '.join([title, author]).lower()
+    pattern = re.compile('[a-z]+')
 
-    # Split tokens.
-    tokens = re.findall('[a-z]+', query)
+    # Extract tokens.
+    t_tokens = re.findall(pattern, title.lower())
+    a_tokens = re.findall(pattern, author.lower())
+
+    # Sort the author names.
+    tokens = t_tokens + sorted(a_tokens)
 
     # Remove articles.
     tokens = [t for t in tokens if t not in ['a', 'an', 'the']]
