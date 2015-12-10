@@ -1,5 +1,7 @@
 
 
+import pytest
+
 from osp.citations.models import Text
 
 
@@ -23,9 +25,27 @@ def test_load_rows(models, mock_hlom):
     assert Text.select().count() == 100
 
 
-def test_populate_metadata():
-    pass
+@pytest.mark.parametrize('title,author', [
 
+    # Empty title.
+    ('title', ''),
 
-def test_require_title_and_author():
-    pass
+    # Empty author.
+    ('', 'author'),
+
+    # Both empty.
+    ('', ''),
+    ('  ', '  '),
+    ('00', '00'),
+
+])
+def test_require_title_and_author(title, author, models, mock_hlom):
+
+    """
+    Skip records that don't have a query-able title and author.
+    """
+
+    mock_hlom.add_marc(title=title, author=author)
+    Text.ingest_hlom()
+
+    assert Text.select().count() == 0

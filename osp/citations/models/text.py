@@ -48,13 +48,22 @@ class Text(BaseModel):
             rows = []
             for record in group:
 
-                rows.append({
-                    'identifier': record['001'].format_field(),
-                    'title': record.title(),
-                    'author': record.author(),
-                })
+                tokens = tokenize_query(
+                    record.title(),
+                    record.author()
+                )
 
-            cls.insert_many(rows).execute()
+                # Require a query-able title and author.
+                if len(tokens) >= 2:
+
+                    rows.append({
+                        'identifier': record['001'].format_field(),
+                        'title': record.title(),
+                        'author': record.author(),
+                    })
+
+            if rows:
+                cls.insert_many(rows).execute()
 
 
     @classmethod
