@@ -3,14 +3,28 @@
 import pytest
 
 
-def test_hash(add_text):
+@pytest.mark.parametrize('inputs', [
 
-    """
-    Text#hash should generate a unique hash for a text.
-    """
+    # Coalesce formattings.
+    [
+        ('Anna Karenina', 'Leo Tolstoy'),
+        ('ANNA KARENINA', 'LEO TOLSTOY'),
+        ('"Anna Karenina."', '"Leo Tolstoy."'),
+    ],
 
-    t1 = add_text(title='Anna Karenina', author='Leo Tolstoy')
-    t2 = add_text(title='ANNA KARENINA', author='LEO TOLSTOY')
-    t3 = add_text(title='War and Peace', author='Leo Tolstoy')
+    # Ignore author name order.
+    [
+        ('Anna Karenina', 'Leo N. Tolstoy'),
+        ('Anna Karenina', 'Tolstoy, Leo N.'),
+        ('Anna Karenina', 'N. Tolstoy, Leo'),
+    ],
 
-    assert t1.hash == t2.hash != t3.hash
+])
+def test_coalesce(inputs, add_text):
+
+    hashes = set()
+
+    for title, author in inputs:
+        hashes.add(add_text(title=title, author=author).hash)
+
+    assert len(hashes) == 1

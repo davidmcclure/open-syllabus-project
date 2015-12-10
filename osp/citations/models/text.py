@@ -9,7 +9,7 @@ from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.utils import tokenize_query
+from osp.citations.utils import tokenize_query, tokenize_field
 from pymarc import Record
 from clint.textui.progress import bar
 
@@ -92,7 +92,12 @@ class Text(BaseModel):
             str: The deduping hash.
         """
 
-        tokens = tokenize_query(self.title, self.author)
+        # Extract tokens.
+        t_tokens = tokenize_field(self.title)
+        a_tokens = tokenize_field(self.author)
+
+        # Sort the author names.
+        tokens = t_tokens + sorted(a_tokens)
 
         # Hash the tokens.
         sha1 = hashlib.sha1()
