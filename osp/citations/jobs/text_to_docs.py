@@ -57,6 +57,7 @@ def text_to_docs(text_id):
         citations.append({
             'document': doc_id,
             'text': row.id,
+            'min_freq': min_freq,
         })
 
     # Bulk-insert the results.
