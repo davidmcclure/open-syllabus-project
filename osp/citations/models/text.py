@@ -9,7 +9,7 @@ from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.utils import tokenize_query, tokenize_field
+from osp.citations.utils import tokenize_field
 from pymarc import Record
 from clint.textui.progress import bar
 
@@ -48,13 +48,12 @@ class Text(BaseModel):
             rows = []
             for record in group:
 
-                tokens = tokenize_query(
-                    record.title(),
-                    record.author()
-                )
+                # Extract title / author tokens.
+                t_tokens = tokenize_field(record.title())
+                a_tokens = tokenize_field(record.author())
 
-                # Require a query-able title and author.
-                if len(tokens) >= 2:
+                # Require a query-able title / author.
+                if t_tokens and a_tokens:
 
                     rows.append({
                         'identifier':   record['001'].format_field(),
@@ -115,9 +114,10 @@ class Text(BaseModel):
             str|None: "[title] [author]", or None if invalid.
         """
 
-        tokens = tokenize_query(self.title, self.author)
+        t_tokens = tokenize_field(self.title)
+        a_tokens = tokenize_field(self.author)
 
-        return ' '.join(tokens)
+        return ' '.join(t_tokens + a_tokens)
 
 
     @property
