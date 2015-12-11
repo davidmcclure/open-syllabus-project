@@ -40,6 +40,7 @@ class Text(BaseModel):
 
         corpus = HLOM_Corpus.from_env()
 
+        i = 0
         for group in corpus.grouped_records(page_size):
 
             rows = []
@@ -62,6 +63,10 @@ class Text(BaseModel):
 
             if rows:
                 cls.insert_many(rows).execute()
+
+            i += 1
+            sys.stdout.write('\r'+str(page_size*i))
+            sys.stdout.flush()
 
 
     @classmethod
