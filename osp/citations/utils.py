@@ -38,4 +38,4 @@ def get_min_freq(tokens, lang='en'):
         float: The lowest frequence.
     """
 
-    return min([word_frequency(t, lang) for t in tokens])
+    return min([word_frequency(t, lang)*1e6 for t in tokens])

@@ -6,12 +6,9 @@ import numpy as np
 import hashlib
 
 from osp.common.config import config
-from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
+from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.utils import tokenize_field
-from pymarc import Record
-from clint.textui.progress import bar
 
 from peewee import CharField
 
@@ -135,10 +132,15 @@ class Text(BaseModel):
         a_tokens = tokenize_field(self.author)
 
         # Title + complete name.
-        queries = [' '.join(t_tokens + a_tokens)]
+        seqs = [t_tokens + a_tokens]
 
         # Title + partial names.
         for name in a_tokens:
-            queries.append(' '.join(t_tokens + [name]))
+            seqs.append(t_tokens + [name])
+
+        # Pair with min frequency score.
+        queries = []
+        for s in seqs:
+            queries.append((' '.join(s), get_min_freq(s)))
 
         return queries

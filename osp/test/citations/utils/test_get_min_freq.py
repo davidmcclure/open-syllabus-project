@@ -8,10 +8,10 @@ from osp.citations.utils import get_min_freq
 def test_get_min_freq():
 
     """
-    get_min_freq() should return the frequency score of the most infrequent
-    token in the passed list.
+    get_min_freq() should return a scaled-up frequency score of the most
+    infrequent token in the passed list.
     """
 
     mf = get_min_freq(['the', 'a', 'cat'])
 
-    assert mf == word_frequency('cat', 'en')
+    assert mf == word_frequency('cat', 'en') * 1e6

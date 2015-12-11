@@ -2,6 +2,8 @@
 
 import pytest
 
+from osp.citations.utils import get_min_freq, tokenize_field
+
 
 def test_queries(add_text):
 
@@ -13,10 +15,11 @@ def test_queries(add_text):
 
     queries = text.queries
 
-    # Title + complete name.
-    assert 'anna karenina david william mcclure' in queries
+    for q in [
+        'anna karenina david william mcclure',
+        'anna karenina david',
+        'anna karenina william',
+        'anna karenina mcclure',
+    ]:
 
-    # Title + partial names.
-    assert 'anna karenina david' in queries
-    assert 'anna karenina william' in queries
-    assert 'anna karenina mcclure' in queries
+        assert (q, get_min_freq(tokenize_field(q))) in queries
