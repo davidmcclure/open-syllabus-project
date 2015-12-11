@@ -70,11 +70,11 @@ def test_no_matches(corpus_index, add_doc, add_text):
     ),
 
     # Incomplete author name.
-    # (
-        # 'War and Peace',
-        # 'Leo Tolstoy',
-        # 'War and Peace, Tolstoy',
-    # ),
+    (
+        'War and Peace',
+        'Leo Tolstoy',
+        'War and Peace, Tolstoy',
+    ),
 
 ])
 def test_queries(title, author, content, corpus_index, add_doc, add_text):

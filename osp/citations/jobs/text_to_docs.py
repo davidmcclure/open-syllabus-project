@@ -16,30 +16,49 @@ def text_to_docs(text_id):
 
     row = Text.get(Text.id==text_id)
 
-    # Execute the query.
-    results = config.es.search('osp', 'document', timeout=30, body={
-        'fields': ['doc_id'],
-        'size': 100000,
-        'filter': {
-            'query': {
-                'match_phrase': {
-                    'body': {
-                        'query': row.query,
-                        'slop': 50
+
+    lowest = {}
+    for query, min_freq in row.queries:
+
+        # Execute the query.
+        results = config.es.search('osp', 'document', timeout=30, body={
+            'fields': ['doc_id'],
+            'size': 100000,
+            'filter': {
+                'query': {
+                    'match_phrase': {
+                        'body': {
+                            'query': query,
+                            'slop': 20
+                        }
                     }
                 }
             }
-        }
-    })
+        })
 
-    if results['hits']['total'] > 0:
+        if results['hits']['total'] > 0:
 
-        citations = []
-        for hit in results['hits']['hits']:
-            citations.append({
-                'document': hit['fields']['doc_id'][0],
-                'text': row.id
-            })
+            for hit in results['hits']['hits']:
 
-        # Write the citation links.
+                doc_id = hit['fields']['doc_id'][0]
+
+                # Get the lowest score.
+                freq = lowest.get(doc_id)
+
+                # If first match, or new score is lower, set id -> score.
+                if not freq or min_freq < freq:
+                    lowest[doc_id] = min_freq
+
+
+    # Build doc -> text links.
+    citations = []
+    for doc_id, min_freq in lowest.items():
+
+        citations.append({
+            'document': doc_id,
+            'text': row.id,
+        })
+
+    # Bulk-insert the results.
+    if citations:
         Citation.insert_many(citations).execute()
