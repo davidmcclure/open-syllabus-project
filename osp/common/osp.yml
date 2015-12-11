@@ -21,6 +21,11 @@ hlom:
   # The directory that contains the raw Harvard MARC records.
   corpus: XXX
 
+jstor:
+
+  # The directory that contains the raw JSTOR XML records.
+  corpus: XXX
+
 tika:
 
   # The API endpoint for a Tika server instance.

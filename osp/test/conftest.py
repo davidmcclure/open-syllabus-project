@@ -22,6 +22,7 @@ from osp.fields.models import Subfield_Document
 from playhouse.test_utils import test_database
 from osp.test.mock_osp import Mock_OSP
 from osp.test.mock_hlom import Mock_HLOM
+from osp.test.mock_jstor import Mock_JSTOR
 from osp.test.helpers import *
 
 
@@ -123,6 +124,30 @@ def mock_hlom(config):
 
     yield hlom
     hlom.teardown()
+
+
+@pytest.yield_fixture
+def mock_jstor(config):
+
+    """
+    Provide a Mock_JSTOR instance, and automatically point the configuration
+    object at the path of the mock corpus.
+
+    Yields:
+        Mock_JSTOR
+    """
+
+    jstor = Mock_JSTOR()
+
+    # Point config -> mock.
+    config.config.update_w_merge({
+        'jstor': {
+            'corpus': jstor.path
+        }
+    })
+
+    yield jstor
+    jstor.teardown()
 
 
 @pytest.yield_fixture
