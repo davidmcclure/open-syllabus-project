@@ -103,9 +103,11 @@ def test_no_matches(corpus_index, add_doc, add_text):
 def test_min_freq(corpus_index, add_doc, add_text):
 
     """
-    Each citation should be stored with a min_freq score, the score of
-    lowest-scoring query that matched the document.
+    Each citation should be stored with a "minimum frequency" score - the
+    min_freq of the lowest-scoring query that matched the document.
     """
+
+    # this/that > one > two > three
 
     d1 = add_doc(content='This That, One Two Three')
     d2 = add_doc(content='This That, One')
@@ -129,7 +131,6 @@ def test_min_freq(corpus_index, add_doc, add_text):
             Citation.text==text,
             Citation.document==doc,
 
-            # min_freq of lowest-scoring matching query.
             fn.round(Citation.min_freq.cast('numeric'), 2) == \
             round(get_min_freq(tokens), 2),
 
