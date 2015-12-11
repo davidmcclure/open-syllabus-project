@@ -6,23 +6,16 @@ import tempfile
 import datetime
 import shutil
 
-from osp.test.utils import sha1
-from osp.corpus.utils import int_to_dir
 from reportlab.pdfgen.canvas import Canvas
 from docx import Document
 from datetime import datetime
 
+from osp.test.mock_corpus import Mock_Corpus
+from osp.test.utils import sha1
+from osp.corpus.utils import int_to_dir
 
-class MockOSP:
 
-
-    def __init__(self):
-
-        """
-        Create the temporary directory.
-        """
-
-        self.path = tempfile.mkdtemp()
+class MockOSP(Mock_Corpus):
 
 
     def add_segment(self, name):
@@ -180,12 +173,3 @@ class MockOSP:
         docx.add_paragraph(content)
         docx.core_properties.created = datetime.now()
         docx.save(path)
-
-
-    def teardown(self):
-
-        """
-        Delete the temporary directory.
-        """
-
-        shutil.rmtree(self.path)

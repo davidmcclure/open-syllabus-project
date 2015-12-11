@@ -10,62 +10,18 @@ from osp.citations.utils import get_min_freq
 from peewee import fn
 
 
-@pytest.mark.parametrize('title,author,content', [
-
-    # Title, author.
-    (
-        'War and Peace',
-        'Leo Tolstoy',
-        'War and Peace, Leo Tolstoy',
-    ),
-
-    # Author, title.
-    (
-        'War and Peace',
-        'Leo Tolstoy',
-        'Leo Tolstoy, War and Peace',
-    ),
-
-    # Incomplete name.
-    (
-        'War and Peace',
-        'Leo Tolstoy',
-        'War and Peace, Tolstoy',
-    ),
-
-])
-def test_matches(title, author, content, corpus_index, add_doc, add_text):
+def test_matches(corpus_index, add_doc, add_text):
 
     """
-    Test title/author -> citation matches.
+    When documents match the query, write doc -> text rows.
     """
 
-    # Pad tokens around the match.
-    content = ('XXX '*1000) + content + (' XXX'*1000)
+    wp1 = add_doc(content='War and Peace, Leo Tolstoy 1')
+    wp2 = add_doc(content='War and Peace, Leo Tolstoy 2')
+    wp3 = add_doc(content='War and Peace, Leo Tolstoy 3')
 
-    doc = add_doc(content=content)
-    Document_Text.es_insert()
-
-    text = add_text(title=title, author=author)
-    text_to_docs(text.id)
-
-    assert Citation.select().where(
-        Citation.text==text,
-        Citation.document==doc,
-    )
-
-
-def test_multiple_matches(corpus_index, add_doc, add_text):
-
-    """
-    When OSP documents match the query, write link rows.
-    """
-
-    d1 = add_doc(content='War and Peace, Leo Tolstoy 1')
-    d2 = add_doc(content='War and Peace, Leo Tolstoy 2')
-    d3 = add_doc(content='War and Peace, Leo Tolstoy 3')
-    d4 = add_doc(content='Anna Karenina, Leo Tolstoy 1')
-    d5 = add_doc(content='Anna Karenina, Leo Tolstoy 2')
+    ak1 = add_doc(content='Anna Karenina, Leo Tolstoy 1')
+    ak2 = add_doc(content='Anna Karenina, Leo Tolstoy 2')
 
     Document_Text.es_insert()
 
@@ -75,8 +31,8 @@ def test_multiple_matches(corpus_index, add_doc, add_text):
     # Should write 3 citation links.
     assert Citation.select().count() == 3
 
-    # Should match the right documents.
-    for doc in [d1, d2, d3]:
+    # Should match "War and Peace," ignore "Anna Karenina."
+    for doc in [wp1, wp2, wp3]:
 
         assert Citation.select().where(
             Citation.text==text,
@@ -84,11 +40,27 @@ def test_multiple_matches(corpus_index, add_doc, add_text):
         )
 
 
+def test_no_matches(corpus_index, add_doc, add_text):
+
+    """
+    When no documents match, don't write any rows.
+    """
+
+    add_doc(content='War and Peace, Leo Tolstoy')
+    Document_Text.es_insert()
+
+    text = add_text(title='Master and Man', author='Leo Tolstoy')
+    text_to_docs(text.id)
+
+    # Shouldn't write any rows.
+    assert Citation.select().count() == 0
+
+
 def test_min_freq(corpus_index, add_doc, add_text):
 
     """
-    Each citation should be stored with a "minimum frequency" score - the
-    min_freq of the most "focused" query that matched the document.
+    Citations should be stored with a semantic "focus" score - the frequency of
+    the lowest-frequency word that appears in any of the matching queries.
     """
 
     # this/that > one > two > three
@@ -121,17 +93,47 @@ def test_min_freq(corpus_index, add_doc, add_text):
         )
 
 
-def test_no_matches(corpus_index, add_doc, add_text):
+@pytest.mark.parametrize('title,author,content', [
+
+    # Title, author.
+    (
+        'War and Peace',
+        'Leo Tolstoy',
+        'War and Peace, Leo Tolstoy',
+    ),
+
+    # Author, title.
+    (
+        'War and Peace',
+        'Leo Tolstoy',
+        'Leo Tolstoy, War and Peace',
+    ),
+
+    # Incomplete name.
+    (
+        'War and Peace',
+        'Leo Tolstoy',
+        'War and Peace, Tolstoy',
+    ),
+
+])
+def test_citation_formats(title, author, content,
+        corpus_index, add_doc, add_text):
 
     """
-    When no documents match, don't write any rows.
+    Test title/author -> citation formats.
     """
 
-    add_doc(content='War and Peace, Leo Tolstoy')
+    # Pad tokens around the match.
+    content = ('XXX '*1000) + content + (' XXX'*1000)
+
+    doc = add_doc(content=content)
     Document_Text.es_insert()
 
-    text = add_text(title='Master and Man', author='Leo Tolstoy')
+    text = add_text(title=title, author=author)
     text_to_docs(text.id)
 
-    # Shouldn't write any rows.
-    assert Citation.select().count() == 0
+    assert Citation.select().where(
+        Citation.text==text,
+        Citation.document==doc,
+    )

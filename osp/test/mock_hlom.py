@@ -5,9 +5,11 @@ import tempfile
 import shutil
 import uuid
 
-from osp.citations.models import Text
 from contextlib import contextmanager
 from pymarc import Record, Field, MARCWriter
+
+from osp.citations.models import Text
+from osp.test.mock_corpus import Mock_Corpus
 
 
 class MockMARC(Record):
@@ -114,16 +116,7 @@ class MockMARC(Record):
         self.add_field(field)
 
 
-class MockHLOM:
-
-
-    def __init__(self):
-
-        """
-        Create the temporary directory.
-        """
-
-        self.path = tempfile.mkdtemp()
+class MockHLOM(Mock_Corpus):
 
 
     @contextmanager
@@ -175,12 +168,3 @@ class MockHLOM:
 
             writer.write(marc)
             return marc
-
-
-    def teardown(self):
-
-        """
-        Delete the temporary directory.
-        """
-
-        shutil.rmtree(self.path)
