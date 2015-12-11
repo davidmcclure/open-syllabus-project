@@ -5,6 +5,9 @@ import pytest
 from osp.corpus.models import Document_Text
 from osp.citations.jobs import text_to_docs
 from osp.citations.models import Citation
+from osp.citations.utils import get_min_freq
+
+from peewee import fn
 
 
 @pytest.mark.parametrize('title,author,content', [
@@ -23,18 +26,11 @@ from osp.citations.models import Citation
         'Leo Tolstoy, War and Peace',
     ),
 
-    # Last name.
+    # Incomplete name.
     (
         'War and Peace',
         'Leo Tolstoy',
         'War and Peace, Tolstoy',
-    ),
-
-    # First name.
-    (
-        'War and Peace',
-        'Leo Tolstoy',
-        'War and Peace, Leo',
     ),
 
 ])
@@ -103,3 +99,38 @@ def test_no_matches(corpus_index, add_doc, add_text):
 
     # Shouldn't write any rows.
     assert Citation.select().count() == 0
+
+
+def test_min_freq(corpus_index, add_doc, add_text):
+
+    """
+    Each citation should be stored with a min_freq score, the score of
+    lowest-scoring query that matched the document.
+    """
+
+    d1 = add_doc(content='This That, One Two Three')
+    d2 = add_doc(content='This That, One')
+    d3 = add_doc(content='This That, Two')
+    d4 = add_doc(content='This That, Three')
+
+    Document_Text.es_insert()
+
+    text = add_text(title='This That', author='One Two Three')
+    text_to_docs(text.id)
+
+    for doc, tokens in [
+        (d1, ['one', 'two', 'three']),
+        (d2, ['one']),
+        (d3, ['two']),
+        (d4, ['three']),
+    ]:
+
+        assert Citation.select().where(
+
+            Citation.text==text,
+            Citation.document==doc,
+
+            fn.round(Citation.min_freq.cast('numeric'), 2) == \
+            round(get_min_freq(tokens), 2),
+
+        )
