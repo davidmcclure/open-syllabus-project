@@ -49,8 +49,13 @@ class Mock_OSP(Mock_Corpus):
             self.add_segment(int_to_dir(i))
 
 
-    def add_file(self, segment='000', name=None, content='content',
-                 ftype='plain', log={}):
+    def add_file(self,
+        segment='000',
+        name=None,
+        content='content',
+        ftype='plain',
+        log={},
+    ):
 
         """
         Add a file to the corpus.
