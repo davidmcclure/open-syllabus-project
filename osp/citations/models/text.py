@@ -102,22 +102,6 @@ class Text(BaseModel):
 
 
     @property
-    def query(self):
-
-        """
-        Build an Elasticsearch query string.
-
-        Returns:
-            str|None: "[title] [author]", or None if invalid.
-        """
-
-        t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.author)
-
-        return ' '.join(t_tokens + a_tokens)
-
-
-    @property
     def queries(self):
 
         """
