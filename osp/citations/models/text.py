@@ -23,6 +23,7 @@ class Text(BaseModel):
     publisher   = CharField(null=True)
     date        = CharField(null=True)
     journal     = CharField(null=True)
+    url         = CharField(null=True)
 
 
     class Meta:
