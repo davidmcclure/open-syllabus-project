@@ -48,7 +48,11 @@ def add_subfield(models):
         function
     """
 
-    def _subfield(name='Field', abbreviations=None, parent_name='Field'):
+    def _subfield(
+        name='Field',
+        abbreviations=None,
+        parent_name='Field',
+    ):
 
         field = Field.create(name=parent_name)
 
@@ -71,12 +75,18 @@ def add_text(models):
         function
     """
 
-    def _text(title='Title', author='Author', identifier=None):
+    def _text(
+        corpus='corpus',
+        identifier=None,
+        title='Title',
+        author='Author',
+    ):
 
         if not identifier:
             identifier = uuid.uuid4()
 
         return Text.create(
+            corpus=corpus,
             identifier=identifier,
             title=title,
             author=author,

@@ -16,6 +16,7 @@ from peewee import CharField
 class Text(BaseModel):
 
 
+    corpus      = CharField(index=True)
     identifier  = CharField(unique=True)
     title       = CharField()
     author      = CharField()
@@ -54,6 +55,7 @@ class Text(BaseModel):
                 if t_tokens and a_tokens:
 
                     rows.append({
+                        'corpus':       'hlom',
                         'identifier':   record['001'].format_field(),
                         'title':        record.title(),
                         'author':       record.author(),

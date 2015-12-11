@@ -25,10 +25,10 @@ def test_load_rows(models, mock_hlom):
                 data_file = str(i),
                 control_number = cn,
 
-                title       = 't'+cn,
-                author      = 'a'+cn,
-                publisher   = 'p'+cn,
-                pubyear     = 'd'+cn,
+                title       = 'title'+cn,
+                author      = 'author'+cn,
+                publisher   = 'publisher'+cn,
+                pubyear     = 'pubyear'+cn,
 
             ))
 
@@ -42,11 +42,15 @@ def test_load_rows(models, mock_hlom):
         cn = r.control_number()
 
         assert Text.select().where(
+
+            Text.corpus     == 'hlom',
             Text.identifier == cn,
-            Text.title      == 't'+cn,
-            Text.author     == 'a'+cn,
-            Text.publisher  == 'p'+cn,
-            Text.date       == 'd'+cn,
+
+            Text.title      == 'title'+cn,
+            Text.author     == 'author'+cn,
+            Text.publisher  == 'publisher'+cn,
+            Text.date       == 'pubyear'+cn,
+
         )
 
 
