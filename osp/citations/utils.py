@@ -2,6 +2,8 @@
 
 import re
 
+from wordfreq import word_frequency
+
 
 def tokenize_field(value):
 
@@ -22,3 +24,18 @@ def tokenize_field(value):
     tokens = [t for t in tokens if t not in ['a', 'an', 'the']]
 
     return tokens
+
+
+def get_min_freq(tokens, lang='en'):
+
+    """
+    Given a list of tokens, return the lowest frequency score.
+
+    Args:
+        tokens (str): A list of tokens.
+
+    Returns:
+        float: The lowest frequence.
+    """
+
+    return min([word_frequency(t, lang) for t in tokens])
