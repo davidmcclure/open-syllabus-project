@@ -84,27 +84,11 @@ def test_multiple_matches(corpus_index, add_doc, add_text):
         )
 
 
-def test_no_matches(corpus_index, add_doc, add_text):
-
-    """
-    When no documents match, don't write any rows.
-    """
-
-    add_doc(content='War and Peace, Leo Tolstoy')
-    Document_Text.es_insert()
-
-    text = add_text(title='Master and Man', author='Leo Tolstoy')
-    text_to_docs(text.id)
-
-    # Shouldn't write any rows.
-    assert Citation.select().count() == 0
-
-
 def test_min_freq(corpus_index, add_doc, add_text):
 
     """
     Each citation should be stored with a "minimum frequency" score - the
-    min_freq of the lowest-scoring query that matched the document.
+    min_freq of the most "focused" query that matched the document.
     """
 
     # this/that > one > two > three
@@ -135,3 +119,19 @@ def test_min_freq(corpus_index, add_doc, add_text):
             round(get_min_freq(tokens), 2),
 
         )
+
+
+def test_no_matches(corpus_index, add_doc, add_text):
+
+    """
+    When no documents match, don't write any rows.
+    """
+
+    add_doc(content='War and Peace, Leo Tolstoy')
+    Document_Text.es_insert()
+
+    text = add_text(title='Master and Man', author='Leo Tolstoy')
+    text_to_docs(text.id)
+
+    # Shouldn't write any rows.
+    assert Citation.select().count() == 0
