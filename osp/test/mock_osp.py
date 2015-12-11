@@ -15,7 +15,7 @@ from osp.test.utils import sha1
 from osp.corpus.utils import int_to_dir
 
 
-class MockOSP(Mock_Corpus):
+class Mock_OSP(Mock_Corpus):
 
 
     def add_segment(self, name):

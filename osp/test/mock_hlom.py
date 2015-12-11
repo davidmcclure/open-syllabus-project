@@ -12,7 +12,7 @@ from osp.citations.models import Text
 from osp.test.mock_corpus import Mock_Corpus
 
 
-class MockMARC(Record):
+class Mock_MARC(Record):
 
 
     def control_number(self):
@@ -116,7 +116,7 @@ class MockMARC(Record):
         self.add_field(field)
 
 
-class MockHLOM(Mock_Corpus):
+class Mock_HLOM(Mock_Corpus):
 
 
     @contextmanager
@@ -160,7 +160,7 @@ class MockHLOM(Mock_Corpus):
 
         with self.writer(data_file) as writer:
 
-            marc = MockMARC()
+            marc = Mock_MARC()
             marc.set_control_number(control_number)
             marc.set_author(author)
             marc.set_title(title)

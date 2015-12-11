@@ -20,8 +20,8 @@ from osp.fields.models import Subfield_Document
 
 # Helpers
 from playhouse.test_utils import test_database
-from osp.test.mock_osp import MockOSP
-from osp.test.mock_hlom import MockHLOM
+from osp.test.mock_osp import Mock_OSP
+from osp.test.mock_hlom import Mock_HLOM
 from osp.test.helpers import *
 
 
@@ -81,14 +81,14 @@ def models(config):
 def mock_osp(config):
 
     """
-    Provide a MockOSP instance, and automatically point the configuration
+    Provide a Mock_OSP instance, and automatically point the configuration
     object at the path of the mock corpus.
 
     Yields:
-        MockOSP
+        Mock_OSP
     """
 
-    osp = MockOSP()
+    osp = Mock_OSP()
 
     # Point config -> mock.
     config.config.update_w_merge({
@@ -105,14 +105,14 @@ def mock_osp(config):
 def mock_hlom(config):
 
     """
-    Provide a MockHLOM instance, and automatically point the configuration
+    Provide a Mock_HLOM instance, and automatically point the configuration
     object at the path of the mock corpus.
 
     Yields:
-        MockHLOM
+        Mock_HLOM
     """
 
-    hlom = MockHLOM()
+    hlom = Mock_HLOM()
 
     # Point config -> mock.
     config.config.update_w_merge({
