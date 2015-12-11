@@ -64,7 +64,6 @@ def test_multiple_matches(corpus_index, add_doc, add_text):
     d1 = add_doc(content='War and Peace, Leo Tolstoy 1')
     d2 = add_doc(content='War and Peace, Leo Tolstoy 2')
     d3 = add_doc(content='War and Peace, Leo Tolstoy 3')
-
     d4 = add_doc(content='Anna Karenina, Leo Tolstoy 1')
     d5 = add_doc(content='Anna Karenina, Leo Tolstoy 2')
 
@@ -130,6 +129,7 @@ def test_min_freq(corpus_index, add_doc, add_text):
             Citation.text==text,
             Citation.document==doc,
 
+            # min_freq of lowest-scoring matching query.
             fn.round(Citation.min_freq.cast('numeric'), 2) == \
             round(get_min_freq(tokens), 2),
 
