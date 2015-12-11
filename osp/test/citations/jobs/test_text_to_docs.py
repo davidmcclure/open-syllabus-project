@@ -23,11 +23,18 @@ from osp.citations.models import Citation
         'Leo Tolstoy, War and Peace',
     ),
 
-    # Incomplete author name.
+    # Last name.
     (
         'War and Peace',
         'Leo Tolstoy',
         'War and Peace, Tolstoy',
+    ),
+
+    # First name.
+    (
+        'War and Peace',
+        'Leo Tolstoy',
+        'War and Peace, Leo',
     ),
 
 ])

@@ -17,7 +17,7 @@ def text_to_docs(text_id):
     row = Text.get(Text.id==text_id)
 
 
-    lowest = {}
+    doc_id_scores = {}
     for query, min_freq in row.queries:
 
         # Execute the query.
@@ -37,27 +37,24 @@ def text_to_docs(text_id):
         })
 
         if results['hits']['total'] > 0:
-
             for hit in results['hits']['hits']:
 
+                # Get the doc id.
                 doc_id = hit['fields']['doc_id'][0]
 
-                # Get the lowest score.
-                freq = lowest.get(doc_id)
-
-                # If first match, or new score is lower, set id -> score.
-                if not freq or min_freq < freq:
-                    lowest[doc_id] = min_freq
+                # Map doc id -> min frequency.
+                scores = doc_id_scores.setdefault(doc_id, [])
+                scores.append(min_freq)
 
 
     # Build doc -> text links.
     citations = []
-    for doc_id, min_freq in lowest.items():
+    for doc_id, scores in doc_id_scores.items():
 
         citations.append({
             'document': doc_id,
             'text': row.id,
-            'min_freq': min_freq,
+            'min_freq': min(scores),
         })
 
     # Bulk-insert the results.
