@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<article dtd-version="1.0" article-type="research-article">
+   <front>
+      <journal-meta>
+         <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">{{ journal_slug }}</journal-id>
+         <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">j123456</journal-id>
+         <journal-title-group xmlns:xlink="http://www.w3.org/1999/xlink">
+            <journal-title>{{ journal_title }}</journal-title>
+         </journal-title-group>
+         <publisher>
+            <publisher-name>{{ publisher_name }}</publisher-name>
+         </publisher>
+         <issn xmlns:xlink="http://www.w3.org/1999/xlink" pub-type="ppub">01234567</issn>
+      </journal-meta>
+      <article-meta>
+         <article-id xmlns:xlink="http://www.w3.org/1999/xlink" pub-id-type="jstor">{{ article_id }}</article-id>
+         <title-group>
+            <article-title>{{ article_title }}</article-title>
+         </title-group>
+         <contrib-group>
+
+            {% for given, surname in authors %}
+            <contrib>
+               <string-name xmlns:xlink="http://www.w3.org/1999/xlink">
+                  <given-names>{{ given }}</given-names>
+                  <surname>{{ surname }}</surname>
+               </string-name>
+            </contrib>
+            {% endfor %}
+
+         </contrib-group>
+         <pub-date xmlns:xlink="http://www.w3.org/1999/xlink">
+            <day>{{ pub_day }}</day>
+            <month>{{ pub_month }}</month>
+            <year>{{ pub_year }}</year>
+         </pub-date>
+         <volume>100</volume>
+         <issue>1</issue>
+         <issue-id xmlns:xlink="http://www.w3.org/1999/xlink">i23053580</issue-id>
+         <fpage>300</fpage>
+         <lpage>400</lpage>
+         <self-uri xmlns:xlink="http://www.w3.org/1999/xlink"
+                   xlink:href="http://www.jstor.org/stable/23054235"/>
+         <abstract>
+            <p>Abstract.</p>
+         </abstract>
+         <custom-meta-group xmlns:xlink="http://www.w3.org/1999/xlink">
+            <custom-meta>
+               <meta-name>lang</meta-name>
+               <meta-value>eng</meta-value>
+            </custom-meta>
+         </custom-meta-group>
+      </article-meta>
+   </front>
+</article>

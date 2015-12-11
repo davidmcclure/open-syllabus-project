@@ -35,5 +35,6 @@ pgmagick
 nltk
 wheel
 wordfreq
+jinja2
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
