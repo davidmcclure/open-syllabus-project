@@ -33,22 +33,17 @@ class Text(BaseModel):
 
 
     @classmethod
-    def ingest_hlom(cls, page_size=10000):
+    def ingest_hlom(cls):
 
         """
         Ingest HLOM MARC records.
-
-        Args:
-            page_size (int): Batch-insert page size.
         """
 
         corpus = HLOM_Corpus.from_env()
 
-        i = 0
-        for group in corpus.grouped_records(page_size):
+        for i, record in enumerate(corpus.records()):
 
-            rows = []
-            for record in group:
+            try:
 
                 # Extract title / author tokens.
                 t_tokens = tokenize_field(record.title())
@@ -57,20 +52,18 @@ class Text(BaseModel):
                 # Require a query-able title / author.
                 if t_tokens and a_tokens:
 
-                    rows.append({
-                        'corpus':       'hlom',
-                        'identifier':   record['001'].format_field(),
-                        'title':        record.title(),
-                        'authors':      [record.author()],
-                        'publisher':    record.publisher(),
-                        'date':         record.pubyear(),
-                    })
+                    cls.create(
+                        corpus      = 'hlom',
+                        identifier  = record['001'].format_field(),
+                        title       = record.title(),
+                        authors     = [record.author()],
+                        publisher   = record.publisher(),
+                        date        = record.pubyear(),
+                    )
 
-            if rows:
-                cls.insert_many(rows).execute()
+            except: pass
 
-            i += 1
-            sys.stdout.write('\r'+str(page_size*i))
+            sys.stdout.write('\r'+str(i))
             sys.stdout.flush()
 
 
