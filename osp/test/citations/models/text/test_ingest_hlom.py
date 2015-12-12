@@ -46,8 +46,9 @@ def test_load_rows(models, mock_hlom):
             Text.corpus     == 'hlom',
             Text.identifier == cn,
 
+            Text.authors.contains('author'+cn),
+
             Text.title      == 'title'+cn,
-            Text.author     == 'author'+cn,
             Text.publisher  == 'publisher'+cn,
             Text.date       == 'pubyear'+cn,
 

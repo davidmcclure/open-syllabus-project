@@ -25,7 +25,7 @@ def test_matches(corpus_index, add_doc, add_text):
 
     Document_Text.es_insert()
 
-    text = add_text(title='War and Peace', author='Leo Tolstoy')
+    text = add_text(title='War and Peace', authors=['Leo Tolstoy'])
     text_to_docs(text.id)
 
     # Should write 3 citation links.
@@ -49,7 +49,7 @@ def test_no_matches(corpus_index, add_doc, add_text):
     add_doc(content='War and Peace, Leo Tolstoy')
     Document_Text.es_insert()
 
-    text = add_text(title='Master and Man', author='Leo Tolstoy')
+    text = add_text(title='Master and Man', authors=['Leo Tolstoy'])
     text_to_docs(text.id)
 
     # Shouldn't write any rows.
@@ -72,7 +72,7 @@ def test_min_freq(corpus_index, add_doc, add_text):
 
     Document_Text.es_insert()
 
-    text = add_text(title='This That', author='One Two Three')
+    text = add_text(title='This That', authors=['One Two Three'])
     text_to_docs(text.id)
 
     for doc, tokens in [
@@ -130,7 +130,7 @@ def test_citation_formats(title, author, content,
     doc = add_doc(content=content)
     Document_Text.es_insert()
 
-    text = add_text(title=title, author=author)
+    text = add_text(title=title, authors=[author])
     text_to_docs(text.id)
 
     assert Citation.select().where(

@@ -11,7 +11,7 @@ def test_queries(add_text):
     Text#queries should generate a set of Elasticsearch queries.
     """
 
-    text = add_text(title='Anna Karenina', author='David William McClure')
+    text = add_text(title='Anna Karenina', authors=['David William McClure'])
 
     queries = text.queries
 

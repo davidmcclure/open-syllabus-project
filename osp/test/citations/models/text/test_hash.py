@@ -25,6 +25,6 @@ def test_coalesce(inputs, add_text):
     hashes = set()
 
     for title, author in inputs:
-        hashes.add(add_text(title=title, author=author).hash)
+        hashes.add(add_text(title=title, authors=[author]).hash)
 
     assert len(hashes) == 1

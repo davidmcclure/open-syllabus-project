@@ -11,6 +11,7 @@ from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
 
 from peewee import CharField
+from playhouse.postgres_ext import ArrayField
 
 
 class Text(BaseModel):
@@ -18,8 +19,9 @@ class Text(BaseModel):
 
     corpus      = CharField(index=True)
     identifier  = CharField(unique=True)
+
     title       = CharField()
-    author      = CharField()
+    authors     = ArrayField(CharField)
     publisher   = CharField(null=True)
     date        = CharField(null=True)
     journal     = CharField(null=True)
@@ -59,7 +61,7 @@ class Text(BaseModel):
                         'corpus':       'hlom',
                         'identifier':   record['001'].format_field(),
                         'title':        record.title(),
-                        'author':       record.author(),
+                        'authors':      [record.author()],
                         'publisher':    record.publisher(),
                         'date':         record.pubyear(),
                     })
@@ -98,7 +100,7 @@ class Text(BaseModel):
 
         # Extract tokens.
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.author)
+        a_tokens = tokenize_field(self.authors[0])
 
         # Sort the author names.
         tokens = t_tokens + sorted(a_tokens)
@@ -121,7 +123,7 @@ class Text(BaseModel):
 
         # Extract tokens.
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.author)
+        a_tokens = tokenize_field(self.authors[0])
 
         # Title + complete name.
         seqs = [t_tokens + a_tokens]
