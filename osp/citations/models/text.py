@@ -4,11 +4,13 @@ import sys
 import re
 import numpy as np
 import hashlib
+import os
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
+from osp.citations.jstor_article import JSTOR_Article
 
 from peewee import CharField
 from playhouse.postgres_ext import ArrayField
@@ -74,7 +76,27 @@ class Text(BaseModel):
         Ingest JSTOR records.
         """
 
-        pass
+        # TODO|dev
+
+        i = 0
+        for root, dirs, files in os.walk(config['jstor']['corpus']):
+            for name in files:
+
+                path = os.path.join(root, name)
+                article = JSTOR_Article(path)
+
+                cls.create(
+                    corpus      = 'jstor',
+                    identifier  = article.article_id,
+                    title       = article.article_title,
+                    authors     = article.authors,
+                    publisher   = article.publisher_name,
+                    date        = article.pub_date,
+                )
+
+                i += 1
+                sys.stdout.write('\r'+str(i))
+                sys.stdout.flush()
 
 
     @property

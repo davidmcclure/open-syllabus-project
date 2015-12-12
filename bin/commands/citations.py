@@ -33,22 +33,20 @@ def init_db():
 
 
 @cli.command()
-@click.option('--page_size', default=10000)
-def insert_records(page_size):
+def ingest_hlom():
 
     """
-    Write the records into the database.
+    Ingest HLOM texts.
     """
 
-    Text.insert_records(page_size)
+    Text.ingest_hlom()
 
 
 @cli.command()
-def queue_queries():
+def ingest_jstor():
 
     """
-    Queue citation extraction queries.
+    Ingest JSTOR texts.
     """
 
-    for record in ServerSide(Text.select()):
-        config.rq.enqueue(text_to_docs, record.id)
+    Text.ingest_jstor()
