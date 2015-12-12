@@ -24,7 +24,7 @@ class Mock_JSTOR(Mock_Corpus):
         self.template = Template(tpl.decode('utf8'))
 
 
-    def add_record(self,
+    def add_article(self,
 
         journal_slug='journal',
         article_id=None,
