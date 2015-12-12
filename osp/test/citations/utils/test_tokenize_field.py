@@ -58,6 +58,16 @@ from osp.citations.utils import tokenize_field
         ['war', 'and', 'peace']
     ),
 
+    # Ignore single-character tokens (eg, initials).
+    (
+        [
+            'Leo N. Tolstoy',
+            'Leo N Tolstoy',
+
+        ],
+        ['leo', 'tolstoy']
+    ),
+
 ])
 def test_tokenize_field(values, tokens, add_text):
     for value in values:
