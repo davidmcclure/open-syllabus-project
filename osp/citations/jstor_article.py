@@ -20,6 +20,18 @@ class JSTOR_Article:
 
 
     @property
+    def article_id(self):
+
+        """
+        Query the article id.
+
+        Returns: str
+        """
+
+        return self.xml.select_one('article-id').get_text()
+
+
+    @property
     def article_title(self):
 
         """
@@ -29,3 +41,15 @@ class JSTOR_Article:
         """
 
         return self.xml.select_one('article-title').get_text()
+
+
+    @property
+    def journal_title(self):
+
+        """
+        Query the journal title.
+
+        Returns: str
+        """
+
+        return self.xml.select_one('journal-title').get_text()
