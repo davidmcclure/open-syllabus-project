@@ -68,13 +68,10 @@ class Text(BaseModel):
 
 
     @classmethod
-    def ingest_jstor(cls, page_size=10000):
+    def ingest_jstor(cls):
 
         """
         Ingest JSTOR records.
-
-        Args:
-            page_size (int): Batch-insert page size.
         """
 
         pass
