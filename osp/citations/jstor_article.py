@@ -1,5 +1,7 @@
 
 
+import datetime
+
 from bs4 import BeautifulSoup
 
 
@@ -53,3 +55,21 @@ class JSTOR_Article:
         """
 
         return self.xml.select_one('journal-title').get_text()
+
+
+    @property
+    def pub_date(self):
+
+        """
+        Assemble the publication date in ISO format.
+
+        Returns: str
+        """
+
+        date = datetime.date(
+            int(self.xml.select_one('pub-date year').get_text()),
+            int(self.xml.select_one('pub-date month').get_text()),
+            int(self.xml.select_one('pub-date day').get_text()),
+        )
+
+        return date.isoformat()
