@@ -1,5 +1,7 @@
 
 
+import datetime
+
 from bs4 import BeautifulSoup
 
 
@@ -53,3 +55,55 @@ class JSTOR_Article:
         """
 
         return self.xml.select_one('journal-title').get_text()
+
+
+    @property
+    def publisher_name(self):
+
+        """
+        Query the publisher name.
+
+        Returns: str
+        """
+
+        return self.xml.select_one('publisher-name').get_text()
+
+
+    @property
+    def pub_date(self):
+
+        """
+        Assemble the publication date in ISO format.
+
+        Returns: str
+        """
+
+        date = datetime.date(
+            int(self.xml.select_one('pub-date year').get_text()),
+            int(self.xml.select_one('pub-date month').get_text()),
+            int(self.xml.select_one('pub-date day').get_text()),
+        )
+
+        return date.isoformat()
+
+
+    @property
+    def authors(self):
+
+        """
+        Query author names.
+
+        Returns: list
+        """
+
+        authors = []
+        for c in self.xml.select('contrib'):
+
+            # Query for name parts.
+            given_names = c.select_one('given-names').get_text()
+            surname = c.select_one('surname').get_text()
+
+            # Join into a single string.
+            authors.append(' '.join([given_names, surname]))
+
+        return authors
