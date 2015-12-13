@@ -74,3 +74,35 @@ def test_set_journal_title(models, mock_jstor):
     Text.ingest_jstor()
 
     assert Text.select().first().journal_title == 'Critical Inquiry'
+
+
+def test_set_journal_identifier(models, mock_jstor):
+
+    mock_jstor.add_article(journal_id='criticalinquiry')
+    Text.ingest_jstor()
+
+    assert Text.select().first().journal_identifier == 'criticalinquiry'
+
+
+def test_set_issue_volume(models, mock_jstor):
+
+    mock_jstor.add_article(issue_volume=200)
+    Text.ingest_jstor()
+
+    assert Text.select().first().issue_volume == '200'
+
+
+def test_set_issue_number(models, mock_jstor):
+
+    mock_jstor.add_article(issue_number=10)
+    Text.ingest_jstor()
+
+    assert Text.select().first().issue_number == '10'
+
+
+def test_set_pagination(models, mock_jstor):
+
+    mock_jstor.add_article(fpage=200, lpage=300)
+    Text.ingest_jstor()
+
+    assert Text.select().first().pagination == '200-300'
