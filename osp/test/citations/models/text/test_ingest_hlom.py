@@ -54,53 +54,20 @@ def test_set_date(models, mock_hlom):
     assert Text.select().first().date == '1987'
 
 
-def test_load_rows(models, mock_hlom):
+def test_load_multiple(models, mock_hlom):
 
     """
-    Text.ingest_hlom() should ingest HLOM MARC records.
+    Text.ingest_hlom() should ingest multiple records.
     """
 
-    records = []
-
-    # 10 segments, each with 10 records.
-    for i in range(10):
-        for j in range(10):
-
-            cn = str(uuid.uuid4())
-
-            records.append(mock_hlom.add_marc(
-
-                data_file = str(i),
-                control_number = cn,
-
-                title       = 'title'+cn,
-                author      = 'author'+cn,
-                publisher   = 'publisher'+cn,
-                pubyear     = 'pubyear'+cn,
-
-            ))
+    # 100 records.
+    for i in range(100):
+        mock_hlom.add_marc()
 
     Text.ingest_hlom()
 
-    # Should ingest 100 records.
+    # 100 rows.
     assert Text.select().count() == 100
-
-    for r in records:
-
-        cn = r.control_number()
-
-        assert Text.select().where(
-
-            Text.corpus     == 'hlom',
-            Text.identifier == cn,
-
-            Text.author.contains('author'+cn),
-
-            Text.title      == 'title'+cn,
-            Text.publisher  == 'publisher'+cn,
-            Text.date       == 'pubyear'+cn,
-
-        )
 
 
 @pytest.mark.parametrize('title,author', [
