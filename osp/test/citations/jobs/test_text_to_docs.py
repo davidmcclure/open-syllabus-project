@@ -115,3 +115,38 @@ def test_citation_formats(title, author, content,
         Citation.tokens.contains(tokens),
 
     )
+
+
+def test_tokens(corpus_index, add_doc, add_text):
+
+    """
+    Citations should include the set of matching query tokens.
+    """
+
+    docs = [
+        add_doc(content='Title, David William McClure'),
+        add_doc(content='Title, David'),
+        add_doc(content='Title, William'),
+        add_doc(content='Title, McClure'),
+        add_doc(content='Title, David William'),
+        add_doc(content='Title, David McClure'),
+    ]
+
+    Document_Text.es_insert()
+
+    text = add_text(title='Title', authors=['David William McClure'])
+    text_to_docs(text.id)
+
+    for doc in docs:
+
+        tokens = tokenize_field(doc.syllabus.text)
+
+        assert Citation.select().where(
+
+            Citation.text==text,
+            Citation.document==doc,
+
+            fn.array_length(Citation.tokens, 1)==len(tokens),
+            Citation.tokens.contains(tokens),
+
+        )
