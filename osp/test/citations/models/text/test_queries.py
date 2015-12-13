@@ -13,7 +13,7 @@ def test_queries(add_text):
 
     text = add_text(
         title='Anna Karenina',
-        authors=['David William McClure']
+        author=['David William McClure']
     )
 
     queries = text.queries

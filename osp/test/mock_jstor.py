@@ -37,7 +37,7 @@ class Mock_JSTOR(Mock_Corpus):
         pub_month=6,
         pub_day=25,
 
-        authors=[('David W.', 'McClure'),],
+        author=[('David W.', 'McClure'),],
 
     ):
 

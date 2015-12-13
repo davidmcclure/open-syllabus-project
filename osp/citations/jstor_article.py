@@ -88,7 +88,7 @@ class JSTOR_Article:
 
 
     @property
-    def authors(self):
+    def author(self):
 
         """
         Query author names.
@@ -96,7 +96,7 @@ class JSTOR_Article:
         Returns: list
         """
 
-        authors = []
+        author = []
         for c in self.xml.select('contrib'):
 
             # Query for name parts.
@@ -104,6 +104,6 @@ class JSTOR_Article:
             surname = c.select_one('surname').get_text()
 
             # Join into a single string.
-            authors.append(' '.join([given_names, surname]))
+            author.append(' '.join([given_names, surname]))
 
-        return authors
+        return author

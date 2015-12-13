@@ -79,7 +79,7 @@ def add_text(models):
         corpus='corpus',
         identifier=None,
         title='Title',
-        authors=['Author'],
+        author=['Author'],
     ):
 
         if not identifier:
@@ -89,7 +89,7 @@ def add_text(models):
             corpus=corpus,
             identifier=identifier,
             title=title,
-            authors=authors,
+            author=author,
         )
 
     return _text

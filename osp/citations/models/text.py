@@ -19,14 +19,27 @@ from playhouse.postgres_ext import ArrayField
 class Text(BaseModel):
 
 
-    corpus      = CharField(index=True)
-    identifier  = CharField(unique=True)
+    # http://dublincore.org/usage/meetings/2002/05/citdcsv.html
 
-    title       = CharField()
-    authors     = ArrayField(CharField)
-    publisher   = CharField(null=True)
-    date        = CharField(null=True)
-    journal     = CharField(null=True)
+
+    corpus              = CharField(index=True)
+
+    # Book + article:
+
+    title               = CharField()
+    author              = ArrayField(CharField)
+    publisher           = CharField(null=True)
+    date                = CharField(null=True)
+    identifier          = CharField(unique=True)
+
+    # Article:
+
+    journal_title       = CharField(null=True)
+    journal_identifier  = CharField(null=True)
+    issue_volume        = CharField(null=True)
+    issue_number        = CharField(null=True)
+    issue_chronology    = CharField(null=True)
+    pagination          = CharField(null=True)
 
 
     class Meta:
@@ -57,7 +70,7 @@ class Text(BaseModel):
                         corpus      = 'hlom',
                         identifier  = record['001'].format_field(),
                         title       = record.title(),
-                        authors     = [record.author()],
+                        author      = [record.author()],
                         publisher   = record.publisher(),
                         date        = record.pubyear(),
                     )
@@ -90,7 +103,7 @@ class Text(BaseModel):
         """
 
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.authors[0])
+        a_tokens = tokenize_field(self.author[0])
 
         # Sort the author names.
         tokens = t_tokens + sorted(a_tokens)
@@ -112,7 +125,7 @@ class Text(BaseModel):
         """
 
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.authors[0])
+        a_tokens = tokenize_field(self.author[0])
 
         # Title + complete name.
         queries = [t_tokens + a_tokens]
