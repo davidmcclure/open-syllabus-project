@@ -106,3 +106,6 @@ def test_set_pagination(models, mock_jstor):
     Text.ingest_jstor()
 
     assert Text.select().first().pagination == '200-300'
+
+
+# TODO: Require title / author.
