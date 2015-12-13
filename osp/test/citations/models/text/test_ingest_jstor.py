@@ -66,3 +66,11 @@ def test_set_date(models, mock_jstor):
     Text.ingest_jstor()
 
     assert Text.select().first().date == '1987-06-25'
+
+
+def test_set_journal_title(models, mock_jstor):
+
+    mock_jstor.add_article(journal_title='Critical Inquiry')
+    Text.ingest_jstor()
+
+    assert Text.select().first().journal_title == 'Critical Inquiry'

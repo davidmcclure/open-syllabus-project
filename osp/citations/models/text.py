@@ -95,12 +95,13 @@ class Text(BaseModel):
                 article = JSTOR_Article(path)
 
                 cls.create(
-                    corpus      = 'jstor',
-                    identifier  = article.article_id,
-                    title       = article.article_title,
-                    author      = article.author,
-                    publisher   = article.publisher_name,
-                    date        = article.pub_date,
+                    corpus          = 'jstor',
+                    identifier      = article.article_id,
+                    title           = article.article_title,
+                    author          = article.author,
+                    publisher       = article.publisher_name,
+                    date            = article.pub_date,
+                    journal_title   = article.journal_title,
                 )
 
 
