@@ -50,3 +50,19 @@ def test_set_multiple_authors(models, mock_jstor):
         'David W. McClure',
         'Kara G. Weisman',
     ]
+
+
+def test_set_publisher(models, mock_jstor):
+
+    mock_jstor.add_article(publisher_name='Chicago Journals')
+    Text.ingest_jstor()
+
+    assert Text.select().first().publisher == 'Chicago Journals'
+
+
+def test_set_date(models, mock_jstor):
+
+    mock_jstor.add_article(pub_year=1987, pub_month=6, pub_day=25)
+    Text.ingest_jstor()
+
+    assert Text.select().first().date == '1987-06-25'

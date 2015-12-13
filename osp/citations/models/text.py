@@ -99,6 +99,8 @@ class Text(BaseModel):
                     identifier  = article.article_id,
                     title       = article.article_title,
                     author      = article.author,
+                    publisher   = article.publisher_name,
+                    date        = article.pub_date,
                 )
 
 
