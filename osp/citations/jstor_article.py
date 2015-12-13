@@ -46,6 +46,18 @@ class JSTOR_Article:
 
 
     @property
+    def journal_id(self):
+
+        """
+        Query the journal id.
+
+        Returns: str
+        """
+
+        return self.xml.select_one('journal-id').get_text()
+
+
+    @property
     def journal_title(self):
 
         """
