@@ -21,6 +21,25 @@ class JSTOR_Article:
             self.xml = BeautifulSoup(fh, 'lxml')
 
 
+    def select(self, selector):
+
+        """
+        Extract text from an element.
+
+        Args:
+            selector (str)
+
+        Returns: str
+        """
+
+        return (
+            self.xml
+            .select_one(selector)
+            .get_text(strip=True)
+            or None
+        )
+
+
     @property
     def article_id(self):
 
@@ -30,7 +49,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('article-id').get_text()
+        return self.select('article-id')
 
 
     @property
@@ -42,7 +61,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('article-title').get_text()
+        return self.select('article-title')
 
 
     @property

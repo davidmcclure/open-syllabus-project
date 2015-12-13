@@ -54,7 +54,7 @@ class Mock_JSTOR(Mock_Corpus):
         """
 
         # Generate an article id.
-        if not article_id:
+        if article_id is None:
             article_id = str(uuid.uuid4())
 
         args = locals().copy()

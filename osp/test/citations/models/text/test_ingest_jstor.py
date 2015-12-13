@@ -108,4 +108,20 @@ def test_set_pagination(models, mock_jstor):
     assert Text.select().first().pagination == '200-300'
 
 
+def test_load_multiple(models, mock_jstor):
+
+    """
+    Text.ingest_jstor() should ingest multiple records.
+    """
+
+    # 100 records.
+    for i in range(100):
+        mock_jstor.add_article()
+
+    Text.ingest_jstor()
+
+    # 100 rows.
+    assert Text.select().count() == 100
+
+
 # TODO: Require title / author.
