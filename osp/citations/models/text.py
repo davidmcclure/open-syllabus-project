@@ -23,6 +23,7 @@ class Text(BaseModel):
 
 
     corpus              = CharField(index=True)
+    identifier          = CharField(unique=True)
 
     # Book + article:
 
@@ -30,7 +31,6 @@ class Text(BaseModel):
     author              = ArrayField(CharField)
     publisher           = CharField(null=True)
     date                = CharField(null=True)
-    identifier          = CharField(unique=True)
 
     # Article:
 
@@ -88,7 +88,18 @@ class Text(BaseModel):
         Ingest JSTOR records.
         """
 
-        pass
+        for root, dirs, files in os.walk(config['jstor']['corpus']):
+            for name in files:
+
+                path = os.path.join(root, name)
+                article = JSTOR_Article(path)
+
+                cls.create(
+                    corpus      = 'jstor',
+                    identifier  = article.article_id,
+                    title       = article.article_title,
+                    author      = article.author,
+                )
 
 
     @property
