@@ -131,3 +131,28 @@ class JSTOR_Article:
             author.append(' '.join([given_names, surname]))
 
         return author
+
+
+    @property
+    def pagination(self):
+
+        """
+        Construct the page range.
+
+        Returns: str
+        """
+
+        fpage = self.xml.select_one('fpage').get_text()
+        lpage = self.xml.select_one('lpage').get_text()
+
+        if fpage and lpage:
+            return '-'.join([fpage, lpage])
+
+        elif fpage:
+            return fpage
+
+        elif lpage:
+            return lpage
+
+        else:
+            return None
