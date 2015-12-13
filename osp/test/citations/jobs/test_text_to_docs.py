@@ -5,7 +5,7 @@ import pytest
 from osp.corpus.models import Document_Text
 from osp.citations.jobs import text_to_docs
 from osp.citations.models import Citation
-from osp.citations.utils import get_min_freq
+from osp.citations.utils import get_min_freq, tokenize_field
 
 from peewee import fn
 
@@ -31,7 +31,7 @@ def test_matches(corpus_index, add_doc, add_text):
     # Should write 3 citation links.
     assert Citation.select().count() == 3
 
-    # Should match "War and Peace" docs.
+    # Should match "War and Peace," ignore "Anna Karenina".
     for doc in [wp1, wp2, wp3]:
 
         assert Citation.select().where(
@@ -39,11 +39,11 @@ def test_matches(corpus_index, add_doc, add_text):
             Citation.text==text,
             Citation.document==doc,
 
+            fn.array_length(Citation.tokens, 1)==5,
+
             Citation.tokens.contains([
                 'war', 'and', 'peace', 'leo', 'tolstoy',
             ]),
-
-            fn.array_length(Citation.tokens, 1)==5
 
         )
 
@@ -96,15 +96,22 @@ def test_citation_formats(title, author, content,
     """
 
     # Pad tokens around the match.
-    content = ('XXX '*1000) + content + (' XXX'*1000)
+    padded = ('XXX '*1000) + content + (' XXX'*1000)
 
-    doc = add_doc(content=content)
+    doc = add_doc(content=padded)
     Document_Text.es_insert()
 
     text = add_text(title=title, authors=[author])
     text_to_docs(text.id)
 
+    tokens = tokenize_field(content)
+
     assert Citation.select().where(
+
         Citation.text==text,
         Citation.document==doc,
+
+        fn.array_length(Citation.tokens, 1)==len(tokens),
+        Citation.tokens.contains(tokens),
+
     )
