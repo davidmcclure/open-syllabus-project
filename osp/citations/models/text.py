@@ -89,7 +89,6 @@ class Text(BaseModel):
             str: The deduping hash.
         """
 
-        # Extract tokens.
         t_tokens = tokenize_field(self.title)
         a_tokens = tokenize_field(self.authors[0])
 
@@ -112,20 +111,14 @@ class Text(BaseModel):
             list: The set of queries.
         """
 
-        # Extract tokens.
         t_tokens = tokenize_field(self.title)
         a_tokens = tokenize_field(self.authors[0])
 
         # Title + complete name.
-        seqs = [t_tokens + a_tokens]
+        queries = [t_tokens + a_tokens]
 
         # Title + partial names.
         for name in a_tokens:
-            seqs.append(t_tokens + [name])
-
-        # Pair with min frequency score.
-        queries = []
-        for s in seqs:
-            queries.append((' '.join(s), get_min_freq(s)))
+            queries.append(t_tokens + [name])
 
         return queries

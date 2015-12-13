@@ -31,12 +31,20 @@ def test_matches(corpus_index, add_doc, add_text):
     # Should write 3 citation links.
     assert Citation.select().count() == 3
 
-    # Should match "War and Peace," ignore "Anna Karenina."
+    # Should match "War and Peace" docs.
     for doc in [wp1, wp2, wp3]:
 
         assert Citation.select().where(
+
             Citation.text==text,
             Citation.document==doc,
+
+            Citation.tokens.contains([
+                'war', 'and', 'peace', 'leo', 'tolstoy',
+            ]),
+
+            fn.array_length(Citation.tokens, 1)==5
+
         )
 
 
@@ -54,43 +62,6 @@ def test_no_matches(corpus_index, add_doc, add_text):
 
     # Shouldn't write any rows.
     assert Citation.select().count() == 0
-
-
-def test_min_freq(corpus_index, add_doc, add_text):
-
-    """
-    Citations should be stored with a semantic "focus" score - the frequency of
-    the lowest-frequency word that appears in any of the matching queries.
-    """
-
-    # this/that > one > two > three
-
-    d1 = add_doc(content='This That, One Two Three')
-    d2 = add_doc(content='This That, One')
-    d3 = add_doc(content='This That, Two')
-    d4 = add_doc(content='This That, Three')
-
-    Document_Text.es_insert()
-
-    text = add_text(title='This That', authors=['One Two Three'])
-    text_to_docs(text.id)
-
-    for doc, tokens in [
-        (d1, ['one', 'two', 'three']),
-        (d2, ['one']),
-        (d3, ['two']),
-        (d4, ['three']),
-    ]:
-
-        assert Citation.select().where(
-
-            Citation.text==text,
-            Citation.document==doc,
-
-            fn.round(Citation.min_freq.cast('numeric'), 2) == \
-            round(get_min_freq(tokens), 2),
-
-        )
 
 
 @pytest.mark.parametrize('title,author,content', [

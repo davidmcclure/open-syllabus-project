@@ -17,8 +17,8 @@ def text_to_docs(text_id):
     row = Text.get(Text.id==text_id)
 
 
-    doc_id_scores = {}
-    for query, min_freq in row.queries:
+    doc_id_tokens = {}
+    for tokens in row.queries:
 
         # Execute the query.
         results = config.es.search('osp', 'document', timeout=30, body={
@@ -28,8 +28,8 @@ def text_to_docs(text_id):
                 'query': {
                     'match_phrase': {
                         'body': {
-                            'query': query,
-                            'slop': 20
+                            'query': ' '.join(tokens),
+                            'slop': 20,
                         }
                     }
                 }
@@ -42,19 +42,19 @@ def text_to_docs(text_id):
                 # Get the doc id.
                 doc_id = hit['fields']['doc_id'][0]
 
-                # Map doc id -> min frequency.
-                scores = doc_id_scores.setdefault(doc_id, [])
-                scores.append(min_freq)
+                # Map doc id -> tokens.
+                matches = doc_id_tokens.setdefault(doc_id, set())
+                matches.update(tokens)
 
 
     # Build doc -> text links.
     citations = []
-    for doc_id, scores in doc_id_scores.items():
+    for doc_id, tokens in doc_id_tokens.items():
 
         citations.append({
             'document': doc_id,
             'text': row.id,
-            'min_freq': min(scores),
+            'tokens': list(tokens),
         })
 
     # Bulk-insert the results.
