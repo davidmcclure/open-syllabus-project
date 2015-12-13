@@ -70,6 +70,30 @@ class JSTOR_Article:
 
 
     @property
+    def volume(self):
+
+        """
+        Query the volume number.
+
+        Returns: str
+        """
+
+        return self.xml.select_one('volume').get_text()
+
+
+    @property
+    def issue(self):
+
+        """
+        Query the issue number.
+
+        Returns: str
+        """
+
+        return self.xml.select_one('issue').get_text()
+
+
+    @property
     def pub_date(self):
 
         """

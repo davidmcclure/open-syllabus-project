@@ -26,8 +26,8 @@ class Mock_JSTOR(Mock_Corpus):
 
     def add_article(self,
 
-        journal_slug='journal',
         article_id=None,
+        journal_id='journal',
 
         journal_title='Journal',
         publisher_name='Publisher',
@@ -38,6 +38,11 @@ class Mock_JSTOR(Mock_Corpus):
         pub_day=25,
 
         author=[('David W.', 'McClure'),],
+
+        issue_volume=100,
+        issue_number=1,
+        fpage=100,
+        lpage=200,
 
     ):
 
@@ -62,7 +67,7 @@ class Mock_JSTOR(Mock_Corpus):
         date = datetime.date(pub_year, pub_month, pub_day)
 
         rel_path = '/'.join([
-            journal_slug,
+            journal_id,
             date.isoformat(),
             article_id,
             article_id+'.xml',

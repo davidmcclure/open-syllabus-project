@@ -2,7 +2,7 @@
 <article dtd-version="1.0" article-type="research-article">
    <front>
       <journal-meta>
-         <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">{{ journal_slug }}</journal-id>
+         <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">{{ journal_id }}</journal-id>
          <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">j123456</journal-id>
          <journal-title-group xmlns:xlink="http://www.w3.org/1999/xlink">
             <journal-title>{{ journal_title }}</journal-title>
@@ -34,11 +34,11 @@
             <month>{{ pub_month }}</month>
             <year>{{ pub_year }}</year>
          </pub-date>
-         <volume>100</volume>
-         <issue>1</issue>
+         <volume>{{ issue_volume }}</volume>
+         <issue>{{ issue_number }}</issue>
          <issue-id xmlns:xlink="http://www.w3.org/1999/xlink">i23053580</issue-id>
-         <fpage>300</fpage>
-         <lpage>400</lpage>
+         <fpage>{{ fpage }}</fpage>
+         <lpage>{{ lpage }}</lpage>
          <self-uri xmlns:xlink="http://www.w3.org/1999/xlink"
                    xlink:href="http://www.jstor.org/stable/23054235"/>
          <abstract>
