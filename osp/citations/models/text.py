@@ -27,7 +27,6 @@ class Text(BaseModel):
     publisher   = CharField(null=True)
     date        = CharField(null=True)
     journal     = CharField(null=True)
-    url         = CharField(null=True)
 
 
     class Meta:
@@ -76,27 +75,7 @@ class Text(BaseModel):
         Ingest JSTOR records.
         """
 
-        # TODO|dev
-
-        i = 0
-        for root, dirs, files in os.walk(config['jstor']['corpus']):
-            for name in files:
-
-                path = os.path.join(root, name)
-                article = JSTOR_Article(path)
-
-                cls.create(
-                    corpus      = 'jstor',
-                    identifier  = article.article_id,
-                    title       = article.article_title,
-                    authors     = article.authors,
-                    publisher   = article.publisher_name,
-                    date        = article.pub_date,
-                )
-
-                i += 1
-                sys.stdout.write('\r'+str(i))
-                sys.stdout.flush()
+        pass
 
 
     @property

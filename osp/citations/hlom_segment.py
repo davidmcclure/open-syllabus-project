@@ -28,10 +28,9 @@ class HLOM_Segment:
 
         with open(self.path, 'rb') as fh:
 
-            reader = MARCReader(
-                fh,
+            reader = MARCReader(fh,
                 ascii_handling='ignore',
-                utf8_handling='ignore'
+                utf8_handling='ignore',
             )
 
             for record in reader:
