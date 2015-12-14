@@ -3,6 +3,7 @@
 import datetime
 
 from bs4 import BeautifulSoup
+from osp.citations.utils import tokenize_field
 
 
 class JSTOR_Article:
@@ -211,9 +212,12 @@ class JSTOR_Article:
         Returns: bool
         """
 
-        # get article_title
-        # if str, and len(tokenize_field()) > 0
-        # get author
-        # if len(author) and len(tokenize_field(author[0]))
+        title = self.article_title
+        author = self.author
 
-        pass
+        return bool(
+            title and
+            len(tokenize_field(title)) and
+            len(author) and
+            len(tokenize_field(author[0]))
+        )
