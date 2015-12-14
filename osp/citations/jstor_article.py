@@ -21,7 +21,7 @@ class JSTOR_Article:
             self.xml = BeautifulSoup(fh, 'lxml')
 
 
-    def select(self, selector):
+    def select(self, selector, root=None):
 
         """
         Extract text from an element.
@@ -32,7 +32,9 @@ class JSTOR_Article:
         Returns: str
         """
 
-        tag = self.xml.select_one(selector)
+        root = root or self.xml
+
+        tag = root.select_one(selector)
 
         if tag:
             return tag.get_text(strip=True) or None
@@ -161,11 +163,16 @@ class JSTOR_Article:
         for c in self.xml.select('contrib'):
 
             # Query for name parts.
-            given_names = c.select_one('given-names').get_text()
-            surname = c.select_one('surname').get_text()
+            given_names = self.select('given-names', c)
+            surname = self.select('surname', c)
 
-            # Join into a single string.
-            author.append(' '.join([given_names, surname]))
+            # Merge into single string.
+            if given_names and surname:
+                author.append(' '.join([given_names, surname]))
+
+            # Accept just surname.
+            elif surname:
+                author.append(surname)
 
         return author
 
