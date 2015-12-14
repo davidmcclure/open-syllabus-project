@@ -11,6 +11,7 @@ from osp.common.models.base import BaseModel
 from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.hlom_record import HLOM_Record
 
 from peewee import CharField
 from playhouse.postgres_ext import ArrayField
@@ -55,23 +56,21 @@ class Text(BaseModel):
 
         corpus = HLOM_Corpus.from_env()
 
-        for i, record in enumerate(corpus.records()):
+        for i, marc in enumerate(corpus.records()):
 
             try:
 
-                t_tokens = tokenize_field(record.title())
-                a_tokens = tokenize_field(record.author())
+                record = HLOM_Record(marc)
 
-                # Require a query-able title / author.
-                if t_tokens and a_tokens:
+                if record.is_queryable:
 
                     cls.create(
                         corpus      = 'hlom',
-                        identifier  = record['001'].format_field(),
-                        title       = record.title(),
-                        author      = [record.author()],
-                        publisher   = record.publisher(),
-                        date        = record.pubyear(),
+                        identifier  = record.control_number,
+                        title       = record.title,
+                        author      = record.author,
+                        publisher   = record.publisher,
+                        date        = record.date,
                     )
 
             except: pass
