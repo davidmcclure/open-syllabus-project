@@ -60,11 +60,12 @@ class Mock_JSTOR(Mock_Corpus):
         args = locals().copy()
         args.pop('self')
 
-        # Template the XML.
+        # Render the XML.
         xml = self.template.render(args)
 
-        # Form the publication date.
-        date = datetime.date(pub_year, pub_month, pub_day)
+        # Make pub date (default to today).
+        try: date = datetime.date(pub_year, pub_month, pub_day)
+        except: date = datetime.datetime.today().date()
 
         rel_path = '/'.join([
             journal_id,

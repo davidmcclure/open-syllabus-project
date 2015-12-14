@@ -133,13 +133,18 @@ class JSTOR_Article:
         Returns: str
         """
 
-        date = datetime.date(
-            int(self.select('pub-date year')),
-            int(self.select('pub-date month')),
-            int(self.select('pub-date day')),
-        )
+        try:
 
-        return date.isoformat()
+            date = datetime.date(
+                int(self.select('pub-date year')),
+                int(self.select('pub-date month')),
+                int(self.select('pub-date day')),
+            )
+
+            return date.isoformat()
+
+        except:
+            return None
 
 
     @property

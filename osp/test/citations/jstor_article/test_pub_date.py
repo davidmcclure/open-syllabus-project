@@ -1,14 +1,27 @@
 
 
 import datetime
+import pytest
 
 from osp.citations.jstor_article import JSTOR_Article
 
 
-def test_pub_date(mock_jstor):
+@pytest.mark.parametrize('year,month,day,date', [
 
-    path = mock_jstor.add_article(pub_year=1987, pub_month=6, pub_day=25)
+    (1987, 6, 25, datetime.date(1987, 6, 25).isoformat()),
 
-    date = datetime.date(1987, 6, 25)
+    # Missing components.
+    ('', 6, 25, None),
+    (1987, '', 25, None),
+    (1987, 6, '', None),
 
-    assert JSTOR_Article(path).pub_date == date.isoformat()
+])
+def test_pub_date(year, month, day, date, mock_jstor):
+
+    path = mock_jstor.add_article(
+        pub_year=year,
+        pub_month=month,
+        pub_day=day,
+    )
+
+    assert JSTOR_Article(path).pub_date == date
