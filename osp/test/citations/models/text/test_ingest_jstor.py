@@ -124,7 +124,6 @@ def test_load_multiple(models, mock_jstor):
     assert Text.select().count() == 100
 
 
-@pytest.mark.xfail
 @pytest.mark.parametrize('title,author', [
 
     # Empty author.
