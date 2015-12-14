@@ -3,7 +3,7 @@
 from osp.citations.jstor_article import JSTOR_Article
 
 
-def test_article_id(mock_jstor):
+def test_article_title(mock_jstor):
 
     path = mock_jstor.add_article(article_title='Test Title')
 
