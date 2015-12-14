@@ -10,10 +10,15 @@ from osp.citations.jstor_article import JSTOR_Article
 
     (1987, 6, 25, datetime.date(1987, 6, 25).isoformat()),
 
-    # Missing components.
+    # Empty components.
     ('', 6, 25, None),
     (1987, '', 25, None),
     (1987, 6, '', None),
+
+    # Missing components.
+    (None, 6, 25, None),
+    (1987, None, 25, None),
+    (1987, 6, None, None),
 
 ])
 def test_pub_date(year, month, day, date, mock_jstor):

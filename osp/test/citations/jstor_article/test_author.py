@@ -1,7 +1,5 @@
 
 
-import datetime
-
 from osp.citations.jstor_article import JSTOR_Article
 
 
