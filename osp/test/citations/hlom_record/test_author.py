@@ -1,10 +1,21 @@
 
 
+import pytest
+
 from osp.citations.hlom_record import HLOM_Record
 
 
-def test_author(mock_hlom):
+@pytest.mark.parametrize('value,author', [
 
-    record = mock_hlom.add_marc(author='David W. McClure')
+    ('David W. McClure', ['David W. McClure']),
 
-    assert HLOM_Record(record).author == ['David W. McClure']
+    # Empty value -> empty list.
+    ('', []),
+    ('  ', []),
+
+])
+def test_author(value, author, mock_hlom):
+
+    record = mock_hlom.add_marc(author=value)
+
+    assert HLOM_Record(record).author == author

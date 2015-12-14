@@ -1,6 +1,6 @@
 
 
-from osp.citations.utils import clean_field
+from osp.citations.utils import clean_field, tokenize_field
 
 
 class HLOM_Record:
@@ -51,7 +51,8 @@ class HLOM_Record:
         Returns: list
         """
 
-        return [clean_field(self.record.author())]
+        author = clean_field(self.record.author())
+        return [author] if author else []
 
 
     @property
@@ -76,3 +77,25 @@ class HLOM_Record:
         """
 
         return clean_field(self.record.pubyear())
+
+
+    @property
+    def is_queryable(self):
+
+        """
+        Does the record contain a query-able title and author?
+
+        Returns: bool
+        """
+
+        title = self.title
+        author = self.author
+
+        print(title)
+
+        return bool(
+            title and
+            len(tokenize_field(title)) and
+            len(author) and
+            len(tokenize_field(author[0]))
+        )

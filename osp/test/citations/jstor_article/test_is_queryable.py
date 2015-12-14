@@ -25,6 +25,10 @@ from osp.citations.jstor_article import JSTOR_Article
     ('Article Title', [('David W.', '')], False),
     ('Article Title', [('David W.', None)], False),
 
+    # Missing title and author.
+    ('', [], False),
+    (None, [], False),
+
 ])
 def test_is_queryable(title, author, queryable, mock_jstor):
 
