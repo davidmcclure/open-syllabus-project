@@ -91,8 +91,6 @@ class HLOM_Record:
         title = self.title
         author = self.author
 
-        print(title)
-
         return bool(
             title and
             len(tokenize_field(title)) and
