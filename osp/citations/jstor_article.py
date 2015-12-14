@@ -73,7 +73,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('journal-id').get_text()
+        return self.select('journal-id')
 
 
     @property
@@ -85,7 +85,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('journal-title').get_text()
+        return self.select('journal-title')
 
 
     @property
@@ -97,7 +97,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('publisher-name').get_text()
+        return self.select('publisher-name')
 
 
     @property
@@ -109,7 +109,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('volume').get_text()
+        return self.select('volume')
 
 
     @property
@@ -121,7 +121,7 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return self.xml.select_one('issue').get_text()
+        return self.select('issue')
 
 
     @property
@@ -134,9 +134,9 @@ class JSTOR_Article:
         """
 
         date = datetime.date(
-            int(self.xml.select_one('pub-date year').get_text()),
-            int(self.xml.select_one('pub-date month').get_text()),
-            int(self.xml.select_one('pub-date day').get_text()),
+            int(self.select('pub-date year')),
+            int(self.select('pub-date month')),
+            int(self.select('pub-date day')),
         )
 
         return date.isoformat()
@@ -173,8 +173,8 @@ class JSTOR_Article:
         Returns: str
         """
 
-        fpage = self.xml.select_one('fpage').get_text()
-        lpage = self.xml.select_one('lpage').get_text()
+        fpage = self.select('fpage')
+        lpage = self.select('lpage')
 
         if fpage and lpage:
             return '-'.join([fpage, lpage])
