@@ -64,7 +64,7 @@ class Mock_JSTOR(Mock_Corpus):
         xml = self.template.render(args)
 
         # Make pub date (default to today).
-        try: date = datetime.date(pub_year, pub_month, pub_day)
+        try:    date = datetime.date(pub_year, pub_month, pub_day)
         except: date = datetime.datetime.today().date()
 
         rel_path = '/'.join([

@@ -32,12 +32,13 @@ class JSTOR_Article:
         Returns: str
         """
 
-        return (
-            self.xml
-            .select_one(selector)
-            .get_text(strip=True)
-            or None
-        )
+        tag = self.xml.select_one(selector)
+
+        if tag:
+            return tag.get_text(strip=True) or None
+
+        else:
+            return None
 
 
     @property

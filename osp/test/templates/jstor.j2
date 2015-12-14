@@ -2,54 +2,107 @@
 <article dtd-version="1.0" article-type="research-article">
    <front>
       <journal-meta>
+
+         {% if journal_id is not none %}
          <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">{{ journal_id }}</journal-id>
          <journal-id xmlns:xlink="http://www.w3.org/1999/xlink" journal-id-type="jstor">j123456</journal-id>
+         {% endif %}
+
+         {% if journal_title is not none %}
          <journal-title-group xmlns:xlink="http://www.w3.org/1999/xlink">
             <journal-title>{{ journal_title }}</journal-title>
          </journal-title-group>
+         {% endif %}
+
+         {% if publisher_name is not none %}
          <publisher>
             <publisher-name>{{ publisher_name }}</publisher-name>
          </publisher>
+         {% endif %}
+
          <issn xmlns:xlink="http://www.w3.org/1999/xlink" pub-type="ppub">01234567</issn>
+
       </journal-meta>
       <article-meta>
+
+         {% if article_id is not none %}
          <article-id xmlns:xlink="http://www.w3.org/1999/xlink" pub-id-type="jstor">{{ article_id }}</article-id>
+         {% endif %}
+
+         {% if article_title is not none %}
          <title-group>
             <article-title>{{ article_title }}</article-title>
          </title-group>
+         {% endif %}
+
          <contrib-group>
 
             {% for given, surname in author %}
             <contrib>
                <string-name xmlns:xlink="http://www.w3.org/1999/xlink">
+
+                  {% if given is not none %}
                   <given-names>{{ given }}</given-names>
+                  {% endif %}
+
+                  {% if surname is not none %}
                   <surname>{{ surname }}</surname>
+                  {% endif %}
+
                </string-name>
             </contrib>
             {% endfor %}
 
          </contrib-group>
+
          <pub-date xmlns:xlink="http://www.w3.org/1999/xlink">
+
+            {% if pub_day is not none %}
             <day>{{ pub_day }}</day>
+            {% endif %}
+
+            {% if pub_month is not none %}
             <month>{{ pub_month }}</month>
+            {% endif %}
+
+            {% if pub_year is not none %}
             <year>{{ pub_year }}</year>
+            {% endif %}
+
          </pub-date>
+
+         {% if issue_volume is not none %}
          <volume>{{ issue_volume }}</volume>
+         {% endif %}
+
+         {% if issue_number is not none %}
          <issue>{{ issue_number }}</issue>
+         {% endif %}
+
          <issue-id xmlns:xlink="http://www.w3.org/1999/xlink">i23053580</issue-id>
+
+         {% if fpage is not none %}
          <fpage>{{ fpage }}</fpage>
+         {% endif %}
+
+         {% if lpage is not none %}
          <lpage>{{ lpage }}</lpage>
+         {% endif %}
+
          <self-uri xmlns:xlink="http://www.w3.org/1999/xlink"
                    xlink:href="http://www.jstor.org/stable/23054235"/>
+
          <abstract>
             <p>Abstract.</p>
          </abstract>
+
          <custom-meta-group xmlns:xlink="http://www.w3.org/1999/xlink">
             <custom-meta>
                <meta-name>lang</meta-name>
                <meta-value>eng</meta-value>
             </custom-meta>
          </custom-meta-group>
+
       </article-meta>
    </front>
 </article>
