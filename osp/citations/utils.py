@@ -5,6 +5,21 @@ import re
 from wordfreq import word_frequency
 
 
+def clean_field(value):
+
+    """
+    Strip whitespace, cast empty -> None.
+
+    Args:
+        value (str): The field value.
+
+    Returns:
+        list: The cleaned tokens.
+    """
+
+    return value.strip() or None
+
+
 def tokenize_field(value):
 
     """
