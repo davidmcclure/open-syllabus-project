@@ -59,7 +59,6 @@ class Text(BaseModel):
 
             try:
 
-                # Extract title / author tokens.
                 t_tokens = tokenize_field(record.title())
                 a_tokens = tokenize_field(record.author())
 

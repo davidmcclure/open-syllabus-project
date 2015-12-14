@@ -124,4 +124,23 @@ def test_load_multiple(models, mock_jstor):
     assert Text.select().count() == 100
 
 
-# TODO: Require title / author.
+@pytest.mark.xfail
+@pytest.mark.parametrize('title,author', [
+
+    # Empty author.
+    ('title', [('', '')]),
+
+    # Empty title.
+    ('', [('David W.', 'McClure')]),
+
+])
+def test_require_title_and_author(title, author, models, mock_jstor):
+
+    """
+    Skip records that don't have a query-able title and author.
+    """
+
+    mock_jstor.add_article(article_title=title, author=author)
+    Text.ingest_jstor()
+
+    assert Text.select().count() == 0

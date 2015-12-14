@@ -72,11 +72,15 @@ def test_load_multiple(models, mock_hlom):
 
 @pytest.mark.parametrize('title,author', [
 
-    # Empty title.
-    ('title', ''),
-
     # Empty author.
+    ('title', ''),
+    ('title', '  '),
+    ('title', '00'),
+
+    # Empty title.
     ('', 'author'),
+    ('  ', 'author'),
+    ('00', 'author'),
 
     # Both empty.
     ('', ''),

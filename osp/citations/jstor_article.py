@@ -200,3 +200,20 @@ class JSTOR_Article:
 
         else:
             return None
+
+
+    @property
+    def is_queryable(self):
+
+        """
+        Does the record contain a query-able title and author?
+
+        Returns: bool
+        """
+
+        # get article_title
+        # if str, and len(tokenize_field()) > 0
+        # get author
+        # if len(author) and len(tokenize_field(author[0]))
+
+        pass
