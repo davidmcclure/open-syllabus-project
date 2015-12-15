@@ -13,7 +13,7 @@ from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.jstor_article import JSTOR_Article
 from osp.citations.hlom_record import HLOM_Record
 
-from peewee import CharField
+from peewee import TextField
 from playhouse.postgres_ext import ArrayField
 
 
@@ -23,24 +23,24 @@ class Text(BaseModel):
     # http://dublincore.org/usage/meetings/2002/05/citdcsv.html
 
 
-    corpus              = CharField(index=True)
-    identifier          = CharField(unique=True)
+    corpus              = TextField(index=True)
+    identifier          = TextField(unique=True)
 
     # Book + article:
 
-    title               = CharField()
-    author              = ArrayField(CharField)
-    publisher           = CharField(null=True)
-    date                = CharField(null=True)
+    title               = TextField()
+    author              = ArrayField(TextField)
+    publisher           = TextField(null=True)
+    date                = TextField(null=True)
 
     # Article:
 
-    journal_title       = CharField(null=True)
-    journal_identifier  = CharField(null=True)
-    issue_volume        = CharField(null=True)
-    issue_number        = CharField(null=True)
-    issue_chronology    = CharField(null=True)
-    pagination          = CharField(null=True)
+    journal_title       = TextField(null=True)
+    journal_identifier  = TextField(null=True)
+    issue_volume        = TextField(null=True)
+    issue_number        = TextField(null=True)
+    issue_chronology    = TextField(null=True)
+    pagination          = TextField(null=True)
 
 
     class Meta:
