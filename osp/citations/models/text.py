@@ -67,18 +67,22 @@ class Text(BaseModel):
             rows = []
             for marc in group:
 
-                record = HLOM_Record(marc)
+                try:
 
-                if record.is_queryable:
+                    record = HLOM_Record(marc)
 
-                    rows.append(dict(
-                        corpus      = 'hlom',
-                        identifier  = record.control_number,
-                        title       = record.title,
-                        author      = record.author,
-                        publisher   = record.publisher,
-                        date        = record.date,
-                    ))
+                    if record.is_queryable:
+
+                        rows.append(dict(
+                            corpus      = 'hlom',
+                            identifier  = record.control_number,
+                            title       = record.title,
+                            author      = record.author,
+                            publisher   = record.publisher,
+                            date        = record.date,
+                        ))
+
+                except: pass
 
             if rows:
                 cls.insert_many(rows).execute()
@@ -107,24 +111,28 @@ class Text(BaseModel):
             for root, dirs, files in group:
                 for name in files:
 
-                    path = os.path.join(root, name)
-                    article = JSTOR_Article(path)
+                    try:
 
-                    if article.is_queryable:
+                        path = os.path.join(root, name)
+                        article = JSTOR_Article(path)
 
-                        rows.append(dict(
-                            corpus              = 'jstor',
-                            identifier          = article.article_id,
-                            title               = article.article_title,
-                            author              = article.author,
-                            publisher           = article.publisher_name,
-                            date                = article.pub_date,
-                            journal_title       = article.journal_title,
-                            journal_identifier  = article.journal_id,
-                            issue_volume        = article.volume,
-                            issue_number        = article.issue,
-                            pagination          = article.pagination,
-                        ))
+                        if article.is_queryable:
+
+                            rows.append(dict(
+                                corpus              = 'jstor',
+                                identifier          = article.article_id,
+                                title               = article.article_title,
+                                author              = article.author,
+                                publisher           = article.publisher_name,
+                                date                = article.pub_date,
+                                journal_title       = article.journal_title,
+                                journal_identifier  = article.journal_id,
+                                issue_volume        = article.volume,
+                                issue_number        = article.issue,
+                                pagination          = article.pagination,
+                            ))
+
+                    except: pass
 
             if rows:
                 cls.insert_many(rows).execute()
