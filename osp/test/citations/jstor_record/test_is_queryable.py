@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.jstor_record import JSTOR_Record
 
 
 @pytest.mark.parametrize('title,author,queryable', [
@@ -34,4 +34,4 @@ def test_is_queryable(title, author, queryable, mock_jstor):
 
     path = mock_jstor.add_article(article_title=title, author=author)
 
-    assert JSTOR_Article(path).is_queryable == queryable
+    assert JSTOR_Record(path).is_queryable == queryable

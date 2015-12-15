@@ -10,7 +10,7 @@ from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.jstor_record import JSTOR_Record
 from osp.citations.hlom_record import HLOM_Record
 
 from peewee import TextField
@@ -93,7 +93,7 @@ class Text(BaseModel):
                 try:
 
                     path = os.path.join(root, name)
-                    article = JSTOR_Article(path)
+                    article = JSTOR_Record(path)
 
                     if article.is_queryable:
 

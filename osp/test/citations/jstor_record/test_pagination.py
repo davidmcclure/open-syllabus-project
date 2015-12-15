@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.jstor_record import JSTOR_Record
 
 
 @pytest.mark.parametrize('fpage,lpage,pagination', [
@@ -24,4 +24,4 @@ def test_pagination(fpage, lpage, pagination, mock_jstor):
 
     path = mock_jstor.add_article(fpage=fpage, lpage=lpage)
 
-    assert JSTOR_Article(path).pagination == pagination
+    assert JSTOR_Record(path).pagination == pagination

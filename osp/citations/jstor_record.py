@@ -6,7 +6,7 @@ from bs4 import BeautifulSoup
 from osp.citations.utils import tokenize_field
 
 
-class JSTOR_Article:
+class JSTOR_Record:
 
 
     def __init__(self, path):

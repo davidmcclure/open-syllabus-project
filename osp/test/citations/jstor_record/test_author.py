@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.jstor_record import JSTOR_Record
 
 
 @pytest.mark.parametrize('inputs,authors', [
@@ -77,4 +77,4 @@ def test_author(inputs, authors, mock_jstor):
 
     path = mock_jstor.add_article(author=inputs)
 
-    assert JSTOR_Article(path).author == authors
+    assert JSTOR_Record(path).author == authors

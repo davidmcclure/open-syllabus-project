@@ -3,7 +3,7 @@
 import datetime
 import pytest
 
-from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.jstor_record import JSTOR_Record
 
 
 @pytest.mark.parametrize('year,month,day,date', [
@@ -29,4 +29,4 @@ def test_pub_date(year, month, day, date, mock_jstor):
         pub_day=day,
     )
 
-    assert JSTOR_Article(path).pub_date == date
+    assert JSTOR_Record(path).pub_date == date

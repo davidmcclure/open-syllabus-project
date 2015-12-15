@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.citations.jstor_article import JSTOR_Article
+from osp.citations.jstor_record import JSTOR_Record
 
 
 @pytest.mark.parametrize('value,result', [
@@ -23,4 +23,4 @@ def test_select(value, result, mock_jstor):
 
     path = mock_jstor.add_article(article_title=value)
 
-    assert JSTOR_Article(path).select('article-title') == result
+    assert JSTOR_Record(path).select('article-title') == result
