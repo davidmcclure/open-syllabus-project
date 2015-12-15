@@ -5,14 +5,14 @@ import re
 import numpy as np
 import hashlib
 import os
-import scandir
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.jstor_record import JSTOR_Record
 from osp.citations.hlom_record import HLOM_Record
+from osp.citations.jstor_corpus import JSTOR_Corpus
+from osp.citations.jstor_record import JSTOR_Record
 
 from peewee import TextField
 from playhouse.postgres_ext import ArrayField
@@ -87,36 +87,35 @@ class Text(BaseModel):
         Ingest JSTOR records.
         """
 
-        i = 0
-        for root, dirs, files in scandir.walk(config['jstor']['corpus']):
-            for name in files:
+        corpus = JSTOR_Corpus.from_env()
 
-                try:
+        for i, path in enumerate(corpus.paths()):
 
-                    path = os.path.join(root, name)
-                    article = JSTOR_Record(path)
+            try:
 
-                    if article.is_queryable:
+                article = JSTOR_Record(path)
 
-                        cls.create(
-                            corpus              = 'jstor',
-                            identifier          = article.article_id,
-                            title               = article.article_title,
-                            author              = article.author,
-                            publisher           = article.publisher_name,
-                            date                = article.pub_date,
-                            journal_title       = article.journal_title,
-                            journal_identifier  = article.journal_id,
-                            issue_volume        = article.volume,
-                            issue_number        = article.issue,
-                            pagination          = article.pagination,
-                        )
+                if article.is_queryable:
 
-                except: pass
+                    cls.create(
+                        corpus              = 'jstor',
+                        identifier          = article.article_id,
+                        title               = article.article_title,
+                        author              = article.author,
+                        publisher           = article.publisher_name,
+                        date                = article.pub_date,
+                        journal_title       = article.journal_title,
+                        journal_identifier  = article.journal_id,
+                        issue_volume        = article.volume,
+                        issue_number        = article.issue,
+                        pagination          = article.pagination,
+                    )
 
-                i += 1
-                sys.stdout.write('\r'+str(i))
-                sys.stdout.flush()
+            except: pass
+
+            i += 1
+            sys.stdout.write('\r'+str(i))
+            sys.stdout.flush()
 
 
     @property
