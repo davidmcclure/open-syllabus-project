@@ -8,6 +8,8 @@ import os
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
+from osp.common.utils import grouper
+
 from osp.citations.utils import tokenize_field, get_min_freq
 from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.jstor_article import JSTOR_Article
@@ -48,34 +50,41 @@ class Text(BaseModel):
 
 
     @classmethod
-    def ingest_hlom(cls):
+    def ingest_hlom(cls, page_size=10000):
 
         """
         Ingest HLOM MARC records.
+
+        Args:
+            page_size (int)
         """
 
         corpus = HLOM_Corpus.from_env()
 
-        for i, marc in enumerate(corpus.records()):
+        i = 0
+        for group in grouper(corpus.records(), page_size):
 
-            try:
+            rows = []
+            for marc in group:
 
                 record = HLOM_Record(marc)
 
                 if record.is_queryable:
 
-                    cls.create(
+                    rows.append(dict(
                         corpus      = 'hlom',
                         identifier  = record.control_number,
                         title       = record.title,
                         author      = record.author,
                         publisher   = record.publisher,
                         date        = record.date,
-                    )
+                    ))
 
-            except: pass
+            if rows:
+                cls.insert_many(rows).execute()
 
-            sys.stdout.write('\r'+str(i))
+            i += 1
+            sys.stdout.write('\r'+str(page_size*i))
             sys.stdout.flush()
 
 

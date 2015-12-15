@@ -51,17 +51,3 @@ class HLOM_Corpus:
         for segment in self.segments():
             for record in segment.records():
                 yield record
-
-
-    def grouped_records(self, n):
-
-        """
-        Generate groups of N records.
-
-        Args:
-            n (int): The group length.
-        """
-
-        for segment in self.segments():
-            for group in grouper(segment.records(), n):
-                yield group
