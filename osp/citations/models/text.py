@@ -5,6 +5,7 @@ import re
 import numpy as np
 import hashlib
 import os
+import scandir
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
@@ -87,7 +88,7 @@ class Text(BaseModel):
         """
 
         i = 0
-        for root, dirs, files in os.walk(config['jstor']['corpus']):
+        for root, dirs, files in scandir.walk(config['jstor']['corpus']):
             for name in files:
 
                 try:
