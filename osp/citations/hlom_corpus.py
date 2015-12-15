@@ -3,8 +3,7 @@
 import os
 
 from osp.common.config import config
-from osp.common.utils import grouper
-from osp.citations.hlom_segment import HLOM_Segment
+from pymarc import MARCReader
 
 
 class HLOM_Corpus:
@@ -32,36 +31,22 @@ class HLOM_Corpus:
         self.path = os.path.abspath(path)
 
 
-    def segments(self):
-
-        """
-        Generate segment instances for each directory.
-        """
-
-        for name in os.listdir(self.path):
-            yield HLOM_Segment(os.path.join(self.path, name))
-
-
     def records(self):
 
         """
-        Generate `Record` instances for record file in the dataset.
+        Generate Record instances from the MARC files.
         """
 
-        for segment in self.segments():
-            for record in segment.records():
-                yield record
+        for name in os.listdir(self.path):
 
+            path = os.path.join(self.path, name)
 
-    def grouped_records(self, n):
+            with open(path, 'rb') as fh:
 
-        """
-        Generate groups of N records.
+                reader = MARCReader(fh,
+                    ascii_handling='ignore',
+                    utf8_handling='ignore',
+                )
 
-        Args:
-            n (int): The group length.
-        """
-
-        for segment in self.segments():
-            for group in grouper(segment.records(), n):
-                yield group
+                for record in reader:
+                    yield record
