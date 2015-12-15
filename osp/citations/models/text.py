@@ -89,24 +89,30 @@ class Text(BaseModel):
 
 
     @classmethod
-    def ingest_jstor(cls):
+    def ingest_jstor(cls, page_size=10000):
 
         """
         Ingest JSTOR records.
+
+        Args:
+            page_size (int)
         """
 
-        i = 0
-        for root, dirs, files in os.walk(config['jstor']['corpus']):
-            for name in files:
+        paths = os.walk(config['jstor']['corpus'])
 
-                try:
+        i = 0
+        for group in grouper(paths, page_size):
+
+            rows = []
+            for root, dirs, files in group:
+                for name in files:
 
                     path = os.path.join(root, name)
                     article = JSTOR_Article(path)
 
                     if article.is_queryable:
 
-                        cls.create(
+                        rows.append(dict(
                             corpus              = 'jstor',
                             identifier          = article.article_id,
                             title               = article.article_title,
@@ -118,13 +124,14 @@ class Text(BaseModel):
                             issue_volume        = article.volume,
                             issue_number        = article.issue,
                             pagination          = article.pagination,
-                        )
+                        ))
 
-                except: pass
+            if rows:
+                cls.insert_many(rows).execute()
 
-                i += 1
-                sys.stdout.write('\r'+str(i))
-                sys.stdout.flush()
+            i += 1
+            sys.stdout.write('\r'+str(page_size*i))
+            sys.stdout.flush()
 
 
     @property
