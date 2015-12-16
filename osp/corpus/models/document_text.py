@@ -7,7 +7,8 @@ from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.corpus.models import Document
-from peewee import *
+
+from peewee import ForeignKeyField, TextField
 
 
 class Document_Text(BaseModel, Elasticsearch):

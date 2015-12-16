@@ -3,7 +3,8 @@
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.corpus.models import Document
-from peewee import *
+
+from peewee import ForeignKeyField, CharField, fn
 
 
 class Document_Format(BaseModel):
