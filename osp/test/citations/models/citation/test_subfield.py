@@ -26,3 +26,14 @@ def test_subfield(
 
     # Return subfield with first offset.
     assert citation.subfield.id == sf1.id
+
+
+def test_no_subfield(add_citation):
+
+    """
+    When no institution is linked, return None.
+    """
+
+    citation = add_citation()
+
+    assert citation.subfield == None

@@ -22,3 +22,14 @@ def test_institution(add_doc, add_institution, add_citation):
     citation = add_citation(document=document)
 
     assert citation.institution.id == institution.id
+
+
+def test_no_institution(add_citation):
+
+    """
+    When no institution is linked, return None.
+    """
+
+    citation = add_citation()
+
+    assert citation.institution == None
