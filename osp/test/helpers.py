@@ -87,7 +87,7 @@ def add_citation(models, add_doc, add_text):
     def _citation(
         text=None,
         document=None,
-        tokens=[],
+        tokens=['one', 'two'],
     ):
 
         if not text:

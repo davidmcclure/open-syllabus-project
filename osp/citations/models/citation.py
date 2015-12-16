@@ -87,8 +87,11 @@ class Citation(BaseModel, Elasticsearch):
             dict: The document fields.
         """
 
-        # TODO
-        return {}
+        return dict(
+            text_id     = self.text.id,
+            document_id = self.document.id,
+            min_freq    = self.min_freq,
+        )
 
 
     @property
