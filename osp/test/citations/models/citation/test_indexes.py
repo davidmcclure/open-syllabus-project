@@ -6,7 +6,7 @@ from osp.citations.models import Citation
 from peewee import IntegrityError
 
 
-def test_unique_pairs(models, add_text, add_doc, add_citation):
+def test_unique_pairs(add_text, add_doc, add_citation):
 
     """
     Don't allow duplicate links between the same text -> syllabus pair.

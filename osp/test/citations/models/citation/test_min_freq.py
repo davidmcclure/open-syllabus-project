@@ -5,6 +5,11 @@ from wordfreq import word_frequency
 
 def test_min_freq(add_citation):
 
+    """
+    Citation#min_freq should provide the scaled word frequency score of the
+    most-infrequent match token.
+    """
+
     # one > two > three
     c = add_citation(tokens=['one', 'two', 'three'])
 

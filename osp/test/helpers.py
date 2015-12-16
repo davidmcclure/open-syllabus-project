@@ -7,8 +7,9 @@ from osp.corpus.syllabus import Syllabus
 from osp.corpus.jobs import ext_text
 from osp.corpus.models import Document
 
-from osp.fields.models import Field
 from osp.fields.models import Subfield
+from osp.fields.models import Subfield_Document
+from osp.fields.models import Field
 
 from osp.citations.models import Text
 from osp.citations.models import Citation
@@ -39,33 +40,6 @@ def add_doc(models, mock_osp):
         return document
 
     return _doc
-
-
-@pytest.fixture()
-def add_subfield(models):
-
-    """
-    Create a field and subfield.
-
-    Returns:
-        function
-    """
-
-    def _subfield(
-        name='Field',
-        abbreviations=None,
-        parent_name='Field',
-    ):
-
-        field = Field.create(name=parent_name)
-
-        return Subfield.create(
-            name=name,
-            abbreviations=abbreviations,
-            field=field,
-        )
-
-    return _subfield
 
 
 @pytest.fixture()
@@ -127,3 +101,64 @@ def add_citation(models, add_doc, add_text):
         )
 
     return _citation
+
+
+@pytest.fixture()
+def add_subfield(models):
+
+    """
+    Create a field and subfield.
+
+    Returns:
+        function
+    """
+
+    def _subfield(
+        name='Field',
+        abbreviations=None,
+        field=None,
+    ):
+
+        if not field:
+            field = Field.create(name='Parent')
+
+        return Subfield.create(
+            name=name,
+            abbreviations=abbreviations,
+            field=field,
+        )
+
+    return _subfield
+
+
+@pytest.fixture()
+def add_subfield_document(models, add_subfield, add_doc):
+
+    """
+    Link a document -> subfield.
+
+    Returns:
+        function
+    """
+
+    def _subfield_document(
+        subfield=None,
+        document=None,
+        snippet='field',
+        offset=100,
+    ):
+
+        if not subfield:
+            subfield = add_subfield()
+
+        if not document:
+            document = add_doc()
+
+        return Subfield_Document.create(
+            subfield=subfield,
+            document=document,
+            offset=offset,
+            snippet=snippet,
+        )
+
+    return _subfield_document
