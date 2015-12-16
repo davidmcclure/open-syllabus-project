@@ -12,9 +12,11 @@ class Subfield_Document(BaseModel):
 
     subfield = ForeignKeyField(Subfield)
     document = ForeignKeyField(Document)
+
     offset = IntegerField()
     snippet = CharField()
 
 
     class Meta:
         database = config.get_table_db('subfield_document')
+        indexes = ((('subfield', 'document'), True),)
