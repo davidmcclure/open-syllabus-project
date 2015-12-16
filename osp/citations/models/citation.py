@@ -2,6 +2,8 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
+from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.utils import query_bar
 from osp.citations.models import Text
 from osp.corpus.models import Document
 
@@ -16,7 +18,7 @@ from playhouse.postgres_ext import ArrayField
 from wordfreq import word_frequency
 
 
-class Citation(BaseModel):
+class Citation(BaseModel, Elasticsearch):
 
 
     text = ForeignKeyField(Text)
@@ -27,6 +29,66 @@ class Citation(BaseModel):
     class Meta:
         database = config.get_table_db('citation')
         indexes = ((('document', 'text'), True),)
+
+
+    es_index = 'osp'
+    es_doc_type = 'citation'
+
+
+    es_mapping = {
+        '_id': {
+            'index': 'not_analyzed',
+            'store': True
+        },
+        'properties': {
+            'text_id': {
+                'type': 'integer'
+            },
+            'document_id': {
+                'type': 'integer'
+            },
+            'min_freq': {
+                'type': 'float'
+            },
+            'subfield_id': {
+                'type': 'integer'
+            },
+            'field_id': {
+                'type': 'integer'
+            },
+            'institution_id': {
+                'type': 'integer'
+            },
+        }
+    }
+
+
+    @classmethod
+    def es_stream_docs(cls):
+
+        """
+        Stream Elasticsearch docs.
+
+        Yields:
+            dict: The next document.
+        """
+
+        for row in query_bar(cls.select()):
+            yield row.es_doc
+
+
+    @property
+    def es_doc(self):
+
+        """
+        Construct a document for Elasticsearch.
+
+        Returns:
+            dict: The document fields.
+        """
+
+        # TODO
+        return {}
 
 
     @property
