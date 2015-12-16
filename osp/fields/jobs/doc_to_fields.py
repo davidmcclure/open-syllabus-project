@@ -16,7 +16,6 @@ def doc_to_fields(doc_id, radius=100):
         radius (int)
     """
 
-    # Get the document text.
     doc_text = Document_Text.get(Document_Text.document==doc_id)
 
     # Search for each field.
@@ -35,5 +34,6 @@ def doc_to_fields(doc_id, radius=100):
             Subfield_Document.create(
                 subfield=subfield,
                 document=doc_text.document,
+                offset=match.start(),
                 snippet=crunch(snippet),
             )

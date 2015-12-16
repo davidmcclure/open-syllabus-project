@@ -20,7 +20,7 @@ def test_matches(add_doc, add_subfield):
 
     doc_to_fields(doc.id)
 
-    # Should write 2 citation links.
+    # Should write 2 field -> doc links.
     assert Subfield_Document.select().count() == 2
 
     # Should match the right fields.
@@ -46,3 +46,23 @@ def test_no_matches(add_doc, add_subfield):
 
     # Shouldn't write any rows.
     assert Subfield_Document.select().count() == 0
+
+
+def test_character_offset(add_doc, add_subfield):
+
+    """
+    Record the character offset of the first match.
+    """
+
+    #                      01234
+    doc = add_doc(content='abc Field1 101 def Field1 201 ghi')
+
+    sf1 = add_subfield(name='Field1')
+
+    doc_to_fields(doc.id)
+
+    assert Subfield_Document.select().where(
+        Subfield_Document.subfield==sf1,
+        Subfield_Document.document==doc,
+        Subfield_Document.offset==3,
+    )
