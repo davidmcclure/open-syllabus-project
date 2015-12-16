@@ -120,7 +120,7 @@ def add_citation(models, add_doc, add_text):
         if not document:
             document = add_doc()
 
-        Citation.create(
+        return Citation.create(
             text=text,
             document=document,
             tokens=tokens,

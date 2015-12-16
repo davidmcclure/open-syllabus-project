@@ -7,6 +7,7 @@ from osp.corpus.models import Document
 
 from peewee import ForeignKeyField, CharField
 from playhouse.postgres_ext import ArrayField
+from wordfreq import word_frequency
 
 
 class Citation(BaseModel):
@@ -31,7 +32,9 @@ class Citation(BaseModel):
         Returns: float
         """
 
-        pass
+        freqs = [word_frequency(t, 'en') for t in self.tokens]
+
+        return min(freqs) * 1e6
 
 
     @property
