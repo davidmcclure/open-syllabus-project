@@ -87,11 +87,19 @@ class Citation(BaseModel, Elasticsearch):
             dict: The document fields.
         """
 
-        return dict(
-            text_id     = self.text.id,
-            document_id = self.document.id,
-            min_freq    = self.min_freq,
-        )
+        doc = {
+            'text_id':      self.text.id,
+            'document_id':  self.document.id,
+            'min_freq':     self.min_freq,
+        }
+
+        subfield = self.subfield
+
+        if subfield:
+            doc['subfield_id']  = subfield.id
+            doc['field_id']     = subfield.field_id
+
+        return doc
 
 
     @property
