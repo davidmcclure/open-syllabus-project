@@ -20,3 +20,51 @@ class Citation(BaseModel):
     class Meta:
         database = config.get_table_db('citation')
         indexes = ((('document', 'text'), True),)
+
+
+    @property
+    def min_freq(self):
+
+        """
+        Get the frequency of the most-infrequent term in the match tokens.
+
+        Returns: float
+        """
+
+        pass
+
+
+    @property
+    def subfield(self):
+
+        """
+        Get the document's subfield, if any.
+
+        Returns: Subfield|None
+        """
+
+        pass
+
+
+    @property
+    def field(self):
+
+        """
+        Get the document's field, if any.
+
+        Returns: Field|None
+        """
+
+        pass
+
+
+    @property
+    def institution(self):
+
+        """
+        Get the document's institution, if any.
+
+        Returns: Institution|None
+        """
+
+        pass

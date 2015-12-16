@@ -36,7 +36,7 @@ class Document_Text(BaseModel, Elasticsearch):
             },
             'body': {
                 'type': 'string'
-            }
+            },
         }
     }
 
@@ -68,5 +68,5 @@ class Document_Text(BaseModel, Elasticsearch):
         return {
             '_id':      self.document.path,
             'doc_id':   self.document.id,
-            'body':     self.text
+            'body':     self.text,
         }
