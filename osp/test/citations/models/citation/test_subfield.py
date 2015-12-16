@@ -1,8 +1,5 @@
 
 
-from osp.fields.models import Subfield_Document
-
-
 def test_subfield(
     add_doc,
     add_subfield,

@@ -14,6 +14,8 @@ from osp.fields.models import Field
 from osp.citations.models import Text
 from osp.citations.models import Citation
 
+from osp.institutions.models import Institution
+
 
 @pytest.fixture()
 def add_doc(models, mock_osp):
@@ -162,3 +164,29 @@ def add_subfield_document(models, add_subfield, add_doc):
         )
 
     return _subfield_document
+
+
+@pytest.fixture()
+def add_institution(models):
+
+    """
+    Create an institution
+
+    Returns:
+        function
+    """
+
+    def _inst(
+        name='Yale University',
+        domain=None,
+    ):
+
+        if not domain:
+            domain = uuid.uuid4()
+
+        return Institution.create(
+            name=name,
+            domain=domain,
+        )
+
+    return _inst

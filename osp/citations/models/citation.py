@@ -8,6 +8,9 @@ from osp.corpus.models import Document
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
 
+from osp.institutions.models import Institution
+from osp.institutions.models import Institution_Document
+
 from peewee import ForeignKeyField, CharField
 from playhouse.postgres_ext import ArrayField
 from wordfreq import word_frequency
@@ -61,24 +64,19 @@ class Citation(BaseModel):
 
 
     @property
-    def field(self):
-
-        """
-        Get the document's field, if any.
-
-        Returns: Field|None
-        """
-
-        pass
-
-
-    @property
     def institution(self):
 
         """
         Get the document's institution, if any.
 
-        Returns: Institution|None
+        Returns: Institution
         """
 
-        pass
+        return (
+            Institution
+            .select()
+            .join(Institution_Document)
+            .join(Document)
+            .where(Document.id==self.document)
+            .first()
+        )
