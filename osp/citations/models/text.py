@@ -17,6 +17,9 @@ from osp.citations.jstor_record import JSTOR_Record
 from peewee import TextField
 from playhouse.postgres_ext import ArrayField
 
+# TODO|dev
+from osp.common.faker import Faker
+
 
 class Text(BaseModel):
 
@@ -165,3 +168,29 @@ class Text(BaseModel):
             queries.append(t_tokens + [name])
 
         return queries
+
+
+    # TODO|dev
+
+
+    @classmethod
+    def __mock(cls, corpus, count, text_url):
+
+        """
+        Mock a corpus.
+        """
+
+        faker = Faker(text_url)
+
+        with config.get_db().transaction():
+            for i in range(count):
+
+                cls.create(
+                    corpus      = corpus,
+                    identifier  = corpus+str(i),
+                    title       = faker.snippet(100),
+                    author      = [faker.snippet(40)],
+                )
+
+                sys.stdout.write('\r'+str(i))
+                sys.stdout.flush()
