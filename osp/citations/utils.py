@@ -62,3 +62,28 @@ def get_text(tree, selector):
 
     else:
         return None
+
+
+def get_attr(tree, selector, attr):
+
+    """
+    Extract an attribute value from an element. Return None if the element or
+    attribute is missing, or the value is empty.
+
+    Args:
+        tree (BeautifulSoup): A bs4 tree.
+        selector (str): A CSS selector.
+        attr (str): An attribute name.
+
+    Returns:
+        str|None
+    """
+
+    tag = tree.select_one(selector)
+
+    if tag:
+        value = tag.attrs.get(attr, '').strip()
+        return value or None
+
+    else:
+        return None
