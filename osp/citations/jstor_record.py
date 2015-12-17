@@ -33,9 +33,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        root = root or self.xml
-
-        tag = root.select_one(selector)
+        tag = (root or self.xml).select_one(selector)
 
         if tag:
             return tag.get_text(strip=True) or None
