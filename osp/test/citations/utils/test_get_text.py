@@ -13,7 +13,7 @@ from bs4 import BeautifulSoup
     # Strip whitespace.
     ('<tag>  Article Title  </tag>', 'Article Title'),
 
-    # Empty tag -> None.
+    # Empty text -> None.
     ('<tag></tag>', None),
     ('<tag>  </tag>', None),
 

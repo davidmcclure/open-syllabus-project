@@ -3,7 +3,7 @@
 import datetime
 
 from bs4 import BeautifulSoup
-from osp.citations.utils import tokenize_field
+from osp.citations.utils import get_text, tokenize_field
 
 
 class JSTOR_Record:
@@ -22,26 +22,6 @@ class JSTOR_Record:
             self.xml = BeautifulSoup(fh, 'lxml')
 
 
-    def select(self, selector, root=None):
-
-        """
-        Extract text from an element.
-
-        Args:
-            selector (str)
-
-        Returns: str
-        """
-
-        tag = (root or self.xml).select_one(selector)
-
-        if tag:
-            return tag.get_text(strip=True) or None
-
-        else:
-            return None
-
-
     @property
     def article_id(self):
 
@@ -51,7 +31,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('article-id')
+        return get_text(self.xml, 'article-id')
 
 
     @property
@@ -63,7 +43,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('article-title')
+        return get_text(self.xml, 'article-title')
 
 
     @property
@@ -75,7 +55,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('journal-id')
+        return get_text(self.xml, 'journal-id')
 
 
     @property
@@ -87,7 +67,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('journal-title')
+        return get_text(self.xml, 'journal-title')
 
 
     @property
@@ -99,7 +79,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('publisher-name')
+        return get_text(self.xml, 'publisher-name')
 
 
     @property
@@ -111,7 +91,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('volume')
+        return get_text(self.xml, 'volume')
 
 
     @property
@@ -123,7 +103,7 @@ class JSTOR_Record:
         Returns: str
         """
 
-        return self.select('issue')
+        return get_text(self.xml, 'issue')
 
 
     @property
@@ -138,9 +118,9 @@ class JSTOR_Record:
         try:
 
             date = datetime.date(
-                int(self.select('pub-date year')),
-                int(self.select('pub-date month')),
-                int(self.select('pub-date day')),
+                int(get_text(self.xml, 'pub-date year')),
+                int(get_text(self.xml, 'pub-date month')),
+                int(get_text(self.xml, 'pub-date day')),
             )
 
             return date.isoformat()
@@ -162,8 +142,8 @@ class JSTOR_Record:
         for c in self.xml.select('contrib'):
 
             # Query for name parts.
-            given_names = self.select('given-names', c)
-            surname = self.select('surname', c)
+            given_names = get_text(c, 'given-names')
+            surname = get_text(c, 'surname')
 
             # Merge into single string.
             if given_names and surname:
@@ -185,8 +165,8 @@ class JSTOR_Record:
         Returns: str
         """
 
-        fpage = self.select('fpage')
-        lpage = self.select('lpage')
+        fpage = get_text(self.xml, 'fpage')
+        lpage = get_text(self.xml, 'lpage')
 
         if fpage and lpage:
             return '-'.join([fpage, lpage])
