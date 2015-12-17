@@ -26,6 +26,7 @@ class Text(BaseModel):
 
     corpus              = TextField(index=True)
     identifier          = TextField(unique=True)
+    url                 = TextField(null=True)
 
     # Book + article:
 
