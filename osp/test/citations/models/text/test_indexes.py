@@ -6,13 +6,13 @@ from osp.citations.models import Text
 from peewee import IntegrityError
 
 
-def test_unique_identifier(models, add_text):
+def test_unique_corpus_identifier(models, add_text):
 
     """
-    Don't allow duplicate identifiers.
+    Don't allow duplicate corpus+identifier.
     """
 
-    add_text(identifier='000')
+    add_text(corpus='jstor', identifier='001')
 
     with pytest.raises(IntegrityError):
-        add_text(identifier='000')
+        add_text(corpus='jstor', identifier='001')

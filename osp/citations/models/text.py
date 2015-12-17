@@ -25,7 +25,7 @@ class Text(BaseModel):
 
 
     corpus              = TextField(index=True)
-    identifier          = TextField(unique=True)
+    identifier          = TextField()
     url                 = TextField(null=True)
 
     # Book + article:
@@ -47,6 +47,7 @@ class Text(BaseModel):
 
     class Meta:
         database = config.get_table_db('text')
+        indexes = ((('corpus', 'identifier'), True),)
 
 
     @classmethod
