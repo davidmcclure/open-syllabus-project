@@ -87,17 +87,28 @@ class Citation(BaseModel, Elasticsearch):
             dict: The document fields.
         """
 
-        doc = {
-            'text_id':      self.text.id,
-            'document_id':  self.document.id,
-            'min_freq':     self.min_freq,
-        }
+        doc = {}
+
+        # Local fields:
+
+        doc['text_id'] = self.text_id
+        doc['document_id'] = self.document_id
+        doc['min_freq'] = self.min_freq
+
+        # Field references:
 
         subfield = self.subfield
 
         if subfield:
-            doc['subfield_id']  = subfield.id
-            doc['field_id']     = subfield.field_id
+            doc['subfield_id'] = subfield.id
+            doc['field_id'] = subfield.field_id
+
+        # Institution reference:
+
+        inst = self.institution
+
+        if inst:
+            doc['institution_id'] = inst.id
 
         return doc
 

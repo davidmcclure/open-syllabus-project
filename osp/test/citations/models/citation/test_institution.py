@@ -13,7 +13,7 @@ def test_institution(add_doc, add_institution, add_citation):
 
     institution = add_institution()
 
-    # Link doc -> inst.
+    # Link inst -> document.
     Institution_Document.create(
         institution=institution,
         document=document,
