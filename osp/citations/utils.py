@@ -41,21 +41,6 @@ def tokenize_field(value):
     return tokens
 
 
-def get_min_freq(tokens, lang='en'):
-
-    """
-    Given a list of tokens, return the lowest frequency score.
-
-    Args:
-        tokens (str): A list of tokens.
-
-    Returns:
-        float: The lowest frequence.
-    """
-
-    return min([word_frequency(t, lang)*1e6 for t in tokens])
-
-
 def get_text(tree, selector):
 
     """

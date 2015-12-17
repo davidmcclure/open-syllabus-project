@@ -5,7 +5,7 @@ import pytest
 from osp.corpus.models import Document_Text
 from osp.citations.jobs import text_to_docs
 from osp.citations.models import Citation
-from osp.citations.utils import get_min_freq, tokenize_field
+from osp.citations.utils import tokenize_field
 
 from peewee import fn
 

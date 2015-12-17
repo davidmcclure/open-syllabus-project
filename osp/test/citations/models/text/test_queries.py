@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.citations.utils import get_min_freq, tokenize_field
+from osp.citations.utils import tokenize_field
 
 
 def test_queries(add_text):
