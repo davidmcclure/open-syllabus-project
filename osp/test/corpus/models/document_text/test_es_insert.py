@@ -24,7 +24,7 @@ def test_es_insert(models, config, corpus_index):
     for t in Document_Text.select():
 
         # A document should exist.
-        doc = config.es.get('osp', t.document.path)
+        doc = config.es.get('osp', t.document.id)
 
         # Should index text / doc ID.
         assert doc['_source']['document_id'] == t.document.id

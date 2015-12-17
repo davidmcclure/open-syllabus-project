@@ -37,10 +37,12 @@ class Citation(BaseModel, Elasticsearch):
 
     es_mapping = {
         '_id': {
-            'index': 'not_analyzed',
-            'store': True
+            'path': 'citation_id',
         },
         'properties': {
+            'citation_id': {
+                'type': 'integer'
+            },
             'text_id': {
                 'type': 'integer'
             },
@@ -94,6 +96,7 @@ class Citation(BaseModel, Elasticsearch):
 
         # Local fields:
 
+        doc['citation_id'] = self.id
         doc['text_id'] = self.text_id
         doc['document_id'] = self.document_id
         doc['corpus'] = self.text.corpus

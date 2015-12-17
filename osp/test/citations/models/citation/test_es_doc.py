@@ -14,6 +14,7 @@ def test_citation_fields(add_citation):
 
     doc = citation.es_doc
 
+    assert doc['citation_id'] == citation.id
     assert doc['text_id'] == citation.text_id
     assert doc['document_id'] == citation.document_id
     assert doc['corpus'] == citation.text.corpus

@@ -28,8 +28,7 @@ class Document_Text(BaseModel, Elasticsearch):
 
     es_mapping = {
         '_id': {
-            'index': 'not_analyzed',
-            'store': True
+            'path': 'document_id'
         },
         'properties': {
             'document_id': {
@@ -67,7 +66,6 @@ class Document_Text(BaseModel, Elasticsearch):
         """
 
         return {
-            '_id': self.document.path,
-            'document_id': self.document.id,
+            'document_id': self.document_id,
             'body': self.text,
         }
