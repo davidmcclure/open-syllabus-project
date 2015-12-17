@@ -32,7 +32,7 @@ class Document_Text(BaseModel, Elasticsearch):
             'store': True
         },
         'properties': {
-            'doc_id': {
+            'document_id': {
                 'type': 'integer'
             },
             'body': {
@@ -67,7 +67,7 @@ class Document_Text(BaseModel, Elasticsearch):
         """
 
         return {
-            '_id':      self.document.path,
-            'doc_id':   self.document.id,
-            'body':     self.text,
+            '_id': self.document.path,
+            'document_id': self.document.id,
+            'body': self.text,
         }
