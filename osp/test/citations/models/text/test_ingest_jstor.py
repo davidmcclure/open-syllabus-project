@@ -108,6 +108,14 @@ def test_set_pagination(models, mock_jstor):
     assert Text.select().first().pagination == '200-300'
 
 
+def test_set_url(models, mock_jstor):
+
+    mock_jstor.add_article(url='http://test.org')
+    Text.ingest_jstor()
+
+    assert Text.select().first().url == 'http://test.org'
+
+
 def test_load_multiple(models, mock_jstor):
 
     """

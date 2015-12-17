@@ -89,8 +89,10 @@
          <lpage>{{ lpage }}</lpage>
          {% endif %}
 
+         {% if url is not none %}
          <self-uri xmlns:xlink="http://www.w3.org/1999/xlink"
-                   xlink:href="http://www.jstor.org/stable/23054235"/>
+           xlink:href="{{ url }}"/>
+         {% endif %}
 
          <abstract>
             <p>Abstract.</p>

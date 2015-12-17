@@ -101,6 +101,7 @@ class Text(BaseModel):
                     cls.create(
                         corpus              = 'jstor',
                         identifier          = article.article_id,
+                        url                 = article.url,
                         title               = article.article_title,
                         author              = article.author,
                         publisher           = article.publisher_name,

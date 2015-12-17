@@ -3,7 +3,7 @@
 import datetime
 
 from bs4 import BeautifulSoup
-from osp.citations.utils import get_text, tokenize_field
+from osp.citations.utils import tokenize_field, get_text, get_attr
 
 
 class JSTOR_Record:
@@ -104,6 +104,18 @@ class JSTOR_Record:
         """
 
         return get_text(self.xml, 'issue')
+
+
+    @property
+    def url(self):
+
+        """
+        Query the article URL.
+
+        Returns: str
+        """
+
+        return get_attr(self.xml, 'self-uri', 'xlink:href')
 
 
     @property

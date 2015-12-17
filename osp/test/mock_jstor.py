@@ -38,9 +38,11 @@ class Mock_JSTOR(Mock_Corpus):
         pub_day=25,
 
         author=[('David W.', 'McClure'),],
+        url='http://www.jstor.org',
 
         issue_volume=100,
         issue_number=1,
+
         fpage=100,
         lpage=200,
 
