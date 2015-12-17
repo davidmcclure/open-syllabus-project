@@ -47,6 +47,9 @@ class Citation(BaseModel, Elasticsearch):
             'document_id': {
                 'type': 'integer'
             },
+            'corpus': {
+                'type': 'string'
+            },
             'min_freq': {
                 'type': 'float'
             },
@@ -93,6 +96,7 @@ class Citation(BaseModel, Elasticsearch):
 
         doc['text_id'] = self.text_id
         doc['document_id'] = self.document_id
+        doc['corpus'] = self.text.corpus
         doc['min_freq'] = self.min_freq
 
         # Field references:
