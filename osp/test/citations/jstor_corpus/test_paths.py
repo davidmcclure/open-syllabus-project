@@ -5,7 +5,7 @@ import os
 from osp.citations.jstor_corpus import JSTOR_Corpus
 
 
-def test_generate_paths(models, mock_jstor):
+def test_generate_paths(mock_jstor):
 
     """
     JSTOR_Corpus#paths() should generate manifest paths.
@@ -24,7 +24,7 @@ def test_generate_paths(models, mock_jstor):
     assert len(output) == 3
 
 
-def test_ignore_non_xml_files(models, mock_jstor):
+def test_ignore_non_xml_files(mock_jstor):
 
     """
     JSTOR_Corpus#paths() should generate manifest paths.

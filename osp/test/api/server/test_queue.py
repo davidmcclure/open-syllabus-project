@@ -10,7 +10,7 @@ from osp.corpus.jobs import ext_text
 
 
 @pytest.mark.api
-def test_queue(models, queue, api_client):
+def test_queue(queue, api_client):
 
     """
     /queue should queue a work order.

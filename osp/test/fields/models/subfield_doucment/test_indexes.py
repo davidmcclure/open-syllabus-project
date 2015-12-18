@@ -6,7 +6,7 @@ from osp.fields.models import Subfield_Document
 from peewee import IntegrityError
 
 
-def test_unique_pairs(models, add_subfield, add_doc):
+def test_unique_pairs(add_subfield, add_doc):
 
     """
     Don't allow duplicate links between the same field -> document.

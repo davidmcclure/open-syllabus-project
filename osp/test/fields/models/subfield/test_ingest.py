@@ -4,7 +4,7 @@ from osp.fields.models import Field
 from osp.fields.models import Subfield
 
 
-def test_insert_rows(models):
+def test_insert_rows():
 
     """
     Subfield.ingest() should load field and subfield rows.
@@ -45,7 +45,7 @@ def test_insert_rows(models):
     assert sf9.field == f3
 
 
-def test_clean_field_names(models):
+def test_clean_field_names():
 
     """
     Field and subfield names should be sanitized.
@@ -63,7 +63,7 @@ def test_clean_field_names(models):
     assert Subfield.select().where(Subfield.name=='Subfield3')
 
 
-def test_parse_abbrs(models):
+def test_parse_abbrs():
 
     """
     Abbreviations should be parsed.
@@ -83,7 +83,7 @@ def test_parse_abbrs(models):
     assert sf3.abbreviations == ['AB5', 'AB6']
 
 
-def test_filter_abbrs(models):
+def test_filter_abbrs():
 
     """
     Blacklisted abbreviations should be filtered out.

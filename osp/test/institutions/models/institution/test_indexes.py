@@ -6,7 +6,7 @@ import pytest
 from osp.institutions.models import Institution
 
 
-def test_unique_domain(models):
+def test_unique_domain():
 
     """
     Domains should be unique.

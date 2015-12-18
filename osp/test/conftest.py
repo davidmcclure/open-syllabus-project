@@ -38,21 +38,7 @@ def test_env():
     _config.read()
 
 
-@pytest.yield_fixture
-def config():
-
-    """
-    Reset the configuration object after each test.
-
-    Yields:
-        The modify-able config object.
-    """
-
-    yield _config
-    _config.read()
-
-
-@pytest.yield_fixture
+@pytest.yield_fixture(autouse=True)
 def models():
 
     """
@@ -77,6 +63,20 @@ def models():
 
     with test_database(_config.get_db(), tables):
         yield
+
+
+@pytest.yield_fixture
+def config():
+
+    """
+    Reset the configuration object after each test.
+
+    Yields:
+        The modify-able config object.
+    """
+
+    yield _config
+    _config.read()
 
 
 @pytest.yield_fixture

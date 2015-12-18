@@ -5,7 +5,7 @@ from osp.corpus.models import Document_Format
 from osp.corpus.jobs import ext_format
 
 
-def test_read_format(models, mock_osp):
+def test_read_format(mock_osp):
 
     """
     read_format() should write the format to the `document_format` table.

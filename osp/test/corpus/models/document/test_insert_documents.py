@@ -5,7 +5,7 @@ from osp.corpus.models import Document
 from osp.test.utils import segment_range
 
 
-def test_insert_documents(models, mock_osp):
+def test_insert_documents(mock_osp):
 
     """
     Corpus.insert_documents() should create a row for each syllabus.
@@ -34,7 +34,7 @@ def test_insert_documents(models, mock_osp):
             assert query.count() == 1
 
 
-def test_insert_new_documents(models, mock_osp):
+def test_insert_new_documents(mock_osp):
 
     """
     When new documents are added to the corpus, just the new documents should

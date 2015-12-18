@@ -18,7 +18,7 @@ from osp.institutions.models import Institution
 
 
 @pytest.fixture()
-def add_doc(models, mock_osp):
+def add_doc(mock_osp):
 
     """
     Mocks a file, create a `document` row, extract text.
@@ -45,7 +45,7 @@ def add_doc(models, mock_osp):
 
 
 @pytest.fixture()
-def add_text(models):
+def add_text():
 
     """
     Create a text.
@@ -75,7 +75,7 @@ def add_text(models):
 
 
 @pytest.fixture()
-def add_citation(models, add_doc, add_text):
+def add_citation(add_doc, add_text):
 
     """
     Create a citation.
@@ -106,7 +106,7 @@ def add_citation(models, add_doc, add_text):
 
 
 @pytest.fixture()
-def add_subfield(models):
+def add_subfield():
 
     """
     Create a field and subfield.
@@ -134,7 +134,7 @@ def add_subfield(models):
 
 
 @pytest.fixture()
-def add_subfield_document(models, add_subfield, add_doc):
+def add_subfield_document(add_subfield, add_doc):
 
     """
     Link a document -> subfield.
@@ -167,7 +167,7 @@ def add_subfield_document(models, add_subfield, add_doc):
 
 
 @pytest.fixture()
-def add_institution(models):
+def add_institution():
 
     """
     Create an institution

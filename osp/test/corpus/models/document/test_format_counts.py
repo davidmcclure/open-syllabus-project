@@ -4,7 +4,7 @@ from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 
 
-def test_format_counts(models):
+def test_format_counts():
 
     """
     Document.format_counts()

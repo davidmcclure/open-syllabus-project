@@ -4,7 +4,7 @@ from osp.corpus.models import Document
 from osp.corpus.syllabus import Syllabus
 
 
-def test_syllabus(models, mock_osp):
+def test_syllabus(mock_osp):
 
     """
     Document#syllabus should provide a Syllabus instance bound to the file

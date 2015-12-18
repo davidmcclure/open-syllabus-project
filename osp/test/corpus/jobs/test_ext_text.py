@@ -5,7 +5,7 @@ from osp.corpus.models import Document_Text
 from osp.corpus.jobs import ext_text
 
 
-def test_text_extraction_succeeds(models, mock_osp):
+def test_text_extraction_succeeds(mock_osp):
 
     """
     read_text() should extract text for a document and write the result into
@@ -23,7 +23,7 @@ def test_text_extraction_succeeds(models, mock_osp):
     assert row.text == 'text'
 
 
-def test_text_extraction_fails(models, mock_osp):
+def test_text_extraction_fails(mock_osp):
 
     """
     If no text can be extracted, don't write the row.

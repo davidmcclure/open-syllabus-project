@@ -5,7 +5,7 @@ from osp.institutions.models import Institution_Document
 from osp.institutions.jobs import doc_to_inst
 
 
-def test_match(models, add_doc):
+def test_match(add_doc):
 
     """
     When a doc URL matches an institution domain, write a link.
@@ -37,7 +37,7 @@ def test_match(models, add_doc):
     )
 
 
-def test_no_match(models, add_doc):
+def test_no_match(add_doc):
 
     """
     When the URL doesn't match an institution, don't write a row.
