@@ -36,21 +36,22 @@ class Institution(BaseModel):
         )
 
         for row in reader:
+            if row['e_country'] == 'USA':
 
-            name = row['biz_name'].strip()
-            domain = parse_domain(row['web_url'])
-            state = row['e_state'].strip()
+                name = row['biz_name']
+                domain = parse_domain(row['web_url'])
+                state = row['e_state']
 
-            try:
-                cls.create(
-                    name=name,
-                    domain=domain,
-                    state=state,
-                    country='US',
-                )
+                try:
+                    cls.create(
+                        name=name,
+                        domain=domain,
+                        state=state,
+                        country='US',
+                    )
 
-            except IntegrityError:
-                pass
+                except IntegrityError:
+                    pass
 
 
     @classmethod
@@ -66,17 +67,18 @@ class Institution(BaseModel):
         )
 
         for row in reader:
+            if row['country'] != 'US':
 
-            name = row['name'].strip()
-            domain = parse_domain(row['url'])
-            country = row['country'].strip()
+                name = row['name']
+                domain = parse_domain(row['url'])
+                country = row['country']
 
-            try:
-                cls.create(
-                    name=name,
-                    country=country,
-                    domain=domain,
-                )
+                try:
+                    cls.create(
+                        name=name,
+                        domain=domain,
+                        country=country,
+                    )
 
-            except IntegrityError:
-                pass
+                except IntegrityError:
+                    pass
