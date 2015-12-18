@@ -64,7 +64,7 @@ def test_institution_refs(es, add_citation, add_institution):
 
     citation = add_citation()
 
-    institution = add_institution()
+    institution = add_institution(state='CA', country='US')
 
     # Link inst -> citation.
     Institution_Document.create(
@@ -81,3 +81,5 @@ def test_institution_refs(es, add_citation, add_institution):
     )
 
     assert doc['_source']['institution_id'] == institution.id
+    assert doc['_source']['state'] == 'CA'
+    assert doc['_source']['country'] == 'US'

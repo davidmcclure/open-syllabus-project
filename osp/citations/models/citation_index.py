@@ -39,6 +39,12 @@ class Citation_Index(Elasticsearch):
             'institution_id': {
                 'type': 'integer'
             },
+            'state': {
+                'type': 'string'
+            },
+            'country': {
+                'type': 'string'
+            },
         }
     }
 
@@ -79,5 +85,7 @@ class Citation_Index(Elasticsearch):
 
             if inst:
                 doc['institution_id'] = inst.id
+                doc['state'] = inst.state
+                doc['country'] = inst.country
 
             yield doc
