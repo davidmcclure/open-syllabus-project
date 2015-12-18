@@ -89,3 +89,38 @@ class Citation_Index(Elasticsearch):
                 doc['country'] = inst.country
 
             yield doc
+
+
+    @classmethod
+    def rank_texts(cls, filters, min_freq=None):
+        pass
+
+
+    @classmethod
+    def count_corpora(cls):
+        pass
+
+
+    @classmethod
+    def count_subfields(cls):
+        pass
+
+
+    @classmethod
+    def count_fields(cls):
+        pass
+
+
+    @classmethod
+    def count_institutions(cls):
+        pass
+
+
+    @classmethod
+    def count_states(cls):
+        pass
+
+
+    @classmethod
+    def count_countries(cls):
+        pass

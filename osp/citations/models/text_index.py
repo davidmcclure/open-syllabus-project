@@ -61,3 +61,8 @@ class Text_Index(Elasticsearch):
                 journal     = row.journal_title,
                 url         = row.url,
             )
+
+
+    @classmethod
+    def materialize_ranking(cls, counts, query):
+        pass
