@@ -10,7 +10,7 @@ from osp.citations.utils import tokenize_field
 from peewee import fn
 
 
-def test_matches(elasticsearch, add_doc, add_text):
+def test_matches(es, add_doc, add_text):
 
     """
     When documents match the query, write doc -> text rows.
@@ -48,7 +48,7 @@ def test_matches(elasticsearch, add_doc, add_text):
         )
 
 
-def test_no_matches(elasticsearch, add_doc, add_text):
+def test_no_matches(es, add_doc, add_text):
 
     """
     When no documents match, don't write any rows.
@@ -88,10 +88,7 @@ def test_no_matches(elasticsearch, add_doc, add_text):
     ),
 
 ])
-def test_citation_formats(
-    title, author, content,
-    elasticsearch, add_doc, add_text
-):
+def test_citation_formats(title, author, content, es, add_doc, add_text):
 
     """
     Test title/author -> citation formats.
@@ -119,7 +116,7 @@ def test_citation_formats(
     )
 
 
-def test_tokens(elasticsearch, add_doc, add_text):
+def test_tokens(es, add_doc, add_text):
 
     """
     Citations should include the set of matching query tokens.

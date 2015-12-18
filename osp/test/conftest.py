@@ -166,7 +166,7 @@ def api_client():
 
 
 @pytest.fixture
-def queue():
+def rq():
 
     """
     Clear the RQ queue.
@@ -176,14 +176,11 @@ def queue():
 
 
 @pytest.fixture
-def elasticsearch():
+def es():
 
     """
-    Check for Elasticsearch, reset data.
+    Clear Elasticsearch.
     """
-
-    if not _config.es.ping():
-        pytest.skip('Elasticsearch offline.')
 
     Citation.es_reset()
     Document_Text.es_reset()
