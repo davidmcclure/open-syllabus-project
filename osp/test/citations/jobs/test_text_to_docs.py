@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.corpus.models import Document_Text
+from osp.corpus.models import Document_Index
 from osp.citations.jobs import text_to_docs
 from osp.citations.models import Citation
 from osp.citations.utils import tokenize_field
@@ -23,7 +23,7 @@ def test_matches(add_doc, add_text):
     ak1 = add_doc(content='Anna Karenina, Leo Tolstoy 1')
     ak2 = add_doc(content='Anna Karenina, Leo Tolstoy 2')
 
-    Document_Text.es_insert()
+    Document_Index.es_insert()
 
     text = add_text(title='War and Peace', author=['Leo Tolstoy'])
     text_to_docs(text.id)
@@ -55,7 +55,7 @@ def test_no_matches(add_doc, add_text):
     """
 
     add_doc(content='War and Peace, Leo Tolstoy')
-    Document_Text.es_insert()
+    Document_Index.es_insert()
 
     text = add_text(title='Master and Man', author=['Leo Tolstoy'])
     text_to_docs(text.id)
@@ -98,7 +98,7 @@ def test_citation_formats(title, author, content, add_doc, add_text):
     padded = ('XXX '*1000) + content + (' XXX'*1000)
 
     doc = add_doc(content=padded)
-    Document_Text.es_insert()
+    Document_Index.es_insert()
 
     text = add_text(title=title, author=[author])
     text_to_docs(text.id)
@@ -131,7 +131,7 @@ def test_tokens(add_doc, add_text):
         add_doc(content='Title, David McClure'),
     ]
 
-    Document_Text.es_insert()
+    Document_Index.es_insert()
 
     text = add_text(title='Title', author=['David William McClure'])
     text_to_docs(text.id)

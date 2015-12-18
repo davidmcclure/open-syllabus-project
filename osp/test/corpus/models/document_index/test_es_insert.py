@@ -2,18 +2,18 @@
 
 from osp.common.config import config
 from osp.corpus.models import Document
-from osp.corpus.models import Document_Text
+from osp.corpus.models import Document_Index
 
 
 def test_es_insert(add_doc):
 
     """
-    Document_Text.es_insert() should index the document body and id.
+    Document_Index.es_insert() should index the document body and id.
     """
 
     doc = add_doc(content='text')
 
-    Document_Text.es_insert()
+    Document_Index.es_insert()
 
     es_doc = config.es.get(
         index='osp',

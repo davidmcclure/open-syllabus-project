@@ -10,6 +10,7 @@ from osp.common.config import config as _config
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
+from osp.corpus.models import Document_Index
 from osp.citations.models import Text
 from osp.citations.models import Citation
 from osp.citations.models import Citation_Index
@@ -74,7 +75,7 @@ def es():
     """
 
     Citation_Index.es_reset()
-    Document_Text.es_reset()
+    Document_Index.es_reset()
 
 
 @pytest.fixture
