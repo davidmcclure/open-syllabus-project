@@ -17,7 +17,7 @@ def test_queue(rq, api_client):
     """
 
     # Insert 1000 docs.
-    for i in range(1000):
+    for i in range(100):
         Document.create(path=str(i))
 
     r = api_client.post('/queue', data={
