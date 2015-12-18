@@ -52,7 +52,7 @@ def config():
 
 
 @pytest.yield_fixture
-def models(config):
+def models():
 
     """
     Assign models to the testing database.
@@ -74,7 +74,7 @@ def models(config):
         Subfield_Document,
     ]
 
-    with test_database(config.get_db(), tables):
+    with test_database(_config.get_db(), tables):
         yield
 
 
@@ -151,7 +151,7 @@ def mock_jstor(config):
 
 
 @pytest.yield_fixture
-def queue(config):
+def queue():
 
     """
     Clear the RQ queue.
@@ -160,8 +160,8 @@ def queue(config):
         The RQ queue.
     """
 
-    config.rq.connection.flushdb()
-    yield config.rq
+    _config.rq.connection.flushdb()
+    yield _config.rq
 
 
 @pytest.yield_fixture
@@ -179,13 +179,13 @@ def api_client():
 
 
 @pytest.fixture
-def requires_es(config):
+def requires_es():
 
     """
     Require Elasticsearch.
     """
 
-    if not config.es.ping():
+    if not _config.es.ping():
         pytest.skip('Elasticsearch offline.')
 
 
