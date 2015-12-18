@@ -39,7 +39,7 @@ def test_env():
 
 
 @pytest.yield_fixture(autouse=True)
-def models():
+def db():
 
     """
     Assign models to the testing database.
@@ -63,6 +63,27 @@ def models():
 
     with test_database(_config.get_db(), tables):
         yield
+
+
+@pytest.fixture
+def es():
+
+    """
+    Reset Elasticsearch.
+    """
+
+    Citation.es_reset()
+    Document_Text.es_reset()
+
+
+@pytest.fixture
+def rq():
+
+    """
+    Clear the RQ queue.
+    """
+
+    _config.rq.connection.flushdb()
 
 
 @pytest.yield_fixture
@@ -163,24 +184,3 @@ def api_client():
 
     app.testing = True
     yield app.test_client()
-
-
-@pytest.fixture
-def rq():
-
-    """
-    Clear the RQ queue.
-    """
-
-    _config.rq.connection.flushdb()
-
-
-@pytest.fixture
-def es():
-
-    """
-    Clear Elasticsearch.
-    """
-
-    Citation.es_reset()
-    Document_Text.es_reset()
