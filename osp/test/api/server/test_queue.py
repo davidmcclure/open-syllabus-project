@@ -9,7 +9,7 @@ from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
 
 
-def test_queue(rq, api_client):
+def test_queue(api_client):
 
     """
     /queue should queue a work order.

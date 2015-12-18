@@ -38,7 +38,7 @@ def test_env():
     _config.read()
 
 
-@pytest.yield_fixture(autouse=True)
+@pytest.yield_fixture()
 def db():
 
     """
