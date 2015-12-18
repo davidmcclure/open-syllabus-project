@@ -9,7 +9,6 @@ from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
 
 
-@pytest.mark.api
 def test_queue(rq, api_client):
 
     """
