@@ -21,10 +21,7 @@ from osp.institutions.models import Institution
 def add_doc(mock_osp):
 
     """
-    Mocks a file, create a `document` row, extract text.
-
-    Returns:
-        function
+    Mock a file, create a `document` row, extract text.
     """
 
     def _doc(*args, **kwargs):
@@ -49,9 +46,6 @@ def add_text():
 
     """
     Create a text.
-
-    Returns:
-        function
     """
 
     def _text(
@@ -79,9 +73,6 @@ def add_citation(add_doc, add_text):
 
     """
     Create a citation.
-
-    Returns:
-        function
     """
 
     def _citation(
@@ -110,9 +101,6 @@ def add_subfield():
 
     """
     Create a field and subfield.
-
-    Returns:
-        function
     """
 
     def _subfield(
@@ -138,9 +126,6 @@ def add_subfield_document(add_subfield, add_doc):
 
     """
     Link a document -> subfield.
-
-    Returns:
-        function
     """
 
     def _subfield_document(
@@ -171,9 +156,6 @@ def add_institution():
 
     """
     Create an institution
-
-    Returns:
-        function
     """
 
     def _inst(
