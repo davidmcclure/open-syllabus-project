@@ -35,9 +35,9 @@ class Institution(BaseModel):
         for row in reader:
             if row['e_country'] == 'USA':
 
-                name = row['biz_name']
+                name = row['biz_name'].strip()
                 domain = parse_domain(row['web_url'])
-                state = row['e_state']
+                state = row['e_state'].strip()
 
                 try:
                     cls.create(

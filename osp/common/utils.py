@@ -141,9 +141,11 @@ def parse_domain(url):
         url (str)
     """
 
+    url = url.lower().strip()
+
     parsed = tldextract.extract(url)
-    domain = parsed.registered_domain.lower()
-    subdomain = parsed.subdomain.lower()
+    domain = parsed.registered_domain
+    subdomain = parsed.subdomain
 
     # Join non-www subdomains.
     if subdomain and subdomain != 'www':

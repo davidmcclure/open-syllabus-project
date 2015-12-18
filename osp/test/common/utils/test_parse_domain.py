@@ -21,6 +21,9 @@ from osp.common.utils import parse_domain
     # Downcase:
     ('WWW.TEST.EDU', 'test.edu'),
 
+    # Strip whitespace:
+    ('  http://test.edu  ', 'test.edu'),
+
 ])
 def test_parse_domain(url, domain):
     assert parse_domain(url) == domain
