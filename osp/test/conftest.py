@@ -12,6 +12,7 @@ from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
 from osp.citations.models import Text
 from osp.citations.models import Citation
+from osp.citations.models import Citation_Index
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 from osp.fields.models import Field
@@ -72,7 +73,7 @@ def es():
     Reset Elasticsearch.
     """
 
-    Citation.es_reset()
+    Citation_Index.es_reset()
     Document_Text.es_reset()
 
 

@@ -2,7 +2,7 @@
 
 from osp.common.config import config
 from osp.institutions.models import Institution_Document
-from osp.citations.models import Citation
+from osp.citations.models import Citation_Index
 
 
 def test_citation_fields(add_citation):
@@ -14,7 +14,7 @@ def test_citation_fields(add_citation):
 
     citation = add_citation()
 
-    Citation.es_insert()
+    Citation_Index.es_insert()
 
     doc = config.es.get(
         index='osp',
@@ -41,7 +41,7 @@ def test_field_refs(add_citation, add_subfield, add_subfield_document):
     # Link subfield -> citation.
     add_subfield_document(subfield=subfield, document=citation.document)
 
-    Citation.es_insert()
+    Citation_Index.es_insert()
 
     doc = config.es.get(
         index='osp',
@@ -70,7 +70,7 @@ def test_institution_refs(add_citation, add_institution):
         document=citation.document,
     )
 
-    Citation.es_insert()
+    Citation_Index.es_insert()
 
     doc = config.es.get(
         index='osp',
