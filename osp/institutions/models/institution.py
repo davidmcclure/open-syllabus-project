@@ -24,48 +24,59 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def insert_us(cls):
+    def ingest_usa(cls):
 
         """
-        Insert US institutions.
-        """
-
-        html = pkgutil.get_data(
-            'osp.institutions',
-            'data/us.html',
-        )
-
-        root = BeautifulSoup(html.decode('utf8'), 'html.parser')
-
-        for link in root.select('li a'):
-
-            # Clean the values.
-            name = link.get_text().strip()
-            domain = parse_domain(link.attrs['href'])
-
-            # Write the row.
-            try: cls.create(name=name, domain=domain)
-            except IntegrityError: pass
-
-
-    @classmethod
-    def insert_uk(cls):
-
-        """
-        Insert UK institutions.
+        Insert US universities.
         """
 
         reader = read_csv(
             'osp.institutions',
-            'data/uk.csv',
+            'data/usa.csv',
         )
 
         for row in reader:
 
-            # Clean the values.
+            name = row['biz_name'].strip()
+            domain = parse_domain(row['web_url'])
+            state = row['e_state'].strip()
+
+            try:
+                cls.create(
+                    name=name,
+                    domain=domain,
+                    state=state,
+                    country='US',
+                )
+
+            except IntegrityError:
+                pass
+
+
+    @classmethod
+    def ingest_world(cls):
+
+        """
+        Insert world universities.
+        """
+
+        reader = read_csv(
+            'osp.institutions',
+            'data/world.csv',
+        )
+
+        for row in reader:
+
             name = row['name'].strip()
             domain = parse_domain(row['url'])
+            country = row['country'].strip()
 
-            # Write the row.
-            try: cls.create(name=name, domain=domain)
-            except IntegrityError: pass
+            try:
+                cls.create(
+                    name=name,
+                    country=country,
+                    domain=domain,
+                )
+
+            except IntegrityError:
+                pass
