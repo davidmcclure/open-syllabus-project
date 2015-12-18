@@ -17,6 +17,7 @@ from osp.citations.models import Citation_Index
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 from osp.fields.models import Field
+from osp.fields.models import Field_Index
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
 
@@ -76,6 +77,7 @@ def es():
 
     Citation_Index.es_reset()
     Document_Index.es_reset()
+    Field_Index.es_reset()
 
 
 @pytest.fixture

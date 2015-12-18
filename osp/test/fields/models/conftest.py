@@ -4,5 +4,5 @@ import pytest
 
 
 @pytest.fixture(autouse=True)
-def module(db):
+def module(db, es):
     pass

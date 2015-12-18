@@ -21,5 +21,4 @@ def test_es_insert(add_doc):
         id=doc.id,
     )
 
-    assert es_doc['_id'] == str(doc.id)
     assert es_doc['_source']['body'] == 'text'
