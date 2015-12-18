@@ -24,16 +24,13 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def ingest_usa(cls):
+    def ingest_usa(cls, package='osp.institutions', path='data/usa.csv'):
 
         """
         Insert US universities.
         """
 
-        reader = read_csv(
-            'osp.institutions',
-            'data/usa.csv',
-        )
+        reader = read_csv(package, path)
 
         for row in reader:
             if row['e_country'] == 'USA':
