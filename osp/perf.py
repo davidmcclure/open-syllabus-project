@@ -4,6 +4,7 @@ import random
 import requests
 import re
 
+from osp.common.config import config
 from osp.common.mixins.elasticsearch import Elasticsearch
 
 from clint.textui import progress
@@ -46,13 +47,7 @@ class Citation_Index(Elasticsearch):
 
 
     es_mapping = {
-        '_id': {
-            'path': 'citation_id',
-        },
         'properties': {
-            'citation_id': {
-                'type': 'integer'
-            },
             'text_id': {
                 'type': 'integer'
             },
@@ -91,7 +86,7 @@ class Citation_Index(Elasticsearch):
         for i in progress.bar(range(1000000)):
 
             yield dict(
-                citation_id     = i,
+                _id             = i,
                 text_id         = random.randint(1, 200000),
                 document_id     = random.randint(1, 1500000),
                 corpus          = random.choice(['hlom', 'jstor']),
@@ -100,6 +95,52 @@ class Citation_Index(Elasticsearch):
                 field_id        = random.randint(0, 10),
                 subfield_id     = random.randint(0, 200),
             )
+
+
+    @classmethod
+    def aggregate(cls, filters, size=1000000):
+
+        """
+        Given a set of filters, map text ids -> counts.
+
+        Returns: dict
+        """
+
+        must = []
+
+        for field, value in filters.items():
+            must.append({'term': {
+                field: value
+            }})
+
+        body = {
+            'query': {
+                'bool': {
+                    'must': must
+                }
+            },
+            'aggs': {
+                'texts': {
+                    'terms': {
+                        'field': 'text_id',
+                        'size': size,
+                    }
+                }
+            }
+        }
+
+        result = config.es.search(
+            search_type = 'count',
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+            body = body,
+        )
+
+        counts = {}
+        for b in result['aggregations']['texts']['buckets']:
+            counts[str(b['key'])] = b['doc_count']
+
+        return counts
 
 
 class Text_Index(Elasticsearch):
@@ -111,12 +152,10 @@ class Text_Index(Elasticsearch):
 
     es_mapping = {
         '_id': {
-            'path': 'text_id',
+            'index': 'not_analyzed',
+            'store': True,
         },
         'properties': {
-            'text_id': {
-                'type': 'integer'
-            },
             'title': {
                 'type': 'string'
             },
@@ -145,8 +184,81 @@ class Text_Index(Elasticsearch):
         for i in progress.bar(range(200000)):
 
             yield dict(
-                text_id     = i,
+                _id         = i,
                 title       = faker.snippet(100),
                 author      = faker.snippet(40),
                 publisher   = faker.snippet(60),
             )
+
+
+    @classmethod
+    def materialize(cls, counts, q=None, size=1000):
+
+        """
+        Given a text id -> count map and a free text query, materialize an
+        ordered result set.
+
+        Returns: list
+        """
+
+        must = [{
+            'ids': {
+                'values': list(counts.keys())
+            },
+        }]
+
+        if q: must.append({
+            'multi_match': {
+                'query': q,
+                'fields': ['title', 'author', 'publisher'],
+                'type': 'phrase_prefix'
+            },
+        })
+
+        query = {
+            'bool': {
+                'must': must
+            }
+        }
+
+        body = {
+            'size': size,
+            'query': query,
+            'sort': {
+                '_script': {
+                    'type': 'string',
+                    'order': 'desc',
+                    'script': 'counts.get(doc["_id"].value)',
+                    'params': {
+                        'counts': counts
+                    }
+                }
+            },
+            'highlight': {
+                'fields': {
+                    'title': {
+                        'number_of_fragments': 1,
+                        'fragment_size': 1000
+                    },
+                    'author': {
+                        'number_of_fragments': 1,
+                        'fragment_size': 1000
+                    },
+                    'publisher': {
+                        'number_of_fragments': 1,
+                        'fragment_size': 1000
+                    }
+                }
+            }
+        }
+
+        return config.es.search(
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+            body = body,
+        )
+
+
+def query(filters, q=None, size=1000):
+    counts = Citation_Index.aggregate(filters)
+    return Text_Index.materialize(counts, q=q, size=size)
