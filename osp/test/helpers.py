@@ -53,6 +53,7 @@ def add_text():
         identifier=None,
         title='Title',
         author=['Author'],
+        **kwargs
     ):
 
         if not identifier:
@@ -63,6 +64,7 @@ def add_text():
             identifier=identifier,
             title=title,
             author=author,
+            **kwargs
         )
 
     return _text
