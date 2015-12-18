@@ -37,9 +37,6 @@ def test_env():
     _config.paths.append('/etc/osp/osp.test.yml')
     _config.read()
 
-    # Reset Redis.
-    _config.rq.connection.flushdb()
-
 
 @pytest.yield_fixture
 def config():
@@ -169,31 +166,24 @@ def api_client():
 
 
 @pytest.fixture
-def requires_es():
+def queue():
 
     """
-    Require Elasticsearch.
+    Clear the RQ queue.
+    """
+
+    _config.rq.connection.flushdb()
+
+
+@pytest.fixture
+def elasticsearch():
+
+    """
+    Check for Elasticsearch, reset data.
     """
 
     if not _config.es.ping():
         pytest.skip('Elasticsearch offline.')
 
-
-@pytest.fixture
-def corpus_index(requires_es):
-
-    """
-    Clear the corpus index.
-    """
-
+    Citation.es_reset()
     Document_Text.es_reset()
-
-
-@pytest.fixture
-def hlom_index(requires_es):
-
-    """
-    Clear the HLOM index.
-    """
-
-    Text.es_reset()

@@ -5,7 +5,7 @@ from osp.corpus.models import Document
 from osp.corpus.models import Document_Text
 
 
-def test_es_insert(corpus_index, add_doc):
+def test_es_insert(elasticsearch, add_doc):
 
     """
     Document_Text.es_insert() should index the document body and id.

@@ -5,7 +5,7 @@ from osp.institutions.models import Institution_Document
 from osp.citations.models import Citation
 
 
-def test_citation_fields(corpus_index, add_citation):
+def test_citation_fields(elasticsearch, add_citation):
 
     """
     Local rows - text_id, document_id, and min_freq - should be included in
@@ -29,7 +29,7 @@ def test_citation_fields(corpus_index, add_citation):
 
 
 def test_field_refs(
-    corpus_index,
+    elasticsearch,
     add_citation,
     add_subfield,
     add_subfield_document,
@@ -58,7 +58,7 @@ def test_field_refs(
     assert doc['_source']['field_id'] == subfield.field_id
 
 
-def test_institution_refs(corpus_index, add_citation, add_institution):
+def test_institution_refs(elasticsearch, add_citation, add_institution):
 
     """
     When the document is linked with an institution, an institution reference
