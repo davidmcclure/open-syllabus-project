@@ -33,8 +33,12 @@ def test_env():
     Merge the testing parameters into the configuration.
     """
 
+    # Inject the testing values.
     _config.paths.append('/etc/osp/osp.test.yml')
     _config.read()
+
+    # Reset Redis.
+    _config.rq.connection.flushdb()
 
 
 @pytest.yield_fixture
@@ -148,20 +152,6 @@ def mock_jstor(config):
 
     yield jstor
     jstor.teardown()
-
-
-@pytest.yield_fixture
-def queue():
-
-    """
-    Clear the RQ queue.
-
-    Yields:
-        The RQ queue.
-    """
-
-    _config.rq.connection.flushdb()
-    yield _config.rq
 
 
 @pytest.yield_fixture

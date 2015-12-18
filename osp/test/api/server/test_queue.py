@@ -3,13 +3,14 @@
 import pytest
 import json
 
+from osp.common.utils import partitions
+from osp.common.config import config
 from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
-from osp.common.utils import partitions
 
 
 @pytest.mark.api
-def test_queue(models, api_client, queue):
+def test_queue(models, api_client):
 
     """
     /queue should queue a work order.
@@ -27,19 +28,19 @@ def test_queue(models, api_client, queue):
     })
 
     # Should queue meta-job.
-    assert queue.count == 1
+    assert config.rq.count == 1
 
     # Get the id range.
     (id1, id2) = partitions(1, Document.max_id(), 10)[5]
 
     # Run the queue-job.
-    meta = queue.dequeue()
+    meta = config.rq.dequeue()
     meta.perform()
 
     # Should spool the work jobs.
     for i, doc_id in enumerate(range(id1, id2+1)):
-        assert queue.jobs[i].func == ext_text
-        assert queue.jobs[i].args == (doc_id,)
+        assert config.rq.jobs[i].func == ext_text
+        assert config.rq.jobs[i].args == (doc_id,)
 
     # Should return the id range.
     assert json.loads(r.data.decode('utf8')) == {
