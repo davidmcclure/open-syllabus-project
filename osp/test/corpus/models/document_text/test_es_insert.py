@@ -1,13 +1,14 @@
 
 
+from osp.common.config import config
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Text
 
 
-def test_es_insert(models, config, corpus_index):
+def test_es_insert(models, corpus_index):
 
     """
-    CorpusIndex.index() should index all rows in Elasticsearch.
+    Document_Text.es_insert() should index the document body and id.
     """
 
     # Index 100 documents.
