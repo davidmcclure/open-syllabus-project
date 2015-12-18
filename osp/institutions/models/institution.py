@@ -24,7 +24,10 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def ingest_usa(cls, package='osp.institutions', path='data/usa.csv'):
+    def ingest_usa(cls,
+        package='osp.institutions',
+        path='data/usa.csv',
+    ):
 
         """
         Insert US universities.
@@ -35,8 +38,11 @@ class Institution(BaseModel):
         for row in reader:
             if row['e_country'] == 'USA':
 
-                name = row['biz_name'].strip()
+                # Normalize the URL.
                 domain = parse_domain(row['web_url'])
+
+                # Clean the fields.
+                name = row['biz_name'].strip()
                 state = row['e_state'].strip()
 
                 try:
@@ -52,23 +58,26 @@ class Institution(BaseModel):
 
 
     @classmethod
-    def ingest_world(cls):
+    def ingest_world(cls,
+        package='osp.institutions',
+        path='data/world.csv',
+    ):
 
         """
         Insert world universities.
         """
 
-        reader = read_csv(
-            'osp.institutions',
-            'data/world.csv',
-        )
+        reader = read_csv(package, path)
 
         for row in reader:
             if row['country'] != 'US':
 
-                name = row['name']
+                # Normalize the URL.
                 domain = parse_domain(row['url'])
-                country = row['country']
+
+                # Clean the fields.
+                name = row['name'].strip()
+                country = row['country'].strip()
 
                 try:
                     cls.create(
