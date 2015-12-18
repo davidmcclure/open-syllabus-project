@@ -54,4 +54,30 @@ class Citation_Index(Elasticsearch):
         """
 
         for row in query_bar(Citation.select()):
-            yield row.es_doc
+
+            doc = {}
+
+            # Local fields:
+
+            doc['_id'] = row.id
+            doc['text_id'] = row.text_id
+            doc['document_id'] = row.document_id
+            doc['corpus'] = row.text.corpus
+            doc['min_freq'] = row.min_freq
+
+            # Field references:
+
+            subfield = row.subfield
+
+            if subfield:
+                doc['subfield_id'] = subfield.id
+                doc['field_id'] = subfield.field_id
+
+            # Institution reference:
+
+            inst = row.institution
+
+            if inst:
+                doc['institution_id'] = inst.id
+
+            yield doc
