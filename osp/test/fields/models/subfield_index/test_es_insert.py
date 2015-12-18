@@ -6,7 +6,7 @@ from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Index
 
 
-def test_es_insert():
+def test_es_insert(es):
 
     """
     Subfield_Index.es_insert() should load all fields into Elasticsearch

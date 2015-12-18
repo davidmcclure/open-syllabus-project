@@ -5,7 +5,7 @@ from osp.corpus.models import Document
 from osp.corpus.models import Document_Index
 
 
-def test_es_insert(add_doc):
+def test_es_insert(es, add_doc):
 
     """
     Document_Index.es_insert() should index the document body and id.
