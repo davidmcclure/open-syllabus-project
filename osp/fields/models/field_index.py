@@ -37,7 +37,7 @@ class Field_Index(Elasticsearch):
 
         for row in query_bar(Field.select()):
 
-            yield {
-                '_id': row.id,
-                'name': row.name,
-            }
+            yield dict(
+                _id = row.id,
+                name = row.name,
+            )

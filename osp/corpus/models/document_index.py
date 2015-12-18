@@ -37,7 +37,7 @@ class Document_Index(Elasticsearch):
 
         for row in query_bar(Document_Text.select()):
 
-            yield {
-                '_id': row.document_id,
-                'body': row.text,
-            }
+            yield dict(
+                _id = row.document_id,
+                body = row.text,
+            )

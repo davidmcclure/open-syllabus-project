@@ -30,7 +30,7 @@ class Text_Index(Elasticsearch):
             'date': {
                 'type': 'string'
             },
-            'journal_title': {
+            'journal': {
                 'type': 'string'
             },
             'url': {
@@ -51,4 +51,13 @@ class Text_Index(Elasticsearch):
         """
 
         for row in query_bar(Text.select()):
-            return {}
+
+            yield dict(
+                _id         = row.id,
+                title       = row.title,
+                author      = row.author,
+                publisher   = row.publisher,
+                date        = row.date,
+                journal     = row.journal_title,
+                url         = row.url,
+            )

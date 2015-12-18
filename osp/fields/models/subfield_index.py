@@ -37,7 +37,7 @@ class Subfield_Index(Elasticsearch):
 
         for row in query_bar(Subfield.select()):
 
-            yield {
-                '_id': row.id,
-                'name': row.name,
-            }
+            yield dict(
+                _id = row.id,
+                name = row.name,
+            )

@@ -12,10 +12,12 @@ from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
 from osp.corpus.models import Document_Index
 from osp.citations.models import Text
+from osp.citations.models import Text_Index
 from osp.citations.models import Citation
 from osp.citations.models import Citation_Index
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
+from osp.institutions.models import Institution_Index
 from osp.fields.models import Field
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield
@@ -75,9 +77,15 @@ def es():
     Reset Elasticsearch.
     """
 
-    Citation_Index.es_reset()
-    Document_Index.es_reset()
-    Field_Index.es_reset()
+    for index in [
+        Citation_Index,
+        Document_Index,
+        Field_Index,
+        Institution_Index,
+        Text_Index,
+    ]:
+
+        index.es_reset()
 
 
 @pytest.fixture
