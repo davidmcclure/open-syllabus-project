@@ -94,6 +94,7 @@ class Citation(BaseModel, Elasticsearch):
 
         # Local fields:
 
+        doc['_id'] = self.id
         doc['text_id'] = self.text_id
         doc['document_id'] = self.document_id
         doc['corpus'] = self.text.corpus

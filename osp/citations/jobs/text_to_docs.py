@@ -23,7 +23,6 @@ def text_to_docs(text_id):
         # Execute the query.
         results = config.es.search('osp', 'document', timeout=30, body={
             'size': 100000,
-            'fields': ['document_id'],
             'filter': {
                 'query': {
                     'match_phrase': {
@@ -40,7 +39,7 @@ def text_to_docs(text_id):
             for hit in results['hits']['hits']:
 
                 # Get the doc id.
-                doc_id = hit['fields']['document_id'][0]
+                doc_id = int(hit['_id'])
 
                 # Map doc id -> tokens.
                 matches = doc_id_tokens.setdefault(doc_id, set())

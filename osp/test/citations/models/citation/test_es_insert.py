@@ -1,6 +1,8 @@
 
 
+from osp.common.config import config
 from osp.institutions.models import Institution_Document
+from osp.citations.models import Citation
 
 
 def test_citation_fields(add_citation):
@@ -12,12 +14,18 @@ def test_citation_fields(add_citation):
 
     citation = add_citation()
 
-    doc = citation.es_doc
+    Citation.es_insert()
 
-    assert doc['text_id'] == citation.text_id
-    assert doc['document_id'] == citation.document_id
-    assert doc['corpus'] == citation.text.corpus
-    assert doc['min_freq'] == citation.min_freq
+    doc = config.es.get(
+        index='osp',
+        doc_type='citation',
+        id=citation.id,
+    )
+
+    assert doc['_source']['text_id'] == citation.text_id
+    assert doc['_source']['document_id'] == citation.document_id
+    assert doc['_source']['corpus'] == citation.text.corpus
+    assert doc['_source']['min_freq'] == citation.min_freq
 
 
 def test_field_refs(add_citation, add_subfield, add_subfield_document):
@@ -33,10 +41,16 @@ def test_field_refs(add_citation, add_subfield, add_subfield_document):
     # Link subfield -> citation.
     add_subfield_document(subfield=subfield, document=citation.document)
 
-    doc = citation.es_doc
+    Citation.es_insert()
 
-    assert doc['subfield_id'] == subfield.id
-    assert doc['field_id'] == subfield.field_id
+    doc = config.es.get(
+        index='osp',
+        doc_type='citation',
+        id=citation.id,
+    )
+
+    assert doc['_source']['subfield_id'] == subfield.id
+    assert doc['_source']['field_id'] == subfield.field_id
 
 
 def test_institution_refs(add_citation, add_institution):
@@ -56,6 +70,12 @@ def test_institution_refs(add_citation, add_institution):
         document=citation.document,
     )
 
-    doc = citation.es_doc
+    Citation.es_insert()
 
-    assert doc['institution_id'] == institution.id
+    doc = config.es.get(
+        index='osp',
+        doc_type='citation',
+        id=citation.id,
+    )
+
+    assert doc['_source']['institution_id'] == institution.id
