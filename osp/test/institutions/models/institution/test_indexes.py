@@ -6,13 +6,13 @@ import pytest
 from osp.institutions.models import Institution
 
 
-def test_unique_domain():
+def test_unique_domain(add_institution):
 
     """
     Domains should be unique.
     """
 
-    Institution.create(name='name1', domain='test.edu')
+    add_institution(domain='test.edu')
 
     with pytest.raises(peewee.IntegrityError):
-        Institution.create(name='name2', website='test.edu')
+        add_institution(domain='test.edu')

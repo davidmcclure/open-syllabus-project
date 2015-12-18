@@ -15,6 +15,8 @@ class Institution(BaseModel):
 
     name = CharField()
     domain = CharField(unique=True)
+    state = CharField(null=True)
+    country = CharField()
 
 
     class Meta:

@@ -161,6 +161,8 @@ def add_institution():
     def _inst(
         name='Yale University',
         domain=None,
+        state='CA',
+        country='US',
     ):
 
         if not domain:
@@ -169,6 +171,8 @@ def add_institution():
         return Institution.create(
             name=name,
             domain=domain,
+            state=state,
+            country=country,
         )
 
     return _inst

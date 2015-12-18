@@ -5,7 +5,7 @@ from osp.institutions.models import Institution_Document
 from osp.institutions.jobs import doc_to_inst
 
 
-def test_match(add_doc):
+def test_match(add_doc, add_institution):
 
     """
     When a doc URL matches an institution domain, write a link.
@@ -15,12 +15,12 @@ def test_match(add_doc):
         'url': 'http://yale.edu/syllabus.pdf'
     })
 
-    yale = Institution.create(
+    yale = add_institution(
         name='Yale University',
         domain='yale.edu',
     )
 
-    harvard = Institution.create(
+    harvard = add_institution(
         name='Harvard University',
         domain='harvard.edu',
     )
@@ -37,7 +37,7 @@ def test_match(add_doc):
     )
 
 
-def test_no_match(add_doc):
+def test_no_match(add_doc, add_institution):
 
     """
     When the URL doesn't match an institution, don't write a row.
@@ -47,7 +47,7 @@ def test_no_match(add_doc):
         'url': 'http://yale.edu/syllabus.pdf'
     })
 
-    harvard = Institution.create(
+    harvard = add_institution(
         name='Harvard University',
         domain='harvard.edu',
     )
