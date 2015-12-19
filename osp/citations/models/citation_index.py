@@ -1,8 +1,9 @@
 
 
-from osp.citations.models import Citation
-from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.config import config
 from osp.common.utils import query_bar
+from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.citations.models import Citation
 
 
 class Citation_Index(Elasticsearch):
@@ -92,7 +93,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def rank_texts(cls, filters, min_freq=None, depth=1e6):
+    def rank_texts(cls, filters={}, min_freq=None, depth=1e6):
 
         """
         Given a set of query filters and a min_freq ceiling, count the number

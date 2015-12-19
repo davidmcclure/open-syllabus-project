@@ -4,7 +4,7 @@ import os
 import hashlib
 import tempfile
 import datetime
-import shutil
+import uuid
 
 from reportlab.pdfgen.canvas import Canvas
 from docx import Document
@@ -51,8 +51,8 @@ class Mock_OSP(Mock_Corpus):
 
     def add_file(self,
         segment='000',
+        content=None,
         name=None,
-        content='content',
         ftype='plain',
         log={},
     ):
@@ -73,8 +73,12 @@ class Mock_OSP(Mock_Corpus):
 
         self.add_segment(segment)
 
+        if content is None:
+            content = str(uuid.uuid4())
+
         # Hash content, if no name.
-        if not name: name = sha1(content)
+        if name is None:
+            name = sha1(content)
 
         # Get the complete path.
         path = os.path.join(self.path, segment+'/'+name)
