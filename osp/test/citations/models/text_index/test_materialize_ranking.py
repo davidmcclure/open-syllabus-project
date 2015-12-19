@@ -36,16 +36,22 @@ def test_sort_by_count(add_text, add_citation):
     assert texts['hits'][2]['_id'] == str(t3.id)
 
 
-def test_query_title(add_text, add_citation):
+@pytest.mark.parametrize('params', [
+    lambda x: dict(title=x),
+    lambda x: dict(author=[x]),
+    lambda x: dict(publisher=x),
+    lambda x: dict(journal_title=x),
+])
+def test_search(params, add_text, add_citation):
 
     """
-    If a search query is passed, filter results on title.
+    If a free-text search is passed, query against text metadata.
     """
 
-    t1 = add_text(title='David McClure')
-    t2 = add_text(title='Joe Karaganis')
-    t3 = add_text(title='David William')
-    t4 = add_text(title='Dennis Tenen')
+    t1 = add_text(**params('match one'))
+    t2 = add_text(**params('two'))
+    t3 = add_text(**params('match three'))
+    t4 = add_text(**params('four'))
 
     for i in range(4):
         add_citation(t1)
@@ -63,7 +69,7 @@ def test_query_title(add_text, add_citation):
     Text_Index.es_insert()
 
     ranks = Citation_Index.rank_texts()
-    texts = Text_Index.materialize_ranking(ranks, query='David')
+    texts = Text_Index.materialize_ranking(ranks, query='match')
 
     assert len(texts['hits']) == 2
     assert texts['hits'][0]['_id'] == str(t1.id)

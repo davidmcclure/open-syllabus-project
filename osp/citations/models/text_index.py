@@ -85,7 +85,12 @@ class Text_Index(Elasticsearch):
                 'multi_match': {
                     'query': query,
                     'type': 'phrase_prefix',
-                    'fields': ['title'],
+                    'fields': [
+                        'title',
+                        'author',
+                        'publisher',
+                        'journal',
+                    ],
                 }
             })
 
