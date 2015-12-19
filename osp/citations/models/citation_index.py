@@ -107,13 +107,12 @@ class Citation_Index(Elasticsearch):
 
         conds = []
         for field, value in filters.items():
+
             conds.append({
-                'term': {
+                ('terms' if type(value) is list else 'term'): {
                     field: value
                 }
             })
-
-        # TODO: min_freq
 
         # Query for the aggregation.
 
