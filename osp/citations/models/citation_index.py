@@ -103,14 +103,25 @@ class Citation_Index(Elasticsearch):
             dict: {'text_id' -> count}
         """
 
+        conds = []
+
         # Assemble match filters.
 
-        conds = []
         for field, value in filters.items():
-
             conds.append({
                 ('terms' if type(value) is list else 'term'): {
                     field: value
+                }
+            })
+
+        # Filter out semantically-unfocused citations.
+
+        if min_freq:
+            conds.append({
+                'range': {
+                    'min_freq': {
+                        'lte': min_freq
+                    }
                 }
             })
 
