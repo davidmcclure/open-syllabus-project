@@ -92,8 +92,61 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def rank_texts(cls, filters, min_freq=None):
-        pass
+    def rank_texts(cls, filters, min_freq=None, depth=1e6):
+
+        """
+        Given a set of query filters and a min_freq ceiling, count the number
+        of times each text is cited on documents that match the criteria.
+
+        Returns:
+            dict: {'text_id' -> count}
+        """
+
+        # Assemble match filters.
+
+        conds = []
+        for field, value in filters.items():
+            conds.append({
+                'term': {
+                    field: value
+                }
+            })
+
+        # TODO: min_freq
+
+        # Query for the aggregation.
+
+        result = config.es.search(
+
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+            search_type = 'count',
+
+            body = {
+                'query': {
+                    'bool': {
+                        'must': conds
+                    }
+                },
+                'aggs': {
+                    'texts': {
+                        'terms': {
+                            'field': 'text_id',
+                            'size': depth,
+                        }
+                    }
+                }
+            }
+
+        )
+
+        # Map text id -> citation count.
+
+        counts = {}
+        for b in result['aggregations']['texts']['buckets']:
+            counts[str(b['key'])] = b['doc_count']
+
+        return counts
 
 
     @classmethod
