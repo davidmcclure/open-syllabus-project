@@ -1,8 +1,9 @@
 
 
-from osp.citations.models import Text
-from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.config import config
 from osp.common.utils import query_bar
+from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.citations.models import Text
 
 
 class Text_Index(Elasticsearch):
@@ -64,5 +65,47 @@ class Text_Index(Elasticsearch):
 
 
     @classmethod
-    def materialize_ranking(cls, counts, query):
-        pass
+    def materialize_ranking(cls, ranks, query=None, size=1000):
+
+        """
+        Given a mapping of {'text_id' -> count}, load the texts sorted by
+        count, and apply a fulltext query if provided.
+        """
+
+        # Filter ids.
+
+        conds = [{
+            'ids': {
+                'values': list(ranks.keys())
+            }
+        }]
+
+        # Materialize the texts.
+
+        result = config.es.search(
+
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+
+            body = {
+                'size': size,
+                'query': {
+                    'bool': {
+                        'must': conds
+                    }
+                },
+                'sort': {
+                    '_script': {
+                        'order': 'desc',
+                        'type': 'number',
+                        'script': 'ranks.get(doc["_id"].value)',
+                        'params': {
+                            'ranks': ranks
+                        }
+                    }
+                }
+            }
+
+        )
+
+        return result['hits']
