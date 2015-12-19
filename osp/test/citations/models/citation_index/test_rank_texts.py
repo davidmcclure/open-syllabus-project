@@ -33,11 +33,11 @@ def test_unfiltered(add_text, add_citation):
     }
 
 
-def test_filter_one_corpus(add_text, add_citation):
+def test_filter_single_value(add_text, add_citation):
 
     """
-    When a single corpus value is provided, just count citations for documents
-    in that corpus.
+    When a single filter value is provided, match citations that include the
+    key -> value pair.
     """
 
     t1 = add_text(corpus='corpus1')
@@ -66,11 +66,11 @@ def test_filter_one_corpus(add_text, add_citation):
     }
 
 
-def test_filter_multiple_corpora(add_text, add_citation):
+def test_filter_multiple_values(add_text, add_citation):
 
     """
-    When multiple corpus values are provided, count citations for documents in
-    any of the provided corpora.
+    When a list of values is provided for a filter key, match citations that
+    include _any_ of the provided values for the key.
     """
 
     t1 = add_text(corpus='corpus1')
