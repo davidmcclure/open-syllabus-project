@@ -16,14 +16,14 @@ def test_sort_by_count(add_text, add_citation):
     t2 = add_text()
     t3 = add_text()
 
-    add_citation(t1)
+    for i in range(3):
+        add_citation(t1)
 
-    add_citation(t2)
-    add_citation(t2)
+    for i in range(2):
+        add_citation(t2)
 
-    add_citation(t3)
-    add_citation(t3)
-    add_citation(t3)
+    for i in range(1):
+        add_citation(t3)
 
     Citation_Index.es_insert()
     Text_Index.es_insert()
@@ -31,12 +31,11 @@ def test_sort_by_count(add_text, add_citation):
     ranks = Citation_Index.rank_texts()
     texts = Text_Index.materialize_ranking(ranks)
 
-    assert texts['hits'][0]['_id'] == str(t3.id)
+    assert texts['hits'][0]['_id'] == str(t1.id)
     assert texts['hits'][1]['_id'] == str(t2.id)
-    assert texts['hits'][2]['_id'] == str(t1.id)
+    assert texts['hits'][2]['_id'] == str(t3.id)
 
 
-@pytest.mark.dev
 def test_query_title(add_text, add_citation):
 
     """
@@ -48,19 +47,17 @@ def test_query_title(add_text, add_citation):
     t3 = add_text(title='David William')
     t4 = add_text(title='Dennis Tenen')
 
-    add_citation(t1)
-    add_citation(t1)
-    add_citation(t1)
-    add_citation(t1)
+    for i in range(4):
+        add_citation(t1)
 
-    add_citation(t2)
-    add_citation(t2)
-    add_citation(t2)
+    for i in range(3):
+        add_citation(t2)
 
-    add_citation(t3)
-    add_citation(t3)
+    for i in range(2):
+        add_citation(t3)
 
-    add_citation(t4)
+    for i in range(1):
+        add_citation(t4)
 
     Citation_Index.es_insert()
     Text_Index.es_insert()
@@ -70,4 +67,4 @@ def test_query_title(add_text, add_citation):
 
     assert len(texts['hits']) == 2
     assert texts['hits'][0]['_id'] == str(t1.id)
-    assert texts['hits'][0]['_id'] == str(t3.id)
+    assert texts['hits'][1]['_id'] == str(t3.id)

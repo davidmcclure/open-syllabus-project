@@ -80,6 +80,15 @@ class Text_Index(Elasticsearch):
             }
         }]
 
+        if query:
+            conds.append({
+                'multi_match': {
+                    'query': query,
+                    'type': 'phrase_prefix',
+                    'fields': ['title'],
+                }
+            })
+
         # Materialize the texts.
 
         result = config.es.search(
