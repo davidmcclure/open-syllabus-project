@@ -41,3 +41,18 @@ class Institution_Index(Elasticsearch):
                 _id = row.id,
                 name = row.name,
             )
+
+
+    @classmethod
+    def institution_facets(cls):
+        pass
+
+
+    @classmethod
+    def state_facets(cls):
+        pass
+
+
+    @classmethod
+    def country_facets(cls):
+        pass

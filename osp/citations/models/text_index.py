@@ -131,3 +131,8 @@ class Text_Index(Elasticsearch):
         )
 
         return result['hits']
+
+
+    @classmethod
+    def corpus_facets(cls):
+        pass

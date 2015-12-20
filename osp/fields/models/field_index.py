@@ -41,3 +41,8 @@ class Field_Index(Elasticsearch):
                 _id = row.id,
                 name = row.name,
             )
+
+
+    @classmethod
+    def field_facets(cls):
+        pass
