@@ -2,7 +2,7 @@
 
 import click
 
-from osp.api.client import Client
+from osp.worker.client import Client
 
 
 @click.group()
