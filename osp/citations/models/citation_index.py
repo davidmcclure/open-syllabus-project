@@ -207,3 +207,42 @@ class Citation_Index(Elasticsearch):
             doc_ids.append(b['key'])
 
         return doc_ids
+
+
+    @classmethod
+    def facet_counts(cls, field, depth=1000):
+
+        """
+        Given a field, return a set of facet counts.
+
+        Args:
+            field (str)
+
+        Returns:
+            list: (value, count)
+        """
+
+        result = config.es.search(
+
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+            search_type = 'count',
+
+            body = {
+                'aggs': {
+                    'texts': {
+                        'terms': {
+                            'field': field,
+                            'size': depth,
+                        }
+                    }
+                }
+            }
+
+        )
+
+        counts = []
+        for b in result['aggregations']['texts']['buckets']:
+            counts.append((b['key'], b['doc_count']))
+
+        return counts
