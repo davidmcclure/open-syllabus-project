@@ -166,30 +166,44 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def count_corpora(cls):
-        pass
+    def docs_with_text(cls, text_id, depth=1e6):
 
+        """
+        Given a text, get the set of documents that assign the text.
 
-    @classmethod
-    def count_subfields(cls):
-        pass
+        Args:
+            text_id (int)
 
+        Returns:
+            list: A set of document ids.
+        """
 
-    @classmethod
-    def count_fields(cls):
-        pass
+        result = config.es.search(
 
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+            search_type = 'count',
 
-    @classmethod
-    def count_institutions(cls):
-        pass
+            body = {
+                'query': {
+                    'term': {
+                        'text_id': text_id
+                    }
+                },
+                'aggs': {
+                    'texts': {
+                        'terms': {
+                            'field': 'document_id',
+                            'size': depth,
+                        }
+                    }
+                }
+            }
 
+        )
 
-    @classmethod
-    def count_states(cls):
-        pass
+        doc_ids = []
+        for b in result['aggregations']['texts']['buckets']:
+            doc_ids.append(b['key'])
 
-
-    @classmethod
-    def count_countries(cls):
-        pass
+        return doc_ids

@@ -75,6 +75,9 @@ class Text_Index(Elasticsearch):
             ranks (dict): {'text_id' -> count}
             query (str): A free-text search query.
             size (int): The page length.
+
+        Returns:
+            dict: The Elasticsearch hits.
         """
 
         # Filter ids.
