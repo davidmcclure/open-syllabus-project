@@ -4,6 +4,7 @@ from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.fields.models import Subfield
 from osp.corpus.models import Document
+
 from peewee import ForeignKeyField, CharField, IntegerField
 
 

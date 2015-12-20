@@ -41,8 +41,3 @@ class Subfield_Index(Elasticsearch):
                 _id = row.id,
                 name = row.name,
             )
-
-
-    @classmethod
-    def subfield_facets(cls):
-        pass
