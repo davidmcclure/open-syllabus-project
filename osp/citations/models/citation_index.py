@@ -99,6 +99,11 @@ class Citation_Index(Elasticsearch):
         Given a set of query filters and a min_freq ceiling, count the number
         of times each text is cited on documents that match the criteria.
 
+        Args:
+            filters (dict): A set of key -> value filters.
+            min_freq (float): The highest allowable min_freq.
+            depth (int): The max number of texts to rank.
+
         Returns:
             dict: {'text_id' -> count}
         """

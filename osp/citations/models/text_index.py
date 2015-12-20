@@ -68,8 +68,13 @@ class Text_Index(Elasticsearch):
     def materialize_ranking(cls, ranks, query=None, size=1000):
 
         """
-        Given a mapping of {'text_id' -> count}, load the texts sorted by
-        count, and apply a fulltext query if provided.
+        Given a set of text counts, load texts sorted by count and apply a
+        fulltext query, if provided.
+
+        Args:
+            ranks (dict): {'text_id' -> count}
+            query (str): A free-text search query.
+            size (int): The page length.
         """
 
         # Filter ids.
