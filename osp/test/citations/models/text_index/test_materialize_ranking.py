@@ -35,6 +35,8 @@ def test_sort_by_count(add_text, add_citation):
     assert texts['hits'][1]['_id'] == str(t2.id)
     assert texts['hits'][2]['_id'] == str(t3.id)
 
+    # TODO: test doc scores, max score
+
 
 @pytest.mark.parametrize('params', [
     lambda x: dict(title=x),
