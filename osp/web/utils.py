@@ -34,7 +34,7 @@ def subfield_facets():
 def field_facets():
 
     """
-    Materialize subfield facets with counts.
+    Materialize field facets with counts.
 
     Returns:
         dict: {label, value, count}
@@ -47,18 +47,27 @@ def field_facets():
 def institution_facets():
 
     """
-    Materialize subfield facets with counts.
+    Materialize institution facets with counts.
 
     Returns:
         dict: {label, value, count}
     """
 
     counts = Citation_Index.count_facets('institution_id')
-    return Institution_Index.materialize_facets(counts)
+    return Institution_Index.materialize_institution_facets(counts)
 
 
 def state_facets():
-    pass
+
+    """
+    Materialize state facets with counts.
+
+    Returns:
+        dict: {label, value, count}
+    """
+
+    counts = Citation_Index.count_facets('state')
+    return Institution_Index.materialize_state_facets(counts)
 
 
 def country_facets():

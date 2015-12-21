@@ -1,5 +1,7 @@
 
 
+import us
+
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
@@ -45,10 +47,10 @@ class Institution_Index(Elasticsearch):
 
 
     @classmethod
-    def materialize_facets(cls, counts):
+    def materialize_institution_facets(cls, counts):
 
         """
-        Materialize facet counts.
+        Materialize institution facet counts.
 
         Returns:
             dict: {label, value, count}
@@ -69,6 +71,28 @@ class Institution_Index(Elasticsearch):
                 label=doc['_source']['name'],
                 value=doc['_id'],
                 count=counts[i][1]
+            ))
+
+        return facets
+
+
+    @classmethod
+    def materialize_state_facets(cls, counts):
+
+        """
+        Materialize state facet counts.
+
+        Returns:
+            dict: {label, value, count}
+        """
+
+        facets = []
+        for abbr, count in counts:
+
+            facets.append(dict(
+                label=us.states.lookup(abbr).name,
+                value=abbr.upper(),
+                count=count,
             ))
 
         return facets

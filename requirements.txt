@@ -37,5 +37,6 @@ wheel
 wordfreq
 jinja2
 scandir
+us
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
