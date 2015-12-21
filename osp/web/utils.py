@@ -1,5 +1,9 @@
 
 
+from osp.citations.models import Citation_Index
+from osp.fields.models import Subfield_Index
+
+
 def rank_texts():
     pass
 
@@ -13,7 +17,16 @@ def corpus_facets():
 
 
 def subfield_facets():
-    pass
+
+    """
+    Materialize subfield facets with counts.
+
+    Returns:
+        dict: {label, value, count}
+    """
+
+    counts = Citation_Index.facet_counts('subfield_id')
+    return Subfield_Index.materialize_facets(counts)
 
 
 def field_facets():
