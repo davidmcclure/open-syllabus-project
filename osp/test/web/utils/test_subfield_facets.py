@@ -33,7 +33,7 @@ def test_subfield_facets(add_citation, add_subfield, add_subfield_document):
     facets = subfield_facets()
 
     assert facets == [
-        dict(label='Subfield 1', value=sf1.id, count=3),
-        dict(label='Subfield 2', value=sf2.id, count=2),
-        dict(label='Subfield 3', value=sf3.id, count=1),
+        dict(label='Subfield 1', value=str(sf1.id), count=3),
+        dict(label='Subfield 2', value=str(sf2.id), count=2),
+        dict(label='Subfield 3', value=str(sf3.id), count=1),
     ]
