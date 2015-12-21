@@ -6,7 +6,7 @@ from osp.fields.models import Field
 from osp.fields.models import Field_Index
 
 
-def test_subfield_facets(add_citation, add_subfield, add_subfield_document):
+def test_field_facets(add_citation, add_subfield, add_subfield_document):
 
     """
     field_facets() should provide a list of label/value/count dicts.

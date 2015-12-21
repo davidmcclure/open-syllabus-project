@@ -1,8 +1,9 @@
 
 
-from osp.institutions.models import Institution
-from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.config import config
 from osp.common.utils import query_bar
+from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.institutions.models import Institution
 
 
 class Institution_Index(Elasticsearch):
@@ -41,3 +42,33 @@ class Institution_Index(Elasticsearch):
                 _id = row.id,
                 name = row.name,
             )
+
+
+    @classmethod
+    def materialize_facets(cls, counts):
+
+        """
+        Materialize facet counts.
+
+        Returns:
+            dict: {label, value, count}
+        """
+
+        ids = [c[0] for c in counts]
+
+        result = config.es.mget(
+            index = cls.es_index,
+            doc_type = cls.es_doc_type,
+            body = { 'ids': ids }
+        )
+
+        facets = []
+        for i, doc in enumerate(result['docs']):
+
+            facets.append(dict(
+                label=doc['_source']['name'],
+                value=doc['_id'],
+                count=counts[i][1]
+            ))
+
+        return facets

@@ -1,6 +1,7 @@
 
 
 from osp.citations.models import Citation_Index
+from osp.institutions.models import Institution_Index
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield_Index
 
@@ -44,7 +45,16 @@ def field_facets():
 
 
 def institution_facets():
-    pass
+
+    """
+    Materialize subfield facets with counts.
+
+    Returns:
+        dict: {label, value, count}
+    """
+
+    counts = Citation_Index.count_facets('institution_id')
+    return Institution_Index.materialize_facets(counts)
 
 
 def state_facets():
