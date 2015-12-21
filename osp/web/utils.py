@@ -12,6 +12,13 @@ def rank_texts(filters={}, query=None):
 
     """
     Filter and rank texts.
+
+    Args:
+        filters (dict): Citation metadata filters.
+        query (str): A text metadata search query.
+
+    Returns:
+        dict: Elasticsearch hits.
     """
 
     # Filter and rank the texts.
@@ -27,6 +34,13 @@ def assigned_with(corpus, identifier):
 
     """
     Given a "seed" text, rank other texts assigned on the same syllabi.
+
+    Args:
+        corpus (str): The corpus slug.
+        identifier (str): The text identifier.
+
+    Returns:
+        dict: Elasticsearch hits.
     """
 
     # Get the text id.
