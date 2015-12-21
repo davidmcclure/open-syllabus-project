@@ -4,6 +4,7 @@ from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.models import Text
+from osp.citations.data.corpora import CORPORA
 
 
 class Text_Index(Elasticsearch):
@@ -131,3 +132,25 @@ class Text_Index(Elasticsearch):
         )
 
         return result['hits']
+
+
+    @classmethod
+    def materialize_corpus_facets(cls, counts):
+
+        """
+        Materialize corpus facet counts.
+
+        Returns:
+            dict: {label, value, count}
+        """
+
+        facets = []
+        for slug, count in counts:
+
+            facets.append(dict(
+                label=CORPORA.get(slug),
+                value=slug,
+                count=count,
+            ))
+
+        return facets

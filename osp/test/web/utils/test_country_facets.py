@@ -9,7 +9,7 @@ from osp.citations.models import Citation_Index
 def test_country_facets(add_institution, add_citation):
 
     """
-    state_facets() should provide a list of label/value/count dicts.
+    country_facets() should provide a list of label/value/count dicts.
     """
 
     i1 = add_institution(country='AU')

@@ -1,6 +1,7 @@
 
 
 from osp.citations.models import Citation_Index
+from osp.citations.models import Text_Index
 from osp.institutions.models import Institution_Index
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield_Index
@@ -15,7 +16,16 @@ def assigned_with():
 
 
 def corpus_facets():
-    pass
+
+    """
+    Materialize corpus facets with counts.
+
+    Returns:
+        dict: {label, value, count}
+    """
+
+    counts = Citation_Index.count_facets('corpus')
+    return Text_Index.materialize_corpus_facets(counts)
 
 
 def subfield_facets():
