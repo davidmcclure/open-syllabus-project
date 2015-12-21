@@ -1,18 +1,52 @@
 
 
 from osp.citations.models import Citation_Index
+from osp.citations.models import Text
 from osp.citations.models import Text_Index
 from osp.institutions.models import Institution_Index
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield_Index
 
 
-def rank_texts():
-    pass
+def rank_texts(filters={}, query=None):
+
+    """
+    Filter and rank texts.
+    """
+
+    # Filter and rank the texts.
+    ranks = Citation_Index.rank_texts(filters)
+
+    # Materialize the text metadata.
+    texts = Text_Index.materialize_ranking(ranks, query)
+
+    return texts
 
 
-def assigned_with():
-    pass
+def assigned_with(corpus, identifier):
+
+    """
+    Given a "seed" text, rank other texts assigned on the same syllabi.
+    """
+
+    # Get the text id.
+    text = Text.get(
+        Text.corpus==corpus,
+        Text.identifier==identifier,
+    )
+
+    # Get documents that assign the text.
+    doc_ids = Citation_Index.docs_with_text(text.id)
+
+    # Rank texts assigned on those docs.
+    ranks = Citation_Index.rank_texts(dict(
+        document_id=doc_ids
+    ))
+
+    # Materialize the text metadata.
+    texts = Text_Index.materialize_ranking(ranks)
+
+    return texts
 
 
 def corpus_facets():
