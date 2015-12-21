@@ -49,13 +49,16 @@ def assigned_with(corpus, identifier):
         Text.identifier==identifier,
     )
 
-    # Get documents that assign the text.
+    # Get syllabi that assign the text.
     doc_ids = Citation_Index.docs_with_text(text.id)
 
-    # Rank texts assigned on those docs.
+    # Rank texts assigned by those sylalbi.
     ranks = Citation_Index.rank_texts(dict(
         document_id=doc_ids
     ))
+
+    # Omit the seed text.
+    ranks.pop(str(text.id))
 
     # Materialize the text metadata.
     texts = Text_Index.materialize_ranking(ranks)

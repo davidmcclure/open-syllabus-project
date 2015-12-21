@@ -29,6 +29,7 @@ def test_unfiltered(add_text, add_citation):
 
     texts = rank_texts()
 
+    assert len(texts['hits']) == 3
     assert texts['hits'][0]['_id'] == str(t1.id)
     assert texts['hits'][1]['_id'] == str(t2.id)
     assert texts['hits'][2]['_id'] == str(t3.id)
@@ -60,6 +61,7 @@ def test_metadata_filters(add_text, add_citation):
         corpus='corpus2'
     ))
 
+    assert len(texts['hits']) == 2
     assert texts['hits'][0]['_id'] == str(t2.id)
     assert texts['hits'][1]['_id'] == str(t3.id)
 
