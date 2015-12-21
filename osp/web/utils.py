@@ -25,7 +25,7 @@ def subfield_facets():
         dict: {label, value, count}
     """
 
-    counts = Citation_Index.facet_counts('subfield_id')
+    counts = Citation_Index.count_facets('subfield_id')
     return Subfield_Index.materialize_facets(counts)
 
 
