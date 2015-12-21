@@ -25,6 +25,7 @@ def test_unfiltered(add_text, add_citation):
         add_citation(t3)
 
     Citation_Index.es_insert()
+    Text_Index.es_insert()
 
     texts = rank_texts()
 
@@ -53,6 +54,7 @@ def test_metadata_filters(add_text, add_citation):
         add_citation(t3)
 
     Citation_Index.es_insert()
+    Text_Index.es_insert()
 
     texts = rank_texts(filters=dict(
         corpus='corpus2'
