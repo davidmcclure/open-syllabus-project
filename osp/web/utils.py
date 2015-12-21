@@ -71,4 +71,13 @@ def state_facets():
 
 
 def country_facets():
-    pass
+
+    """
+    Materialize state facets with counts.
+
+    Returns:
+        dict: {label, value, count}
+    """
+
+    counts = Citation_Index.count_facets('country')
+    return Institution_Index.materialize_country_facets(counts)

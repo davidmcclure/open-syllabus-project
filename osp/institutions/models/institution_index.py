@@ -7,6 +7,8 @@ from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.institutions.models import Institution
 
+from iso3166 import countries
+
 
 class Institution_Index(Elasticsearch):
 
@@ -91,6 +93,28 @@ class Institution_Index(Elasticsearch):
 
             facets.append(dict(
                 label=us.states.lookup(abbr).name,
+                value=abbr.upper(),
+                count=count,
+            ))
+
+        return facets
+
+
+    @classmethod
+    def materialize_country_facets(cls, counts):
+
+        """
+        Materialize country facet counts.
+
+        Returns:
+            dict: {label, value, count}
+        """
+
+        facets = []
+        for abbr, count in counts:
+
+            facets.append(dict(
+                label=countries.get(abbr).name,
                 value=abbr.upper(),
                 count=count,
             ))
