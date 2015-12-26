@@ -1,9 +1,5 @@
 
 
-import pytest
-import json
-
-from osp.common.utils import partitions
 from osp.common.config import config
 from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
@@ -18,30 +14,23 @@ def test_queue(api_client):
     for i in range(100):
         Document.create(path=str(i))
 
-    r = api_client.post('/queue', data={
-        'model':    'osp.corpus.models.Document',
-        'job':      'osp.corpus.jobs.ext_text',
-        'count':    20,
-        'index':    10,
-    })
+    r = api_client.post('/queue', data=dict(
+
+        model_import    = 'osp.corpus.models.Document',
+        job_import      = 'osp.corpus.jobs.ext_text',
+        worker_count    = 20,
+        offset          = 10,
+
+    ))
 
     # Should queue meta-job.
     assert config.rq.count == 1
-
-    # Get the id range.
-    (id1, id2) = partitions(1, Document.max_id(), 20)[10]
 
     # Run the queue-job.
     meta = config.rq.dequeue()
     meta.perform()
 
     # Should spool the work jobs.
-    for i, doc_id in enumerate(range(id1, id2+1)):
+    for i, doc in enumerate(Document.page_cursor(20, 10)):
         assert config.rq.jobs[i].func == ext_text
-        assert config.rq.jobs[i].args == (doc_id,)
-
-    # Should return the id range.
-    assert json.loads(r.data.decode('utf8')) == {
-        'id1': id1,
-        'id2': id2,
-    }
+        assert config.rq.jobs[i].args == (doc.id,)

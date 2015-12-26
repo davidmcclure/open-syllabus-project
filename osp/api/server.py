@@ -1,13 +1,12 @@
 
 
 import os
-import importlib
 
 from osp.common.config import config
 from osp.common.utils import partitions
 
+from flask import Flask, request
 from rq_dashboard import RQDashboard
-from flask import Flask, request, jsonify
 from pydoc import locate
 
 
@@ -28,31 +27,36 @@ def queue():
     Queue a work order.
     """
 
-    # Get model / job callables.
-    model = locate(request.form['model'])
-    job = locate(request.form['job'])
+    config.rq.enqueue(
+        queue_page,
+        request.form['model_import'],
+        request.form['job_import'],
+        int(request.form['worker_count']),
+        int(request.form['offset']),
+        timeout=3600,
+    )
 
-    # Get worker index and count.
-    count = int(request.form['count'])
-    index = int(request.form['index'])
-
-    # Get id range.
-    (id1, id2) = partitions(1, model.max_id(), count)[index]
-
-    # Queue the meta-job.
-    job = config.rq.enqueue(spool, job, id1, id2, timeout=3600)
-
-    return jsonify(id1=id1, id2=id2)
+    return ('', 200)
 
 
-def spool(job, id1, id2):
+def queue_page(model_import, job_import, worker_count, offset):
 
     """
-    Spool a range of ids for a job.
+    Spool a page of model instances for a job.
+
+    Args:
+        model_import (str): The model class import string.
+        job_import (str): The job import string.
+        worker_count (int): The total number of workers.
+        offset (int): A 0-based index for this worker.
     """
 
-    for idx in range(id1, id2+1):
-        config.rq.enqueue(job, idx)
+    # Import callables.
+    model = locate(model_import)
+    job = locate(job_import)
+
+    for row in model.page_cursor(worker_count, offset):
+        config.rq.enqueue(job, row.id)
 
 
 if __name__ == '__main__':
