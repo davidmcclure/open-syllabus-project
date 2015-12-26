@@ -1,6 +1,11 @@
 
 
+import pytest
+
 from osp.citations.models import Text
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_page_cursor(add_text):
