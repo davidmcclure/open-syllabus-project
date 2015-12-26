@@ -1,9 +1,13 @@
 
 
-from osp.common.config import config
+import pytest
 
-from osp.institutions.models import Institution
+from osp.common.config import config
 from osp.institutions.models import Institution_Index
+from osp.institutions.models import Institution
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_es_insert(es, add_institution):

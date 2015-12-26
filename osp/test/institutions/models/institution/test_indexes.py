@@ -6,6 +6,9 @@ import pytest
 from osp.institutions.models import Institution
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_unique_domain(add_institution):
 
     """

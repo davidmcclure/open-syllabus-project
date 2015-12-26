@@ -1,6 +1,11 @@
 
 
+import pytest
+
 from osp.institutions.models import Institution
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_insert_rows():
