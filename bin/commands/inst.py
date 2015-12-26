@@ -26,20 +26,20 @@ def init_db():
 
 
 @cli.command()
-def insert_us():
+def ingest_us():
 
     """
-    Insert US institutions.
+    Ingest US institutions.
     """
 
-    Institution.insert_us()
+    Institution.ingest_us()
 
 
 @cli.command()
-def insert_uk():
+def ingest_uk():
 
     """
-    Insert UK institutions.
+    Ingest UK institutions.
     """
 
-    Institution.insert_uk()
+    Institution.ingest_uk()
