@@ -6,6 +6,9 @@ from osp.citations.models import Citation
 from peewee import IntegrityError
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_unique_pairs(add_text, add_doc, add_citation):
 
     """

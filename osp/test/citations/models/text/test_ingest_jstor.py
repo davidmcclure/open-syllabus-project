@@ -5,6 +5,9 @@ import pytest
 from osp.citations.models import Text
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_set_corpus(mock_jstor):
 
     mock_jstor.add_article()

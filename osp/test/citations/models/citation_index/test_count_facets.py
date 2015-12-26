@@ -1,6 +1,11 @@
 
 
+import pytest
+
 from osp.citations.models import Citation_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_count_facets(add_citation, add_subfield, add_subfield_document):

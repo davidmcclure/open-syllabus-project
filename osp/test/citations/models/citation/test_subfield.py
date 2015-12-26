@@ -1,5 +1,11 @@
 
 
+import pytest
+
+
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_subfield(
     add_doc,
     add_subfield,

@@ -6,6 +6,9 @@ import uuid
 from osp.citations.models import Text
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_set_corpus(mock_hlom):
 
     mock_hlom.add_marc()

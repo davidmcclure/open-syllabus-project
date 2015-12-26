@@ -6,6 +6,9 @@ from osp.citations.models import Citation_Index
 from osp.citations.models import Text_Index
 
 
+pytestmark = pytest.mark.usefixtures('db', 'es')
+
+
 def test_sort_by_count(add_text, add_citation):
 
     """

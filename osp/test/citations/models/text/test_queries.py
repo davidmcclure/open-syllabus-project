@@ -5,6 +5,9 @@ import pytest
 from osp.citations.utils import tokenize_field
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_queries(add_text):
 
     """

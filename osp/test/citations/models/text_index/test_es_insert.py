@@ -1,12 +1,16 @@
 
 
+import pytest
+
 from osp.common.config import config
-
-from osp.citations.models import Text
 from osp.citations.models import Text_Index
+from osp.citations.models import Text
 
 
-def test_es_insert(es, add_text):
+pytestmark = pytest.mark.usefixtures('db', 'es')
+
+
+def test_es_insert(add_text):
 
     """
     Text_Index.es_insert() should index texts.

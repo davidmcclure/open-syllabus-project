@@ -1,6 +1,11 @@
 
 
+import pytest
+
 from wordfreq import word_frequency
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_min_freq(add_citation):

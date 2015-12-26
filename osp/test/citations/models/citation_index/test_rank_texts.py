@@ -1,7 +1,12 @@
 
 
+import pytest
+
 from wordfreq import word_frequency
 from osp.citations.models import Citation_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_unfiltered(add_text, add_citation):

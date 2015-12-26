@@ -7,6 +7,9 @@ from osp.institutions.models import Institution_Document
 from osp.citations.models import Citation_Index
 
 
+pytestmark = pytest.mark.usefixtures('db', 'es')
+
+
 def test_citation_fields(es, add_citation):
 
     """

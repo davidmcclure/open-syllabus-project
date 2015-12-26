@@ -1,6 +1,11 @@
 
 
+import pytest
+
 from osp.citations.models import Citation_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_docs_with_text(add_text, add_doc, add_citation):

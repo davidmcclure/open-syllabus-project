@@ -1,6 +1,11 @@
 
 
+import pytest
+
 from osp.institutions.models import Institution_Document
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_institution(add_doc, add_institution, add_citation):

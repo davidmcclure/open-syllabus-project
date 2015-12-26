@@ -6,8 +6,10 @@ from osp.corpus.models import Document_Index
 from osp.citations.jobs import text_to_docs
 from osp.citations.models import Citation
 from osp.citations.utils import tokenize_field
-
 from peewee import fn
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_matches(add_doc, add_text):

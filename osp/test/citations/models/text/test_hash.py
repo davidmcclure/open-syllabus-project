@@ -3,6 +3,9 @@
 import pytest
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 @pytest.mark.parametrize('inputs', [
 
     # Coalesce formattings.
