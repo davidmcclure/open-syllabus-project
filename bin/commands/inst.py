@@ -26,20 +26,11 @@ def init_db():
 
 
 @cli.command()
-def ingest_us():
+def ingest():
 
     """
-    Ingest US institutions.
+    Ingest institutions.
     """
 
-    Institution.ingest_us()
-
-
-@cli.command()
-def ingest_uk():
-
-    """
-    Ingest UK institutions.
-    """
-
-    Institution.ingest_uk()
+    Institution.ingest_usa()
+    Institution.ingest_world()
