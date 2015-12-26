@@ -1,7 +1,12 @@
 
 
+import pytest
+
 from osp.web.utils import corpus_facets
 from osp.citations.models import Citation_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_corpus_facets(add_text, add_citation):

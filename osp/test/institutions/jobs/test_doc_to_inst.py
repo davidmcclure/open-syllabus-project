@@ -1,8 +1,13 @@
 
 
+import pytest
+
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
 from osp.institutions.jobs import doc_to_inst
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_match(add_doc, add_institution):

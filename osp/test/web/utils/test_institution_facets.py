@@ -1,9 +1,14 @@
 
 
+import pytest
+
 from osp.web.utils import institution_facets
 from osp.institutions.models import Institution_Index
 from osp.institutions.models import Institution_Document
 from osp.citations.models import Citation_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_institution_facets(add_institution, add_citation):

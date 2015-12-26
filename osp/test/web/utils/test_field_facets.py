@@ -1,9 +1,14 @@
 
 
+import pytest
+
 from osp.web.utils import field_facets
 from osp.citations.models import Citation_Index
 from osp.fields.models import Field
 from osp.fields.models import Field_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_field_facets(add_citation, add_subfield, add_subfield_document):

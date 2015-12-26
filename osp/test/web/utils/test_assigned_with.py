@@ -1,8 +1,13 @@
 
 
+import pytest
+
 from osp.web.utils import assigned_with
 from osp.citations.models import Citation_Index
 from osp.citations.models import Text_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_assigned_with(add_text, add_doc, add_citation):

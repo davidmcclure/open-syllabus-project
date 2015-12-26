@@ -1,8 +1,13 @@
 
 
+import pytest
+
 from osp.web.utils import rank_texts
 from osp.citations.models import Citation_Index
 from osp.citations.models import Text_Index
+
+
+pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
 def test_unfiltered(add_text, add_citation):
