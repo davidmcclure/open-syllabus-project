@@ -78,30 +78,29 @@ class Client:
             print_code(r.status_code)
 
 
-    def queue(self, model, job):
+    def queue(self, model_import, job_import):
 
         """
         Queue a job against a model.
 
         Args:
-            model (str) - Model import path.
-            job (str) - Job import path.
+            model_import (str): Model import path.
+            job_import (str): Job import path.
         """
 
-        count = len(self.worker_urls)
+        worker_count = len(self.worker_urls)
 
         for i, url in enumerate(self.worker_urls):
 
-            r = requests.post(url+'/queue', data={
-                'model':    model,
-                'job':      job,
-                'count':    count,
-                'index':    i,
-            })
+            r = requests.post(url+'/queue', data=dict(
+                model_import    = model_import,
+                job_import      = job_import,
+                worker_count    = worker_count,
+                offset          = i,
+            ))
 
-            json = r.json()
-
-            click.echo(json['id1']+' - '+json['id2'])
+            click.echo(url)
+            print_code(r.status_code)
 
 
     def clear(self):
