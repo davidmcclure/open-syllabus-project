@@ -45,10 +45,10 @@ def queue_page(model_import, job_import, worker_count, offset):
     Spool a page of model instances for a job.
 
     Args:
-        model_import (str): The model class import string.
-        job_import (str): The job import string.
-        worker_count (int): The total number of workers.
-        offset (int): A 0-based index for this worker.
+        model_import (str)
+        job_import (str)
+        worker_count (int)
+        offset (int)
     """
 
     # Import callables.
