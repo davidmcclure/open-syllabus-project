@@ -1,8 +1,13 @@
 
 
+import pytest
+
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Text
 from osp.corpus.jobs import ext_text
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_text_extraction_succeeds(mock_osp):

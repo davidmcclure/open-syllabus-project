@@ -1,8 +1,13 @@
 
 
+import pytest
+
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
 from osp.corpus.jobs import ext_format
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_read_format(mock_osp):

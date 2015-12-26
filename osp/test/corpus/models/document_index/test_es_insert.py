@@ -1,11 +1,15 @@
 
 
+import pytest
+
 from osp.common.config import config
-from osp.corpus.models import Document
 from osp.corpus.models import Document_Index
 
 
-def test_es_insert(es, add_doc):
+pytestmark = pytest.mark.usefixtures('db', 'es')
+
+
+def test_es_insert(add_doc):
 
     """
     Document_Index.es_insert() should index the document body and id.

@@ -1,8 +1,13 @@
 
 
+import pytest
+
 from osp.corpus.corpus import Corpus
 from osp.corpus.models import Document
 from osp.test.utils import segment_range
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_insert_documents(mock_osp):

@@ -1,7 +1,12 @@
 
 
+import pytest
+
 from osp.corpus.models import Document
 from osp.corpus.models import Document_Format
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_format_counts():
