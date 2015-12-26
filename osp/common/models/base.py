@@ -12,21 +12,6 @@ class BaseModel(Model):
 
 
     @classmethod
-    def reload(cls, model):
-
-        """
-        Reload a model instance. (Used in testing.)
-
-        Args:
-            model (peewee.Model)
-
-        Returns: cls
-        """
-
-        return cls.get(cls.id==model.id)
-
-
-    @classmethod
     def max_id(cls):
 
         """
