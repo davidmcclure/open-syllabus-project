@@ -15,22 +15,21 @@ def test_queue(api_client):
     /queue should queue a work order.
     """
 
-    # Insert 1000 docs.
     for i in range(100):
         Document.create(path=str(i))
 
     r = api_client.post('/queue', data={
         'model':    'osp.corpus.models.Document',
         'job':      'osp.corpus.jobs.ext_text',
-        'index':    5,
-        'count':    10,
+        'count':    20,
+        'index':    10,
     })
 
     # Should queue meta-job.
     assert config.rq.count == 1
 
     # Get the id range.
-    (id1, id2) = partitions(1, Document.max_id(), 10)[5]
+    (id1, id2) = partitions(1, Document.max_id(), 20)[10]
 
     # Run the queue-job.
     meta = config.rq.dequeue()
