@@ -6,6 +6,9 @@ from osp.fields.models import Subfield_Document
 from peewee import IntegrityError
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 def test_unique_pairs(add_subfield, add_doc):
 
     """

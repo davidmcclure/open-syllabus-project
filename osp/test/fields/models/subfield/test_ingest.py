@@ -1,7 +1,12 @@
 
 
+import pytest
+
 from osp.fields.models import Field
 from osp.fields.models import Subfield
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_insert_rows():

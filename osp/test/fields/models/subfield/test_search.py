@@ -5,6 +5,9 @@ import pytest
 from osp.fields.models import Subfield
 
 
+pytestmark = pytest.mark.usefixtures('db')
+
+
 @pytest.mark.parametrize('text', [
 
     # 2-4 digits:

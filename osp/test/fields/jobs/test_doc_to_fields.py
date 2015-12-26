@@ -1,9 +1,14 @@
 
 
+import pytest
+
 from osp.fields.models import Field
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
 from osp.fields.jobs import doc_to_fields
+
+
+pytestmark = pytest.mark.usefixtures('db')
 
 
 def test_matches(add_doc, add_subfield):

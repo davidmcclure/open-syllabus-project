@@ -1,13 +1,17 @@
 
 
-from osp.common.config import config
+import pytest
 
+from osp.common.config import config
 from osp.fields.models import Subfield
 from osp.fields.models import Field
 from osp.fields.models import Field_Index
 
 
-def test_es_insert(es):
+pytestmark = pytest.mark.usefixtures('db', 'es')
+
+
+def test_es_insert():
 
     """
     Field_Index.es_insert() should load all fields into Elasticsearch
