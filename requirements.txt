@@ -4,7 +4,7 @@ tldextract
 geopy
 redis
 rq
-rq-dashboard
+rq-dashboard==0.3.4
 click
 psycopg2
 peewee
