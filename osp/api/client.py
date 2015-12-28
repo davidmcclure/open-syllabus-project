@@ -36,7 +36,7 @@ class Client:
 
         ips = []
         for r in self.conn.get_all_reservations(filters=filters):
-            ips += [i.ip_address for i in r.instances]
+            ips += [i.ip_address for i in r.instances if i.ip_address]
 
         return ips
 
