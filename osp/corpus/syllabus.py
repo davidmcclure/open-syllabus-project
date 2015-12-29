@@ -238,11 +238,7 @@ class Syllabus:
             str: The top-level domain.
         """
 
-        # Get the last `http://` group.
-        http = re.compile('http[s]?:/{1,2}')
-        last = http.split(self.url)[-1]
-
-        return parse_domain(last)
+        return parse_domain(self.url)
 
 
     @property
