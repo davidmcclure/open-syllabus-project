@@ -13,11 +13,6 @@ class Elasticsearch:
         raise NotImplementedError
 
 
-    @property
-    def es_doc(self):
-        raise NotImplementedError
-
-
     @classmethod
     def es_stream_docs(cls):
         raise NotImplementedError

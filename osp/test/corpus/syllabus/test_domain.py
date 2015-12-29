@@ -1,37 +1,40 @@
 
 
+import pytest
+
 from osp.corpus.syllabus import Syllabus
 
 
-def test_regular_url(mock_osp):
+@pytest.mark.parametrize('url,domain', [
 
-    """
-    Syllabys#domain should return the "base" URL.
-    """
+    # http
+    (
+        'http://www.yale.edu/syllabus.pdf',
+        'yale.edu',
+    ),
 
-    log = {'url': 'http://www.yale.edu/syllabus.pdf'}
+    # https
+    (
+        'https://www.yale.edu/syllabus.pdf',
+        'yale.edu',
+    ),
 
-    path = mock_osp.add_file(log=log)
+    # web archive + http
+    (
+        'https://web.archive.org/web/123/http://www.yale.edu/syllabus.pdf',
+        'yale.edu',
+    ),
+
+    # web archive + https
+    (
+        'https://web.archive.org/web/123/https://www.yale.edu/syllabus.pdf',
+        'yale.edu',
+    ),
+
+])
+def test_domain(url, domain, mock_osp):
+
+    path = mock_osp.add_file(log=dict(url=url))
     syllabus = Syllabus(path)
 
-    assert syllabus.domain == 'yale.edu'
-
-
-def test_double_url(mock_osp):
-
-    """
-    Many documents in the corpus are scraped from archive.org, which means
-    that many URLs take the form of:
-
-    https://web.archive.org/web/<id>/http://original-url.org
-
-    In this case, we want the domain from the second, "original" URL.
-    """
-
-    url1 = 'https://web.archive.org/web/123'
-    url2 = 'http://www.yale.edu/syllabus.pdf'
-
-    path = mock_osp.add_file(log={'url': url1+'/'+url2})
-    syllabus = Syllabus(path)
-
-    assert syllabus.domain == 'yale.edu'
+    assert syllabus.domain == domain
