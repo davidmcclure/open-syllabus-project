@@ -21,19 +21,26 @@ def text_to_docs(text_id):
     for tokens in row.queries:
 
         # Execute the query.
-        results = config.es.search('osp', 'document', timeout=30, body={
-            'size': 100000,
-            'filter': {
-                'query': {
-                    'match_phrase': {
-                        'body': {
-                            'query': ' '.join(tokens),
-                            'slop': 20,
+        results = config.es.search(
+
+            index='document',
+            timeout=30,
+
+            body={
+                'size': 100000,
+                'filter': {
+                    'query': {
+                        'match_phrase': {
+                            'body': {
+                                'query': ' '.join(tokens),
+                                'slop': 30,
+                            }
                         }
                     }
                 }
             }
-        })
+
+        )
 
         if results['hits']['total'] > 0:
             for hit in results['hits']['hits']:

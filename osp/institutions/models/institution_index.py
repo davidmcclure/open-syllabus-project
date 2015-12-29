@@ -13,8 +13,7 @@ from iso3166 import countries
 class Institution_Index(Elasticsearch):
 
 
-    es_index = 'osp'
-    es_doc_type = 'institution'
+    es_index = 'institution'
 
 
     es_mapping = {
@@ -62,7 +61,7 @@ class Institution_Index(Elasticsearch):
 
         result = config.es.mget(
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
             body = { 'ids': ids }
         )
 

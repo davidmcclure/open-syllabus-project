@@ -9,8 +9,7 @@ from osp.citations.models import Citation
 class Citation_Index(Elasticsearch):
 
 
-    es_index = 'osp'
-    es_doc_type = 'citation'
+    es_index = 'citation'
 
 
     es_mapping = {
@@ -135,7 +134,7 @@ class Citation_Index(Elasticsearch):
         result = config.es.search(
 
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
             search_type = 'count',
 
             body = {
@@ -181,7 +180,7 @@ class Citation_Index(Elasticsearch):
         result = config.es.search(
 
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
             search_type = 'count',
 
             body = {
@@ -225,7 +224,7 @@ class Citation_Index(Elasticsearch):
         result = config.es.search(
 
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
             search_type = 'count',
 
             body = {

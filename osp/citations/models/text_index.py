@@ -10,8 +10,7 @@ from osp.citations.data.corpora import CORPORA
 class Text_Index(Elasticsearch):
 
 
-    es_index = 'osp'
-    es_doc_type = 'text'
+    es_index = 'text'
 
 
     es_mapping = {
@@ -108,7 +107,7 @@ class Text_Index(Elasticsearch):
         result = config.es.search(
 
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
 
             body = {
                 'size': size,

@@ -9,8 +9,7 @@ from osp.fields.models import Subfield
 class Subfield_Index(Elasticsearch):
 
 
-    es_index = 'osp'
-    es_doc_type = 'subfield'
+    es_index = 'subfield'
 
 
     es_mapping = {
@@ -58,7 +57,7 @@ class Subfield_Index(Elasticsearch):
 
         result = config.es.mget(
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
             body = { 'ids': ids }
         )
 

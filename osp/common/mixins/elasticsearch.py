@@ -23,11 +23,6 @@ class Elasticsearch:
         raise NotImplementedError
 
 
-    @property
-    def es_doc_type(self):
-        raise NotImplementedError
-
-
     @classmethod
     def es_create(cls):
 
@@ -42,7 +37,7 @@ class Elasticsearch:
         # Create the mapping.
         config.es.indices.put_mapping(
             index=cls.es_index,
-            doc_type=cls.es_doc_type,
+            doc_type=cls.es_index,
             body=cls.es_mapping,
         )
 
@@ -71,7 +66,7 @@ class Elasticsearch:
             cls.es_stream_docs(*args, **kwargs),
             raise_on_exception=False,
             raise_on_error=False,
-            doc_type=cls.es_doc_type,
+            doc_type=cls.es_index,
             index=cls.es_index
         )
 
@@ -91,7 +86,7 @@ class Elasticsearch:
 
         r = config.es.count(
             index=cls.es_index,
-            doc_type=cls.es_doc_type,
+            doc_type=cls.es_index,
         )
 
         return r['count']

@@ -24,8 +24,7 @@ def test_es_insert(es, add_institution):
     for inst in Institution.select():
 
         doc = config.es.get(
-            index='osp',
-            doc_type='institution',
+            index='institution',
             id=inst.id,
         )
 

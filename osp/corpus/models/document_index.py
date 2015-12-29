@@ -8,8 +8,7 @@ from osp.corpus.models import Document_Text
 class Document_Index(Elasticsearch):
 
 
-    es_index = 'osp'
-    es_doc_type = 'document'
+    es_index = 'document'
 
 
     es_mapping = {

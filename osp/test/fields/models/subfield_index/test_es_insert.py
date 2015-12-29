@@ -23,8 +23,7 @@ def test_es_insert():
     for sf in Subfield.select():
 
         doc = config.es.get(
-            index='osp',
-            doc_type='subfield',
+            index='subfield',
             id=sf.id,
         )
 

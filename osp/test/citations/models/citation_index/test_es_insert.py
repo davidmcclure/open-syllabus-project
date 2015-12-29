@@ -22,8 +22,7 @@ def test_citation_fields(es, add_citation):
     Citation_Index.es_insert()
 
     doc = config.es.get(
-        index='osp',
-        doc_type='citation',
+        index='citation',
         id=citation.id,
     )
 
@@ -49,8 +48,7 @@ def test_field_refs(es, add_citation, add_subfield, add_subfield_document):
     Citation_Index.es_insert()
 
     doc = config.es.get(
-        index='osp',
-        doc_type='citation',
+        index='citation',
         id=citation.id,
     )
 
@@ -78,8 +76,7 @@ def test_institution_refs(es, add_citation, add_institution):
     Citation_Index.es_insert()
 
     doc = config.es.get(
-        index='osp',
-        doc_type='citation',
+        index='citation',
         id=citation.id,
     )
 

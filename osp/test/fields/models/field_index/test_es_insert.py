@@ -24,8 +24,7 @@ def test_es_insert():
     for field in Field.select():
 
         doc = config.es.get(
-            index='osp',
-            doc_type='field',
+            index='field',
             id=field.id,
         )
 

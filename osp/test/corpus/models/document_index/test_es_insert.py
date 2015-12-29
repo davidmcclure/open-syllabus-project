@@ -20,8 +20,7 @@ def test_es_insert(add_doc):
     Document_Index.es_insert()
 
     es_doc = config.es.get(
-        index='osp',
-        doc_type='document',
+        index='document',
         id=doc.id,
     )
 

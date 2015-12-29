@@ -9,8 +9,7 @@ from osp.fields.models import Field
 class Field_Index(Elasticsearch):
 
 
-    es_index = 'osp'
-    es_doc_type = 'field'
+    es_index = 'field'
 
 
     es_mapping = {
@@ -58,7 +57,7 @@ class Field_Index(Elasticsearch):
 
         result = config.es.mget(
             index = cls.es_index,
-            doc_type = cls.es_doc_type,
+            doc_type = cls.es_index,
             body = { 'ids': ids }
         )
 

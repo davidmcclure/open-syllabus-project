@@ -31,8 +31,7 @@ def test_es_insert(add_text):
     for text in Text.select():
 
         doc = config.es.get(
-            index='osp',
-            doc_type='text',
+            index='text',
             id=text.id,
         )
 
