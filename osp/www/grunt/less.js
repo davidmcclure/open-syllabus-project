@@ -7,8 +7,8 @@ module.exports = {
   },
 
   ranks: {
-    src: '<%= css %>/ranks/index.less',
-    dest: '<%= dist %>/ranks.css'
+    src: '<%= src %>/stylesheets/ranks/index.less',
+    dest: '<%= dest %>/ranks.css'
   }
 
 };

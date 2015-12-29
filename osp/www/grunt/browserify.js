@@ -21,8 +21,8 @@ module.exports = {
   },
 
   ranks: {
-    src: '<%= js %>/ranks/index.js',
-    dest: '<%= dist %>/ranks.js'
+    src: '<%= src %>/javascripts/ranks/index.js',
+    dest: '<%= dest %>/ranks.js'
   }
 
 };
