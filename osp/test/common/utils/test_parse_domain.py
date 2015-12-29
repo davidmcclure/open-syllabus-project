@@ -9,14 +9,13 @@ from osp.common.utils import parse_domain
 
     # Unchanged:
     ('test.edu', 'test.edu'),
-    ('sub.test.edu', 'sub.test.edu'),
 
     # Strip protocol:
     ('http://test.edu', 'test.edu'),
 
-    # Strip www:
+    # Strip subdomain:
     ('www.test.edu', 'test.edu'),
-    ('www.sub.test.edu', 'sub.test.edu'),
+    ('www.sub.test.edu', 'test.edu'),
 
     # Downcase:
     ('WWW.TEST.EDU', 'test.edu'),

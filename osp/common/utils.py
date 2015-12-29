@@ -90,48 +90,6 @@ def read_csv(package, path):
     return csv.DictReader(StringIO(data))
 
 
-def tokenize(text):
-
-    """
-    Yield tokens.
-
-    Args:
-        text (str): The original text.
-
-    Yields:
-        dict: The next token.
-    """
-
-    stem = PorterStemmer().stem
-    tokens = re.finditer('[a-z]+', text.lower())
-
-    for offset, match in enumerate(tokens):
-
-        # Get the raw token.
-        unstemmed = match.group(0)
-
-        yield { # Emit the token.
-            'stemmed':      stem(unstemmed),
-            'unstemmed':    unstemmed,
-            'offset':       offset
-        }
-
-
-def termify(text):
-
-    """
-    Extract word types from a string.
-
-    Args:
-        text (str): The original text.
-
-    Returns:
-        set: Unique, stemmed types.
-    """
-
-    return set([t['stemmed'] for t in tokenize(text)])
-
-
 def parse_domain(url):
 
     """
@@ -143,12 +101,4 @@ def parse_domain(url):
 
     url = url.lower().strip()
 
-    parsed = tldextract.extract(url)
-    domain = parsed.registered_domain
-    subdomain = parsed.subdomain
-
-    # Join non-www subdomains.
-    if subdomain and subdomain != 'www':
-        domain = '.'.join([subdomain.lstrip('www.'), domain])
-
-    return domain.lower()
+    return tldextract.extract(url).registered_domain
