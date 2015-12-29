@@ -1,0 +1,16 @@
+{
+  "name": "osp-web",
+  "version": "1.0.0",
+  "description": "The Open Syllabus Project",
+  "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/davidmcclure/osp.git"
+  },
+  "author": "David McClure",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/davidmcclure/osp/issues"
+  },
+  "homepage": "https://github.com/davidmcclure/osp#readme"
+}
