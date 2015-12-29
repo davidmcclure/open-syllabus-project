@@ -3,12 +3,12 @@
 module.exports = {
 
   livereload: {
-    files: '<%= dist %>/*',
+    files: '<%= dest %>/*',
     options: { livereload: true }
   },
 
   stylesheets: {
-    files: '<%= css %>/**/*.less',
+    files: '<%= src %>/stylesheets/**/*.less',
     tasks: 'less'
   }
 
