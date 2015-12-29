@@ -99,6 +99,10 @@ def parse_domain(url):
         url (str)
     """
 
-    url = url.lower().strip()
+    # Get the last `http://...` sequence.
+    url = re.compile('http[s]?:/{1,2}').split(url)[-1]
 
-    return tldextract.extract(url).registered_domain
+    # Parse the top-level domain.
+    domain = tldextract.extract(url).registered_domain
+
+    return domain.lower().strip()
