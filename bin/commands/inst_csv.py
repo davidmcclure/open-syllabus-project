@@ -21,18 +21,26 @@ def orphan_docs(out_file):
     Find document URLs that don't match institutions.
     """
 
-    cols = ['url']
+    cols = ['doc', 'url']
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
     for doc in query_bar(Document.select()):
 
-        inst = (
-            Institution
-            .select()
-            .where(Institution.domain==doc.syllabus.domain)
-            .first()
-        )
+        try:
 
-        if not inst:
-            writer.writerow(dict(url=doc.syllabus.url))
+            inst = (
+                Institution
+                .select()
+                .where(Institution.domain==doc.syllabus.domain)
+                .first()
+            )
+
+            if not inst:
+                writer.writerow(dict(
+                    doc=doc.path,
+                    url=doc.syllabus.url,
+                ))
+
+        except:
+            pass
