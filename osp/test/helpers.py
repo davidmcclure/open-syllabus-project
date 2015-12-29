@@ -162,16 +162,21 @@ def add_institution():
 
     def _inst(
         name='Yale University',
+        url=None,
         domain=None,
         state='CA',
         country='US',
     ):
+
+        if not url:
+            url = uuid.uuid4()
 
         if not domain:
             domain = uuid.uuid4()
 
         return Institution.create(
             name=name,
+            url=url,
             domain=domain,
             state=state,
             country=country,

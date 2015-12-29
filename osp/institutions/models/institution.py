@@ -14,6 +14,7 @@ class Institution(BaseModel):
 
 
     name = CharField()
+    url = CharField(unique=True)
     domain = CharField(unique=True)
     state = CharField(null=True)
     country = CharField()
@@ -39,7 +40,8 @@ class Institution(BaseModel):
             if row['e_country'] == 'USA':
 
                 # Normalize the URL.
-                domain = parse_domain(row['web_url'])
+                url = row['web_url']
+                domain = parse_domain(url)
 
                 # Clean the fields.
                 name = row['biz_name'].strip()
@@ -47,10 +49,11 @@ class Institution(BaseModel):
 
                 try:
                     cls.create(
-                        name=name,
-                        domain=domain,
-                        state=state,
-                        country='US',
+                        name    = name,
+                        url     = url,
+                        domain  = domain,
+                        state   = state,
+                        country = 'US',
                     )
 
                 except IntegrityError:
@@ -73,7 +76,8 @@ class Institution(BaseModel):
             if row['country'] != 'US':
 
                 # Normalize the URL.
-                domain = parse_domain(row['url'])
+                url = row['url']
+                domain = parse_domain(url)
 
                 # Clean the fields.
                 name = row['name'].strip()
@@ -81,9 +85,10 @@ class Institution(BaseModel):
 
                 try:
                     cls.create(
-                        name=name,
-                        domain=domain,
-                        country=country,
+                        name    = name,
+                        url     = url,
+                        domain  = domain,
+                        country = country,
                     )
 
                 except IntegrityError:
