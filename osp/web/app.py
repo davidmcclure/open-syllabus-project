@@ -14,4 +14,4 @@ def ping():
 
 
 if __name__ == '__main__':
-    app.run(port=os.getenv('PORT', 5000))
+    app.run(port=os.getenv('PORT', 5000), debug=True)
