@@ -24,10 +24,11 @@ def test_insert_rows():
     for i in map(str, [1, 2, 3]):
 
         assert Institution.select().where(
-            Institution.name=='inst'+i,
-            Institution.domain=='inst'+i+'.edu',
+            Institution.name=='inst{0}'.format(i),
+            Institution.url=='http://inst{0}.edu'.format(i),
+            Institution.domain=='inst{0}.edu'.format(i),
             Institution.state==None,
-            Institution.country=='C'+i,
+            Institution.country=='C{0}'.format(i),
         )
 
 
@@ -62,6 +63,7 @@ def test_strip_values():
 
     assert Institution.select().where(
         Institution.name=='inst',
+        Institution.url=='http://inst.edu',
         Institution.domain=='inst.edu',
         Institution.state==None,
         Institution.country=='AU',
