@@ -3,7 +3,7 @@
 import pytest
 
 # Globals
-from osp.api.server import app
+from osp.workers.server import app
 from osp.common.config import config as _config
 
 # Models

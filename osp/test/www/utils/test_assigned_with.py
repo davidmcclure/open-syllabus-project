@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.web.utils import assigned_with
+from osp.www.utils import assigned_with
 from osp.citations.models import Citation_Index
 from osp.citations.models import Text_Index
 

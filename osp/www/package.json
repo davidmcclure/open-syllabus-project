@@ -1,5 +1,5 @@
 {
-  "name": "osp-web",
+  "name": "osp.www",
   "version": "1.0.0",
   "description": "The Open Syllabus Project",
   "main": "index.js",

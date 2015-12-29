@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.web.utils import rank_texts
+from osp.www.utils import rank_texts
 from osp.citations.models import Citation_Index
 from osp.citations.models import Text_Index
 

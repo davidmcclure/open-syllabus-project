@@ -5,7 +5,7 @@ import requests
 import click
 
 from osp.common.config import config
-from osp.api.utils import print_code
+from osp.workers.utils import print_code
 
 from boto import ec2
 from blessings import Terminal

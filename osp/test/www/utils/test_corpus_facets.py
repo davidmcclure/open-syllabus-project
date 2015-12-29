@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.web.utils import corpus_facets
+from osp.www.utils import corpus_facets
 from osp.citations.models import Citation_Index
 
 

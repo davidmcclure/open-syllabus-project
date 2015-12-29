@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.web.utils import institution_facets
+from osp.www.utils import country_facets
 from osp.institutions.models import Institution_Index
 from osp.institutions.models import Institution_Document
 from osp.citations.models import Citation_Index
@@ -11,15 +11,15 @@ from osp.citations.models import Citation_Index
 pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
-def test_institution_facets(add_institution, add_citation):
+def test_country_facets(add_institution, add_citation):
 
     """
-    institution_facets() should provide a list of label/value/count dicts.
+    country_facets() should provide a list of label/value/count dicts.
     """
 
-    i1 = add_institution(name='Institution 1')
-    i2 = add_institution(name='Institution 2')
-    i3 = add_institution(name='Institution 3')
+    i1 = add_institution(country='AU')
+    i2 = add_institution(country='CA')
+    i3 = add_institution(country='NZ')
 
     for i in range(3):
         c = add_citation()
@@ -34,12 +34,11 @@ def test_institution_facets(add_institution, add_citation):
         Institution_Document.create(institution=i3, document=c.document)
 
     Citation_Index.es_insert()
-    Institution_Index.es_insert()
 
-    facets = institution_facets()
+    facets = country_facets()
 
     assert facets == [
-        dict(label='Institution 1', value=str(i1.id), count=3),
-        dict(label='Institution 2', value=str(i2.id), count=2),
-        dict(label='Institution 3', value=str(i3.id), count=1),
+        dict(label='Australia', value=i1.country, count=3),
+        dict(label='Canada', value=i2.country, count=2),
+        dict(label='New Zealand', value=i3.country, count=1),
     ]

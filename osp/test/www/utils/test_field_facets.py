@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.web.utils import field_facets
+from osp.www.utils import field_facets
 from osp.citations.models import Citation_Index
 from osp.fields.models import Field
 from osp.fields.models import Field_Index
