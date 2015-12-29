@@ -2,13 +2,23 @@
 {% extends "base.html" %}
 
 {% block css %}
-  <link rel="stylesheet" href="/static/dist/ranks.css">
+<link rel="stylesheet" href="/static/dist/ranks.css">
 {% endblock %}
 
 {% block js %}
-  <script src="/static/dist/ranks.js"></script>
+<script src="/static/dist/ranks.js"></script>
 {% endblock %}
 
 {% block body %}
-  <h1>The Open Syllabus Project</h1>
+
+<div id="header">
+
+  <div class="leader">
+    <h1>The Open Syllabus Project</h1>
+    <p>The Open Syllabus Project analyzes text assignments in a corpus of 1M+
+    college course syllabi.</p>
+  </div>
+
+</div>
+
 {% endblock %}

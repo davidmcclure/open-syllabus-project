@@ -3,7 +3,10 @@
 module.exports = {
 
   livereload: {
-    files: '<%= dest %>/*',
+    files: [
+      '<%= dest %>/*',
+      'templates/*',
+    ],
     options: { livereload: true }
   },
 
