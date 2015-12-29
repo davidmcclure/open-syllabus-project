@@ -41,8 +41,9 @@ class Elasticsearch:
 
         # Create the mapping.
         config.es.indices.put_mapping(
-            cls.es_doc_type,
-            cls.es_mapping
+            index=cls.es_index,
+            doc_type=cls.es_doc_type,
+            body=cls.es_mapping,
         )
 
 
@@ -88,7 +89,11 @@ class Elasticsearch:
             int: The number of docs.
         """
 
-        r = config.es.count(cls.es_index, cls.es_doc_type)
+        r = config.es.count(
+            index=cls.es_index,
+            doc_type=cls.es_doc_type,
+        )
+
         return r['count']
 
 
