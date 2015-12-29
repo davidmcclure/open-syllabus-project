@@ -48,4 +48,5 @@ def run_doc_to_inst():
     """
 
     for doc in query_bar(Document.select()):
-        doc_to_inst(doc.id)
+        try: doc_to_inst(doc.id)
+        except: pass
