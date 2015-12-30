@@ -2,12 +2,9 @@
 
 import click
 
-from osp.common.config import config
-from osp.corpus.models import Document_Text
 from osp.fields.models import Field
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
-from osp.fields.jobs import doc_to_fields
 
 from peewee import create_model_tables
 
