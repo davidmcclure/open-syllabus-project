@@ -21,6 +21,7 @@ from osp.institutions.models import Institution_Index
 from osp.fields.models import Field
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield
+from osp.fields.models import Subfield_Index
 from osp.fields.models import Subfield_Document
 
 # Helpers
@@ -81,6 +82,7 @@ def es():
         Citation_Index,
         Document_Index,
         Field_Index,
+        Subfield_Index,
         Institution_Index,
         Text_Index,
     ]:
