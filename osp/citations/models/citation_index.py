@@ -1,9 +1,15 @@
 
 
+import random
+import us
+import iso3166
+
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.models import Citation
+
+from clint.textui import progress
 
 
 class Citation_Index(Elasticsearch):
@@ -89,6 +95,35 @@ class Citation_Index(Elasticsearch):
                 doc['country'] = inst.country
 
             yield doc
+
+
+    @classmethod
+    def es_stream_mock_docs(cls):
+
+        """
+        Stream (mock) Elasticsearch docs.
+
+        Yields:
+            dict: The next document.
+        """
+
+        # Get country codes.
+        countries = list(iso3166.countries_by_alpha3.keys())
+
+        for i in progress.bar(range(int(1000000))):
+
+            yield dict(
+                _id = i,
+                text_id         = random.randint(1, 200000),
+                document_id     = random.randint(1, 1500000),
+                corpus          = random.choice(['hlom', 'jstor']),
+                min_freq        = random.uniform(0, 10),
+                subfield_id     = random.randint(1, 200),
+                field_id        = random.randint(1, 30),
+                institution_id  = random.randint(0, 1000),
+                state           = random.choice(us.states.STATES).abbr,
+                country         = random.choice(countries),
+            )
 
 
     @classmethod

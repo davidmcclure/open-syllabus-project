@@ -18,6 +18,11 @@ class Elasticsearch:
         raise NotImplementedError
 
 
+    @classmethod
+    def es_stream_mock_docs(cls):
+        raise NotImplementedError
+
+
     @property
     def es_index(self):
         raise NotImplementedError
@@ -54,16 +59,25 @@ class Elasticsearch:
 
 
     @classmethod
-    def es_insert(cls):
+    def es_insert(cls, mock=False):
 
         """
         Insert documents.
+
+        Args:
+            mock (bool): If true, generate mock data.
         """
+
+        if not mock:
+            actions = cls.es_stream_docs()
+
+        else:
+            actions = cls.es_stream_mock_docs()
 
         # Batch-insert the documents.
         bulk(
             client=config.es,
-            actions=cls.es_stream_docs(),
+            actions=actions,
             raise_on_exception=False,
             raise_on_error=False,
             doc_type=cls.es_index,
