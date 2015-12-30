@@ -1,6 +1,8 @@
 
 
 import React, { Component } from 'react';
+import Filters from './filters';
+import Results from './results';
 
 
 export default class extends Component {
@@ -15,11 +17,11 @@ export default class extends Component {
         <div className="row">
 
           <div className="col-md-4">
-            filters
+            <Filters />
           </div>
 
           <div className="col-md-8">
-            results
+            <Results />
           </div>
 
         </div>
