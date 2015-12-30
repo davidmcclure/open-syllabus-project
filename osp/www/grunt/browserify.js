@@ -7,7 +7,11 @@ module.exports = {
     transform: [
 
       ['babelify', {
-        presets: ['es2015', 'stage-1']
+        presets: [
+          'es2015',
+          'stage-1',
+          'react',
+        ]
       }],
 
     ],
