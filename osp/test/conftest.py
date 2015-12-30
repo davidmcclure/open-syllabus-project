@@ -79,12 +79,12 @@ def es():
     """
 
     for index in [
-        Citation_Index,
         Document_Index,
+        Citation_Index,
+        Text_Index,
+        Institution_Index,
         Field_Index,
         Subfield_Index,
-        Institution_Index,
-        Text_Index,
     ]:
 
         index.es_reset()
