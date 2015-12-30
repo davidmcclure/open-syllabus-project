@@ -2,9 +2,12 @@
 
 import click
 
+from osp.corpus.models import Document
+from osp.common.utils import query_bar
 from osp.fields.models import Field
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
+from osp.fields.jobs import doc_to_fields
 
 from peewee import create_model_tables
 
@@ -36,3 +39,15 @@ def ingest():
     """
 
     Subfield.ingest()
+
+
+@cli.command()
+def run_doc_to_fields():
+
+    """
+    Match documents -> fields.
+    """
+
+    for doc in query_bar(Document.select()):
+        try: doc_to_fields(doc.id)
+        except: pass
