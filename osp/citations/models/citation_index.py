@@ -31,7 +31,8 @@ class Citation_Index(Elasticsearch):
                 'type': 'integer'
             },
             'corpus': {
-                'type': 'string'
+                'index': 'not_analyzed',
+                'type': 'string',
             },
             'min_freq': {
                 'type': 'float'
@@ -46,10 +47,12 @@ class Citation_Index(Elasticsearch):
                 'type': 'integer'
             },
             'state': {
-                'type': 'string'
+                'index': 'not_analyzed',
+                'type': 'string',
             },
             'country': {
-                'type': 'string'
+                'index': 'not_analyzed',
+                'type': 'string',
             },
         }
     }

@@ -2,8 +2,9 @@
 
 import pytest
 
-from wordfreq import word_frequency
 from osp.citations.models import Citation_Index
+from osp.institutions.models import Institution_Document
+from wordfreq import word_frequency
 
 
 pytestmark = pytest.mark.usefixtures('db', 'es')
@@ -39,15 +40,14 @@ def test_unfiltered(add_text, add_citation):
     }
 
 
-def test_filter_single_value(add_text, add_citation):
+def test_filter_corpus(add_text, add_citation):
 
     """
-    When a single filter value is provided, match citations that include the
-    key -> value pair.
+    Filter by corpus.
     """
 
     t1 = add_text(corpus='corpus1')
-    t2 = add_text(corpus='corpus2')
+    t2 = add_text(corpus='corpus1')
     t3 = add_text(corpus='corpus2')
 
     for i in range(3):
@@ -62,13 +62,86 @@ def test_filter_single_value(add_text, add_citation):
     Citation_Index.es_insert()
 
     ranks = Citation_Index.rank_texts(dict(
-        corpus='corpus2'
+        corpus='corpus1'
     ))
 
-    # Just count `corpus2` citations.
     assert ranks == {
+        str(t1.id): 3,
         str(t2.id): 2,
-        str(t3.id): 1,
+    }
+
+
+def test_filter_state(add_text, add_citation, add_institution):
+
+    """
+    Filter by state.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+
+    i1 = add_institution(state='AL')
+    i2 = add_institution(state='CA')
+
+    for i in range(3):
+        c = add_citation(text=t1)
+        Institution_Document.create(institution=i1, document=c.document)
+
+    for i in range(2):
+        c = add_citation(text=t2)
+        Institution_Document.create(institution=i1, document=c.document)
+
+    for i in range(1):
+        c = add_citation(text=t3)
+        Institution_Document.create(institution=i2, document=c.document)
+
+    Citation_Index.es_insert()
+
+    ranks = Citation_Index.rank_texts(dict(
+        state='AL'
+    ))
+
+    assert ranks == {
+        str(t1.id): 3,
+        str(t2.id): 2,
+    }
+
+
+def test_filter_country(add_text, add_citation, add_institution):
+
+    """
+    Filter by country.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+
+    i1 = add_institution(country='USA')
+    i2 = add_institution(country='CAN')
+
+    for i in range(3):
+        c = add_citation(text=t1)
+        Institution_Document.create(institution=i1, document=c.document)
+
+    for i in range(2):
+        c = add_citation(text=t2)
+        Institution_Document.create(institution=i1, document=c.document)
+
+    for i in range(1):
+        c = add_citation(text=t3)
+        Institution_Document.create(institution=i2, document=c.document)
+
+    Citation_Index.es_insert()
+
+    ranks = Citation_Index.rank_texts(dict(
+        country='USA'
+    ))
+
+    assert ranks == {
+        str(t1.id): 3,
+        str(t2.id): 2,
     }
 
 
