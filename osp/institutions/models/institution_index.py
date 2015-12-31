@@ -58,7 +58,7 @@ class Institution_Index(Elasticsearch):
             dict: The next document.
         """
 
-        for i in progress.bar(range(1, 1000+1)):
+        for i in progress.bar(range(1, 1001)):
 
             yield dict(
                 _id = i,

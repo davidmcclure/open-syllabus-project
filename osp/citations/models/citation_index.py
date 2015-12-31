@@ -120,7 +120,7 @@ class Citation_Index(Elasticsearch):
                 min_freq        = random.uniform(0, 10),
                 subfield_id     = random.randint(1, 200),
                 field_id        = random.randint(1, 30),
-                institution_id  = random.randint(0, 1000),
+                institution_id  = random.randint(1, 1000),
                 state           = random.choice(us.states.STATES).abbr,
                 country         = random.choice(countries),
             )

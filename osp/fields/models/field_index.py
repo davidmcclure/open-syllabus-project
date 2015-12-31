@@ -55,7 +55,7 @@ class Field_Index(Elasticsearch):
             dict: The next document.
         """
 
-        for i in progress.bar(range(1, 30+1)):
+        for i in progress.bar(range(1, 31)):
 
             yield dict(
                 _id = i,

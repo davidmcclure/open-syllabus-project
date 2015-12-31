@@ -144,6 +144,25 @@ def country_facets():
     return Institution_Index.materialize_country_facets(counts)
 
 
+def bootstrap_facets():
+
+    """
+    Bootstrap all facets for the front-end.
+    """
+
+    return dict(
+        corpus      = corpus_facets(),
+        subfield    = subfield_facets(),
+        field       = field_facets(),
+        institution = institution_facets(),
+        state       = state_facets(),
+        country     = country_facets(),
+    )
+
+
+# TODO|dev
+
+
 def index_mocks():
 
     """
