@@ -6,7 +6,15 @@
 {% endblock %}
 
 {% block js %}
+
+<script>
+OSP = {
+  facets: {{ facets|safe }}
+};
+</script>
+
 <script src="/static/dist/ranks.js"></script>
+
 {% endblock %}
 
 {% block body %}

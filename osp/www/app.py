@@ -2,6 +2,7 @@
 
 import os
 
+from osp.www import utils
 from flask import Flask, render_template
 
 
@@ -10,7 +11,10 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
-    return render_template('home.html')
+    return render_template(
+        'home.html',
+        facets=utils.bootstrap_facets(),
+    )
 
 
 if __name__ == '__main__':
