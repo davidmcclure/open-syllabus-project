@@ -71,6 +71,90 @@ def test_filter_corpus(add_text, add_citation):
     }
 
 
+def test_filter_subfield(
+    add_text,
+    add_citation,
+    add_subfield,
+    add_subfield_document,
+):
+
+    """
+    Filter by subfield.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+
+    sf1 = add_subfield()
+    sf2 = add_subfield()
+
+    for i in range(3):
+        c = add_citation(text=t1)
+        add_subfield_document(subfield=sf1, document=c.document)
+
+    for i in range(2):
+        c = add_citation(text=t2)
+        add_subfield_document(subfield=sf1, document=c.document)
+
+    for i in range(1):
+        c = add_citation(text=t3)
+        add_subfield_document(subfield=sf2, document=c.document)
+
+    Citation_Index.es_insert()
+
+    ranks = Citation_Index.rank_texts(dict(
+        subfield_id=sf1.id
+    ))
+
+    assert ranks == {
+        str(t1.id): 3,
+        str(t2.id): 2,
+    }
+
+
+def test_filter_field(
+    add_text,
+    add_citation,
+    add_subfield,
+    add_subfield_document,
+):
+
+    """
+    Filter by field.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+
+    sf1 = add_subfield()
+    sf2 = add_subfield()
+
+    for i in range(3):
+        c = add_citation(text=t1)
+        add_subfield_document(subfield=sf1, document=c.document)
+
+    for i in range(2):
+        c = add_citation(text=t2)
+        add_subfield_document(subfield=sf1, document=c.document)
+
+    for i in range(1):
+        c = add_citation(text=t3)
+        add_subfield_document(subfield=sf2, document=c.document)
+
+    Citation_Index.es_insert()
+
+    ranks = Citation_Index.rank_texts(dict(
+        field_id=sf1.field.id
+    ))
+
+    assert ranks == {
+        str(t1.id): 3,
+        str(t2.id): 2,
+    }
+
+
 def test_filter_institution(add_text, add_citation, add_institution):
 
     """
