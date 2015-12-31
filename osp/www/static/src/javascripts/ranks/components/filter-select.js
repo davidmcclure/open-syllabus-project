@@ -2,31 +2,23 @@
 
 import React, { Component } from 'react';
 import Select from 'react-select';
-import { connect } from 'react-redux';
 
-import * as actions from '../actions/filters';
 import { parseFilterValues } from '../utils';
 
 
-@connect(
-  state => ({
-    filters: state.filters
-  }),
-  actions,
-)
 export default class extends Component {
 
 
   /**
-   * Render the corpus facets.
+   * Render the select widget.
    */
   render() {
     return (
       <Select
 
-        placeholder="All corpora"
-        options={OSP.facets.corpus}
-        value={this.props.filters.corpus}
+        options={this.props.options}
+        value={this.props.value}
+        placeholder={this.props.placeholder}
         multi={true}
 
         onChange={this.onChange.bind(this)}
@@ -43,7 +35,7 @@ export default class extends Component {
    */
   onChange(options) {
     let values = parseFilterValues(options);
-    this.props.changeCorpusFilter(values);
+    this.props.publish(values);
   }
 
 
