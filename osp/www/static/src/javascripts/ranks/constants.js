@@ -1,0 +1,3 @@
+
+
+export const CHANGE_CORPUS_FILTER = 'CHANGE_CORPUS_FILTER'
