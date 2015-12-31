@@ -74,6 +74,9 @@ class Elasticsearch:
         else:
             actions = cls.es_stream_mock_docs()
 
+        # Clear the index.
+        cls.es_reset()
+
         # Batch-insert the documents.
         bulk(
             client=config.es,

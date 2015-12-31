@@ -5,6 +5,8 @@ from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.utils import query_bar
 from osp.fields.models import Field
 
+from clint.textui import progress
+
 
 class Field_Index(Elasticsearch):
 
@@ -40,6 +42,24 @@ class Field_Index(Elasticsearch):
             yield dict(
                 _id = row.id,
                 name = row.name,
+            )
+
+
+    @classmethod
+    def es_stream_mock_docs(cls):
+
+        """
+        Stream (mock) Elasticsearch docs.
+
+        Yields:
+            dict: The next document.
+        """
+
+        for i in progress.bar(range(1, 30+1)):
+
+            yield dict(
+                _id = i,
+                name = 'Field {0}'.format(i),
             )
 
 

@@ -142,3 +142,20 @@ def country_facets():
 
     counts = Citation_Index.count_facets('country')
     return Institution_Index.materialize_country_facets(counts)
+
+
+def index_mocks():
+
+    """
+    Index mock documents.
+    """
+
+    for index in [
+        Citation_Index,
+        Text_Index,
+        Subfield_Index,
+        Field_Index,
+        Institution_Index,
+    ]:
+
+        index.es_insert(mock=True)

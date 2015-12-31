@@ -8,6 +8,7 @@ from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.institutions.models import Institution
 
 from iso3166 import countries
+from clint.textui import progress
 
 
 class Institution_Index(Elasticsearch):
@@ -44,6 +45,24 @@ class Institution_Index(Elasticsearch):
             yield dict(
                 _id = row.id,
                 name = row.name,
+            )
+
+
+    @classmethod
+    def es_stream_mock_docs(cls):
+
+        """
+        Stream (mock) Elasticsearch docs.
+
+        Yields:
+            dict: The next document.
+        """
+
+        for i in progress.bar(range(1, 1000+1)):
+
+            yield dict(
+                _id = i,
+                name = 'Institution {0}'.format(i),
             )
 
 

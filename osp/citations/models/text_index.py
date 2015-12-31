@@ -3,8 +3,11 @@
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
-from osp.citations.models import Text
+from osp.common.faker import Faker
 from osp.citations.data.corpora import CORPORA
+from osp.citations.models import Text
+
+from clint.textui import progress
 
 
 class Text_Index(Elasticsearch):
@@ -61,6 +64,29 @@ class Text_Index(Elasticsearch):
                 date        = row.date,
                 journal     = row.journal_title,
                 url         = row.url,
+            )
+
+
+    @classmethod
+    def es_stream_mock_docs(cls):
+
+        """
+        Stream (mock) Elasticsearch docs.
+
+        Yields:
+            dict: The next document.
+        """
+
+        faker = Faker()
+
+        for i in progress.bar(range(1, 200000)):
+
+            yield dict(
+                _id         = i,
+                title       = faker.snippet(80),
+                author      = faker.snippet(20),
+                publisher   = faker.snippet(30),
+                journal     = faker.snippet(50),
             )
 
 
