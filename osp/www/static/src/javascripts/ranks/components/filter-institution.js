@@ -13,7 +13,7 @@ export default class extends Component {
   render() {
     return (
       <Select
-        placeholder="Select institutions"
+        placeholder="All institutions"
         options={OSP.facets.institution}
       />
     );

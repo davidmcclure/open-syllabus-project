@@ -13,7 +13,7 @@ export default class extends Component {
   render() {
     return (
       <Select
-        placeholder="Select subfields"
+        placeholder="All subfields"
         options={OSP.facets.subfield}
       />
     );

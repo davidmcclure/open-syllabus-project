@@ -13,7 +13,7 @@ export default class extends Component {
   render() {
     return (
       <Select
-        placeholder="Select fields"
+        placeholder="All fields"
         options={OSP.facets.field}
       />
     );
