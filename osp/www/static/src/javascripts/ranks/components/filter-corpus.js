@@ -15,8 +15,19 @@ export default class extends Component {
       <Select
         placeholder="All corpora"
         options={OSP.facets.corpus}
+        onChange={this.onChange.bind(this)}
       />
     );
+  }
+
+
+  /**
+   * When the selection is changed.
+   *
+   * @param {Object} option
+   */
+  onChange(option) {
+    console.log(option);
   }
 
 
