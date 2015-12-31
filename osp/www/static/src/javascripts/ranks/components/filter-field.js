@@ -14,6 +14,7 @@ export default class extends Component {
     return (
       <Select
         placeholder="Select fields"
+        options={OSP.facets.field}
       />
     );
   }
