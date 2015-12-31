@@ -3,7 +3,7 @@
 import os
 
 from osp.www import utils
-from flask import Flask, render_template
+from flask import Flask, request, render_template, jsonify
 
 
 app = Flask(__name__)
@@ -15,6 +15,12 @@ def home():
         'home.html',
         facets=utils.bootstrap_facets(),
     )
+
+
+# TODO
+@app.route('/api/ranks')
+def ranks():
+    return jsonify(results=utils.rank_texts())
 
 
 if __name__ == '__main__':
