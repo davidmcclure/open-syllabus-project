@@ -2,6 +2,7 @@
 
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
+import pluralize from 'pluralize';
 
 import { parseFilterValues } from '../utils';
 
@@ -21,6 +22,11 @@ export default class extends Component {
    * Render the select widget.
    */
   render() {
+
+    pluralize.addIrregularRule('corpus', 'corpora');
+
+    let plural = pluralize(this.props.name, 2);
+
     return (
       <div>
 
@@ -30,7 +36,7 @@ export default class extends Component {
 
           options={this.props.options}
           value={this.props.value}
-          placeholder={`All ${this.props.name}`}
+          placeholder={`All ${plural}`}
           multi={true}
 
           onChange={this.onChange.bind(this)}
@@ -39,6 +45,7 @@ export default class extends Component {
 
       </div>
     );
+
   }
 
 
