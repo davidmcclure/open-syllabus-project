@@ -1,6 +1,6 @@
 
 
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 
 import { parseFilterValues } from '../utils';
@@ -9,21 +9,35 @@ import { parseFilterValues } from '../utils';
 export default class extends Component {
 
 
+  static propTypes = {
+    name: PropTypes.string.isRequired,
+    options: PropTypes.array.isRequired,
+    value: PropTypes.any,
+    publish: PropTypes.func.isRequired,
+  }
+
+
   /**
    * Render the select widget.
    */
   render() {
     return (
-      <Select
+      <div>
 
-        options={this.props.options}
-        value={this.props.value}
-        placeholder={this.props.placeholder}
-        multi={true}
+        <h5>Filter by {this.props.name}</h5>
 
-        onChange={this.onChange.bind(this)}
+        <Select
 
-      />
+          options={this.props.options}
+          value={this.props.value}
+          placeholder={`All ${this.props.name}`}
+          multi={true}
+
+          onChange={this.onChange.bind(this)}
+
+        />
+
+      </div>
     );
   }
 
