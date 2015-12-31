@@ -10,7 +10,7 @@ import { parseFilterValues } from '../utils';
 
 @connect(
   state => ({
-    filters: state.filters.filters
+    filters: state.filters
   }),
   actions,
 )

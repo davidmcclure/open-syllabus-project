@@ -9,23 +9,19 @@ import {
 
 
 const initialState = {
-  filters: {},
-  query: null,
+  corpus: null,
+  field_id: null,
 };
 
 
 const handlers = {
 
   [CHANGE_CORPUS_FILTER]: (state, action) => ({
-    filters: {
-      corpus: action.values
-    }
+    corpus: action.values
   }),
 
   [CHANGE_FIELD_FILTER]: (state, action) => ({
-    filters: {
-      field_id: action.values
-    }
+    field_id: action.values
   })
 
 };
