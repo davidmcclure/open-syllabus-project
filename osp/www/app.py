@@ -11,16 +11,33 @@ app = Flask(__name__)
 
 @app.route('/')
 def home():
+
     return render_template(
         'home.html',
         facets=utils.bootstrap_facets(),
     )
 
 
-# TODO
 @app.route('/api/ranks')
 def ranks():
-    return jsonify(results=utils.rank_texts())
+
+    query = request.args.get('query')
+
+    filters = {f: request.args.get(f) for f in [
+        'corpus',
+        'field_id',
+        'subfield_id',
+        'institution_id',
+        'state',
+        'country',
+    ]}
+
+    results = utils.rank_texts(
+        query=query,
+        filters=filters,
+    )
+
+    return jsonify(results=results)
 
 
 if __name__ == '__main__':
