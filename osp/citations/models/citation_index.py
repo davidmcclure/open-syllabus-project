@@ -147,11 +147,14 @@ class Citation_Index(Elasticsearch):
         # Assemble match filters.
 
         for field, value in filters.items():
-            conds.append({
-                ('terms' if type(value) is list else 'term'): {
-                    field: value
-                }
-            })
+
+            if value: # Ignore empty values.
+
+                conds.append({
+                    ('terms' if type(value) is list else 'term'): {
+                        field: value
+                    }
+                })
 
         # Filter out semantically-unfocused citations.
 

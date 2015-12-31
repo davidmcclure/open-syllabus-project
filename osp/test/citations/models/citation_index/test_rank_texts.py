@@ -137,3 +137,39 @@ def test_filter_min_freq(add_text, add_citation):
         assert ranks == {
             str(text.id): count
         }
+
+
+@pytest.mark.parametrize('empty', [
+    None,
+    [],
+])
+def test_ignore_filters_with_empty_values(empty, add_text, add_citation):
+
+    """
+    Ignore filters with empty values.
+    """
+
+    t1 = add_text(corpus='corpus1')
+    t2 = add_text(corpus='corpus2')
+    t3 = add_text(corpus='corpus3')
+
+    for i in range(3):
+        add_citation(t1)
+
+    for i in range(2):
+        add_citation(t2)
+
+    for i in range(1):
+        add_citation(t3)
+
+    Citation_Index.es_insert()
+
+    ranks = Citation_Index.rank_texts(dict(
+        corpus=empty
+    ))
+
+    assert ranks == {
+        str(t1.id): 3,
+        str(t2.id): 2,
+        str(t3.id): 1,
+    }
