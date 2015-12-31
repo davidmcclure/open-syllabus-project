@@ -39,7 +39,7 @@ def test_institution_facets(add_institution, add_citation):
     facets = institution_facets()
 
     assert facets == [
-        dict(label='Institution 1', value=str(i1.id), count=3),
-        dict(label='Institution 2', value=str(i2.id), count=2),
-        dict(label='Institution 3', value=str(i3.id), count=1),
+        dict(label='Institution 1', value=i1.id, count=3),
+        dict(label='Institution 2', value=i2.id, count=2),
+        dict(label='Institution 3', value=i3.id, count=1),
     ]

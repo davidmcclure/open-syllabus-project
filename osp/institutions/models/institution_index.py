@@ -88,9 +88,9 @@ class Institution_Index(Elasticsearch):
         for i, doc in enumerate(result['docs']):
 
             facets.append(dict(
-                label=doc['_source']['name'],
-                value=doc['_id'],
-                count=counts[i][1]
+                label = doc['_source']['name'],
+                value = int(doc['_id']),
+                count = counts[i][1]
             ))
 
         return facets
@@ -110,9 +110,9 @@ class Institution_Index(Elasticsearch):
         for abbr, count in counts:
 
             facets.append(dict(
-                label=us.states.lookup(abbr).name,
-                value=abbr.upper(),
-                count=count,
+                label = us.states.lookup(abbr).name,
+                value = abbr.upper(),
+                count = count,
             ))
 
         return facets
@@ -132,9 +132,9 @@ class Institution_Index(Elasticsearch):
         for abbr, count in counts:
 
             facets.append(dict(
-                label=countries.get(abbr).name,
-                value=abbr.upper(),
-                count=count,
+                label = countries.get(abbr).name,
+                value = abbr.upper(),
+                count = count,
             ))
 
         return facets

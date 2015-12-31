@@ -85,9 +85,9 @@ class Field_Index(Elasticsearch):
         for i, doc in enumerate(result['docs']):
 
             facets.append(dict(
-                label=doc['_source']['name'],
-                value=doc['_id'],
-                count=counts[i][1]
+                label = doc['_source']['name'],
+                value = int(doc['_id']),
+                count = counts[i][1]
             ))
 
         return facets

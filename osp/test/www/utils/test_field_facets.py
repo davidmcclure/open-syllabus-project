@@ -43,7 +43,7 @@ def test_field_facets(add_citation, add_subfield, add_subfield_document):
     facets = field_facets()
 
     assert facets == [
-        dict(label='Field 1', value=str(f1.id), count=3),
-        dict(label='Field 2', value=str(f2.id), count=2),
-        dict(label='Field 3', value=str(f3.id), count=1),
+        dict(label='Field 1', value=f1.id, count=3),
+        dict(label='Field 2', value=f2.id, count=2),
+        dict(label='Field 3', value=f3.id, count=1),
     ]
