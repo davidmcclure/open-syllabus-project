@@ -43,7 +43,7 @@ def test_unfiltered(add_text, add_citation):
 def test_filter_corpus(add_text, add_citation):
 
     """
-    Filter by corpus.
+    Filter on corpus as a keyword value.
     """
 
     t1 = add_text(corpus='corpus1')
@@ -195,7 +195,7 @@ def test_filter_institution(add_text, add_citation, add_institution):
 def test_filter_state(add_text, add_citation, add_institution):
 
     """
-    Filter by state.
+    Filter on state as a keyword value.
     """
 
     t1 = add_text()
@@ -232,7 +232,7 @@ def test_filter_state(add_text, add_citation, add_institution):
 def test_filter_country(add_text, add_citation, add_institution):
 
     """
-    Filter by country.
+    Filter on country as a keyword value.
     """
 
     t1 = add_text()
