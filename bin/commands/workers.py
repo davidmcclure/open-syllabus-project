@@ -87,3 +87,16 @@ def queue_doc_to_fields():
         'osp.corpus.models.Document',
         'osp.fields.jobs.doc_to_fields',
     )
+
+
+@cli.command()
+def queue_text_to_docs():
+
+    """
+    Queue citation extraction.
+    """
+
+    Client().queue(
+        'osp.citations.models.Text',
+        'osp.citations.jobs.text_to_docs',
+    )
