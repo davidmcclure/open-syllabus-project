@@ -11,15 +11,30 @@ export default class extends Component {
    */
   render() {
     return (
-      <div id="search">
+      <div className="filter-control">
+
+        <h5>Search texts</h5>
 
         <input
           className="form-control"
-          placeholder="Search texts"
+          placeholder="Title, author, publisher, etc."
+          onKeyPress={this.onKeyPress.bind(this)}
         />
 
       </div>
     );
+  }
+
+
+  /**
+   * Search when "Enter" is pressed.
+   *
+   * @param {Object} e
+   */
+  onKeyPress(e) {
+    if (e.key == 'Enter') {
+      console.log('search');
+    }
   }
 
 

@@ -1,6 +1,7 @@
 
 
 import {
+  CHANGE_SEARCH_QUERY,
   CHANGE_CORPUS_FILTER,
   CHANGE_FIELD_FILTER,
   CHANGE_SUBFIELD_FILTER,
@@ -8,6 +9,19 @@ import {
   CHANGE_STATE_FILTER,
   CHANGE_COUNTRY_FILTER,
 } from '../constants';
+
+
+/**
+ * When the search query is changed.
+ *
+ * @param {String|null} query
+ */
+export function changeSearchQuery(query) {
+  return {
+    type: CHANGE_SEARCH_QUERY,
+    query,
+  };
+}
 
 
 /**

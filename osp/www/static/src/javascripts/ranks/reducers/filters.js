@@ -3,6 +3,7 @@
 import { createReducer } from '../utils';
 
 import {
+  CHANGE_SEARCH_QUERY,
   CHANGE_CORPUS_FILTER,
   CHANGE_FIELD_FILTER,
   CHANGE_SUBFIELD_FILTER,
@@ -13,6 +14,7 @@ import {
 
 
 const initialState = {
+  query: null,
   corpus: null,
   field_id: null,
   subfield_id: null,
@@ -23,6 +25,10 @@ const initialState = {
 
 
 const handlers = {
+
+  [CHANGE_SEARCH_QUERY]: (state, action) => ({
+    query: action.query
+  }),
 
   [CHANGE_CORPUS_FILTER]: (state, action) => ({
     corpus: action.values
