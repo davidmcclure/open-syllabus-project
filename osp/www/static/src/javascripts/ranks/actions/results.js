@@ -3,6 +3,8 @@
 import _ from 'lodash';
 import $ from 'jquery';
 
+import { makeQueryString } from '../utils'
+
 
 import {
   REQUEST_RESULTS,
@@ -17,17 +19,14 @@ import {
  */
 export function loadResults(params) {
 
-  // Filter out empty keys.
-  params = _.pick(params, function(v) {
-    return !_.isEmpty(v);
-  });
+  let qs = makeQueryString(params);
 
   return function(dispatch) {
 
     // Notify start.
     dispatch(requestResults());
 
-    $.getJSON('/api/ranks', params, function(json) {
+    $.getJSON('/api/ranks', qs, function(json) {
       dispatch(receiveResults(json));
     });
 

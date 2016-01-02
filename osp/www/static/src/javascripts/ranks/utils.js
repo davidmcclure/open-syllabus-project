@@ -1,6 +1,7 @@
 
 
 import _ from 'lodash';
+import Qs from 'qs';
 
 
 /**
@@ -29,4 +30,24 @@ export function createReducer(initialState, handlers) {
     }
 
   };
+}
+
+
+/**
+ * Build an /api/ranks querystring from a filters object.
+ *
+ * @param {Object} params
+ * @return {String}
+ */
+export function makeQueryString(params) {
+
+  // Filter out empty values.
+  let pruned = _.pick(params, function(v) {
+    return !_.isEmpty(v);
+  });
+
+  return Qs.stringify(pruned, {
+    indices: false
+  });
+
 }
