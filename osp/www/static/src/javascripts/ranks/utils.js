@@ -30,15 +30,3 @@ export function createReducer(initialState, handlers) {
 
   };
 }
-
-
-/**
- * Given an array of select options, extract an individual value (if just one
- * option is selected) or an array of values.
- *
- * @param {Array} options
- */
-export function parseFilterValues(options) {
-  let values = _.pluck(options, 'value');
-  return values.length == 1 ? values[0] : values;
-}

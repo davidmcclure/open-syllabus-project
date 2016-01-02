@@ -39,5 +39,6 @@ jinja2
 scandir
 us
 iso3166
+webargs
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
