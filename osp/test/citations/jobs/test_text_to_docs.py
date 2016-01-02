@@ -37,16 +37,9 @@ def test_matches(add_doc, add_text):
     for doc in [wp1, wp2, wp3]:
 
         assert Citation.select().where(
-
             Citation.text==text,
             Citation.document==doc,
-
-            # fn.array_length(Citation.tokens, 1)==4,
-
-            # Citation.tokens.contains([
-                # 'war', 'and', 'peace', 'tolstoy',
-            # ]),
-
+            Citation.tokens.contains(text.hash_tokens),
         )
 
 
@@ -108,11 +101,7 @@ def test_citation_formats(title, surname, content, add_doc, add_text):
     # tokens = tokenize_field(content)
 
     assert Citation.select().where(
-
         Citation.text==text,
         Citation.document==doc,
-
-        # fn.array_length(Citation.tokens, 1)==len(tokens),
-        # Citation.tokens.contains(tokens),
-
+        Citation.tokens.contains(text.hash_tokens),
     )
