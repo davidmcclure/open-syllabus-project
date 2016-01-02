@@ -17,7 +17,7 @@ def clean_field(value):
         list: The cleaned tokens.
     """
 
-    return value.strip() or None
+    return (value.strip() or None) if value else None
 
 
 def tokenize_field(value):

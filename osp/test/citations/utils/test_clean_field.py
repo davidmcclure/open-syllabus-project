@@ -13,6 +13,7 @@ from osp.citations.utils import clean_field
     ('  War and Peace  ', 'War and Peace'),
 
     # Empty -> None.
+    (None, None),
     ('', None),
     ('  ', None),
 

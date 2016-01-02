@@ -10,6 +10,7 @@ from osp.citations.hlom_record import HLOM_Record
     ('David W. McClure', ['David W. McClure']),
 
     # Empty value -> empty list.
+    (None, []),
     ('', []),
     ('  ', []),
 

@@ -166,10 +166,18 @@ class Mock_HLOM(Mock_Corpus):
         with self.writer(data_file) as writer:
 
             marc = Mock_MARC()
+
             marc.set_control_number(control_number)
-            marc.set_author(author)
-            marc.set_title(title)
-            marc.set_publisher(publisher, pubyear)
+
+            if author:
+                marc.set_author(author)
+
+            if title:
+                marc.set_title(title)
+
+            if publisher and pubyear:
+                marc.set_publisher(publisher, pubyear)
 
             writer.write(marc)
+
             return marc
