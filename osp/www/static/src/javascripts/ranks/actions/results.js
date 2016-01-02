@@ -1,5 +1,6 @@
 
 
+import _ from 'lodash';
 import $ from 'jquery';
 
 
@@ -15,6 +16,12 @@ import {
  * @param {Object} params
  */
 export function loadResults(params) {
+
+  // Filter out empty keys.
+  params = _.pick(params, function(v) {
+    return !_.isEmpty(v);
+  });
+
   return function(dispatch) {
 
     // Notify start.
@@ -25,6 +32,7 @@ export function loadResults(params) {
     });
 
   };
+
 }
 
 
@@ -44,7 +52,6 @@ function requestResults() {
  * @param {Object} json
  */
 function receiveResults(results) {
-  console.log(results);
   return {
     type: RECEIVE_RESULTS,
     results,

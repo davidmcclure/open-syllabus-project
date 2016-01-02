@@ -14,13 +14,16 @@ import {
 
 
 const initialState = {
+
   query: null,
-  corpus: null,
-  field_id: null,
-  subfield_id: null,
-  institution_id: null,
-  state: null,
-  country: null,
+
+  corpus: [],
+  field_id: [],
+  subfield_id: [],
+  institution_id: [],
+  state: [],
+  country: [],
+
 };
 
 

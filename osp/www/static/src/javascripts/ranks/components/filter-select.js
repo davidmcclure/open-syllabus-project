@@ -1,5 +1,6 @@
 
 
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 import pluralize from 'pluralize';
@@ -55,7 +56,7 @@ export default class extends Component {
    * @param {Array} options
    */
   onChange(options) {
-    let values = parseFilterValues(options);
+    let values = _.pluck(options, 'value')
     this.props.publish(values);
   }
 

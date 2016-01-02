@@ -24,7 +24,7 @@ def ranks():
     query = request.args.get('query')
 
     # Parse the filter args.
-    filters = {f: request.args.get(f) for f in [
+    filters = {f: request.args.getlist(f) for f in [
         'corpus',
         'field_id',
         'subfield_id',
