@@ -22,6 +22,7 @@ def home():
 def ranks():
 
     query = request.args.get('query')
+    size = request.args.get('size')
 
     filters = {f: request.args.get(f) for f in [
         'corpus',
@@ -35,6 +36,7 @@ def ranks():
     results = utils.rank_texts(
         query=query,
         filters=filters,
+        size=size,
     )
 
     return jsonify(results=results)
