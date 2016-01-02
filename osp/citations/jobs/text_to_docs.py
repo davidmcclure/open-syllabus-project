@@ -17,7 +17,7 @@ def text_to_docs(text_id):
     row = Text.get(Text.id==text_id)
 
 
-    doc_id_tokens = {}
+    doc_ids = set()
     for tokens in row.queries:
 
         # Execute the query.
@@ -33,7 +33,7 @@ def text_to_docs(text_id):
                         'match_phrase': {
                             'body': {
                                 'query': ' '.join(tokens),
-                                'slop': 30,
+                                'slop': 5,
                             }
                         }
                     }
@@ -42,25 +42,20 @@ def text_to_docs(text_id):
 
         )
 
+        # Register the doc ids.
         if results['hits']['total'] > 0:
             for hit in results['hits']['hits']:
-
-                # Get the doc id.
-                doc_id = int(hit['_id'])
-
-                # Map doc id -> tokens.
-                matches = doc_id_tokens.setdefault(doc_id, set())
-                matches.update(tokens)
+                doc_ids.add(int(hit['_id']))
 
 
     # Build doc -> text links.
     citations = []
-    for doc_id, tokens in doc_id_tokens.items():
+    for doc_id in doc_ids:
 
         citations.append({
             'document': doc_id,
             'text': row.id,
-            'tokens': list(tokens),
+            'tokens': ['TODO'],
         })
 
     # Bulk-insert the results.
