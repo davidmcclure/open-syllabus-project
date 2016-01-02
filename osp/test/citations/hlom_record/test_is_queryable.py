@@ -8,12 +8,12 @@ from osp.citations.hlom_record import HLOM_Record
 @pytest.mark.parametrize('title,author,queryable', [
 
     # Title and author.
-    ('Book Title', 'David W. McClure', True),
+    ('Book Title', 'McClure, David W.', True),
 
     # Missing title.
-    ('', 'David W. McClure', False),
-    ('  ', 'David W. McClure', False),
-    ('00', 'David W. McClure', False),
+    ('', 'McClure, David W.', False),
+    ('  ', 'McClure, David W.', False),
+    ('00', 'McClure, David W.', False),
 
     # Missing author.
     ('Book Title', '', False),

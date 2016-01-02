@@ -218,11 +218,11 @@ class JSTOR_Record:
         """
 
         title = self.article_title
-        authors = self.authors
+        surname = self.surname
 
         return bool(
             title and
             len(tokenize_field(title)) and
-            len(authors) and
-            len(tokenize_field(authors[0]))
+            surname and
+            len(tokenize_field(surname))
         )

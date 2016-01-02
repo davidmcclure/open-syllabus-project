@@ -7,10 +7,10 @@ from osp.citations.jstor_record import JSTOR_Record
 
 @pytest.mark.parametrize('title,author,queryable', [
 
-    # Title and author.
+    # Title and full author.
     ('Article Title', [('David W.', 'McClure')], True),
 
-    # Title and author surname.
+    # Title and surname.
     ('Article Title', [('', 'McClure')], True),
     ('Article Title', [(None, 'McClure')], True),
 
@@ -21,7 +21,7 @@ from osp.citations.jstor_record import JSTOR_Record
     # Missing author.
     ('Article Title', [], False),
 
-    # Incomplete author.
+    # Missing surname.
     ('Article Title', [('David W.', '')], False),
     ('Article Title', [('David W.', None)], False),
 
