@@ -8,7 +8,7 @@ from osp.fields.models import Field_Index
 from osp.fields.models import Subfield_Index
 
 
-def rank_texts(filters={}, query=None):
+def rank_texts(filters={}, query=None, size=1000):
 
     """
     Filter and rank texts.
@@ -25,7 +25,7 @@ def rank_texts(filters={}, query=None):
     ranks = Citation_Index.rank_texts(filters)
 
     # Materialize the text metadata.
-    texts = Text_Index.materialize_ranking(ranks, query)
+    texts = Text_Index.materialize_ranking(ranks, query, size)
 
     return texts
 
