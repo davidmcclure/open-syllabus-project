@@ -33,7 +33,15 @@ def test_set_title(mock_hlom):
     assert Text.select().first().title == 'Book Title'
 
 
-def test_set_author(mock_hlom):
+def test_set_surname(mock_hlom):
+
+    mock_hlom.add_marc(author='McClure, David W.')
+    Text.ingest_hlom()
+
+    assert Text.select().first().surname == 'McClure'
+
+
+def test_set_authors(mock_hlom):
 
     mock_hlom.add_marc(author='David W. McClure')
     Text.ingest_hlom()

@@ -32,6 +32,14 @@ def test_set_title(mock_jstor):
     assert Text.select().first().title == 'Article Title'
 
 
+def test_set_surname(mock_jstor):
+
+    mock_jstor.add_article(author=[('David W.', 'McClure')])
+    Text.ingest_jstor()
+
+    assert Text.select().first().surname == 'McClure'
+
+
 def test_set_single_author(mock_jstor):
 
     mock_jstor.add_article(author=[('David W.', 'McClure')])
