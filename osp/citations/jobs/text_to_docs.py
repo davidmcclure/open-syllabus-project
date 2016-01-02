@@ -55,7 +55,7 @@ def text_to_docs(text_id):
         citations.append({
             'document': doc_id,
             'text': row.id,
-            'tokens': ['TODO'],
+            'tokens': row.hash_tokens,
         })
 
     # Bulk-insert the results.

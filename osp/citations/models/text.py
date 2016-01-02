@@ -125,25 +125,36 @@ class Text(BaseModel):
 
 
     @property
+    def hash_tokens(self):
+
+        """
+        Generate a sequence of tokens from the surname and title that forms a
+        "signature" for the text.
+
+        Returns:
+            list: The hashing tokens.
+        """
+
+        t_tokens = tokenize_field(self.title)
+        a_tokens = tokenize_field(self.surname)
+
+        # Sort the surname names.
+        return sorted(a_tokens) + t_tokens
+
+
+    @property
     def hash(self):
 
         """
-        Create a hash that tries to merge together differently-formatted
-        editions of the same text.
+        SHA1 the hash tokens.
 
         Returns:
             str: The deduping hash.
         """
 
-        t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.authors[0])
-
-        # Sort the author names.
-        tokens = t_tokens + sorted(a_tokens)
-
         # Hash the tokens.
         sha1 = hashlib.sha1()
-        sha1.update(' '.join(tokens).encode('ascii', 'ignore'))
+        sha1.update(' '.join(self.hash_tokens).encode('ascii', 'ignore'))
         return sha1.hexdigest()
 
 

@@ -6,28 +6,27 @@ import pytest
 pytestmark = pytest.mark.usefixtures('db')
 
 
-@pytest.mark.parametrize('inputs', [
+@pytest.mark.parametrize('dupes', [
 
     # Coalesce formattings.
     [
-        ('Anna Karenina', 'Leo Tolstoy'),
-        ('ANNA KARENINA', 'LEO TOLSTOY'),
-        ('"Anna Karenina."', '"Leo Tolstoy."'),
+        ('Anna Karenina', 'Tolstoy'),
+        ('ANNA KARENINA', 'TOLSTOY'),
+        ('"Anna Karenina."', '"Tolstoy."'),
     ],
 
-    # Ignore author name order.
+    # Ignore surname name order.
     [
-        ('Anna Karenina', 'Leo N. Tolstoy'),
-        ('Anna Karenina', 'Tolstoy, Leo N.'),
-        ('Anna Karenina', 'N. Tolstoy, Leo'),
+        ('Anna Karenina', 'Nikolayevich Tolstoy'),
+        ('Anna Karenina', 'Tolstoy Nikolayevich'),
     ],
 
 ])
-def test_coalesce(inputs, add_text):
+def test_coalesce(dupes, add_text):
 
     hashes = set()
 
-    for title, author in inputs:
-        hashes.add(add_text(title=title, author=[author]).hash)
+    for title, surname in dupes:
+        hashes.add(add_text(title=title, surname=surname).hash)
 
     assert len(hashes) == 1
