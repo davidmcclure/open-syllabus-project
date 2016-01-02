@@ -37,7 +37,7 @@ def test_set_single_author(mock_jstor):
     mock_jstor.add_article(author=[('David W.', 'McClure')])
     Text.ingest_jstor()
 
-    assert Text.select().first().author == ['David W. McClure']
+    assert Text.select().first().author == ['McClure, David W.']
 
 
 def test_set_multiple_authors(mock_jstor):
@@ -50,8 +50,8 @@ def test_set_multiple_authors(mock_jstor):
     Text.ingest_jstor()
 
     assert Text.select().first().author == [
-        'David W. McClure',
-        'Kara G. Weisman',
+        'McClure, David W.',
+        'Weisman, Kara G.',
     ]
 
 

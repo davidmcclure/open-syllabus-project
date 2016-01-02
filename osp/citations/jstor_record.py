@@ -159,7 +159,7 @@ class JSTOR_Record:
 
             # Merge into single string.
             if given_names and surname:
-                author.append(' '.join([given_names, surname]))
+                author.append(', '.join([surname, given_names]))
 
             # Accept just surname.
             elif surname:

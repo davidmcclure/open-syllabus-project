@@ -14,9 +14,9 @@ from osp.citations.jstor_record import JSTOR_Record
             ('Dennis', 'Tenen'),
         ],
         [
-            'David McClure',
-            'Joe Karaganis',
-            'Dennis Tenen',
+            'McClure, David',
+            'Karaganis, Joe',
+            'Tenen, Dennis',
         ]
     ),
 
@@ -29,7 +29,7 @@ from osp.citations.jstor_record import JSTOR_Record
         ],
         [
             'McClure',
-            'Joe Karaganis',
+            'Karaganis, Joe',
             'Tenen',
         ]
     ),
@@ -43,7 +43,7 @@ from osp.citations.jstor_record import JSTOR_Record
         ],
         [
             'McClure',
-            'Joe Karaganis',
+            'Karaganis, Joe',
             'Tenen',
         ]
     ),
@@ -56,7 +56,7 @@ from osp.citations.jstor_record import JSTOR_Record
             ('Dennis', ''),
         ],
         [
-            'Joe Karaganis',
+            'Karaganis, Joe',
         ]
     ),
 
@@ -68,7 +68,7 @@ from osp.citations.jstor_record import JSTOR_Record
             ('Dennis', None),
         ],
         [
-            'Joe Karaganis',
+            'Karaganis, Joe',
         ]
     ),
 
