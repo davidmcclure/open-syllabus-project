@@ -151,6 +151,26 @@ class Text_Index(Elasticsearch):
                             'ranks': ranks
                         }
                     }
+                },
+                'highlight': {
+                    'fields': {
+                        'title': {
+                            'number_of_fragments': 1,
+                            'fragment_size': 1000
+                        },
+                        'authors': {
+                            'number_of_fragments': 1,
+                            'fragment_size': 1000
+                        },
+                        'publisher': {
+                            'number_of_fragments': 1,
+                            'fragment_size': 1000
+                        },
+                        'journal': {
+                            'number_of_fragments': 1,
+                            'fragment_size': 1000
+                        }
+                    }
                 }
             }
 
