@@ -56,6 +56,19 @@ class HLOM_Record:
 
 
     @property
+    def surname(self):
+
+        """
+        Extract a surname.
+
+        Returns: surname
+        """
+
+        author = clean_field(self.record.author())
+        return author.split(',')[0] if author else None
+
+
+    @property
     def publisher(self):
 
         """
