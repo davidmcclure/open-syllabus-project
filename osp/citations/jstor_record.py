@@ -169,6 +169,21 @@ class JSTOR_Record:
 
 
     @property
+    def surname(self):
+
+        """
+        Get the surname of the first author.
+
+        Returns: str
+        """
+
+        authors = self.xml.select('contrib')
+
+        if authors:
+            return get_text(authors[0], 'surname')
+
+
+    @property
     def pagination(self):
 
         """
