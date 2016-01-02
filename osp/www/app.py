@@ -39,7 +39,7 @@ def ranks():
         size=size,
     )
 
-    return jsonify(results=results)
+    return jsonify(**results)
 
 
 if __name__ == '__main__':
