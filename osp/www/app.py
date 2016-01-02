@@ -22,8 +22,8 @@ def home():
 def ranks():
 
     query = request.args.get('query')
-    size = request.args.get('size', 100)
 
+    # Parse the filter args.
     filters = {f: request.args.get(f) for f in [
         'corpus',
         'field_id',
@@ -32,6 +32,9 @@ def ranks():
         'state',
         'country',
     ]}
+
+    # 100 docs, by default.
+    size = request.args.get('size', 100)
 
     results = utils.rank_texts(
         query=query,

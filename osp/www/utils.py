@@ -160,13 +160,10 @@ def bootstrap_facets():
     )
 
 
-# TODO|dev
-
-
-def index_mocks():
+def load_indexes(mock=False):
 
     """
-    Index mock documents.
+    Populate public-facing indexes.
     """
 
     for index in [
@@ -177,4 +174,4 @@ def index_mocks():
         Institution_Index,
     ]:
 
-        index.es_insert(mock=True)
+        index.es_insert(mock=mock)
