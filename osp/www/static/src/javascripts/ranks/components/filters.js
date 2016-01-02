@@ -4,6 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/filters';
+import Search from './search';
 import FilterSelect from './filter-select';
 
 
@@ -22,6 +23,8 @@ export default class extends Component {
   render() {
     return (
       <div id="filters">
+
+        <Search />
 
         <FilterSelect
           name="corpus"

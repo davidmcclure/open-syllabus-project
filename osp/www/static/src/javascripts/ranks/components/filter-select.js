@@ -28,7 +28,7 @@ export default class extends Component {
     let plural = pluralize(this.props.name, 2);
 
     return (
-      <div>
+      <div className="filter-control">
 
         <h5>Filter by {this.props.name}</h5>
 
