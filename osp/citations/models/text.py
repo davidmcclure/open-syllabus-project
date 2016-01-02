@@ -31,7 +31,7 @@ class Text(BaseModel):
     # Book + article:
 
     title               = TextField()
-    author              = ArrayField(TextField)
+    authors             = ArrayField(TextField)
     publisher           = TextField(null=True)
     date                = TextField(null=True)
 
@@ -71,7 +71,7 @@ class Text(BaseModel):
                         corpus      = 'hlom',
                         identifier  = record.control_number,
                         title       = record.title,
-                        author      = record.author,
+                        authors     = record.author,
                         publisher   = record.publisher,
                         date        = record.date,
                     )
@@ -104,7 +104,7 @@ class Text(BaseModel):
                         identifier          = article.article_id,
                         url                 = article.url,
                         title               = article.article_title,
-                        author              = article.author,
+                        authors             = article.author,
                         publisher           = article.publisher_name,
                         date                = article.pub_date,
                         journal_title       = article.journal_title,
@@ -133,7 +133,7 @@ class Text(BaseModel):
         """
 
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.author[0])
+        a_tokens = tokenize_field(self.authors[0])
 
         # Sort the author names.
         tokens = t_tokens + sorted(a_tokens)
@@ -155,7 +155,7 @@ class Text(BaseModel):
         """
 
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.author[0])
+        a_tokens = tokenize_field(self.authors[0])
 
         # Title + complete name.
         queries = [t_tokens + a_tokens]

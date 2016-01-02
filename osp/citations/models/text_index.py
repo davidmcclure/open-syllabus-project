@@ -25,7 +25,7 @@ class Text_Index(Elasticsearch):
             'title': {
                 'type': 'string'
             },
-            'author': {
+            'authors': {
                 'type': 'string'
             },
             'publisher': {
@@ -59,7 +59,7 @@ class Text_Index(Elasticsearch):
             yield dict(
                 _id         = row.id,
                 title       = row.title,
-                author      = row.author,
+                authors     = row.authors,
                 publisher   = row.publisher,
                 date        = row.date,
                 journal     = row.journal_title,
@@ -84,7 +84,7 @@ class Text_Index(Elasticsearch):
             yield dict(
                 _id         = i,
                 title       = faker.snippet(80),
-                author      = faker.snippet(20),
+                authors     = faker.snippet(20),
                 publisher   = faker.snippet(30),
                 journal     = faker.snippet(50),
             )
@@ -121,7 +121,7 @@ class Text_Index(Elasticsearch):
                     'type': 'phrase_prefix',
                     'fields': [
                         'title',
-                        'author',
+                        'authors',
                         'publisher',
                         'journal',
                     ],

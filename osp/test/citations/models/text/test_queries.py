@@ -16,7 +16,7 @@ def test_queries(add_text):
 
     text = add_text(
         title='Anna Karenina',
-        author=['David William McClure']
+        authors=['David William McClure']
     )
 
     queries = text.queries

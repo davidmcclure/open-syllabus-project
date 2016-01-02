@@ -41,7 +41,7 @@ def test_sort_by_count(add_text, add_citation):
 
 @pytest.mark.parametrize('params', [
     lambda x: dict(title=x),
-    lambda x: dict(author=[x]),
+    lambda x: dict(authors=[x]),
     lambda x: dict(publisher=x),
     lambda x: dict(journal_title=x),
 ])

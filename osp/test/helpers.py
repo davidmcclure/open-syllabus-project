@@ -52,7 +52,7 @@ def add_text():
         corpus='corpus',
         identifier=None,
         title='Title',
-        author=['Author'],
+        authors=['Author'],
         **kwargs
     ):
 
@@ -63,7 +63,7 @@ def add_text():
             corpus=corpus,
             identifier=identifier,
             title=title,
-            author=author,
+            authors=authors,
             **kwargs
         )
 

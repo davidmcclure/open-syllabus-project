@@ -27,7 +27,7 @@ def test_matches(add_doc, add_text):
 
     Document_Index.es_insert()
 
-    text = add_text(title='War and Peace', author=['Leo Tolstoy'])
+    text = add_text(title='War and Peace', authors=['Leo Tolstoy'])
     text_to_docs(text.id)
 
     # Should write 3 citation links.
@@ -59,7 +59,7 @@ def test_no_matches(add_doc, add_text):
     add_doc(content='War and Peace, Leo Tolstoy')
     Document_Index.es_insert()
 
-    text = add_text(title='Master and Man', author=['Leo Tolstoy'])
+    text = add_text(title='Master and Man', authors=['Leo Tolstoy'])
     text_to_docs(text.id)
 
     # Shouldn't write any rows.
@@ -102,7 +102,7 @@ def test_citation_formats(title, author, content, add_doc, add_text):
     doc = add_doc(content=padded)
     Document_Index.es_insert()
 
-    text = add_text(title=title, author=[author])
+    text = add_text(title=title, authors=[author])
     text_to_docs(text.id)
 
     tokens = tokenize_field(content)
@@ -135,7 +135,7 @@ def test_tokens(add_doc, add_text):
 
     Document_Index.es_insert()
 
-    text = add_text(title='Title', author=['David William McClure'])
+    text = add_text(title='Title', authors=['David William McClure'])
     text_to_docs(text.id)
 
     for doc in docs:

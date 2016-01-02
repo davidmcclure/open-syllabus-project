@@ -19,7 +19,7 @@ def test_es_insert(add_text):
     for i in map(str, range(10)):
         add_text(
             title       = 'title'+i,
-            author      = ['author1'+i, 'author2'+i],
+            authors     = ['author1'+i, 'author2'+i],
             publisher   = 'publisher'+i,
             date        = 'date'+i,
             journal     = 'journal'+i,
@@ -36,7 +36,7 @@ def test_es_insert(add_text):
         )
 
         assert doc['_source']['title'] == text.title
-        assert doc['_source']['author'] == text.author
+        assert doc['_source']['authors'] == text.authors
         assert doc['_source']['publisher'] == text.publisher
         assert doc['_source']['date'] == text.date
         assert doc['_source']['journal'] == text.journal_title

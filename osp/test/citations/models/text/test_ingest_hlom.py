@@ -38,7 +38,7 @@ def test_set_author(mock_hlom):
     mock_hlom.add_marc(author='David W. McClure')
     Text.ingest_hlom()
 
-    assert Text.select().first().author == ['David W. McClure']
+    assert Text.select().first().authors == ['David W. McClure']
 
 
 def test_set_publisher(mock_hlom):
