@@ -1,9 +1,30 @@
 
 
+import _ from 'lodash';
 import React, { Component } from 'react';
+import { connect } from 'react-redux';
+
+import * as actions from '../actions/filters';
 
 
+@connect(null, actions)
 export default class extends Component {
+
+
+  /**
+   * Set initial state.
+   *
+   * @param {Object} props
+   */
+  constructor(props) {
+
+    super(props);
+
+    this.state = {
+      query: null
+    };
+
+  }
 
 
   /**
@@ -16,13 +37,29 @@ export default class extends Component {
         <h5>Search texts</h5>
 
         <input
+
           className="form-control"
           placeholder="Title, author, publisher, etc."
+
+          value={this.state.query}
+          onChange={this.onChange.bind(this)}
           onKeyPress={this.onKeyPress.bind(this)}
+
         />
 
       </div>
     );
+  }
+
+
+  /**
+   * Input -> state.
+   *
+   * @param {Object} e
+   */
+  onChange(e) {
+    let query = e.target.value.trim() || null;
+    this.setState({ query });
   }
 
 
@@ -33,8 +70,16 @@ export default class extends Component {
    */
   onKeyPress(e) {
     if (e.key == 'Enter') {
-      console.log('search');
+      this.search();
     }
+  }
+
+
+  /**
+   * Apply the current query.
+   */
+  search() {
+    this.props.changeSearchQuery(this.state.query);
   }
 
 
