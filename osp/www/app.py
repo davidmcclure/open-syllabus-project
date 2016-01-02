@@ -5,6 +5,9 @@ import os
 from osp.www import utils
 from flask import Flask, request, render_template, jsonify
 
+from webargs.flaskparser import use_args
+from webargs import fields
+
 
 app = Flask(__name__)
 
@@ -19,12 +22,22 @@ def home():
 
 
 @app.route('/api/ranks')
-def ranks():
+@use_args(dict(
 
-    query = request.args.get('query')
+    query           = fields.Str(missing=None),
+    size            = fields.Int(missing=100),
 
-    # Parse the filter args.
-    filters = {f: request.args.getlist(f) for f in [
+    corpus          = fields.List(fields.Str(), missing=None),
+    field_id        = fields.List(fields.Int(), missing=None),
+    subfield_id     = fields.List(fields.Int(), missing=None),
+    institution_id  = fields.List(fields.Int(), missing=None),
+    state           = fields.List(fields.Str(), missing=None),
+    country         = fields.List(fields.Str(), missing=None),
+
+))
+def ranks(args):
+
+    filters = {f: args[f] for f in [
         'corpus',
         'field_id',
         'subfield_id',
@@ -33,13 +46,10 @@ def ranks():
         'country',
     ]}
 
-    # 100 docs, by default.
-    size = request.args.get('size', 100)
-
     results = utils.rank_texts(
-        query=query,
         filters=filters,
-        size=size,
+        query=args['query'],
+        size=args['size'],
     )
 
     return jsonify(**results)
