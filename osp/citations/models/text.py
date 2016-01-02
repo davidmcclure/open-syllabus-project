@@ -158,13 +158,11 @@ class Text(BaseModel):
         """
 
         t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.authors[0])
+        a_tokens = tokenize_field(self.surname)
 
-        # Title + complete name.
-        queries = [t_tokens + a_tokens]
-
-        # Title + partial names.
-        for name in a_tokens:
-            queries.append(t_tokens + [name])
-
-        return queries
+        # <author> <title>
+        # <title> <author>
+        return [
+            a_tokens + t_tokens,
+            t_tokens + a_tokens,
+        ]

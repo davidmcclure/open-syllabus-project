@@ -16,16 +16,14 @@ def test_queries(add_text):
 
     text = add_text(
         title='Anna Karenina',
-        authors=['David William McClure']
+        surname='Tolstoy'
     )
 
     queries = text.queries
 
     for tokens in [
-        ['anna', 'karenina', 'david', 'william', 'mcclure'],
-        ['anna', 'karenina', 'david'],
-        ['anna', 'karenina', 'william'],
-        ['anna', 'karenina', 'mcclure'],
+        ['tolstoy', 'anna', 'karenina'],
+        ['anna', 'karenina', 'tolstoy'],
     ]:
 
         assert tokens in queries
