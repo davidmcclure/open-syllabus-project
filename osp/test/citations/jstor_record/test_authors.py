@@ -77,4 +77,4 @@ def test_author(inputs, authors, mock_jstor):
 
     path = mock_jstor.add_article(author=inputs)
 
-    assert JSTOR_Record(path).author == authors
+    assert JSTOR_Record(path).authors == authors

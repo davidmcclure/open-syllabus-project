@@ -142,7 +142,7 @@ class JSTOR_Record:
 
 
     @property
-    def author(self):
+    def authors(self):
 
         """
         Query author names.
@@ -218,11 +218,11 @@ class JSTOR_Record:
         """
 
         title = self.article_title
-        author = self.author
+        authors = self.authors
 
         return bool(
             title and
             len(tokenize_field(title)) and
-            len(author) and
-            len(tokenize_field(author[0]))
+            len(authors) and
+            len(tokenize_field(authors[0]))
         )

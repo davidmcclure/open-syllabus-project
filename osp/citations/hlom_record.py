@@ -43,7 +43,7 @@ class HLOM_Record:
 
 
     @property
-    def author(self):
+    def authors(self):
 
         """
         Get the author array.
@@ -102,11 +102,11 @@ class HLOM_Record:
         """
 
         title = self.title
-        author = self.author
+        authors = self.authors
 
         return bool(
             title and
             len(tokenize_field(title)) and
-            len(author) and
-            len(tokenize_field(author[0]))
+            len(authors) and
+            len(tokenize_field(authors[0]))
         )

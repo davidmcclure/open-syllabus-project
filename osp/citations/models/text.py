@@ -71,7 +71,7 @@ class Text(BaseModel):
                         corpus      = 'hlom',
                         identifier  = record.control_number,
                         title       = record.title,
-                        authors     = record.author,
+                        authors     = record.authors,
                         publisher   = record.publisher,
                         date        = record.date,
                     )
@@ -104,7 +104,7 @@ class Text(BaseModel):
                         identifier          = article.article_id,
                         url                 = article.url,
                         title               = article.article_title,
-                        authors             = article.author,
+                        authors             = article.authors,
                         publisher           = article.publisher_name,
                         date                = article.pub_date,
                         journal_title       = article.journal_title,
