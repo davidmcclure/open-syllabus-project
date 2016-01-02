@@ -41,8 +41,11 @@ export default class extends Component {
           className="form-control"
           placeholder="Title, author, publisher, etc."
 
-          value={this.state.query}
-          onChange={this.onChange.bind(this)}
+          valueLink={{
+            value: this.state.query,
+            requestChange: this.onChange.bind(this),
+          }}
+
           onKeyPress={this.onKeyPress.bind(this)}
 
         />
@@ -53,12 +56,12 @@ export default class extends Component {
 
 
   /**
-   * Input -> state.
+   * Clean the new value, update state.
    *
-   * @param {Object} e
+   * @param {String} newVal
    */
-  onChange(e) {
-    let query = e.target.value.trim() || null;
+  onChange(newVal) {
+    let query = newVal.trim() || null;
     this.setState({ query });
   }
 
