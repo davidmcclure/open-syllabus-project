@@ -31,6 +31,7 @@ class Text(BaseModel):
     # Book + article:
 
     title               = TextField()
+    surname             = TextField()
     authors             = ArrayField(TextField)
     publisher           = TextField(null=True)
     date                = TextField(null=True)
@@ -71,6 +72,7 @@ class Text(BaseModel):
                         corpus      = 'hlom',
                         identifier  = record.control_number,
                         title       = record.title,
+                        surname     = record.surname,
                         authors     = record.authors,
                         publisher   = record.publisher,
                         date        = record.date,
@@ -104,6 +106,7 @@ class Text(BaseModel):
                         identifier          = article.article_id,
                         url                 = article.url,
                         title               = article.article_title,
+                        surname             = article.surname,
                         authors             = article.authors,
                         publisher           = article.publisher_name,
                         date                = article.pub_date,
