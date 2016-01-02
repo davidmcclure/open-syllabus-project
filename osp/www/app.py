@@ -22,7 +22,7 @@ def home():
 def ranks():
 
     query = request.args.get('query')
-    size = request.args.get('size')
+    size = request.args.get('size', 100)
 
     filters = {f: request.args.get(f) for f in [
         'corpus',
