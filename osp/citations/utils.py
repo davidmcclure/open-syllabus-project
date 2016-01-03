@@ -1,6 +1,6 @@
 
 
-import re
+import regex
 
 from wordfreq import word_frequency
 
@@ -33,7 +33,7 @@ def tokenize_field(value):
     """
 
     # Extract tokens.
-    tokens = re.findall('[a-z]{2,}', value.lower())
+    tokens = regex.findall('\p{L}{2,}', value.lower())
 
     # Remove articles.
     tokens = [t for t in tokens if t not in ['a', 'an', 'the']]

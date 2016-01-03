@@ -68,6 +68,14 @@ from osp.citations.utils import tokenize_field
         ['leo', 'tolstoy']
     ),
 
+    # Allow unicode characters.
+    (
+        [
+            'Gabriel García Márquez',
+        ],
+        ['gabriel', 'garcía', 'márquez']
+    ),
+
 ])
 def test_tokenize_field(values, tokens, add_text):
     for value in values:
