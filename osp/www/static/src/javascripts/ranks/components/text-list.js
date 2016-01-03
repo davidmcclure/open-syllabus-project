@@ -1,6 +1,9 @@
 
 
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+
+import TextRow from './text-row';
 
 
 export default class extends Component {
@@ -13,13 +16,17 @@ export default class extends Component {
 
 
   /**
-   * Render ranking results.
+   * Render the ranking table.
    */
   render() {
 
+    // Format the count.
     let totalHits = this.props.totalHits.toLocaleString();
 
-    let rows = null;
+    // Build the text list.
+    let rows = _.map(this.props.hits, function(h, i) {
+      return <TextRow key={h._id} hit={h} rank={i+1} />
+    });
 
     return (
       <div id="text-list">
