@@ -38,6 +38,18 @@ export default class extends Component {
             __html: hit.field('title')
           }}></div>
 
+          <div className="author" dangerouslySetInnerHTML={{
+            __html: hit.field('author')
+          }}></div>
+
+          <div className="journal" dangerouslySetInnerHTML={{
+            __html: hit.field('journal')
+          }}></div>
+
+          <div className="publisher" dangerouslySetInnerHTML={{
+            __html: hit.field('publisher')
+          }}></div>
+
         </td>
 
       </tr>

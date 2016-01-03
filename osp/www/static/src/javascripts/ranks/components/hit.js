@@ -27,16 +27,22 @@ export default class {
 
 
   /**
-   * Get a document field. (Highlighted, if present.)
+   * Get a document field.
    *
    * @param {String} key
    * @return {String}
    */
-  field(key) {
-    return (
+  field(key, delimiter=', ') {
+
+    // Try to get a highlight.
+    let value = (
       _.get(this.hit, `highlight.${key}`) ||
       _.get(this.hit, `_source.${key}`)
     );
+
+    // Join arrays into a single string.
+    return _.isArray(value) ? value.join(delimiter) : value;
+
   }
 
 

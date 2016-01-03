@@ -83,10 +83,10 @@ class Text_Index(Elasticsearch):
 
             yield dict(
                 _id         = i,
-                title       = faker.snippet(80),
-                authors     = faker.snippet(20),
+                title       = faker.snippet(40),
+                authors     = [faker.snippet(20), faker.snippet(20)],
                 publisher   = faker.snippet(30),
-                journal     = faker.snippet(50),
+                journal     = faker.snippet(40),
             )
 
 
