@@ -14,7 +14,7 @@ export default class extends Component {
   static propTypes = {
     name: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
-    value: PropTypes.any,
+    value: PropTypes.array.isRequired,
     publish: PropTypes.func.isRequired,
   }
 
