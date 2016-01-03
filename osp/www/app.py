@@ -2,11 +2,11 @@
 
 import os
 
-from osp.www import utils
 from flask import Flask, request, render_template, jsonify
-
-from webargs.flaskparser import use_args
 from webargs import fields
+from webargs.flaskparser import use_args
+
+from osp.www import utils
 
 
 app = Flask(__name__)

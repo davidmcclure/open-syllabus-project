@@ -23,6 +23,7 @@ anyconfig
 PyYAML
 uwsgi
 flask
+Flask-Cache
 boto
 numpy
 scipy
