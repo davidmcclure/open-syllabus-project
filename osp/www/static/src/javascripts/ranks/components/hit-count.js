@@ -2,6 +2,7 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import classNames from 'classnames';
 
 
 @connect(state => state.results)
@@ -15,7 +16,7 @@ export default class extends Component {
 
     let content;
 
-    // Initial state.
+    // Loading.
     if (this.props.loading) {
       content = <span>Loading...</span>;
     }
@@ -25,6 +26,7 @@ export default class extends Component {
       content = <span>No results</span>;
     }
 
+    // Results.
     else {
 
       // Format the value.
@@ -39,8 +41,12 @@ export default class extends Component {
 
     }
 
+    let cx = classNames({
+      loading: this.props.loading,
+    });
+
     return (
-      <div id="hit-count">
+      <div id="hit-count" className={cx}>
         {content}
       </div>
     );
