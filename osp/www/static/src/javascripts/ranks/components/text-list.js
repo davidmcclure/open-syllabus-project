@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
+import Search from './search';
 import TextRow from './text-row';
 
 
@@ -35,6 +36,8 @@ export default class extends Component {
           <span className="count">{totalHits}</span>{' '}
           <span className="texts">texts</span>
         </div>
+
+        <Search />
 
         <table className="table table-hover">
 

@@ -6,7 +6,6 @@ import { bindActionCreators } from 'redux';
 
 import * as filterActions from '../actions/filters';
 import * as resultActions from '../actions/results';
-import Search from './search';
 import FilterSelect from './filter-select';
 
 
@@ -49,8 +48,6 @@ export default class extends Component {
   render() {
     return (
       <div id="filters">
-
-        <Search />
 
         <FilterSelect
           name="corpus"

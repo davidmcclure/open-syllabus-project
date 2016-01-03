@@ -32,9 +32,7 @@ export default class extends Component {
    */
   render() {
     return (
-      <div className="filter-control">
-
-        <h5>Search texts</h5>
+      <div className="search">
 
         <input
 
