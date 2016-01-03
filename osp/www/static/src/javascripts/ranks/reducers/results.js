@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   loading: false,
-  total_hits: null,
+  totalHits: null,
   hits: [],
 };
 
@@ -23,7 +23,7 @@ const handlers = {
 
   [RECEIVE_RESULTS]: (state, action) => ({
     loading: false,
-    total_hits: action.results.total,
+    totalHits: action.results.total,
     hits: action.results.hits,
   }),
 
