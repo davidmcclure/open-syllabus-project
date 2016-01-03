@@ -17,18 +17,18 @@ export default class extends Component {
 
     // TODO: Spinkit?
     // Initial state.
-    if (!this.props.totalHits) {
+    if (!this.props.hitCount) {
       content = <span>Loading...</span>;
     }
 
     else {
 
       // Format the value.
-      let totalHits = this.props.totalHits.toLocaleString();
+      let hitCount = this.props.hitCount.toLocaleString();
 
       content = (
         <span>
-          <span className="count">{totalHits}</span>{' '}
+          <span className="count">{hitCount}</span>{' '}
           <span className="texts">texts</span>
         </span>
       )
