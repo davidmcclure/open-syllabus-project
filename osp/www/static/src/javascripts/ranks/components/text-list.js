@@ -32,12 +32,16 @@ export default class extends Component {
     return (
       <div id="text-list">
 
-        <div className="total-hits">
-          <span className="count">{totalHits}</span>{' '}
-          <span className="texts">texts</span>
-        </div>
+        <div className="list-header">
 
-        <Search />
+          <div className="total-hits">
+            <span className="count">{totalHits}</span>{' '}
+            <span className="texts">texts</span>
+          </div>
+
+          <Search />
+
+        </div>
 
         <table className="table table-hover">
 
