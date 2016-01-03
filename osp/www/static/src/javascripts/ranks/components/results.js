@@ -1,7 +1,7 @@
 
 
 import _ from 'lodash';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import TextList from './text-list';
@@ -21,7 +21,12 @@ export default class extends Component {
     let content;
 
     if (this.props.hits.length) {
-      content = <TextList />
+      content = (
+        <TextList
+          totalHits={this.props.totalHits}
+          hits={this.props.hits}
+        />
+      );
     }
 
     return (
