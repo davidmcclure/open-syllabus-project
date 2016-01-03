@@ -17,16 +17,6 @@ export default class {
 
 
   /**
-   * Get the citation count.
-   *
-   * @return {Number}
-   */
-  count() {
-    return this.hit.sort[0];
-  }
-
-
-  /**
    * Get a document field.
    *
    * @param {String} key
@@ -34,15 +24,25 @@ export default class {
    */
   field(key, delimiter=', ') {
 
-    // Try to get a highlight.
+    // Try to find a highlight.
     let value = (
       _.get(this.hit, `highlight.${key}`) ||
       _.get(this.hit, `_source.${key}`)
     );
 
-    // Join arrays into a single string.
+    // Join arrays into a string.
     return _.isArray(value) ? value.join(delimiter) : value;
 
+  }
+
+
+  /**
+   * Get the citation count.
+   *
+   * @return {Number}
+   */
+  get count() {
+    return this.hit.sort[0];
   }
 
 

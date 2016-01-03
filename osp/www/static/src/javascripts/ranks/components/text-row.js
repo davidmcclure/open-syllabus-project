@@ -30,7 +30,7 @@ export default class extends Component {
         </td>
 
         <td className="count">
-          {hit.count()}
+          {hit.count}
         </td>
 
         <td className="text">
