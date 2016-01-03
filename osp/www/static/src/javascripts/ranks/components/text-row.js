@@ -3,6 +3,7 @@
 import React, { Component, PropTypes } from 'react';
 
 import Hit from './hit';
+import Field from './field';
 
 
 export default class extends Component {
@@ -38,17 +39,9 @@ export default class extends Component {
             __html: hit.field('title')
           }}></div>
 
-          <div className="authors" dangerouslySetInnerHTML={{
-            __html: hit.field('authors')
-          }}></div>
-
-          <div className="journal" dangerouslySetInnerHTML={{
-            __html: hit.field('journal')
-          }}></div>
-
-          <div className="publisher" dangerouslySetInnerHTML={{
-            __html: hit.field('publisher')
-          }}></div>
+          <Field label="authors" value={hit.field('authors')}/>
+          <Field label="journal" value={hit.field('journal')}/>
+          <Field label="publisher" value={hit.field('publisher')}/>
 
         </td>
 
