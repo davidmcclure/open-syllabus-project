@@ -2,6 +2,8 @@
 
 import React, { Component, PropTypes } from 'react';
 
+import Hit from './hit';
+
 
 export default class extends Component {
 
@@ -16,6 +18,9 @@ export default class extends Component {
    * Render a text row.
    */
   render() {
+
+    let hit = new Hit(this.props.hit);
+
     return (
       <tr className="text-row">
 
@@ -24,15 +29,20 @@ export default class extends Component {
         </td>
 
         <td className="count">
-          {this.props.hit.sort[0]}
+          {hit.count()}
         </td>
 
         <td className="text">
-          {this.props.hit._source.title}
+
+          <div className="title" dangerouslySetInnerHTML={{
+            __html: hit.field('title')
+          }}></div>
+
         </td>
 
       </tr>
     );
+
   }
 
 
