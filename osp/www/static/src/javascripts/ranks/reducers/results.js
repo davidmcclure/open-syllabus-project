@@ -10,7 +10,7 @@ import {
 
 const initialState = {
   loading: false,
-  hitCount: null,
+  hitCount: 0,
   hits: [],
 };
 

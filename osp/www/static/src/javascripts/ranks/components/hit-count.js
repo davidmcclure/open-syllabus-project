@@ -15,10 +15,14 @@ export default class extends Component {
 
     let content;
 
-    // TODO: Spinkit?
     // Initial state.
-    if (!this.props.hitCount) {
+    if (this.props.loading) {
       content = <span>Loading...</span>;
+    }
+
+    // No results.
+    else if (this.props.hitCount == 0) {
+      content = <span>No results</span>;
     }
 
     else {
