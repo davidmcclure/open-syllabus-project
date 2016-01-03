@@ -46,4 +46,14 @@ export default class {
   }
 
 
+  /**
+   * Build the text profile path.
+   *
+   * @return {String}
+   */
+  get path() {
+    // TODO
+  }
+
+
 }

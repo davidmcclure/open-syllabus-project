@@ -22,6 +22,12 @@ class Text_Index(Elasticsearch):
             'store': True,
         },
         'properties': {
+            'corpus': {
+                'type': 'string'
+            },
+            'identifier': {
+                'type': 'string'
+            },
             'title': {
                 'type': 'string'
             },
@@ -58,6 +64,8 @@ class Text_Index(Elasticsearch):
 
             yield dict(
                 _id         = row.id,
+                corpus      = row.corpus,
+                identifier  = row.identifier,
                 title       = row.title,
                 authors     = row.authors,
                 publisher   = row.publisher,

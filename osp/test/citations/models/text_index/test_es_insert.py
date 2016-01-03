@@ -18,6 +18,8 @@ def test_es_insert(add_text):
 
     for i in map(str, range(10)):
         add_text(
+            corpus      = 'corpus'+i,
+            identifier  = 'identifier'+i,
             title       = 'title'+i,
             authors     = ['author1'+i, 'author2'+i],
             publisher   = 'publisher'+i,
@@ -35,6 +37,8 @@ def test_es_insert(add_text):
             id=text.id,
         )
 
+        assert doc['_source']['corpus'] == text.corpus
+        assert doc['_source']['identifier'] == text.identifier
         assert doc['_source']['title'] == text.title
         assert doc['_source']['authors'] == text.authors
         assert doc['_source']['publisher'] == text.publisher
