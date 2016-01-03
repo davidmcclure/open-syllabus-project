@@ -44,6 +44,10 @@
     text-align: left;
   }
 
+  tbody tr:hover {
+    background: lighten(whitesmoke, 2%);
+  }
+
   td.rank, td.count {
     font-size: 2em;
     vertical-align: middle;
@@ -76,10 +80,6 @@
 
   }
 
-  tbody tr:hover {
-    background: lighten(whitesmoke, 2%);
-  }
-
   // Loading:
 
   .loading tbody {
@@ -101,6 +101,13 @@
       background: @color-blue;
     }
 
+  }
+
+  // No results:
+
+  i.no-results {
+    font-size: 15em;
+    color: darken(whitesmoke, 5%);
   }
 
 }

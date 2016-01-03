@@ -57,7 +57,7 @@ export default class extends Component {
     // Otherwise, show an empty-set icon.
 
     else if (!this.props.loading) {
-      texts = <i className="fa fa-ban"></i>;
+      texts = <i className="fa fa-ban no-results"></i>;
     }
 
     // During load, show a spinner.
