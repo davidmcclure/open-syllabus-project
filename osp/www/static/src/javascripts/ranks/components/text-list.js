@@ -37,14 +37,19 @@ export default class extends Component {
         </div>
 
         <table className="table table-hover">
+
           <thead>
-            <th>Rank</th>
-            <th>Count</th>
-            <th>Text</th>
+            <tr>
+              <th>Rank</th>
+              <th>Count</th>
+              <th>Text</th>
+            </tr>
           </thead>
+
           <tbody>
             {rows}
           </tbody>
+
         </table>
 
       </div>
