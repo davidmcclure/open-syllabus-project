@@ -79,7 +79,7 @@ class Text_Index(Elasticsearch):
 
         faker = Faker()
 
-        for i in progress.bar(range(1, 200000)):
+        for i in progress.bar(range(1, 200001)):
 
             yield dict(
                 _id         = i,

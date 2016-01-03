@@ -113,7 +113,7 @@ class Citation_Index(Elasticsearch):
         # Get country codes.
         countries = list(iso3166.countries_by_alpha3.keys())
 
-        for i in progress.bar(range(int(5e6))):
+        for i in progress.bar(range(int(1e6))):
 
             yield dict(
                 _id = i,
