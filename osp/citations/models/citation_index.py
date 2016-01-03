@@ -130,7 +130,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def rank_texts(cls, filters={}, min_freq=None, depth=1e6):
+    def compute_ranking(cls, filters={}, min_freq=None, depth=1e6):
 
         """
         Given a set of query filters and a min_freq ceiling, count the number

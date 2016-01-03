@@ -22,7 +22,7 @@ def rank_texts(filters={}, query=None, size=1000):
     """
 
     # Filter and rank the texts.
-    ranks = Citation_Index.rank_texts(filters)
+    ranks = Citation_Index.compute_ranking(filters)
 
     # Materialize the text metadata.
     texts = Text_Index.materialize_ranking(ranks, query, size)
@@ -53,7 +53,7 @@ def assigned_with(corpus, identifier):
     doc_ids = Citation_Index.docs_with_text(text.id)
 
     # Rank texts assigned by those sylalbi.
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         document_id=doc_ids
     ))
 

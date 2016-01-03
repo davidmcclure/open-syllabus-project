@@ -31,7 +31,7 @@ def test_sort_by_count(add_text, add_citation):
     Citation_Index.es_insert()
     Text_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts()
+    ranks = Citation_Index.compute_ranking()
     texts = Text_Index.materialize_ranking(ranks)
 
     assert texts['hits'][0]['_id'] == str(t1.id)
@@ -71,7 +71,7 @@ def test_search(params, add_text, add_citation):
     Citation_Index.es_insert()
     Text_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts()
+    ranks = Citation_Index.compute_ranking()
     texts = Text_Index.materialize_ranking(ranks, query='match')
 
     assert len(texts['hits']) == 2

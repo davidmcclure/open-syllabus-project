@@ -31,7 +31,7 @@ def test_unfiltered(add_text, add_citation):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts()
+    ranks = Citation_Index.compute_ranking()
 
     assert ranks == {
         str(t1.id): 3,
@@ -61,7 +61,7 @@ def test_filter_corpus(add_text, add_citation):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         corpus='corpus1'
     ))
 
@@ -103,7 +103,7 @@ def test_filter_subfield(
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         subfield_id=sf1.id
     ))
 
@@ -145,7 +145,7 @@ def test_filter_field(
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         field_id=sf1.field.id
     ))
 
@@ -182,7 +182,7 @@ def test_filter_institution(add_text, add_citation, add_institution):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         institution_id=i1.id
     ))
 
@@ -219,7 +219,7 @@ def test_filter_state(add_text, add_citation, add_institution):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         state='AL'
     ))
 
@@ -256,7 +256,7 @@ def test_filter_country(add_text, add_citation, add_institution):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         country='USA'
     ))
 
@@ -288,7 +288,7 @@ def test_filter_multiple_values(add_text, add_citation):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         corpus=['corpus1', 'corpus3']
     ))
 
@@ -324,7 +324,7 @@ def test_filter_min_freq(add_text, add_citation):
         ('five', 1),
     ]:
 
-        ranks = Citation_Index.rank_texts(
+        ranks = Citation_Index.compute_ranking(
             min_freq=word_frequency(token, 'en')*1e6
         )
 
@@ -358,7 +358,7 @@ def test_ignore_filters_with_empty_values(empty, add_text, add_citation):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.rank_texts(dict(
+    ranks = Citation_Index.compute_ranking(dict(
         corpus=empty
     ))
 
