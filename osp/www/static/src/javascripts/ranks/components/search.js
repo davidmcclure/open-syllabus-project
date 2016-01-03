@@ -36,8 +36,8 @@ export default class extends Component {
 
         <input
 
-          className="form-control"
-          placeholder="Title, author, publisher, etc."
+          className="form-control input-lg"
+          placeholder="Filter by title, author, journal, etc."
 
           valueLink={{
             value: this.state.query,
