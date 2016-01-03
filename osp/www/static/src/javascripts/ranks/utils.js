@@ -34,7 +34,7 @@ export function createReducer(initialState, handlers) {
 
 
 /**
- * Build an /api/ranks querystring from a filters object.
+ * Build a querystring for the ranks API from a params object.
  *
  * @param {Object} params
  * @return {String}
@@ -46,6 +46,7 @@ export function makeQueryString(params) {
     return !_.isEmpty(v);
   });
 
+  // Encode arrays without indices.
   return Qs.stringify(pruned, {
     indices: false
   });

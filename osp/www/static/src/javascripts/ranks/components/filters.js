@@ -2,19 +2,45 @@
 
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux';
 
-import * as actions from '../actions/filters';
+import * as filterActions from '../actions/filters';
+import * as resultActions from '../actions/results';
 import Search from './search';
 import FilterSelect from './filter-select';
 
 
 @connect(
+
   state => ({
     filters: state.filters
   }),
-  actions,
+
+  dispatch => {
+    return bindActionCreators({
+      ...filterActions,
+      ...resultActions,
+    }, dispatch);
+  }
+
 )
 export default class extends Component {
+
+
+  /**
+   * Query for initial results.
+   */
+  componentDidMount() {
+    this.props.loadResults(this.props.filters);
+  }
+
+
+  /**
+   * Query for new results when filters change.
+   */
+  componentDidUpdate() {
+    this.props.loadResults(this.props.filters);
+  }
 
 
   /**
