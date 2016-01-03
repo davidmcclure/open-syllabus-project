@@ -18,24 +18,23 @@ export default class extends Component {
    */
   render() {
 
-    // Build the text list.
-    let rows = _.map(this.props.hits, function(h, i) {
-      return <TextRow key={h._id} hit={h} rank={i+1} />
-    });
+    let texts, spinner;
 
-    // Show a loading spinner.
-    let spinner = this.props.loading ? (
-      <div className="spinner"><SKCircle /></div>
-    ) : null;
+    // If texts are returned, render the list.
 
-    // Table classes.
-    let tableCx = classNames('table', 'table-hover', {
-      loading: this.props.loading,
-    });
+    if (this.props.hits.length) {
 
-    return (
-      <div id="text-list">
+      // Build the text list.
+      let rows = _.map(this.props.hits, function(h, i) {
+        return <TextRow key={h._id} hit={h} rank={i+1} />
+      });
 
+      // Table classes.
+      let tableCx = classNames('table', 'table-hover', {
+        loading: this.props.loading,
+      });
+
+      texts = (
         <table className={tableCx}>
 
           <thead>
@@ -51,9 +50,26 @@ export default class extends Component {
           </tbody>
 
         </table>
+      );
 
+    }
+
+    // Otherwise, show an empty-set icon.
+
+    else if (!this.props.loading) {
+      texts = <i className="fa fa-ban"></i>;
+    }
+
+    // During load, show a spinner.
+
+    if (this.props.loading) {
+      spinner = <div className="spinner"><SKCircle /></div>;
+    }
+
+    return (
+      <div id="text-list">
+        {texts}
         {spinner}
-
       </div>
     );
 
