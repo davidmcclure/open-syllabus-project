@@ -3,3 +3,77 @@
 #results {
   margin-top: 1em;
 }
+
+
+#text-list {
+
+  .list-header {
+    width: 92%;
+    margin: 0 auto;
+  }
+
+  .total-hits {
+
+    font-size: 2.4em;
+
+    .count {
+      font-weight: 500;
+    }
+
+    .texts {
+      font-weight: 200;
+      opacity: 0.5;
+    }
+
+  }
+
+  .search {
+    margin: 10px 0 20px;
+  }
+
+  th {
+    text-align: center;
+    font-size: 12px;
+  }
+
+  th:last-child {
+    text-align: left;
+  }
+
+}
+
+
+tr.text-row {
+
+  td.rank, td.count {
+    font-size: 2em;
+    vertical-align: middle;
+    text-align: center;
+  }
+
+  td.rank {
+    font-weight: bold;
+  }
+
+  td.text {
+
+    em {
+      font-style: normal;
+      font-weight: bold;
+      color: @brand-primary;
+    }
+
+    .title {
+      font-size: 1.4em;
+      font-weight: bold;
+    }
+
+    code {
+      background: white;
+      font-size: 10px;
+      border: 1px solid darken(white, 10%);
+    }
+
+  }
+
+}
