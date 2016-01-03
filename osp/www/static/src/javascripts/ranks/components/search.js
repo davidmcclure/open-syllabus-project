@@ -32,7 +32,7 @@ export default class extends Component {
    */
   render() {
     return (
-      <div id="search">
+      <div id="search" className="input-group">
 
         <input
 
@@ -47,6 +47,15 @@ export default class extends Component {
           onKeyPress={this.onKeyPress.bind(this)}
 
         />
+
+        <span className="input-group-btn">
+
+          <button
+            className="btn btn-default btn-lg"
+            onClick={this.search.bind(this)}
+          >Search</button>
+
+        </span>
 
       </div>
     );
