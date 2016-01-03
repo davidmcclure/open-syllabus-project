@@ -19,6 +19,8 @@ export default class extends Component {
 
     let totalHits = this.props.totalHits.toLocaleString();
 
+    let rows = null;
+
     return (
       <div id="text-list">
 
@@ -26,6 +28,17 @@ export default class extends Component {
           <span className="count">{totalHits}</span>{' '}
           <span className="texts">texts</span>
         </div>
+
+        <table className="table table-hover">
+          <thead>
+            <th>Rank</th>
+            <th>Count</th>
+            <th>Text</th>
+          </thead>
+          <tbody>
+            {rows}
+          </tbody>
+        </table>
 
       </div>
     );
