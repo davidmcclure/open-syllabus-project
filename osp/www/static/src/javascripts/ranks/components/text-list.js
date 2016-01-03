@@ -34,7 +34,7 @@ export default class extends Component {
 
         <div className="list-header">
 
-          <div className="total-hits">
+          <div id="hit-count">
             <span className="count">{totalHits}</span>{' '}
             <span className="texts">texts</span>
           </div>

@@ -32,7 +32,7 @@ export default class extends Component {
    */
   render() {
     return (
-      <div className="search">
+      <div id="search">
 
         <input
 
