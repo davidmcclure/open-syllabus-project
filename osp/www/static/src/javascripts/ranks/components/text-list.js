@@ -1,6 +1,7 @@
 
 
 import _ from 'lodash';
+import classNames from 'classnames';
 import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
@@ -21,8 +22,12 @@ export default class extends Component {
       return <TextRow key={h._id} hit={h} rank={i+1} />
     });
 
+    let tableCx = classNames('table', 'table-hover', {
+      loading: this.props.loading,
+    });
+
     return (
-      <table id="text-list" className="table table-hover">
+      <table id="text-list" className={tableCx}>
 
         <thead>
           <tr>
