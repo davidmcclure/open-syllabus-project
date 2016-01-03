@@ -4,9 +4,7 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 
-@connect(state => ({
-  totalHits: state.results.totalHits
-}))
+@connect(state => state.results)
 export default class extends Component {
 
 
@@ -15,13 +13,30 @@ export default class extends Component {
    */
   render() {
 
-    // Format the value.
-    let totalHits = this.props.totalHits.toLocaleString();
+    let content;
+
+    // Initial state, loading.
+    if (this.props.loading || !this.props.totalHits) {
+      content = <span>Loading...</span>;
+    }
+
+    else {
+
+      // Format the value.
+      let totalHits = this.props.totalHits.toLocaleString();
+
+      content = (
+        <span>
+          <span className="count">{totalHits}</span>{' '}
+          <span className="texts">texts</span>
+        </span>
+      )
+
+    }
 
     return (
       <div id="hit-count">
-        <span className="count">{totalHits}</span>{' '}
-        <span className="texts">texts</span>
+        {content}
       </div>
     );
 

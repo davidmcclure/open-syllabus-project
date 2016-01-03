@@ -2,19 +2,13 @@
 
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 
-import HitCount from './hit-count';
-import Search from './search';
 import TextRow from './text-row';
 
 
+@connect(state => state.results)
 export default class extends Component {
-
-
-  static propTypes = {
-    totalHits: PropTypes.number.isRequired,
-    hits: PropTypes.array.isRequired,
-  }
 
 
   /**
@@ -28,30 +22,21 @@ export default class extends Component {
     });
 
     return (
-      <div id="text-list">
+      <table id="text-list" className="table table-hover">
 
-        <div className="list-header">
-          <HitCount />
-          <Search />
-        </div>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Count</th>
+            <th>Text</th>
+          </tr>
+        </thead>
 
-        <table className="table table-hover">
+        <tbody>
+          {rows}
+        </tbody>
 
-          <thead>
-            <tr>
-              <th>Rank</th>
-              <th>Count</th>
-              <th>Text</th>
-            </tr>
-          </thead>
-
-          <tbody>
-            {rows}
-          </tbody>
-
-        </table>
-
-      </div>
+      </table>
     );
 
   }
