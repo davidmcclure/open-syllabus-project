@@ -55,6 +55,12 @@ export default class extends Component {
 
           <button
             className={btnCx}
+            onClick={this.clear.bind(this)}>
+            <i className="fa fa-times"></i>
+          </button>
+
+          <button
+            className={btnCx}
             onClick={this.search.bind(this)}>
             {'Search'}
           </button>
@@ -95,6 +101,16 @@ export default class extends Component {
    */
   search() {
     this.props.changeSearchQuery(this.state.query);
+  }
+
+
+  /**
+   * Clear the query.
+   */
+  clear() {
+    this.setState({ query: null }, () => {
+      this.search();
+    });
   }
 
 
