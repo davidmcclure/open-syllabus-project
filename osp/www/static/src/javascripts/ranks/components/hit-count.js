@@ -15,8 +15,9 @@ export default class extends Component {
 
     let content;
 
-    // Initial state, loading.
-    if (this.props.loading || !this.props.totalHits) {
+    // TODO: Spinkit?
+    // Initial state.
+    if (!this.props.totalHits) {
       content = <span>Loading...</span>;
     }
 

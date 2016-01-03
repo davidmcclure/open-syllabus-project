@@ -40,8 +40,8 @@ export default class extends Component {
           }}></div>
 
           <Field label="authors" value={hit.field('authors')}/>
-          <Field label="journal" value={hit.field('journal')}/>
           <Field label="publisher" value={hit.field('publisher')}/>
+          <Field label="journal" value={hit.field('journal')}/>
 
         </td>
 
