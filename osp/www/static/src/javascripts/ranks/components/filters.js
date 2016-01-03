@@ -31,7 +31,7 @@ export default class extends Component {
    * Query for initial results.
    */
   componentDidMount() {
-    this.props.loadResults(this.props.filters);
+    //this.props.loadResults(this.props.filters);
   }
 
 

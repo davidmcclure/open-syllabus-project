@@ -23,8 +23,8 @@ const handlers = {
 
   [RECEIVE_RESULTS]: (state, action) => ({
     loading: false,
-    total_hits: action.total,
-    hits: action.hits,
+    total_hits: action.results.total,
+    hits: action.results.hits,
   }),
 
 };
