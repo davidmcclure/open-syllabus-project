@@ -1,5 +1,7 @@
 
 
+import random
+
 from osp.common.config import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
@@ -91,6 +93,8 @@ class Text_Index(Elasticsearch):
 
             yield dict(
                 _id         = i,
+                identifier  = i,
+                corpus      = random.choice(['hlom', 'jstor']),
                 title       = faker.snippet(40),
                 authors     = [faker.snippet(20), faker.snippet(20)],
                 publisher   = faker.snippet(30),

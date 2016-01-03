@@ -20,7 +20,7 @@ export default class extends Component {
    */
   render() {
 
-    let hit = new Hit(this.props.hit);
+    this.hit = new Hit(this.props.hit);
 
     return (
       <tr className="text-row">
@@ -30,18 +30,31 @@ export default class extends Component {
         </td>
 
         <td className="count">
-          {hit.count}
+          {this.hit.count}
         </td>
 
         <td className="text">
 
-          <div className="title" dangerouslySetInnerHTML={{
-            __html: hit.field('title')
-          }}></div>
+          <a href={this.hit.path}>
+            <div className="title" dangerouslySetInnerHTML={{
+              __html: this.hit.field('title')
+            }}></div>
+          </a>
 
-          <Field label="authors" value={hit.field('authors')}/>
-          <Field label="publisher" value={hit.field('publisher')}/>
-          <Field label="journal" value={hit.field('journal')}/>
+          <Field
+            label="authors"
+            value={this.hit.field('authors')}
+          />
+
+          <Field
+            label="publisher"
+            value={this.hit.field('publisher')}
+          />
+
+          <Field
+            label="journal"
+            value={this.hit.field('journal')}
+          />
 
         </td>
 

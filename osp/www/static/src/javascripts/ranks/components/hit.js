@@ -52,7 +52,12 @@ export default class {
    * @return {String}
    */
   get path() {
-    // TODO
+
+    let c = this.hit._source.corpus;
+    let i = this.hit._source.identifier;
+
+    return `text/${c}/${i}`;
+
   }
 
 
