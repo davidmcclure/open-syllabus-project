@@ -23,6 +23,7 @@
     "grunt-browserify": "^4.0.1",
     "grunt-contrib-cssmin": "^0.14.0",
     "grunt-contrib-less": "^1.1.0",
+    "grunt-contrib-symlink": "^0.3.0",
     "grunt-contrib-uglify": "^0.11.0",
     "grunt-contrib-watch": "^0.6.1",
     "jit-grunt": "^0.9.1",
@@ -32,6 +33,7 @@
   "dependencies": {
     "bootstrap": "^3.3.6",
     "classnames": "^2.2.1",
+    "font-awesome": "^4.5.0",
     "jquery": "^2.1.4",
     "lesshat": "^3.0.2",
     "lodash": "^3.10.1",

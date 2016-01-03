@@ -2,6 +2,7 @@
 
 import _ from 'lodash';
 import React, { Component } from 'react';
+import classNames from 'classnames';
 import { connect } from 'react-redux';
 
 import * as actions from '../actions/filters';
@@ -31,6 +32,9 @@ export default class extends Component {
    * Render the search box.
    */
   render() {
+
+    let btnCx = classNames('btn', 'btn-default', 'btn-lg');
+
     return (
       <div id="search" className="input-group">
 
@@ -38,27 +42,28 @@ export default class extends Component {
 
           className="form-control input-lg"
           placeholder="Filter by title, author, journal, etc."
+          onKeyPress={this.onKeyPress.bind(this)}
 
           valueLink={{
             value: this.state.query,
             requestChange: this.onChange.bind(this),
           }}
 
-          onKeyPress={this.onKeyPress.bind(this)}
-
         />
 
         <span className="input-group-btn">
 
           <button
-            className="btn btn-default btn-lg"
-            onClick={this.search.bind(this)}
-          >Search</button>
+            className={btnCx}
+            onClick={this.search.bind(this)}>
+            {'Search'}
+          </button>
 
         </span>
 
       </div>
     );
+
   }
 
 
