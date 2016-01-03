@@ -3,6 +3,7 @@
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
 
+import HitCount from './hit-count';
 import Search from './search';
 import TextRow from './text-row';
 
@@ -21,9 +22,6 @@ export default class extends Component {
    */
   render() {
 
-    // Format the count.
-    let totalHits = this.props.totalHits.toLocaleString();
-
     // Build the text list.
     let rows = _.map(this.props.hits, function(h, i) {
       return <TextRow key={h._id} hit={h} rank={i+1} />
@@ -33,14 +31,8 @@ export default class extends Component {
       <div id="text-list">
 
         <div className="list-header">
-
-          <div id="hit-count">
-            <span className="count">{totalHits}</span>{' '}
-            <span className="texts">texts</span>
-          </div>
-
+          <HitCount />
           <Search />
-
         </div>
 
         <table className="table table-hover">
