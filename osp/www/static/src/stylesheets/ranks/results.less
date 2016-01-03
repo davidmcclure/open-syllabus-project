@@ -28,6 +28,8 @@
 
 #text-list {
 
+  position: relative;
+
   .list-header {
     width: 92%;
     margin: 0 auto;
@@ -73,8 +75,19 @@
 
   }
 
-  &.loading tbody {
+  .loading tbody {
     opacity: 0.2;
+  }
+
+  .spinner {
+    position: absolute;
+    top: 4em;
+    width: 100%;
+  }
+
+  .sk-cube-grid {
+    width: 200px;
+    height: 200px;
   }
 
 }

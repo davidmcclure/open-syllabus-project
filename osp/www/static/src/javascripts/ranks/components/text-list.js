@@ -6,6 +6,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import TextRow from './text-row';
+import SKCubeGrid from './sk-cube-grid';
 
 
 @connect(state => state.results)
@@ -22,26 +23,38 @@ export default class extends Component {
       return <TextRow key={h._id} hit={h} rank={i+1} />
     });
 
+    // Show a loading spinner.
+    let spinner = this.props.loading ? (
+      <div className="spinner"><SKCubeGrid /></div>
+    ) : null;
+
+    // Table classes.
     let tableCx = classNames('table', 'table-hover', {
       loading: this.props.loading,
     });
 
     return (
-      <table id="text-list" className={tableCx}>
+      <div id="text-list">
 
-        <thead>
-          <tr>
-            <th>Rank</th>
-            <th>Count</th>
-            <th>Text</th>
-          </tr>
-        </thead>
+        <table className={tableCx}>
 
-        <tbody>
-          {rows}
-        </tbody>
+          <thead>
+            <tr>
+              <th>Rank</th>
+              <th>Count</th>
+              <th>Text</th>
+            </tr>
+          </thead>
 
-      </table>
+          <tbody>
+            {rows}
+          </tbody>
+
+        </table>
+
+        {spinner}
+
+      </div>
     );
 
   }
