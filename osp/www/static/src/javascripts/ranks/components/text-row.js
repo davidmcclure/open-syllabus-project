@@ -17,13 +17,19 @@ export default class extends Component {
    */
   render() {
     return (
-      <tr>
+      <tr className="text-row">
 
-        <td>{this.props.rank}</td>
+        <td className="rank">
+          {this.props.rank}
+        </td>
 
-        <td>{this.props.hit.sort[0]}</td>
+        <td className="count">
+          {this.props.hit.sort[0]}
+        </td>
 
-        <td>{this.props.hit._source.title}</td>
+        <td className="text">
+          {this.props.hit._source.title}
+        </td>
 
       </tr>
     );
