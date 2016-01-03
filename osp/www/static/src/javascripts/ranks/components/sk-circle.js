@@ -13,14 +13,14 @@ export default class extends Component {
    */
   render() {
 
-    let cubes = _.range(9).map(function(i) {
-      let cx = classNames('sk-cube', `sk-cube${i+1}`);
+    let circles = _.range(12).map(function(i) {
+      let cx = classNames('sk-child', `sk-circle${i+1}`);
       return <div key={i} className={cx}></div>;
     });
 
     return (
-      <div className="sk-cube-grid">
-        {cubes}
+      <div className="sk-circle">
+        {circles}
       </div>
     );
 

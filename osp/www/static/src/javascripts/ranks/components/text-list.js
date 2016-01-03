@@ -6,7 +6,7 @@ import React, { Component, PropTypes } from 'react';
 import { connect } from 'react-redux';
 
 import TextRow from './text-row';
-import SKCubeGrid from './sk-cube-grid';
+import SKCircle from './sk-circle';
 
 
 @connect(state => state.results)
@@ -25,7 +25,7 @@ export default class extends Component {
 
     // Show a loading spinner.
     let spinner = this.props.loading ? (
-      <div className="spinner"><SKCubeGrid /></div>
+      <div className="spinner"><SKCircle /></div>
     ) : null;
 
     // Table classes.

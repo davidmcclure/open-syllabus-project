@@ -78,18 +78,24 @@
   // Loading:
 
   .loading tbody {
-    opacity: 0.2;
+    opacity: 0.4;
   }
 
   .spinner {
+
     position: absolute;
     top: 4em;
     width: 100%;
-  }
 
-  .sk-cube-grid {
-    width: 200px;
-    height: 200px;
+    .sk-circle {
+      width: 200px;
+      height: 200px;
+    }
+
+    .sk-child:before {
+      background: @color-blue;
+    }
+
   }
 
 }
