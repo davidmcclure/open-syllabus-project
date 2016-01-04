@@ -50,13 +50,6 @@ export default class extends Component {
       <div id="filters">
 
         <FilterSelect
-          name="corpus"
-          options={OSP.facets.corpus}
-          value={this.props.filters.corpus}
-          publish={this.props.changeCorpusFilter}
-        />
-
-        <FilterSelect
           name="field"
           options={OSP.facets.field}
           value={this.props.filters.field_id}
@@ -89,6 +82,13 @@ export default class extends Component {
           options={OSP.facets.country}
           value={this.props.filters.country}
           publish={this.props.changeCountryFilter}
+        />
+
+        <FilterSelect
+          name="corpus"
+          options={OSP.facets.corpus}
+          value={this.props.filters.corpus}
+          publish={this.props.changeCorpusFilter}
         />
 
       </div>
