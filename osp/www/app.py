@@ -15,6 +15,10 @@ app = Flask(__name__)
 @app.route('/')
 def home():
 
+    """
+    Home page + ranking interface.
+    """
+
     return render_template(
         'home.html',
         facets=utils.bootstrap_facets(),
@@ -35,7 +39,11 @@ def home():
     country         = fields.List(fields.Str(), missing=None),
 
 ))
-def ranks(args):
+def api_ranks(args):
+
+    """
+    Ranking API.
+    """
 
     filters = {f: args[f] for f in [
         'corpus',
@@ -53,6 +61,16 @@ def ranks(args):
     )
 
     return jsonify(**results)
+
+
+@app.route('/text/<corpus>/<identifier>')
+def text(corpus, identifier):
+
+    """
+    Text profile pages.
+    """
+
+    return render_template('text.html')
 
 
 if __name__ == '__main__':
