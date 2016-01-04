@@ -10,8 +10,14 @@ module.exports = function(grunt) {
     loadGruntTasks: false,
 
     data: {
-      src: 'static/src',
-      dest: 'static/dist',
+
+      src: {
+        js:  'assets/javascripts',
+        css: 'assets/stylesheets',
+      },
+
+      dist: 'static/dist'
+
     }
 
   });
