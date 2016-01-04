@@ -6,6 +6,7 @@ from flask import Flask, request, render_template, jsonify
 from webargs import fields
 from webargs.flaskparser import use_args
 
+from osp.citations.models import Text
 from osp.www import utils
 
 
@@ -70,7 +71,15 @@ def text(corpus, identifier):
     Text profile pages.
     """
 
-    return render_template('text.html')
+    text = Text.get(
+        Text.corpus==corpus,
+        Text.identifier==identifier,
+    )
+
+    return render_template(
+        'text.html',
+        text=text,
+    )
 
 
 if __name__ == '__main__':
