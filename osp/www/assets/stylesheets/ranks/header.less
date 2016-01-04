@@ -2,7 +2,7 @@
 
 #header {
 
-  padding: 6em;
+  padding: 6em 2em;
   color: whitesmoke;
 
   background-image: url('/static/images/lecture-hall.jpg');
@@ -14,25 +14,26 @@
   .align-items(center);
   .flex-direction(column);
 
-  ul.links li {
+  ul.links {
 
-    display: inline;
+    margin: 0;
+    padding: 0;
 
-    &:not(:last-child):after {
-      content: '•';
-      margin: 0 10px;
+    li {
+
+      display: inline;
+
+      &:not(:last-child):after {
+        content: '•';
+        margin: 0 10px;
+      }
+
     }
 
-  }
-
-  a {
-
-    font-size: 18px;
-    font-weight: lighter;
-    color: whitesmoke;
-
-    &:hover {
-      opacity: 1;
+    a {
+      font-size: 18px;
+      font-weight: lighter;
+      color: whitesmoke;
     }
 
   }

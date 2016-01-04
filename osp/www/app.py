@@ -71,15 +71,7 @@ def text(corpus, identifier):
     Text profile pages.
     """
 
-    text = Text.get(
-        Text.corpus==corpus,
-        Text.identifier==identifier,
-    )
-
-    return render_template(
-        'text.html',
-        text=text,
-    )
+    return render_template('text.html')
 
 
 if __name__ == '__main__':
