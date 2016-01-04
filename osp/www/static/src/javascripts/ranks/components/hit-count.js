@@ -43,6 +43,7 @@ export default class extends Component {
 
     let cx = classNames({
       loading: this.props.loading,
+      empty: this.props.hitCount == 0,
     });
 
     return (
