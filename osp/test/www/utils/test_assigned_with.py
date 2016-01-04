@@ -47,3 +47,40 @@ def test_assigned_with(add_text, add_doc, add_citation):
     assert texts['hits'][0]['_id'] == str(t2.id)
     assert texts['hits'][1]['_id'] == str(t3.id)
     assert texts['hits'][2]['_id'] == str(t4.id)
+
+
+def test_size(add_text, add_doc, add_citation):
+
+    """
+    The 'size' argument should control the page length.
+    """
+
+    t1 = add_text()
+
+    t2 = add_text()
+    t3 = add_text()
+    t4 = add_text()
+
+    for i in range(3):
+        doc = add_doc()
+        add_citation(text=t1, document=doc)
+        add_citation(text=t2, document=doc)
+
+    for i in range(2):
+        doc = add_doc()
+        add_citation(text=t1, document=doc)
+        add_citation(text=t3, document=doc)
+
+    for i in range(1):
+        doc = add_doc()
+        add_citation(text=t1, document=doc)
+        add_citation(text=t4, document=doc)
+
+    Citation_Index.es_insert()
+    Text_Index.es_insert()
+
+    texts = assigned_with(t1.id, size=2)
+
+    assert len(texts['hits']) == 2
+    assert texts['hits'][0]['_id'] == str(t2.id)
+    assert texts['hits'][1]['_id'] == str(t3.id)

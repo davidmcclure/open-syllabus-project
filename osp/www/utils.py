@@ -30,7 +30,7 @@ def rank_texts(filters={}, query=None, size=1000):
     return texts
 
 
-def assigned_with(text_id):
+def assigned_with(text_id, size=1000):
 
     """
     Given a "seed" text, rank other texts assigned on the same syllabi.
@@ -54,7 +54,7 @@ def assigned_with(text_id):
     ranks.pop(str(text_id))
 
     # Materialize the text metadata.
-    texts = Text_Index.materialize_ranking(ranks)
+    texts = Text_Index.materialize_ranking(ranks, size=size)
 
     return texts
 
