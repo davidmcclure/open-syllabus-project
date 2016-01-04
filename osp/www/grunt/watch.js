@@ -4,14 +4,14 @@ module.exports = {
 
   livereload: {
     files: [
-      '<%= dest %>/*',
+      '<%= dist %>/*',
       'templates/*',
     ],
     options: { livereload: true }
   },
 
   stylesheets: {
-    files: '<%= src %>/stylesheets/**/*.less',
+    files: '<%= src.css %>/**/*.less',
     tasks: 'less'
   }
 
