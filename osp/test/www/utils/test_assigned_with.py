@@ -17,7 +17,7 @@ def test_assigned_with(add_text, add_doc, add_citation):
     are co-assigned on a syllabus with the seed.
     """
 
-    t1 = add_text(corpus='hlom', identifier='001')
+    t1 = add_text()
 
     t2 = add_text()
     t3 = add_text()
@@ -41,7 +41,7 @@ def test_assigned_with(add_text, add_doc, add_citation):
     Citation_Index.es_insert()
     Text_Index.es_insert()
 
-    texts = assigned_with('hlom', '001')
+    texts = assigned_with(t1.id)
 
     assert len(texts['hits']) == 3
     assert texts['hits'][0]['_id'] == str(t2.id)

@@ -30,27 +30,20 @@ def rank_texts(filters={}, query=None, size=1000):
     return texts
 
 
-def assigned_with(corpus, identifier):
+def assigned_with(text_id):
 
     """
     Given a "seed" text, rank other texts assigned on the same syllabi.
 
     Args:
-        corpus (str): The corpus slug.
-        identifier (str): The text identifier.
+        text_id (int): The text id.
 
     Returns:
         dict: Elasticsearch hits.
     """
 
-    # Get the text id.
-    text = Text.get(
-        Text.corpus==corpus,
-        Text.identifier==identifier,
-    )
-
     # Get syllabi that assign the text.
-    doc_ids = Citation_Index.docs_with_text(text.id)
+    doc_ids = Citation_Index.docs_with_text(text_id)
 
     # Rank texts assigned by those sylalbi.
     ranks = Citation_Index.compute_ranking(dict(
@@ -58,7 +51,7 @@ def assigned_with(corpus, identifier):
     ))
 
     # Omit the seed text.
-    ranks.pop(str(text.id))
+    ranks.pop(str(text_id))
 
     # Materialize the text metadata.
     texts = Text_Index.materialize_ranking(ranks)
