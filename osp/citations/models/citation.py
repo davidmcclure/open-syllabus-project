@@ -1,5 +1,7 @@
 
 
+import sys
+
 from osp.common.config import config
 from osp.common.models.base import BaseModel
 from osp.corpus.models import Document
@@ -39,9 +41,15 @@ class Citation(BaseModel):
 
         validator = Validator()
 
+        i = 0
         for row in cls.stream():
+
             row.valid = validator.validate(row)
             row.save()
+
+            i += 1
+            sys.stdout.write('\r'+str(i))
+            sys.stdout.flush()
 
 
     @property
