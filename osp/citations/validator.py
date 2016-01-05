@@ -48,4 +48,12 @@ class Validator:
         if text.author_tokens == text.title_tokens:
             return False
 
+        # Reject blacklisted, single-token titles.
+
+        if (
+            len(text.title_tokens) == 1 and
+            text.title_tokens[0] in self.config['blacklisted_titles']
+        ):
+            return False
+
         return True

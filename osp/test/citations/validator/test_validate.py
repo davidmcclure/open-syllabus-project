@@ -40,3 +40,22 @@ def test_reject_title_same_as_author(add_text, add_citation):
     text = add_text(surname='plato', title='plato')
 
     assert v.validate(add_citation(text=text)) == False
+
+
+def test_reject_blacklisted_titles(add_text, add_citation):
+
+    """
+    Reject citations for which the text has a title that consists of a single
+    blacklisted token.
+    """
+
+    v = Validator()
+
+    t1 = add_text(surname='napoleon', title='letters home')
+    t2 = add_text(surname='napoleon', title='letters')
+
+    # Multi-token title passes.
+    assert v.validate(add_citation(text=t1)) == True
+
+    # Single-token fails.
+    assert v.validate(add_citation(text=t2)) == False
