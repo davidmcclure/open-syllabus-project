@@ -6,6 +6,7 @@ import csv
 import pkgutil
 import re
 import tldextract
+import yaml
 
 from itertools import islice, chain
 from playhouse.postgres_ext import ServerSide
@@ -81,13 +82,29 @@ def read_csv(package, path):
 
     Args:
         package (str): The package path.
-        path (str): The path of the data file.
+        path (str): The path of the CSV file.
 
     Returns: csv.DictReader
     """
 
     data = pkgutil.get_data(package, path).decode('utf8')
     return csv.DictReader(StringIO(data))
+
+
+def read_yaml(package, path):
+
+    """
+    Read a YAML from package data.
+
+    Args:
+        package (str): The package path.
+        path (str): The path of the YAML file.
+
+    Returns: dict
+    """
+
+    data = pkgutil.get_data(package, path).decode('utf8')
+    return yaml.load(data)
 
 
 def parse_domain(url):

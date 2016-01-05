@@ -3,10 +3,9 @@
 import random
 
 from osp.common.config import config
-from osp.common.utils import query_bar
+from osp.common.utils import query_bar, read_yaml
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.faker import Faker
-from osp.citations.data.corpora import CORPORA
 from osp.citations.models import Text
 
 from clint.textui import progress
@@ -201,11 +200,16 @@ class Text_Index(Elasticsearch):
             dict: {label, value, count}
         """
 
+        corpora = read_yaml(
+            'osp.citations',
+            'config/corpora.yml',
+        )
+
         facets = []
         for slug, count in counts:
 
             facets.append(dict(
-                label=CORPORA.get(slug),
+                label=corpora.get(slug),
                 value=slug,
                 count=count,
             ))
