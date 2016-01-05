@@ -24,10 +24,10 @@ def text_to_docs(text_id):
         results = config.es.search(
 
             index='document',
-            timeout=30,
+            timeout=90,
 
             body={
-                'size': 100000,
+                'size': 1000000,
                 'filter': {
                     'query': {
                         'match_phrase': {
