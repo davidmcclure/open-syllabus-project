@@ -125,6 +125,30 @@ class Text(BaseModel):
 
 
     @property
+    def title_tokens(self):
+
+        """
+        Tokenize the title.
+
+        Returns: list
+        """
+
+        return tokenize_field(self.title)
+
+
+    @property
+    def author_tokens(self):
+
+        """
+        Tokenize the author (surname).
+
+        Returns: list
+        """
+
+        return tokenize_field(self.surname)
+
+
+    @property
     def hash_tokens(self):
 
         """
@@ -135,11 +159,8 @@ class Text(BaseModel):
             list: The hashing tokens.
         """
 
-        t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.surname)
-
         # Sort the surname names.
-        return sorted(a_tokens) + t_tokens
+        return sorted(self.author_tokens) + self.title_tokens
 
 
     @property
@@ -168,12 +189,12 @@ class Text(BaseModel):
             list: The set of queries.
         """
 
-        t_tokens = tokenize_field(self.title)
-        a_tokens = tokenize_field(self.surname)
-
-        # <author> <title>
-        # <title> <author>
         return [
-            a_tokens + t_tokens,
-            t_tokens + a_tokens,
+
+            # <author> <title>
+            self.author_tokens + self.title_tokens,
+
+            # <title> <author>
+            self.title_tokens + self.author_tokens,
+
         ]
