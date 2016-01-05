@@ -83,6 +83,7 @@ def add_citation(add_doc, add_text):
         text=None,
         document=None,
         tokens=['one', 'two'],
+        valid=True,
     ):
 
         if not text:
@@ -95,6 +96,7 @@ def add_citation(add_doc, add_text):
             text=text,
             document=document,
             tokens=tokens,
+            valid=valid,
         )
 
     return _citation

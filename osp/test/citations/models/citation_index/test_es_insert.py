@@ -10,7 +10,7 @@ from osp.citations.models import Citation_Index
 pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
-def test_citation_fields(es, add_citation):
+def test_index_citation_fields(add_citation):
 
     """
     Local rows - text_id, document_id, and min_freq - should be included in
@@ -32,7 +32,7 @@ def test_citation_fields(es, add_citation):
     assert doc['_source']['min_freq'] == citation.min_freq
 
 
-def test_field_refs(es, add_citation, add_subfield, add_subfield_document):
+def test_index_field_refs(add_citation, add_subfield, add_subfield_document):
 
     """
     When the document is linked with a subfield, subfield / field referenecs
@@ -56,7 +56,7 @@ def test_field_refs(es, add_citation, add_subfield, add_subfield_document):
     assert doc['_source']['field_id'] == subfield.field_id
 
 
-def test_institution_refs(es, add_citation, add_institution):
+def test_index_institution_refs(add_citation, add_institution):
 
     """
     When the document is linked with an institution, an institution reference
@@ -83,3 +83,23 @@ def test_institution_refs(es, add_citation, add_institution):
     assert doc['_source']['institution_id'] == institution.id
     assert doc['_source']['state'] == 'CA'
     assert doc['_source']['country'] == 'US'
+
+
+def test_only_index_valid_citations(add_citation):
+
+    """
+    Only index citations that have been marked as valid.
+    """
+
+    c1 = add_citation(valid=None)
+    c2 = add_citation(valid=False)
+    c3 = add_citation(valid=True)
+
+    Citation_Index.es_insert()
+
+    assert Citation_Index.es_count() == 1
+
+    assert config.es.get(
+        index='citation',
+        id=c3.id,
+    )

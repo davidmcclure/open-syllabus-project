@@ -68,7 +68,12 @@ class Citation_Index(Elasticsearch):
             dict: The next document.
         """
 
-        for row in query_bar(Citation.select()):
+        query = (
+            Citation.select()
+            .where(Citation.valid==True)
+        )
+
+        for row in query_bar(query):
 
             doc = {}
 
