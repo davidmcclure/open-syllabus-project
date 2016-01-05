@@ -10,8 +10,8 @@ from osp.institutions.models import Institution_Document
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
 
-from peewee import ForeignKeyField, CharField
 from playhouse.postgres_ext import ArrayField
+from peewee import ForeignKeyField, CharField, BooleanField
 from wordfreq import word_frequency
 
 
@@ -21,6 +21,7 @@ class Citation(BaseModel):
     text = ForeignKeyField(Text)
     document = ForeignKeyField(Document)
     tokens = ArrayField(CharField)
+    valid = BooleanField(default=True)
 
 
     class Meta:
