@@ -26,3 +26,17 @@ def test_reject_duplicates(add_text, add_citation, add_doc):
     # First pairing validates.
     assert v.validate(add_citation(text=t1, document=d1)) == True
     assert v.validate(add_citation(text=t2, document=d1)) == False
+
+
+def test_reject_title_same_as_author(add_text, add_citation):
+
+    """
+    Reject citations for which the title tokens are the same as the author
+    tokens.
+    """
+
+    v = Validator()
+
+    text = add_text(surname='plato', title='plato')
+
+    assert v.validate(add_citation(text=text)) == False

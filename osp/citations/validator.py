@@ -31,12 +31,21 @@ class Validator:
         Returns: bool
         """
 
-        pair = (citation.text.hash, citation.document_id)
+        text = citation.text
+
+        # Reject duplicates:
+
+        pair = (text.hash, citation.document_id)
 
         if pair in self.seen:
             return False
 
         else:
             self.seen.add(pair)
+
+        # Reject title == author:
+
+        if text.author_tokens == text.title_tokens:
+            return False
 
         return True
