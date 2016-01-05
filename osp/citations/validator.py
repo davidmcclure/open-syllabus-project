@@ -31,4 +31,12 @@ class Validator:
         Returns: bool
         """
 
-        pass
+        pair = (citation.text.hash, citation.document_id)
+
+        if pair in self.seen:
+            return False
+
+        else:
+            self.seen.add(pair)
+
+        return True
