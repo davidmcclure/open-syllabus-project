@@ -6,7 +6,7 @@ from osp.common.config import config
 from osp.common.utils import query_bar, read_yaml
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.faker import Faker
-from osp.citations.models import Text
+from osp.citations.models import Text, Citation
 
 from clint.textui import progress
 
@@ -61,7 +61,13 @@ class Text_Index(Elasticsearch):
             dict: The next document.
         """
 
-        for row in query_bar(Text.select()):
+        query = (
+            Text.select()
+            .join(Citation)
+            .where(Citation.valid==True)
+        )
+
+        for row in query_bar(query):
 
             yield dict(
                 _id         = row.id,

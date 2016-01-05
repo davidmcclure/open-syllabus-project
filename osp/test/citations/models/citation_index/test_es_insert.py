@@ -97,9 +97,5 @@ def test_only_index_valid_citations(add_citation):
 
     Citation_Index.es_insert()
 
+    assert config.es.get(index='citation', id=c3.id)
     assert Citation_Index.es_count() == 1
-
-    assert config.es.get(
-        index='citation',
-        id=c3.id,
-    )
