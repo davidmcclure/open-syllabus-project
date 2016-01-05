@@ -11,7 +11,6 @@ from osp.common.config import config
 from osp.common.utils import parse_domain
 from contextlib import contextmanager
 from cached_property import cached_property
-from datetime import datetime
 
 
 class Syllabus:

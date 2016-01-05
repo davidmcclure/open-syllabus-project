@@ -1,16 +1,16 @@
 
 
-import datetime
 import math
 
 from peewee import Model, DateTimeField, fn
 from playhouse.postgres_ext import ServerSide
+from datetime import datetime
 
 
 class BaseModel(Model):
 
 
-    created = DateTimeField(default=datetime.datetime.now)
+    created = DateTimeField(default=datetime.now)
 
 
     @classmethod
@@ -37,11 +37,11 @@ class BaseModel(Model):
             offset (int): 0-indexed page offset.
 
         Yields:
-            cls: The next instance.
+            cls: The next row.
         """
 
-        total_count = cls.select().count()
-        page_size = math.ceil(total_count / page_count)
+        row_count = cls.select().count()
+        page_size = math.ceil(row_count / page_count)
 
         query = (
             cls.select()
@@ -51,3 +51,31 @@ class BaseModel(Model):
 
         for row in ServerSide(query):
             yield row
+
+
+    @classmethod
+    def stream(cls, page_size=1000):
+
+        """
+        Stream all rows by iterating through consecutive pages.
+
+        Args:
+            page_size (int)
+
+        Yields:
+            cls: The next row.
+        """
+
+        row_count = cls.select().count()
+        page_count = math.ceil(row_count / page_size)
+
+        for i in range(page_count):
+
+            page = (
+                cls.select()
+                .order_by(cls.id)
+                .paginate(i+1, page_size)
+            )
+
+            for row in page.iterator():
+                yield row
