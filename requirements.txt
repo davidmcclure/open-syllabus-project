@@ -41,5 +41,6 @@ scandir
 us
 iso3166
 webargs
+cached-property
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc

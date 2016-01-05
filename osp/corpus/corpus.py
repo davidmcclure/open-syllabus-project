@@ -5,7 +5,7 @@ import os
 from osp.common.config import config
 from osp.corpus.segment import Segment
 from osp.corpus.utils import int_to_dir
-from functools import lru_cache
+from cached_property import cached_property
 from clint.textui.progress import bar
 
 
@@ -56,8 +56,7 @@ class Corpus:
             if os.path.exists(path): yield Segment(path)
 
 
-    @property
-    @lru_cache()
+    @cached_property
     def file_count(self):
 
         """

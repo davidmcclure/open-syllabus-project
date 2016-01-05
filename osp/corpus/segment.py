@@ -3,7 +3,7 @@
 import os
 
 from osp.corpus.syllabus import Syllabus
-from functools import lru_cache
+from cached_property import cached_property
 
 
 class Segment:
@@ -37,8 +37,7 @@ class Segment:
                 yield name
 
 
-    @property
-    @lru_cache()
+    @cached_property
     def file_count(self):
 
         """

@@ -10,8 +10,8 @@ from osp.corpus import utils
 from osp.common.config import config
 from osp.common.utils import parse_domain
 from contextlib import contextmanager
+from cached_property import cached_property
 from datetime import datetime
-from functools import lru_cache
 
 
 class Syllabus:
@@ -103,8 +103,7 @@ class Syllabus:
         return os.path.isfile(self.log_path)
 
 
-    @property
-    @lru_cache()
+    @cached_property
     def log(self):
 
         """
@@ -215,8 +214,7 @@ class Syllabus:
             except: pass
 
 
-    @property
-    @lru_cache()
+    @cached_property
     def libmagic_file_type(self):
 
         """
@@ -241,8 +239,7 @@ class Syllabus:
         return parse_domain(self.url)
 
 
-    @property
-    @lru_cache()
+    @cached_property
     def text(self):
 
         """
@@ -276,8 +273,7 @@ class Syllabus:
             return utils.docx_text(self.path)
 
 
-    @property
-    @lru_cache()
+    @cached_property
     @utils.requires_attr('text')
     def unbroken_text(self):
 
