@@ -2,8 +2,9 @@
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.citations.models import Text
 from osp.corpus.models import Document
+from osp.citations.models import Text
+from osp.citations.validator import Validator
 
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
@@ -21,12 +22,26 @@ class Citation(BaseModel):
     text = ForeignKeyField(Text)
     document = ForeignKeyField(Document)
     tokens = ArrayField(CharField)
-    valid = BooleanField(default=True)
+    valid = BooleanField(null=True)
 
 
     class Meta:
         database = config.get_table_db('citation')
         indexes = ((('document', 'text'), True),)
+
+
+    @classmethod
+    def validate(cls):
+
+        """
+        Validate the citations.
+        """
+
+        validator = Validator()
+
+        for row in cls.stream():
+            row.valid = validator.validate(row)
+            row.save()
 
 
     @property
