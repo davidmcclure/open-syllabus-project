@@ -25,7 +25,7 @@ class Text(BaseModel):
 
 
     corpus              = TextField(index=True)
-    identifier          = TextField()
+    identifier          = TextField(index=True)
     url                 = TextField(null=True)
 
     # Book + article:
