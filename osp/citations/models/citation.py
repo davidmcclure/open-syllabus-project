@@ -112,16 +112,15 @@ class Citation(BaseModel):
     def fuzz(self):
 
         """
-        Compute a "focus" score for the citation tokens.
+        Compute an arbitrarily-scaled "fuzziness" score for the citation
+        tokens, where low is focused and high is fuzzy.
 
         Returns: float
         """
 
-        ceil = word_frequency('the', 'en')
-
         freqs = [
-            word_frequency(t, 'en', minimum=1e-6) / ceil
+            word_frequency(t, 'en', minimum=1e-6)
             for t in self.tokens
         ]
 
-        return reduce(lambda x, y: x*y, freqs) * 1e7
+        return reduce(lambda x, y: x*y, freqs)*1e10
