@@ -4,7 +4,7 @@ import click
 import csv
 
 from osp.common.utils import query_bar
-from osp.corpus.citations import Citation
+from osp.citations.models import Citation
 
 
 @click.group()
@@ -14,7 +14,7 @@ def cli():
 
 @cli.command()
 @click.argument('out_file', type=click.File('w'))
-@click.option('--n', default=None)
+@click.option('--n', default=10000)
 def min_freqs(out_file, n):
 
     """
