@@ -24,7 +24,8 @@ class Citation(BaseModel):
     text = ForeignKeyField(Text)
     document = ForeignKeyField(Document)
     tokens = ArrayField(CharField)
-    valid = BooleanField(null=True)
+
+    valid = BooleanField(null=True, index=True)
 
 
     class Meta:
