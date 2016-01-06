@@ -1,6 +1,7 @@
 
 
 import sys
+import numpy as np
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
@@ -13,6 +14,7 @@ from osp.institutions.models import Institution_Document
 from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
 
+from functools import reduce
 from playhouse.postgres_ext import ArrayField
 from peewee import ForeignKeyField, CharField, BooleanField
 from wordfreq import word_frequency
@@ -104,3 +106,22 @@ class Citation(BaseModel):
             .where(Document.id==self.document)
             .first()
         )
+
+
+    @property
+    def fuzz(self):
+
+        """
+        Compute a "focus" score for the citation tokens.
+
+        Returns: float
+        """
+
+        ceil = word_frequency('the', 'en')
+
+        freqs = [
+            word_frequency(t, 'en', minimum=1e-6) / ceil
+            for t in self.tokens
+        ]
+
+        return reduce(lambda x, y: x*y, freqs) * 1e7
