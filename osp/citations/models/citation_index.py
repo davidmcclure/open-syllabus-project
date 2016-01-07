@@ -34,9 +34,6 @@ class Citation_Index(Elasticsearch):
                 'index': 'not_analyzed',
                 'type': 'string',
             },
-            'min_freq': {
-                'type': 'float'
-            },
             'subfield_id': {
                 'type': 'integer'
             },
@@ -83,7 +80,6 @@ class Citation_Index(Elasticsearch):
             doc['text_id'] = row.text_id
             doc['document_id'] = row.document_id
             doc['corpus'] = row.text.corpus
-            doc['min_freq'] = row.min_freq
 
             # Field references:
 
@@ -125,7 +121,6 @@ class Citation_Index(Elasticsearch):
                 text_id         = random.randint(1, 200000),
                 document_id     = random.randint(1, 1500000),
                 corpus          = random.choice(['hlom', 'jstor']),
-                min_freq        = random.uniform(0, 10),
                 subfield_id     = random.randint(1, 200),
                 field_id        = random.randint(1, 30),
                 institution_id  = random.randint(1, 1000),
@@ -135,15 +130,14 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def compute_ranking(cls, filters={}, min_freq=None, depth=1e6):
+    def compute_ranking(cls, filters={}, depth=1e6):
 
         """
-        Given a set of query filters and a min_freq ceiling, count the number
-        of times each text is cited on documents that match the criteria.
+        Given a set of query filters, count the number of times each text is
+        cited on documents that match the criteria.
 
         Args:
             filters (dict): A set of key -> value filters.
-            min_freq (float): The highest allowable min_freq.
             depth (int): The max number of texts to rank.
 
         Returns:
@@ -163,17 +157,6 @@ class Citation_Index(Elasticsearch):
                         field: value
                     }
                 })
-
-        # Filter out semantically-unfocused citations.
-
-        if min_freq:
-            conds.append({
-                'range': {
-                    'min_freq': {
-                        'lte': min_freq
-                    }
-                }
-            })
 
         # Query for the aggregation.
 

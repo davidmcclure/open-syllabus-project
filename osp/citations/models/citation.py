@@ -56,20 +56,6 @@ class Citation(BaseModel):
 
 
     @property
-    def min_freq(self):
-
-        """
-        Get the frequency of the most-infrequent term in the match tokens.
-
-        Returns: float
-        """
-
-        freqs = [word_frequency(t, 'en') for t in self.tokens]
-
-        return min(freqs) * 1e6
-
-
-    @property
     def subfield(self):
 
         """

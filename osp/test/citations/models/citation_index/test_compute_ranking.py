@@ -299,40 +299,6 @@ def test_filter_multiple_values(add_text, add_citation):
     }
 
 
-def test_filter_min_freq(add_text, add_citation):
-
-    """
-    If a `min_freq` argument is provided, just count citations with a min_freq
-    _below_ the passed value.
-    """
-
-    text = add_text()
-
-    add_citation(text=text, tokens=['one'])
-    add_citation(text=text, tokens=['two'])
-    add_citation(text=text, tokens=['three'])
-    add_citation(text=text, tokens=['four'])
-    add_citation(text=text, tokens=['five'])
-
-    Citation_Index.es_insert()
-
-    for token, count in [
-        ('one', 5),
-        ('two', 4),
-        ('three', 3),
-        ('four', 2),
-        ('five', 1),
-    ]:
-
-        ranks = Citation_Index.compute_ranking(
-            min_freq=word_frequency(token, 'en')*1e6
-        )
-
-        assert ranks == {
-            str(text.id): count
-        }
-
-
 @pytest.mark.parametrize('empty', [
     None,
     [],

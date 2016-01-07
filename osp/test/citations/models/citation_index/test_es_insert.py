@@ -13,7 +13,7 @@ pytestmark = pytest.mark.usefixtures('db', 'es')
 def test_index_citation_fields(add_citation):
 
     """
-    Local rows - text_id, document_id, and min_freq - should be included in
+    Local rows - text_id, document_id, and corpus - should be included in
     the Elasticsearch document.
     """
 
@@ -29,7 +29,6 @@ def test_index_citation_fields(add_citation):
     assert doc['_source']['text_id'] == citation.text_id
     assert doc['_source']['document_id'] == citation.document_id
     assert doc['_source']['corpus'] == citation.text.corpus
-    assert doc['_source']['min_freq'] == citation.min_freq
 
 
 def test_index_field_refs(add_citation, add_subfield, add_subfield_document):
