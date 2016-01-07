@@ -36,25 +36,6 @@ class Citation(BaseModel):
         indexes = ((('document', 'text'), True),)
 
 
-    @classmethod
-    def validate(cls, *args, **kwargs):
-
-        """
-        Validate all citations.
-        """
-
-        validator = Validator(*args, **kwargs)
-
-        for cid in progress.bar(range(cls.max_id())):
-
-            try:
-                row = cls.get(cls.id==cid+1)
-                row.valid = validator.validate(row)
-                row.save()
-
-            except: pass
-
-
     @property
     def subfield(self):
 
@@ -110,3 +91,16 @@ class Citation(BaseModel):
         ]
 
         return reduce(lambda x, y: x*y, freqs)*1e10
+
+
+    @classmethod
+    def validate(cls, *args, **kwargs):
+
+        """
+        Validate all citations.
+        """
+
+        validator = Validator(*args, **kwargs)
+
+        # TODO
+        pass
