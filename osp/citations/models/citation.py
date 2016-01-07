@@ -17,6 +17,7 @@ from osp.fields.models import Subfield_Document
 from functools import reduce
 from playhouse.postgres_ext import ArrayField
 from peewee import ForeignKeyField, CharField, BooleanField
+from clint.textui import progress
 from wordfreq import word_frequency
 
 
@@ -39,20 +40,19 @@ class Citation(BaseModel):
     def validate(cls, *args, **kwargs):
 
         """
-        Validate the citations.
+        Validate all citations.
         """
 
         validator = Validator(*args, **kwargs)
 
-        i = 0
-        for row in cls.stream():
+        for cid in progress.bar(range(cls.max_id())):
 
-            row.valid = validator.validate(row)
-            row.save()
+            try:
+                row = cls.get(cls.id==cid+1)
+                row.valid = validator.validate(row)
+                row.save()
 
-            i += 1
-            sys.stdout.write('\r'+str(i))
-            sys.stdout.flush()
+            except: pass
 
 
     @property

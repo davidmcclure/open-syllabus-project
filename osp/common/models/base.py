@@ -54,7 +54,7 @@ class BaseModel(Model):
 
 
     @classmethod
-    def stream(cls, page_size=1000):
+    def stream(cls, page_size=10000):
 
         """
         Stream all rows by iterating through consecutive pages.
