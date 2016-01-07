@@ -36,13 +36,13 @@ class Citation(BaseModel):
 
 
     @classmethod
-    def validate(cls):
+    def validate(cls, *args, **kwargs):
 
         """
         Validate the citations.
         """
 
-        validator = Validator()
+        validator = Validator(*args, **kwargs)
 
         i = 0
         for row in cls.stream():
