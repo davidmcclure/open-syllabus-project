@@ -17,7 +17,7 @@ class Validator:
             'config/validator.yml',
         )
 
-        self.seen = set()
+        self.seen = {}
 
 
     def validate(self, citation):
@@ -35,7 +35,7 @@ class Validator:
 
         # Reject duplicates:
 
-        if self.is_duplicate(citation):
+        if self.is_duplicate(text):
             return False
 
         # Reject title == author:
@@ -51,10 +51,10 @@ class Validator:
         return True
 
 
-    def is_duplicate(self, citation):
+    def is_duplicate(self, text):
 
         """
-        Is a citation a duplicate?
+        Is a text a duplicate?
 
         Args:
             citation (osp.models.Citation)
@@ -62,14 +62,14 @@ class Validator:
         Returns: bool
         """
 
-        pair = (citation.text.hash, citation.document_id)
+        tid = self.seen.get(text.hash)
 
-        if pair in self.seen:
-            return True
+        if tid is None:
+            self.seen[text.hash] = text.id
+            return False
 
         else:
-            self.seen.add(pair)
-            return False
+            return tid != text.id
 
 
     def title_same_as_author(self, text):

@@ -22,10 +22,14 @@ def test_reject_duplicates(add_text, add_citation, add_doc):
     t2 = add_text(surname='one', title='two')
 
     d1 = add_doc()
+    d2 = add_doc()
 
-    # First pairing validates.
+    # See t1 first.
     assert v.validate(add_citation(text=t1, document=d1)) == True
+
+    # Block t2 on other docs.
     assert v.validate(add_citation(text=t2, document=d1)) == False
+    assert v.validate(add_citation(text=t2, document=d2)) == False
 
 
 def test_reject_title_same_as_author(add_text, add_citation):
