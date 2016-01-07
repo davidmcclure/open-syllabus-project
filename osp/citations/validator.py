@@ -6,10 +6,13 @@ from osp.common.utils import read_yaml
 class Validator:
 
 
-    def __init__(self):
+    def __init__(self, max_fuzz=float('inf')):
 
         """
         Read config, initialize the citations set.
+
+        Args:
+            max_fuzz (int): The maximum allowable fuzz score.
         """
 
         self.config = read_yaml(
@@ -17,6 +20,7 @@ class Validator:
             'config/validator.yml',
         )
 
+        self.max_fuzz = max_fuzz
         self.seen = {}
 
 
@@ -46,6 +50,11 @@ class Validator:
         # Reject blacklisted titles.
 
         elif self.title_blacklisted(text):
+            return False
+
+        # Reject unfocused tokens.
+
+        elif self.fuzzy_tokens(citation):
             return False
 
         return True
@@ -92,7 +101,7 @@ class Validator:
         Is a text's title a single blacklisted token?
 
         Args:
-            citation (osp.models.Text)
+            text (osp.models.Text)
 
         Returns: bool
         """
@@ -101,3 +110,17 @@ class Validator:
             len(text.title_tokens) == 1 and
             text.title_tokens[0] in self.config['blacklisted_titles']
         )
+
+
+    def fuzzy_tokens(self, citation):
+
+        """
+        Are the query tokens sufficiently focused?
+
+        Args:
+            citation (osp.models.Citation)
+
+        Returns: bool
+        """
+
+        return citation.fuzz > self.max_fuzz

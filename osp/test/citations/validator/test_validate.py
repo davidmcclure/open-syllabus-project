@@ -63,3 +63,30 @@ def test_reject_blacklisted_titles(add_text, add_citation):
 
     # Single-token fails.
     assert v.validate(add_citation(text=t2)) == False
+
+
+def test_reject_fuzzy_tokens(add_text, add_citation):
+
+    """
+    Reject citations for which the "fuzz" score is above a given threshold.
+    """
+
+    t1 = add_text(surname='one')
+    t2 = add_text(surname='two')
+    t3 = add_text(surname='three')
+    t4 = add_text(surname='four')
+    t5 = add_text(surname='five')
+
+    c1 = add_citation(text=t1, tokens=['one'])
+    c2 = add_citation(text=t2, tokens=['two'])
+    c3 = add_citation(text=t3, tokens=['three'])
+    c4 = add_citation(text=t4, tokens=['four'])
+    c5 = add_citation(text=t5, tokens=['five'])
+
+    v = Validator(max_fuzz=c3.fuzz)
+
+    assert v.validate(c1) == False
+    assert v.validate(c2) == False
+    assert v.validate(c3) == True
+    assert v.validate(c4) == True
+    assert v.validate(c5) == True
