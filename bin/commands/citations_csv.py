@@ -2,9 +2,12 @@
 
 import click
 import csv
+import numpy as np
 
 from osp.common.utils import query_bar
 from osp.citations.models import Citation
+
+from clint.textui import progress
 
 
 @click.group()
@@ -25,15 +28,19 @@ def fuzz(out_file, n):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    query = (
-        Citation.select()
-        .order_by(Citation.id)
-        .limit(n)
-    )
+    # Draw N random ids.
+    cids = np.random.random_integers(1, Citation.max_id(), n)
 
-    for c in query_bar(query):
+    for cid in progress.bar(cids):
 
-        writer.writerow(dict(
-            fuzz = c.fuzz,
-            tokens = c.tokens,
-        ))
+        try:
+
+            c = Citation.get(Citation.id==cid)
+
+            writer.writerow(dict(
+                fuzz=c.fuzz,
+                tokens=c.tokens,
+            ))
+
+        except:
+            pass
