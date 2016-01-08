@@ -94,13 +94,30 @@ class Citation(BaseModel):
 
 
     @classmethod
-    def validate(cls, *args, **kwargs):
+    def validate(cls, pct=1, *args, **kwargs):
 
         """
         Validate all citations.
+
+        Args:
+            pct (float): Draw n% of the table.
         """
 
         validator = Validator(*args, **kwargs)
 
-        # TODO
-        pass
+        query = cls.raw(
+            'SELECT * FROM citation ' +
+            'TABLESAMPLE bernoulli(%s)',
+            pct
+        )
+
+        i = 0
+        with cls._meta.database.transaction():
+            for c in query:
+
+                c.valid = validator.validate(c)
+                c.save()
+
+                i += 1
+                sys.stdout.write('\r'+str(i))
+                sys.stdout.flush()
