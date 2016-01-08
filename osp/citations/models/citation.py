@@ -112,7 +112,7 @@ class Citation(BaseModel):
 
         i = 0
         with cls._meta.database.transaction():
-            for c in ServerSide(query):
+            for c in query:
 
                 c.valid = validator.validate(c)
                 c.save()
