@@ -10,7 +10,10 @@ from osp.common.utils import read_yaml
 class Config:
 
 
-    def __init__(self, package='osp.citations', path='config/validator.yml'):
+    def __init__(self,
+        package='osp.citations',
+        path='config/validator.yml',
+    ):
 
         """
         Parse the config file.
@@ -48,7 +51,9 @@ class Validator:
         """
 
         self.config = Config()
+
         self.max_fuzz = max_fuzz
+
         self.seen = {}
 
 

@@ -27,7 +27,7 @@ def test_reject_duplicates(add_text, add_citation, add_doc):
     # See t1 first.
     assert v.validate(add_citation(text=t1, document=d1)) == True
 
-    # Block t2 on other docs.
+    # Block t2 on same and other documents.
     assert v.validate(add_citation(text=t2, document=d1)) == False
     assert v.validate(add_citation(text=t2, document=d2)) == False
 
@@ -41,16 +41,16 @@ def test_reject_title_same_as_author(add_text, add_citation):
 
     v = Validator()
 
-    text = add_text(surname='plato', title='plato')
+    text = add_text(surname='Plato', title='Plato')
 
     assert v.validate(add_citation(text=text)) == False
 
 
 @pytest.mark.parametrize('title', [
-    'letter',
-    'letters,'
+    'introduction',
+    'introductions,'
 ])
-def test_reject_single_token_blacklisted_titles(title, add_text, add_citation):
+def test_reject_blacklisted_titles(title, add_text, add_citation):
 
     """
     Reject citations for which the title, consists of a single, blacklisted
@@ -62,6 +62,20 @@ def test_reject_single_token_blacklisted_titles(title, add_text, add_citation):
     text = add_text(surname='napoleon', title=title)
 
     assert v.validate(add_citation(text=text)) == False
+
+
+def test_allow_multi_token_blacklisted_titles(add_text, add_citation):
+
+    """
+    But allow citations with multi-words titles that include a blacklisted
+    token.
+    """
+
+    v = Validator()
+
+    text = add_text(surname='McClure', title='Introduction to Logic')
+
+    assert v.validate(add_citation(text=text)) == True
 
 
 def test_reject_fuzzy_tokens(add_text, add_citation):
