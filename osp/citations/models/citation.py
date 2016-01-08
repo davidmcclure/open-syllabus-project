@@ -15,7 +15,7 @@ from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Document
 
 from functools import reduce
-from playhouse.postgres_ext import ArrayField
+from playhouse.postgres_ext import ArrayField, ServerSide
 from peewee import ForeignKeyField, CharField, BooleanField
 from wordfreq import word_frequency
 
@@ -112,7 +112,7 @@ class Citation(BaseModel):
 
         i = 0
         with cls._meta.database.transaction():
-            for c in query:
+            for c in ServerSide(query):
 
                 c.valid = validator.validate(c)
                 c.save()
