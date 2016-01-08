@@ -7,12 +7,14 @@ import pkgutil
 import re
 import tldextract
 import yaml
+import string
 
 from itertools import islice, chain
 from playhouse.postgres_ext import ServerSide
 from io import StringIO
 from nltk.stem import PorterStemmer
 from clint.textui import progress
+from titlecase import titlecase
 
 
 def query_bar(query):
@@ -138,7 +140,8 @@ def prettify(value):
     Returns: str
     """
 
-    # strip punctuation
-    # titlecase
+    # Strip whitespace + punctuation.
+    stripped = value.strip(string.punctuation + string.whitespace)
 
-    pass
+    # Titlecase.
+    return titlecase(stripped)
