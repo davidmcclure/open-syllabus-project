@@ -55,8 +55,8 @@ def test_reject_blacklisted_titles(add_text, add_citation):
 
     v = Validator()
 
-    t1 = add_text(surname='napoleon', title='letters home')
-    t2 = add_text(surname='napoleon', title='letters')
+    t1 = add_text(surname='napoleon', title='letter home')
+    t2 = add_text(surname='napoleon', title='letter')
 
     # Multi-token title passes.
     assert v.validate(add_citation(text=t1)) == True

@@ -1,13 +1,14 @@
 ---
 
 blacklisted_titles:
-  - letters
+  - letter
   - correspondence
-  - poems
+  - poem
   - introduction
   - report
-  - reports
+  - report
   - review
   - lecture
-  - speeches
-  - writings
+  - speech
+  - writing
+  - sonnet

@@ -42,5 +42,6 @@ us
 iso3166
 webargs
 cached-property
+inflect
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
