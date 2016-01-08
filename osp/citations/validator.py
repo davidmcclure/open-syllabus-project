@@ -9,6 +9,7 @@ from cached_property import cached_property
 from osp.common.utils import read_yaml
 
 
+
 class Config:
 
 
@@ -38,6 +39,7 @@ class Config:
         singulars = self.config['blacklisted_titles']
 
         return singulars + [p.plural(s) for s in singulars ]
+
 
 
 class Validator:
