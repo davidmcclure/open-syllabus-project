@@ -50,7 +50,8 @@ def test_reject_title_same_as_author(add_text, add_citation):
     'introduction',
     'introductions,'
 ])
-def test_reject_blacklisted_titles(title, add_text, add_citation):
+def test_reject_single_token_blacklisted_titles(
+    title, add_text, add_citation):
 
     """
     Reject citations for which the title, consists of a single, blacklisted
@@ -64,11 +65,11 @@ def test_reject_blacklisted_titles(title, add_text, add_citation):
     assert v.validate(add_citation(text=text)) == False
 
 
-def test_allow_multi_token_blacklisted_titles(add_text, add_citation):
+def test_allow_multi_token_titles_with_blacklisted_tokens(
+    add_text, add_citation):
 
     """
-    But allow citations with multi-words titles that include a blacklisted
-    token.
+    Allow citations with multi-word titles that include a blacklisted token.
     """
 
     v = Validator()
