@@ -46,23 +46,22 @@ def test_reject_title_same_as_author(add_text, add_citation):
     assert v.validate(add_citation(text=text)) == False
 
 
-def test_reject_blacklisted_titles(add_text, add_citation):
+@pytest.mark.parametrize('title', [
+    'letter',
+    'letters,'
+])
+def test_reject_single_token_blacklisted_titles(title, add_text, add_citation):
 
     """
-    Reject citations for which the text has a title that consists of a single
-    blacklisted token.
+    Reject citations for which the title, consists of a single, blacklisted
+    token. (Or the pluralized form of a blacklisted token.)
     """
 
     v = Validator()
 
-    t1 = add_text(surname='napoleon', title='letter home')
-    t2 = add_text(surname='napoleon', title='letter')
+    text = add_text(surname='napoleon', title=title)
 
-    # Multi-token title passes.
-    assert v.validate(add_citation(text=t1)) == True
-
-    # Single-token fails.
-    assert v.validate(add_citation(text=t2)) == False
+    assert v.validate(add_citation(text=text)) == False
 
 
 def test_reject_fuzzy_tokens(add_text, add_citation):

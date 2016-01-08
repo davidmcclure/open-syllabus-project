@@ -1,6 +1,38 @@
 
 
+import inflect
+
+from cached_property import cached_property
+
 from osp.common.utils import read_yaml
+
+
+class Config:
+
+
+    def __init__(self, package='osp.citations', path='config/validator.yml'):
+
+        """
+        Parse the config file.
+        """
+
+        self.config = read_yaml(package, path)
+
+
+    @cached_property
+    def blacklisted_titles(self):
+
+        """
+        Provide a list of blacklisted title tokens, with plurals.
+
+        Returns: list
+        """
+
+        p = inflect.engine()
+
+        singulars = self.config['blacklisted_titles']
+
+        return singulars + [p.plural(s) for s in singulars ]
 
 
 class Validator:
@@ -15,11 +47,7 @@ class Validator:
             max_fuzz (int): The maximum allowable fuzz score.
         """
 
-        self.config = read_yaml(
-            'osp.citations',
-            'config/validator.yml',
-        )
-
+        self.config = Config()
         self.max_fuzz = max_fuzz
         self.seen = {}
 
@@ -108,7 +136,7 @@ class Validator:
 
         return (
             len(text.title_tokens) == 1 and
-            text.title_tokens[0] in self.config['blacklisted_titles']
+            text.title_tokens[0] in self.config.blacklisted_titles
         )
 
 
