@@ -114,6 +114,8 @@ def parse_domain(url):
 
     Args:
         url (str)
+
+    Returns: str
     """
 
     # Get the last `http://...` sequence.
@@ -123,3 +125,20 @@ def parse_domain(url):
     domain = tldextract.extract(url).registered_domain
 
     return domain.lower().strip()
+
+
+def prettify(value):
+
+    """
+    Prettify a field value for display.
+
+    Args:
+        value (str)
+
+    Returns: str
+    """
+
+    # strip punctuation
+    # titlecase
+
+    pass
