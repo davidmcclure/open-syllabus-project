@@ -163,18 +163,18 @@ class Validator:
         Returns: bool
         """
 
-        author = ' '.join(text.author_tokens)
-        title = ' '.join(text.title_tokens)
+        a = ' '.join(text.author_tokens)
+        t = ' '.join(text.title_tokens)
 
         return (
 
             # US states
-            us.states.lookup(author) or
-            us.states.lookup(title) or
+            us.states.lookup(a) or
+            us.states.lookup(t) or
 
             # Countries
-            iso3166.countries.get(author, None) or
-            iso3166.countries.get(title, None)
+            iso3166.countries.get(a, None) or
+            iso3166.countries.get(t, None)
 
         )
 
