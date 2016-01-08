@@ -17,7 +17,6 @@ from osp.fields.models import Subfield_Document
 from functools import reduce
 from playhouse.postgres_ext import ArrayField
 from peewee import ForeignKeyField, CharField, BooleanField
-from clint.textui import progress
 from wordfreq import word_frequency
 
 
