@@ -79,6 +79,35 @@ def test_allow_multi_token_titles_with_blacklisted_tokens(
     assert v.validate(add_citation(text=text)) == True
 
 
+@pytest.mark.parametrize('author,title', [
+
+    # Title
+    ('United States', 'Property Code'),
+    ('Texas', 'Property Code'),
+
+    # Author
+    ('McClure', 'United States'),
+    ('Weisman', 'Texas'),
+
+    # Ignore formatting
+    ('United States.', 'Property Code'),
+    ('Texas /', 'Property Code'),
+
+])
+def test_reject_toponym_in_author_or_title(
+    author, title, add_text, add_citation):
+
+    """
+    Reject texts with titles/authors that are countries or US states.
+    """
+
+    v = Validator()
+
+    text = add_text(surname=author, title=title)
+
+    assert v.validate(add_citation(text=text)) == False
+
+
 def test_reject_fuzzy_tokens(add_text, add_citation):
 
     """

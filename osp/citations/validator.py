@@ -1,6 +1,8 @@
 
 
 import inflect
+import iso3166
+import us
 
 from cached_property import cached_property
 
@@ -85,6 +87,11 @@ class Validator:
         elif self.title_blacklisted(text):
             return False
 
+        # Reject toponyms in title/author.
+
+        elif self.has_toponym(text):
+            return False
+
         # Reject unfocused tokens.
 
         elif self.fuzzy_tokens(citation):
@@ -142,6 +149,33 @@ class Validator:
         return (
             len(text.title_tokens) == 1 and
             text.title_tokens[0] in self.config.blacklisted_titles
+        )
+
+
+    def has_toponym(self, text):
+
+        """
+        Does the text's title or author consist of a US state or country?
+
+        Args:
+            text (osp.models.Text)
+
+        Returns: bool
+        """
+
+        author = ' '.join(text.author_tokens)
+        title = ' '.join(text.title_tokens)
+
+        return (
+
+            # US states
+            us.states.lookup(author) or
+            us.states.lookup(title) or
+
+            # Countries
+            iso3166.countries.get(author, None) or
+            iso3166.countries.get(title, None)
+
         )
 
 
