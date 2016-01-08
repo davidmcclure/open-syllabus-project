@@ -16,7 +16,12 @@ export default class extends Component {
    * Render a metadata field.
    */
   render() {
-    return (
+
+    if (!this.props.value) {
+      return null;
+    }
+
+    else return (
       <div className="field">
 
         <code>{this.props.label}:</code>{' '}
@@ -27,6 +32,7 @@ export default class extends Component {
 
       </div>
     );
+
   }
 
 
