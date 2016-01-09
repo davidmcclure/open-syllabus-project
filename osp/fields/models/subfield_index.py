@@ -46,24 +46,6 @@ class Subfield_Index(Elasticsearch):
 
 
     @classmethod
-    def es_stream_mock_docs(cls):
-
-        """
-        Stream (mock) Elasticsearch docs.
-
-        Yields:
-            dict: The next document.
-        """
-
-        for i in progress.bar(range(1, 201)):
-
-            yield dict(
-                _id = i,
-                name = 'Subfield {0}'.format(i),
-            )
-
-
-    @classmethod
     def materialize_facets(cls, counts):
 
         """

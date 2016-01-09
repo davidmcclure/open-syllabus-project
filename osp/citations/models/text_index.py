@@ -83,31 +83,6 @@ class Text_Index(Elasticsearch):
 
 
     @classmethod
-    def es_stream_mock_docs(cls):
-
-        """
-        Stream (mock) Elasticsearch docs.
-
-        Yields:
-            dict: The next document.
-        """
-
-        faker = Faker()
-
-        for i in progress.bar(range(1, 200001)):
-
-            yield dict(
-                _id         = i,
-                identifier  = i,
-                corpus      = random.choice(['hlom', 'jstor']),
-                title       = faker.snippet(40),
-                authors     = [faker.snippet(20), faker.snippet(20)],
-                publisher   = faker.snippet(30),
-                journal     = faker.snippet(40),
-            )
-
-
-    @classmethod
     def materialize_ranking(cls, ranks, query=None, size=1000):
 
         """

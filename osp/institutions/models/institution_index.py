@@ -49,24 +49,6 @@ class Institution_Index(Elasticsearch):
 
 
     @classmethod
-    def es_stream_mock_docs(cls):
-
-        """
-        Stream (mock) Elasticsearch docs.
-
-        Yields:
-            dict: The next document.
-        """
-
-        for i in progress.bar(range(1, 1001)):
-
-            yield dict(
-                _id = i,
-                name = 'Institution {0}'.format(i),
-            )
-
-
-    @classmethod
     def materialize_institution_facets(cls, counts):
 
         """

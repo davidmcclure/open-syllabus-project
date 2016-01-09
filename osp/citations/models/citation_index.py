@@ -102,34 +102,6 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def es_stream_mock_docs(cls):
-
-        """
-        Stream (mock) Elasticsearch docs.
-
-        Yields:
-            dict: The next document.
-        """
-
-        # Get country codes.
-        countries = list(iso3166.countries_by_alpha3.keys())
-
-        for i in progress.bar(range(int(1e5))):
-
-            yield dict(
-                _id = i,
-                text_id         = random.randint(1, 200000),
-                document_id     = random.randint(1, 1500000),
-                corpus          = random.choice(['hlom', 'jstor']),
-                subfield_id     = random.randint(1, 200),
-                field_id        = random.randint(1, 30),
-                institution_id  = random.randint(1, 1000),
-                state           = random.choice(us.states.STATES).abbr,
-                country         = random.choice(countries),
-            )
-
-
-    @classmethod
     def compute_ranking(cls, filters={}, depth=1e6):
 
         """
