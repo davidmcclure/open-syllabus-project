@@ -131,7 +131,7 @@ class Config:
         Get an Elasticsearch connection.
 
         Returns:
-            elasticsearch.Elasticsearch
+            Elasticsearch
         """
 
         if 'elasticsearch' in self.config:
