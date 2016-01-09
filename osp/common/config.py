@@ -67,8 +67,10 @@ class Config:
         """
 
         self.config = anyconfig.load(self.paths, ignore_missing=True)
-        self.es = self.get_es()
-        self.rq = self.get_rq()
+
+        self.es     = self.get_es()
+        self.redis  = self.get_redis()
+        self.rq     = self.get_rq()
 
 
     def get_db(self, name='default'):
@@ -138,6 +140,19 @@ class Config:
             return Elasticsearch([self['elasticsearch']])
 
 
+    def get_redis(self):
+
+        """
+        Get a Redis connection.
+
+        Returns:
+            StrictRedis
+        """
+
+        if 'redis' in self.config:
+            return StrictRedis(**self['redis'])
+
+
     def get_rq(self):
 
         """
@@ -147,6 +162,7 @@ class Config:
             rq.Queue
         """
 
-        if 'redis' in self.config:
-            redis = StrictRedis(**self['redis'])
+        redis = self.get_redis()
+
+        if redis:
             return Queue(connection=redis)

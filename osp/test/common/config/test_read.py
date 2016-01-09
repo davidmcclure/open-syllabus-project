@@ -3,6 +3,7 @@
 from .conftest import get_config, get_path
 from rq import Queue
 from elasticsearch import Elasticsearch
+from redis import StrictRedis
 
 
 def test_read_defaults():
@@ -48,6 +49,25 @@ def test_set_es():
     # Should use config args.
     assert args['host'] == 'host'
     assert args['port'] == 1337
+
+
+def test_set_redis():
+
+    """
+    When Redis params are provided, set a connection instance.
+    """
+
+    config = get_config('read/set-redis')
+
+    # Should set an instance.
+    assert isinstance(config.redis, StrictRedis)
+
+    args = config.redis.connection_pool.connection_kwargs
+
+    # Should use config args.
+    assert args['host'] == 'host'
+    assert args['port'] == 1337
+    assert args['db']   == 1
 
 
 def test_set_rq():
