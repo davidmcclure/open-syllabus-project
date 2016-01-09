@@ -9,16 +9,10 @@
   background-position: 0 50%;
   .background-size(cover);
 
+  text-align: center;
+
   a {
     color: whitesmoke;
-  }
-
-  // TODO: Use BS grid here?
-  .row {
-    display: flex;
-    .flex-direction(row-reverse);
-    .justify-content(space-between);
-    .align-items(center);
   }
 
   .leader {
@@ -39,6 +33,7 @@
   ul.links {
 
     margin: 0;
+    padding: 0;
 
     li {
 
@@ -58,4 +53,38 @@
 
   }
 
+}
+
+
+// Vertical:
+@media (max-width: @screen-md-min) {
+  #header {
+
+    .leader h1 {
+      margin-top: 1em;
+    }
+
+  }
+}
+
+
+// Horizontal:
+@media (min-width: @screen-md-min) {
+  #header {
+
+    .row {
+      display: flex;
+      .justify-content(center);
+      .align-items(center);
+    }
+
+    .leader {
+      float: left;
+    }
+
+    .links {
+      float: right;
+    }
+
+  }
 }
