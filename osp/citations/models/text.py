@@ -8,11 +8,13 @@ import os
 
 from osp.common.config import config
 from osp.common.models.base import BaseModel
-from osp.citations.utils import tokenize_field
+from osp.common.utils import prettify
+
 from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.hlom_record import HLOM_Record
 from osp.citations.jstor_corpus import JSTOR_Corpus
 from osp.citations.jstor_record import JSTOR_Record
+from osp.citations.utils import tokenize_field
 
 from peewee import TextField
 from playhouse.postgres_ext import ArrayField
@@ -198,3 +200,23 @@ class Text(BaseModel):
             self.title_tokens + self.author_tokens,
 
         ]
+
+
+    def pretty(self, field):
+
+        """
+        Prettify a field.
+
+        Args:
+            field (str)
+
+        Returns: str|list
+        """
+
+        value = getattr(self, field)
+
+        if type(value) is list:
+            return [prettify(v) for v in value]
+
+        else:
+            return prettify(value)
