@@ -7,13 +7,14 @@ import pkgutil
 import re
 import tldextract
 import yaml
+import string
 
 from itertools import islice, chain
 from playhouse.postgres_ext import ServerSide
 from io import StringIO
 from nltk.stem import PorterStemmer
-from clint.textui import progress
 from titlecase import titlecase
+from clint.textui import progress
 
 
 def query_bar(query):
@@ -126,3 +127,21 @@ def parse_domain(url):
     domain = tldextract.extract(url).registered_domain
 
     return domain.lower().strip()
+
+
+def prettify(value):
+
+    """
+    Prettify a field value for display.
+
+    Args:
+        value (str)
+
+    Returns: str
+    """
+
+    # Strip whitespace + punctuation.
+    stripped = value.strip(string.punctuation + string.whitespace)
+
+    # Titlecase.
+    return titlecase(stripped)
