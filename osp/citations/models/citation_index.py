@@ -9,6 +9,7 @@ from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.models import Citation
 
+from scipy.stats import rankdata
 from clint.textui import progress
 
 
@@ -262,4 +263,14 @@ class Citation_Index(Elasticsearch):
             dict: {'text_id' -> count}
         """
 
-        pass
+        # Pull the unfiltered text counts.
+        counts = list(cls.compute_ranking().items())
+
+        # Rank the counts.
+        ranks = rankdata([c for tid, c in counts], 'dense')
+
+        percentiles = {}
+        for i, r in enumerate(ranks):
+            percentiles[counts[i][0]] = (r-1) / max(ranks)
+
+        return percentiles
