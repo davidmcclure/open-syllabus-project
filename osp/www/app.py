@@ -76,9 +76,12 @@ def text(corpus, identifier):
         Text.identifier==identifier,
     )
 
+    siblings = utils.assigned_with(text.id)
+
     return render_template(
         'text.html',
         text=text,
+        siblings=siblings,
     )
 
 
