@@ -30,7 +30,7 @@ const initialState = {
 const handlers = {
 
   [CHANGE_SEARCH_QUERY]: (state, action) => ({
-    query: action.query.trim() || null
+    query: action.query.trim()
   }),
 
   [CHANGE_CORPUS_FILTER]: (state, action) => ({

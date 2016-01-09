@@ -22,7 +22,7 @@ export default class extends Component {
     super(props);
 
     this.state = {
-      query: null
+      query: ''
     };
 
   }
@@ -107,7 +107,7 @@ export default class extends Component {
    * Clear the query.
    */
   clear() {
-    this.setState({ query: null }, () => {
+    this.setState({ query: '' }, () => {
       this.search();
     });
   }
