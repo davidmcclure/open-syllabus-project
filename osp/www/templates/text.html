@@ -37,6 +37,16 @@
 </div>
 
 <div id="text">
+  <div class="container">
+    <div class="row">
+
+      <div class="col col-md-12 citation">
+        <h1 class="title">{{ text.pretty('title') }}</h1>
+        <h3 class="title">{{ ', '.join(text.pretty('authors')) }}</h3>
+      </div>
+
+    </div>
+  </div>
 </div>
 
 {% endblock %}
