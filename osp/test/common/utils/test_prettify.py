@@ -16,10 +16,19 @@ from osp.common.utils import prettify
 
     # Strip punctuation
     ('The City of God.', 'The City of God'),
+    ('The City of God /', 'The City of God'),
     ('The City of God,', 'The City of God'),
 
     # Strip whitespace
     ('  The City of God  ', 'The City of God'),
+
+    # Keep periods after right-side initials
+    ('McClure, David W.', 'McClure, David W.'),
+    ('mcclure, david w.', 'McClure, David W.'),
+
+    # Keep right-size parens / brackets.
+    ('McClure, D. (David)', 'McClure, D. (David)'),
+    ('McClure, D. [David]', 'McClure, D. [David]'),
 
 ])
 def test_parse_domain(ugly, pretty):

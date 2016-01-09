@@ -140,8 +140,16 @@ def prettify(value):
     Returns: str
     """
 
-    # Strip whitespace + punctuation.
-    stripped = value.strip(string.punctuation + string.whitespace)
+    punct = set(list(string.punctuation + string.whitespace))
 
-    # Titlecase.
-    return titlecase(stripped)
+    # Strip everything off left side.
+    value = value.lstrip(''.join(punct))
+
+    # Allow ), ], and . on right.
+    value = value.rstrip(''.join(punct - set(list(')].'))))
+
+    # Strip '.' unless last character is uppercase.
+    if not re.search('\s[a-z]{1}\.$', value, re.I):
+        value = value.rstrip('.')
+
+    return titlecase(value)
