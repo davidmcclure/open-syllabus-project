@@ -83,6 +83,10 @@
                   {{ hit['_source']['title'] }}
                 </a>
 
+                <div class="authors">
+                  {{ ', '.join(hit['_source']['authors']) }}
+                </div>
+
               </td>
 
             </tr>
