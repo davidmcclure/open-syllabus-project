@@ -30,7 +30,7 @@ export default class extends Component {
       });
 
       // Table classes.
-      let tableCx = classNames('table', 'table-hover', {
+      let tableCx = classNames('table', 'text-list', {
         loading: this.props.loading,
       });
 

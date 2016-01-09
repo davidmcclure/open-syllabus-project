@@ -60,7 +60,7 @@
     <div class="row">
       <div class="col col-md-12 siblings">
 
-        <table class="table">
+        <table class="table text-list">
 
           <thead>
             <tr>
@@ -71,12 +71,21 @@
 
           <tbody>
             {% for hit in siblings['hits'] %}
-
             <tr>
-              <td>{{ hit['sort'][0] | int }}</td>
-              <td>{{ hit['_source']['title'] }}</td>
-            </tr>
 
+              <td class="count">
+                {{ hit['sort'][0] | int }}
+              </td>
+
+              <td class="text">
+
+                <a href="#" class="title">
+                  {{ hit['_source']['title'] }}
+                </a>
+
+              </td>
+
+            </tr>
             {% endfor %}
           </tbody>
 
