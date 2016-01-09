@@ -73,11 +73,11 @@ class Text_Index(Elasticsearch):
                 _id         = row.id,
                 corpus      = row.corpus,
                 identifier  = row.identifier,
-                title       = row.title,
-                authors     = row.authors,
-                publisher   = row.publisher,
-                date        = row.date,
-                journal     = row.journal_title,
+                title       = row.pretty('title'),
+                authors     = row.pretty('authors'),
+                publisher   = row.pretty('publisher'),
+                date        = row.pretty('date'),
+                journal     = row.pretty('journal_title'),
                 url         = row.url,
             )
 

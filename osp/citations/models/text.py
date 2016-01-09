@@ -215,7 +215,10 @@ class Text(BaseModel):
 
         value = getattr(self, field)
 
-        if type(value) is list:
+        if not value:
+            return None
+
+        elif type(value) is list:
             return [prettify(v) for v in value]
 
         else:

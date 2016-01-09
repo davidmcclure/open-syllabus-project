@@ -32,3 +32,14 @@ def test_array_field():
         prettify('david mcclure'),
         prettify('joe karaganis'),
     ]
+
+
+def test_empty_field():
+
+    """
+    If the field is empty, return None.
+    """
+
+    text = Text(title=None)
+
+    assert text.pretty('title') == None

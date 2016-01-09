@@ -43,11 +43,11 @@ def test_es_insert(add_text, add_citation):
 
         assert doc['_source']['corpus']     == text.corpus
         assert doc['_source']['identifier'] == text.identifier
-        assert doc['_source']['title']      == text.title
-        assert doc['_source']['authors']    == text.authors
-        assert doc['_source']['publisher']  == text.publisher
-        assert doc['_source']['date']       == text.date
-        assert doc['_source']['journal']    == text.journal_title
+        assert doc['_source']['title']      == text.pretty('title')
+        assert doc['_source']['authors']    == text.pretty('authors')
+        assert doc['_source']['publisher']  == text.pretty('publisher')
+        assert doc['_source']['date']       == text.pretty('date')
+        assert doc['_source']['journal']    == text.pretty('journal_title')
         assert doc['_source']['url']        == text.url
 
 
