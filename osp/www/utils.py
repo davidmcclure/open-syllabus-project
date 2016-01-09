@@ -1,5 +1,6 @@
 
 
+from osp.common import config
 from osp.citations.models import Citation_Index
 from osp.citations.models import Text
 from osp.citations.models import Text_Index
@@ -137,6 +138,28 @@ def country_facets():
     return Institution_Index.materialize_country_facets(counts)
 
 
+def text_count(text_id):
+
+    """
+    Get the total citation count for a text.
+
+    Returns: int
+    """
+
+    return int(config.redis.hget('osp-counts', text_id))
+
+
+def text_percentile(text_id):
+
+    """
+    Get the percentile score for a text.
+
+    Returns: float
+    """
+
+    return float(config.redis.hget('osp-percentiles', text_id))
+
+
 def bootstrap_facets():
 
     """
@@ -153,10 +176,10 @@ def bootstrap_facets():
     )
 
 
-def load_indexes(mock=False):
+def index_elasticsearch():
 
     """
-    Populate public-facing indexes.
+    Populate public-facing Elasticsearch indexes.
     """
 
     for index in [
@@ -167,4 +190,21 @@ def load_indexes(mock=False):
         Institution_Index,
     ]:
 
-        index.es_insert(mock=mock)
+        index.es_insert()
+
+
+def index_redis():
+
+    """
+    Index text counts and percentiles.
+    """
+
+    config.redis.hmset(
+        'osp-counts',
+        Citation_Index.compute_ranking(),
+    )
+
+    config.redis.hmset(
+        'osp-percentiles',
+        Citation_Index.compute_percentiles(),
+    )

@@ -268,9 +268,10 @@ class Citation_Index(Elasticsearch):
 
         # Rank the counts.
         ranks = rankdata([c for tid, c in counts], 'dense')
+        max_rank = max(ranks);
 
         percentiles = {}
         for i, r in enumerate(ranks):
-            percentiles[counts[i][0]] = (r-1) / max(ranks)
+            percentiles[counts[i][0]] = (r-1) / max_rank
 
         return percentiles
