@@ -40,8 +40,8 @@
   <div class="container">
 
     <!-- Corpus. -->
-    <div class="row">
-      <div class="col col-md-12 corpus">
+    <div class="row corpus">
+      <div class="col col-md-12">
         <span>{{ text.corpus }}</span>
         <span class="sep">/</span>
         <span>{{ text.identifier }}</span>
@@ -49,16 +49,19 @@
     </div>
 
     <!-- Citation. -->
-    <div class="row">
-      <div class="col col-md-12 citation">
+    <div class="row citation">
+      <div class="col col-md-12">
         <h1 class="title">{{ text.pretty('title') }}</h1>
         <h3 class="title">{{ ', '.join(text.pretty('authors')) }}</h3>
       </div>
     </div>
 
     <!-- Siblings. -->
-    <div class="row">
-      <div class="col col-md-12 siblings">
+    <div class="row siblings">
+      <div class="col col-md-12">
+
+        <p class="heading">Texts assigned on the same syllabi with
+        <strong>{{ text.pretty('title') }}</strong>:</p>
 
         <table class="table text-list">
 
