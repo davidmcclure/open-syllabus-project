@@ -76,10 +76,9 @@ export default class extends Component {
   /**
    * Clean the new value, update state.
    *
-   * @param {String} newVal
+   * @param {String} query
    */
-  onChange(newVal) {
-    let query = newVal.trim() || null;
+  onChange(query) {
     this.setState({ query });
   }
 
