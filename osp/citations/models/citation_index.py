@@ -246,3 +246,20 @@ class Citation_Index(Elasticsearch):
             counts.append((b['key'], b['doc_count']))
 
         return counts
+
+
+    @classmethod
+    def compute_percentiles(cls, depth=1e6):
+
+        """
+        Compute "percentile" scores for texts - text X is assigned more
+        frequently than Y percent of all texts.
+
+        Args:
+            depth (int): The max number of texts to rank.
+
+        Returns:
+            dict: {'text_id' -> count}
+        """
+
+        pass

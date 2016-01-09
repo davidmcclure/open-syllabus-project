@@ -21,13 +21,13 @@ def test_unfiltered(add_text, add_citation):
     t3 = add_text()
 
     for i in range(3):
-        add_citation(t1)
+        add_citation(text=t1)
 
     for i in range(2):
-        add_citation(t2)
+        add_citation(text=t2)
 
     for i in range(1):
-        add_citation(t3)
+        add_citation(text=t3)
 
     Citation_Index.es_insert()
 
@@ -51,13 +51,13 @@ def test_filter_corpus(add_text, add_citation):
     t3 = add_text(corpus='corpus2')
 
     for i in range(3):
-        add_citation(t1)
+        add_citation(text=t1)
 
     for i in range(2):
-        add_citation(t2)
+        add_citation(text=t2)
 
     for i in range(1):
-        add_citation(t3)
+        add_citation(text=t3)
 
     Citation_Index.es_insert()
 
@@ -278,13 +278,13 @@ def test_filter_multiple_values(add_text, add_citation):
     t3 = add_text(corpus='corpus3')
 
     for i in range(3):
-        add_citation(t1)
+        add_citation(text=t1)
 
     for i in range(2):
-        add_citation(t2)
+        add_citation(text=t2)
 
     for i in range(1):
-        add_citation(t3)
+        add_citation(text=t3)
 
     Citation_Index.es_insert()
 
@@ -314,13 +314,13 @@ def test_ignore_filters_with_empty_values(empty, add_text, add_citation):
     t3 = add_text(corpus='corpus3')
 
     for i in range(3):
-        add_citation(t1)
+        add_citation(text=t1)
 
     for i in range(2):
-        add_citation(t2)
+        add_citation(text=t2)
 
     for i in range(1):
-        add_citation(t3)
+        add_citation(text=t3)
 
     Citation_Index.es_insert()
 
