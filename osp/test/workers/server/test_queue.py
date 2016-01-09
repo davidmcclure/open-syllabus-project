@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.common.config import config
+from osp.common import config
 from osp.corpus.models import Document
 from osp.corpus.jobs import ext_text
 

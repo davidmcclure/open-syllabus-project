@@ -4,7 +4,7 @@ import click
 import multiprocessing as mp
 import os
 
-from osp.common.config import config
+from osp.common import config
 from circus import get_arbiter
 
 

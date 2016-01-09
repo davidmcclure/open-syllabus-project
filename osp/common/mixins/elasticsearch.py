@@ -1,6 +1,6 @@
 
 
-from osp.common.config import config
+from osp.common import config
 from elasticsearch.client import _make_path
 from elasticsearch.helpers import bulk
 

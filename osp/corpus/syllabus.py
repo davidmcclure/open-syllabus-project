@@ -7,7 +7,7 @@ import magic
 import re
 
 from osp.corpus import utils
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import parse_domain
 from contextlib import contextmanager
 from cached_property import cached_property

@@ -2,7 +2,7 @@
 
 import os
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import partitions
 
 from flask import Flask, request

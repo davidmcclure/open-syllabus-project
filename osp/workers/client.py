@@ -4,7 +4,7 @@ import os
 import requests
 import click
 
-from osp.common.config import config
+from osp.common import config
 from osp.workers.utils import print_code
 
 from boto import ec2

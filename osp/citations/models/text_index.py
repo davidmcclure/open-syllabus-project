@@ -2,7 +2,7 @@
 
 import random
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import query_bar, read_yaml
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.faker import Faker

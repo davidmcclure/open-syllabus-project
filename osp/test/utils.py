@@ -4,7 +4,7 @@ import pytest
 import requests
 import hashlib
 
-from osp.common.config import config
+from osp.common import config
 from osp.corpus.utils import int_to_dir
 
 

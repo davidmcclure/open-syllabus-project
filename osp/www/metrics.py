@@ -2,7 +2,7 @@
 
 from redis import StrictRedis
 
-from osp.common.config import config
+from osp.common import config
 
 
 class Metrics:

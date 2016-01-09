@@ -1,6 +1,6 @@
 
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.common.utils import query_bar
 from osp.fields.models import Subfield

@@ -4,7 +4,7 @@ import random
 import us
 import iso3166
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.models import Citation

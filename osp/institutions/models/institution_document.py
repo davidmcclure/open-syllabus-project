@@ -1,6 +1,6 @@
 
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.models.base import BaseModel
 from osp.institutions.models import Institution
 from osp.corpus.models import Document

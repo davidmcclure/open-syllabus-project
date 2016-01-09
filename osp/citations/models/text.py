@@ -6,7 +6,7 @@ import numpy as np
 import hashlib
 import os
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.models.base import BaseModel
 from osp.common.utils import prettify
 

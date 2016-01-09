@@ -2,7 +2,7 @@
 
 import click
 
-from osp.common.config import config
+from osp.common import config
 from osp.corpus.models import Document_Index
 from blessings import Terminal
 

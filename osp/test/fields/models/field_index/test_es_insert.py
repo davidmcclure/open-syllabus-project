@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.common.config import config
+from osp.common import config
 from osp.fields.models import Subfield
 from osp.fields.models import Field
 from osp.fields.models import Field_Index

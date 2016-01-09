@@ -2,7 +2,7 @@
 
 import os
 
-from osp.common.config import config
+from osp.common import config
 from osp.corpus.segment import Segment
 from osp.corpus.utils import int_to_dir
 from cached_property import cached_property

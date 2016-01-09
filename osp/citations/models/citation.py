@@ -3,7 +3,7 @@
 import sys
 import numpy as np
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.models.base import BaseModel
 from osp.corpus.models import Document
 from osp.citations.models import Text

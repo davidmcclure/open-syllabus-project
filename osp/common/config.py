@@ -150,7 +150,3 @@ class Config:
         if 'redis' in self.config:
             redis = StrictRedis(**self['redis'])
             return Queue(connection=redis)
-
-
-# Global instance.
-config = Config.from_env()

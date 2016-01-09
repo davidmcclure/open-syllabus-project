@@ -2,7 +2,7 @@
 
 import pkgutil
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import read_csv, parse_domain
 from osp.common.models.base import BaseModel
 

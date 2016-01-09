@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.common.config import config
+from osp.common import config
 from osp.institutions.models import Institution_Index
 from osp.institutions.models import Institution
 

@@ -2,7 +2,7 @@
 
 import os
 
-from osp.common.config import config
+from osp.common import config
 from pymarc import MARCReader
 
 

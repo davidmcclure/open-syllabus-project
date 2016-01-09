@@ -6,7 +6,7 @@ import csv
 import random
 import sys
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import query_bar
 from osp.corpus.corpus import Corpus
 from osp.corpus.models import Document

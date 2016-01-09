@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.common.config import config
+from osp.common import config
 from osp.citations.models import Text_Index
 from osp.citations.models import Text
 

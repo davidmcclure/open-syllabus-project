@@ -2,7 +2,7 @@
 
 import us
 
-from osp.common.config import config
+from osp.common import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.institutions.models import Institution

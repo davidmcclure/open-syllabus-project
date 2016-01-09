@@ -5,7 +5,7 @@ import subprocess
 import requests
 import re
 
-from osp.common.config import config
+from osp.common import config
 from bs4 import BeautifulSoup
 from PyPDF2 import PdfFileReader
 from docx import Document

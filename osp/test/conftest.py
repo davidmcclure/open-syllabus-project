@@ -4,7 +4,7 @@ import pytest
 
 # Globals
 from osp.workers.server import app
-from osp.common.config import config as _config
+from osp.common import config as _config
 
 # Models
 from osp.corpus.models import Document

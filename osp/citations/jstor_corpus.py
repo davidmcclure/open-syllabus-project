@@ -3,7 +3,7 @@
 import os
 import scandir
 
-from osp.common.config import config
+from osp.common import config
 
 
 class JSTOR_Corpus:

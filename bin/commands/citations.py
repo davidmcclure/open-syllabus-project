@@ -4,7 +4,7 @@ import click
 import numpy as np
 import csv
 
-from osp.common.config import config
+from osp.common import config
 from osp.citations.models import Text
 from osp.citations.models import Citation
 from osp.citations.hlom_corpus import HLOM_Corpus
