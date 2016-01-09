@@ -45,3 +45,18 @@ class Hit:
         """
 
         return int(self.hit['sort'][0])
+
+
+    @property
+    def path(self):
+
+        """
+        Get the URL path.
+
+        Returns: str
+        """
+
+        return '/text/{0}/{1}'.format(
+            self.field('corpus'),
+            self.field('identifier'),
+        )
