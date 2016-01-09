@@ -8,6 +8,7 @@ from webargs.flaskparser import use_args
 
 from osp.citations.models import Text
 from osp.www import utils
+from osp.www.hit import Hit
 
 
 app = Flask(__name__)
@@ -82,6 +83,7 @@ def text(corpus, identifier):
         'text.html',
         text=text,
         siblings=siblings,
+        Hit=Hit,
     )
 
 

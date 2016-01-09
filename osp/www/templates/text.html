@@ -73,21 +73,22 @@
           </thead>
 
           <tbody>
-            {% for hit in siblings['hits'] %}
+            {% for raw in siblings['hits'] %}
+            {% set hit = Hit(raw) %}
             <tr>
 
               <td class="count">
-                {{ hit['sort'][0] | int }}
+                {{ hit.count }}
               </td>
 
               <td class="text">
 
                 <a href="#" class="title">
-                  {{ hit['_source']['title'] }}
+                  {{ hit.field('title') }}
                 </a>
 
                 <div class="authors">
-                  {{ ', '.join(hit['_source']['authors']) }}
+                  {{ hit.field('authors') }}
                 </div>
 
               </td>
