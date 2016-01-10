@@ -79,10 +79,16 @@ def text(corpus, identifier):
 
     siblings = utils.assigned_with(text.id)
 
+    count = utils.text_count(text.id)
+
+    percentile = utils.text_percentile(text.id)
+
     return render_template(
         'text.html',
         text=text,
         siblings=siblings,
+        count=count,
+        percentile=percentile,
         Hit=Hit,
     )
 
