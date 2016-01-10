@@ -146,7 +146,7 @@ def text_count(text_id):
     Returns: int
     """
 
-    return int(config.redis.hget('osp-counts', text_id))
+    return int(config.redis.hget('osp.www.counts', text_id))
 
 
 def text_percentile(text_id):
@@ -157,7 +157,7 @@ def text_percentile(text_id):
     Returns: float
     """
 
-    return float(config.redis.hget('osp-percentiles', text_id))
+    return float(config.redis.hget('osp.www.pcts', text_id))
 
 
 def bootstrap_facets():
@@ -200,11 +200,11 @@ def index_redis():
     """
 
     config.redis.hmset(
-        'osp-counts',
+        'osp.www.counts',
         Citation_Index.compute_ranking(),
     )
 
     config.redis.hmset(
-        'osp-percentiles',
+        'osp.www.pcts',
         Citation_Index.compute_percentiles(),
     )
