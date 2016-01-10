@@ -1,6 +1,7 @@
 
 
 import random
+import numpy as np
 import us
 import iso3166
 
@@ -250,7 +251,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def compute_percentiles(cls, depth=1e6):
+    def compute_scores(cls, *args, **kwargs):
 
         """
         Compute "percentile" scores for texts - text X is assigned more
@@ -263,14 +264,13 @@ class Citation_Index(Elasticsearch):
             dict: {'text_id' -> count}
         """
 
-        # Pull the unfiltered text counts.
-        counts = list(cls.compute_ranking().items())
+        # Pull unfiltered counts.
+        counts = cls.compute_ranking(*args, **kwargs)
 
-        # Rank the counts.
-        ranks = rankdata([c for tid, c in counts], 'min')
+        # Get the max count.
+        max_count = max(list(counts.values()))
 
-        percentiles = {}
-        for i, r in enumerate(ranks):
-            percentiles[counts[i][0]] = (r-1) / len(ranks)
-
-        return percentiles
+        return {
+            tid: np.sqrt(count) / np.sqrt(max_count)
+            for tid, count in counts.items()
+        }

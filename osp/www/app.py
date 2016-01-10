@@ -81,14 +81,14 @@ def text(corpus, identifier):
 
     count = utils.text_count(text.id)
 
-    percentile = utils.text_percentile(text.id)
+    score = utils.text_score(text.id)
 
     return render_template(
         'text.html',
         text=text,
         siblings=siblings,
         count=count,
-        percentile=percentile,
+        score=score,
         Hit=Hit,
     )
 

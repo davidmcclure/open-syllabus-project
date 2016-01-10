@@ -1,4 +1,4 @@
 
 
 OSP_WWW_COUNTS = 'osp.www.counts'
-OSP_WWW_PCTS = 'osp.www.pcts'
+OSP_WWW_SCORES = 'osp.www.scores'

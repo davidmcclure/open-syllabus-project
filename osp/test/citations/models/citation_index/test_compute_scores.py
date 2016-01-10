@@ -1,6 +1,7 @@
 
 
 import pytest
+import numpy as np
 
 from osp.citations.models import Citation_Index
 
@@ -8,10 +9,11 @@ from osp.citations.models import Citation_Index
 pytestmark = pytest.mark.usefixtures('db', 'es')
 
 
-def test_compute_percentiles(add_text, add_citation):
+def test_compute_scores(add_text, add_citation):
 
     """
-    Text X is assigned more frequently than Y% of all texts.
+    For each text, compute the ratio between the square roots of the text's
+    assignment count and the max assignment count.
     """
 
     t1 = add_text()
@@ -37,13 +39,17 @@ def test_compute_percentiles(add_text, add_citation):
 
     Citation_Index.es_insert()
 
-    ranks = Citation_Index.compute_percentiles()
+    ranks = Citation_Index.compute_scores()
 
     assert ranks == {
-        str(t1.id): 5/6,
-        str(t2.id): 3/6,
-        str(t3.id): 3/6,
-        str(t4.id): 0,
-        str(t5.id): 0,
-        str(t6.id): 0,
+
+        str(t1.id): np.sqrt(3) / np.sqrt(3),
+
+        str(t2.id): np.sqrt(2) / np.sqrt(3),
+        str(t3.id): np.sqrt(2) / np.sqrt(3),
+
+        str(t4.id): np.sqrt(1) / np.sqrt(3),
+        str(t5.id): np.sqrt(1) / np.sqrt(3),
+        str(t6.id): np.sqrt(1) / np.sqrt(3),
+
     }

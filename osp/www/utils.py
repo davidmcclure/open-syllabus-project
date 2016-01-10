@@ -156,16 +156,16 @@ def text_count(text_id):
     return int(count)
 
 
-def text_percentile(text_id):
+def text_score(text_id):
 
     """
-    Get the percentile score for a text.
+    Get the teaching score for a text.
 
     Returns: float
     """
 
     pct = config.redis.hget(
-        redis_keys.OSP_WWW_PCTS,
+        redis_keys.OSP_WWW_SCORES,
         text_id,
     )
 
@@ -217,6 +217,6 @@ def index_redis():
     )
 
     config.redis.hmset(
-        redis_keys.OSP_WWW_PCTS,
-        Citation_Index.compute_percentiles(),
+        redis_keys.OSP_WWW_SCORES,
+        Citation_Index.compute_scores(),
     )
