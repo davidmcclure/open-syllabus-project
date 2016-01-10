@@ -6,7 +6,9 @@ import us
 
 from cached_property import cached_property
 
+from osp.common import config
 from osp.common.utils import read_yaml
+from osp.constants import redis_keys
 
 
 
@@ -54,11 +56,9 @@ class Validator:
             max_fuzz (int): The maximum allowable fuzz score.
         """
 
-        self.config = Config()
-
         self.max_fuzz = max_fuzz
 
-        self.seen = {}
+        self.config = Config()
 
 
     def validate(self, citation):
@@ -113,14 +113,26 @@ class Validator:
         Returns: bool
         """
 
-        tid = self.seen.get(text.hash)
+        # Check for an existing hash -> id.
+
+        tid = config.redis.hget(
+            redis_keys.OSP_DEDUP,
+            text.hash,
+        )
 
         if tid is None:
-            self.seen[text.hash] = text.id
+
+            # Lock hash -> id, if the hash is new.
+
+            config.redis.hset(
+                redis_keys.OSP_DEDUP,
+                text.hash, text.id,
+            )
+
             return False
 
         else:
-            return tid != text.id
+            return int(tid) != text.id
 
 
     def title_same_as_author(self, text):

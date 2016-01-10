@@ -5,7 +5,7 @@ import pytest
 from osp.citations.validator import Validator
 
 
-pytestmark = pytest.mark.usefixtures('db')
+pytestmark = pytest.mark.usefixtures('db', 'redis')
 
 
 def test_reject_duplicates(add_text, add_citation, add_doc):

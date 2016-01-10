@@ -100,6 +100,16 @@ def rq():
     _config.rq.connection.flushdb()
 
 
+@pytest.fixture
+def redis():
+
+    """
+    Clear Redis.
+    """
+
+    _config.redis.flushdb()
+
+
 @pytest.yield_fixture
 def config():
 
