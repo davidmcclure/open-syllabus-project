@@ -8,7 +8,10 @@ import { connect } from 'react-redux';
 import * as actions from '../actions/filters';
 
 
-@connect(null, actions)
+@connect(
+  state => state.filters,
+  actions,
+)
 export default class extends Component {
 
 
@@ -24,6 +27,20 @@ export default class extends Component {
     this.state = {
       query: ''
     };
+
+  }
+
+
+  /**
+   * When the query is changed from without, update the input.
+   *
+   * @param {Object} newProps
+   */
+  componentWillReceiveProps(newProps) {
+
+    this.setState({
+      query: newProps.query
+    });
 
   }
 
