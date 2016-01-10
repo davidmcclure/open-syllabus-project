@@ -1,6 +1,8 @@
 
 
 from osp.common import config
+from osp.constants import redis_keys
+
 from osp.citations.models import Citation_Index
 from osp.citations.models import Text
 from osp.citations.models import Text_Index
@@ -146,7 +148,12 @@ def text_count(text_id):
     Returns: int
     """
 
-    return int(config.redis.hget('osp.www.counts', text_id))
+    count = config.redis.hget(
+        redis_keys.OSP_WWW_COUNTS,
+        text_id,
+    )
+
+    return int(count)
 
 
 def text_percentile(text_id):
@@ -157,7 +164,12 @@ def text_percentile(text_id):
     Returns: float
     """
 
-    return float(config.redis.hget('osp.www.pcts', text_id))
+    pct = config.redis.hget(
+        redis_keys.OSP_WWW_PCTS,
+        text_id,
+    )
+
+    return round(float(pct)*100, 2)
 
 
 def bootstrap_facets():
@@ -200,11 +212,11 @@ def index_redis():
     """
 
     config.redis.hmset(
-        'osp.www.counts',
+        redis_keys.OSP_WWW_COUNTS,
         Citation_Index.compute_ranking(),
     )
 
     config.redis.hmset(
-        'osp.www.pcts',
+        redis_keys.OSP_WWW_PCTS,
         Citation_Index.compute_percentiles(),
     )
