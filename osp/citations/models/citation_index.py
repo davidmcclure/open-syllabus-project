@@ -212,7 +212,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def count_facets(cls, field, depth=1000):
+    def count_facets(cls, field, depth=100):
 
         """
         Given a field, return a set of facet counts.
