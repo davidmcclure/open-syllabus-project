@@ -1,9 +1,12 @@
 
 
-from osp.citations.models import Citation_Index
+from osp.common import config
 from osp.citations.models import Text_Index
+from osp.citations.models import Citation_Index
+from osp.www.cache import cache
 
 
+@cache.memoize(unless=config.is_test)
 def rank_texts(filters={}, query=None, size=1000):
 
     """
@@ -26,6 +29,7 @@ def rank_texts(filters={}, query=None, size=1000):
     return texts
 
 
+@cache.memoize(unless=config.is_test)
 def assigned_with(text_id, size=1000):
 
     """

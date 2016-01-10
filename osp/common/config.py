@@ -57,7 +57,7 @@ class Config:
             The option value.
         """
 
-        return self.config[key]
+        return self.config.get(key)
 
 
     def read(self):
@@ -166,3 +166,14 @@ class Config:
 
         if redis:
             return Queue(connection=redis)
+
+
+    def is_test(self):
+
+        """
+        Are we running inside of a test?
+
+        Returns: bool
+        """
+
+        return bool(self.config.get('test'))

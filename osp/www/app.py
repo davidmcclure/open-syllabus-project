@@ -8,10 +8,12 @@ from webargs.flaskparser import use_args
 
 from osp.citations.models import Text
 from osp.www import utils
+from osp.www.cache import cache
 from osp.www.hit import Hit
 
 
 app = Flask(__name__)
+cache.init_app(app)
 
 
 @app.route('/')
