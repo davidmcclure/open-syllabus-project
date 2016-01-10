@@ -186,8 +186,8 @@ def text_color(score, steps=100):
         str: A hex color.
     """
 
-    r = Color('#f04124')
-    g = Color('#43ac6a')
+    r = Color('#f02424')
+    g = Color('#29b730')
 
     gradient = list(r.range_to(g, steps))
     idx = round(score) - 1
