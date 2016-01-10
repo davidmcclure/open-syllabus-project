@@ -1,8 +1,9 @@
 
 
-from osp.common import config
 from osp.citations.models import Text_Index
 from osp.citations.models import Citation_Index
+
+from osp.common import config
 from osp.www.cache import cache
 
 

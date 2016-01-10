@@ -6,6 +6,9 @@ from osp.institutions.models import Institution_Index
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield_Index
 
+from osp.common import config
+from osp.www.cache import cache
+
 
 def corpus_facets():
 
@@ -85,6 +88,7 @@ def country_facets():
     return Institution_Index.materialize_country_facets(counts)
 
 
+@cache.memoize(unless=config.is_test)
 def bootstrap_facets():
 
     """
