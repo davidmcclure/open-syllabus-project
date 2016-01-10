@@ -5,7 +5,7 @@ import React, { Component, PropTypes } from 'react';
 import Select from 'react-select';
 import pluralize from 'pluralize';
 
-import { parseFilterValues } from '../utils';
+import FilterOption from './filter-option';
 
 
 export default class extends Component {
@@ -41,6 +41,10 @@ export default class extends Component {
           multi={true}
 
           onChange={this.onChange.bind(this)}
+
+          optionRenderer={function(o) {
+            return <FilterOption option={o} />;
+          }}
 
         />
 
