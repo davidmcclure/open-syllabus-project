@@ -16,7 +16,7 @@ import {
 
 const initialState = {
 
-  query: null,
+  query: '',
 
   corpus: [],
   field_id: [],
