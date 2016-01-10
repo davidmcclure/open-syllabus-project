@@ -9,7 +9,8 @@ import * as actions from '../actions/filters';
 
 @connect(
   state => ({
-    filters: state.filters
+    filters: state.filters,
+    loading: state.results.loading,
   }),
   actions,
 )
@@ -24,7 +25,8 @@ export default class extends Component {
     // Are all filters empty?
     let empty = _(this.props.filters).values().all(_.isEmpty);
 
-    return empty ? null : (
+    return (empty || this.props.loading) ? null : (
+
       <div id="clear-filters">
 
         <button
@@ -37,6 +39,7 @@ export default class extends Component {
         </button>
 
       </div>
+
     );
 
   }
