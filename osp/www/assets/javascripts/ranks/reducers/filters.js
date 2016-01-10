@@ -10,6 +10,7 @@ import {
   CHANGE_INSTITUTION_FILTER,
   CHANGE_STATE_FILTER,
   CHANGE_COUNTRY_FILTER,
+  CLEAR_FILTERS,
 } from '../constants';
 
 
@@ -56,6 +57,8 @@ const handlers = {
   [CHANGE_COUNTRY_FILTER]: (state, action) => ({
     country: action.values
   }),
+
+  [CLEAR_FILTERS]: () => (initialState),
 
 };
 

@@ -8,6 +8,7 @@ import {
   CHANGE_INSTITUTION_FILTER,
   CHANGE_STATE_FILTER,
   CHANGE_COUNTRY_FILTER,
+  CLEAR_FILTERS,
 } from '../constants';
 
 
@@ -98,5 +99,15 @@ export function changeCountryFilter(values) {
   return {
     type: CHANGE_COUNTRY_FILTER,
     values,
+  };
+}
+
+
+/**
+ * Reset the filters.
+ */
+export function clearFilters() {
+  return {
+    type: CLEAR_FILTERS,
   };
 }
