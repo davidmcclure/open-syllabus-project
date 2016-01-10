@@ -18,15 +18,10 @@ export default class extends Component {
   render() {
     return (
       <div id="results">
-
-        <div className="list-header">
-          <HitCount />
-          <ClearFilters />
-        </div>
-
+        <HitCount />
+        <ClearFilters />
         <Search />
         <TextList />
-
       </div>
     );
   }
