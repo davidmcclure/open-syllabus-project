@@ -4,6 +4,7 @@ import sys
 import numpy as np
 
 from osp.common import config
+from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.corpus.models import Document
 from osp.citations.models import Text
@@ -93,30 +94,19 @@ class Citation(BaseModel):
 
 
     @classmethod
-    def validate(cls, pct=1, *args, **kwargs):
+    def validate(cls, limit=None, *args, **kwargs):
 
         """
         Validate all citations.
-
-        Args:
-            pct (float): Draw n% of the table.
         """
 
         validator = Validator(*args, **kwargs)
 
-        query = cls.raw(
-            'SELECT * FROM citation ' +
-            'TABLESAMPLE bernoulli(%s)',
-            pct
-        )
+        for c in query_bar(cls.select().limit(limit)):
 
-        i = 0
-        with cls._meta.database.transaction():
-            for c in query:
-
+            try:
                 c.valid = validator.validate(c)
                 c.save()
 
-                i += 1
-                sys.stdout.write('\r'+str(i))
-                sys.stdout.flush()
+            except Exception as e:
+                print(e)
