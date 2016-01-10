@@ -169,7 +169,7 @@ def text_score(text_id):
         text_id,
     )
 
-    return round(float(pct)*100, 2)
+    return round(float(pct)*100, 1)
 
 
 def bootstrap_facets():
