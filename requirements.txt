@@ -44,5 +44,6 @@ webargs
 cached-property
 inflect
 titlecase
+colour
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc

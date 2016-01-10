@@ -10,6 +10,8 @@ from osp.institutions.models import Institution_Index
 from osp.fields.models import Field_Index
 from osp.fields.models import Subfield_Index
 
+from colour import Color
+
 
 def rank_texts(filters={}, query=None, size=1000):
 
@@ -170,6 +172,27 @@ def text_score(text_id):
     )
 
     return round(float(pct)*100, 1)
+
+
+def text_color(score, steps=100):
+
+    """
+    Convert a text score into a green -> red color.
+
+    Args:
+        steps (int) The number of gradient steps.
+
+    Returns:
+        str: A hex color.
+    """
+
+    r = Color('#f04124')
+    g = Color('#43ac6a')
+
+    gradient = list(r.range_to(g, steps))
+    idx = round(score) - 1
+
+    return gradient[idx].get_hex()
 
 
 def bootstrap_facets():

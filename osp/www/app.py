@@ -77,11 +77,13 @@ def text(corpus, identifier):
         Text.identifier==identifier,
     )
 
+    # Assigned-with list.
     siblings = utils.assigned_with(text.id)
 
+    # Text metrics.
     count = utils.text_count(text.id)
-
     score = utils.text_score(text.id)
+    color = utils.text_color(score)
 
     return render_template(
         'text.html',
@@ -89,6 +91,7 @@ def text(corpus, identifier):
         siblings=siblings,
         count=count,
         score=score,
+        color=color,
         Hit=Hit,
     )
 
