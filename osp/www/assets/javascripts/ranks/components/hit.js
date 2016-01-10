@@ -42,7 +42,7 @@ export default class {
    * @return {Number}
    */
   get count() {
-    return this.hit.sort[0];
+    return this.hit.sort[0].toLocaleString();
   }
 
 
