@@ -20,8 +20,17 @@ export default class extends Component {
 
     return (
       <div className="filter-option">
-        (<strong>{count}</strong>){' '}
-        {this.props.option.label}
+
+        <span className="count">
+          (<strong>{count}</strong>)
+        </span>
+
+        {' '}
+
+        <span className="value">
+          {this.props.option.label}
+        </span>
+
       </div>
     );
 
