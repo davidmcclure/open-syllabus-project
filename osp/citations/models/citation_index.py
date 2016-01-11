@@ -168,7 +168,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def docs_with_text(cls, text_id, depth=1e5):
+    def docs_with_text(cls, text_id, depth=1000):
 
         """
         Given a text, get the set of documents that assign the text.
