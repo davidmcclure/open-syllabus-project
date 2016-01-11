@@ -104,7 +104,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def compute_ranking(cls, filters={}, depth=1e6):
+    def compute_ranking(cls, filters={}, depth=1e5):
 
         """
         Given a set of query filters, count the number of times each text is
@@ -168,7 +168,7 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def docs_with_text(cls, text_id, depth=1e6):
+    def docs_with_text(cls, text_id, depth=1e5):
 
         """
         Given a text, get the set of documents that assign the text.
