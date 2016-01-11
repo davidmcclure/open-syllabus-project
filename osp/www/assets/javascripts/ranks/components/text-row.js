@@ -12,7 +12,7 @@ export default class extends Component {
   static propTypes = {
     hit: PropTypes.object.isRequired,
     rank: PropTypes.number.isRequired,
-  }
+  };
 
 
   /**

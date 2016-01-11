@@ -8,7 +8,7 @@ export default class extends Component {
 
   static propTypes = {
     option: PropTypes.object.isRequired,
-  }
+  };
 
 
   /**
