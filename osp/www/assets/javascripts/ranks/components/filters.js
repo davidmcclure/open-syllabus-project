@@ -32,13 +32,6 @@ export default class extends Component {
         />
 
         <FilterSelect
-          name="subfield"
-          options={OSP.facets.subfield}
-          value={this.props.filters.subfield_id}
-          publish={this.props.changeSubfieldFilter}
-        />
-
-        <FilterSelect
           name="institution"
           options={OSP.facets.institution}
           value={this.props.filters.institution_id}
