@@ -83,7 +83,8 @@ class Text_Index(Elasticsearch):
         ranks = rankdata([t.count for t in query], 'max')
 
         # Flip the ranks (#1 is most frequent).
-        ranks = [max(ranks)-r+1 for r in ranks]
+        max_rank = max(ranks)
+        ranks = [max_rank-r+1 for r in ranks]
 
         return list(zip(query, ranks))
 
