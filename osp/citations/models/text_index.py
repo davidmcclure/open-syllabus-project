@@ -9,6 +9,7 @@ from osp.citations.models import Text, Citation
 
 from clint.textui import progress
 from peewee import fn
+from scipy.stats import rankdata
 
 
 class Text_Index(Elasticsearch):
@@ -78,7 +79,13 @@ class Text_Index(Elasticsearch):
             .naive()
         )
 
-        return list(query)
+        # Rank in ascending order.
+        ranks = rankdata([t.count for t in query], 'max')
+
+        # Flip the ranks, so the most frequent text is #1.
+        ranks = [max(ranks)-r+1 for r in ranks]
+
+        return list(zip(query, ranks))
 
 
     @classmethod
