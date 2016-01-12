@@ -11,7 +11,6 @@ export default class extends Component {
 
   static propTypes = {
     hit: PropTypes.object.isRequired,
-    rank: PropTypes.number.isRequired,
   };
 
 
@@ -26,7 +25,7 @@ export default class extends Component {
       <tr className="text-row">
 
         <td className="rank">
-          {this.props.rank}
+          {this.hit.field('rank').toLocaleString()}
         </td>
 
         <td className="count">

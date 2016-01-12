@@ -26,7 +26,7 @@ export default class extends Component {
 
       // Build the text list.
       let rows = _.map(this.props.hits, function(h, i) {
-        return <TextRow key={h._id} hit={h} rank={i+1} />
+        return <TextRow key={h._id} hit={h} />
       });
 
       // Table classes.
