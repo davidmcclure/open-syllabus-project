@@ -30,10 +30,10 @@ class Text_Index(Elasticsearch):
             'identifier': {
                 'type': 'string'
             },
-            'title': {
+            'authors': {
                 'type': 'string'
             },
-            'authors': {
+            'title': {
                 'type': 'string'
             },
             'publisher': {
@@ -82,7 +82,7 @@ class Text_Index(Elasticsearch):
         # Rank in ascending order.
         ranks = rankdata([t.count for t in query], 'max')
 
-        # Flip the ranks, so the most frequent text is #1.
+        # Flip the ranks (#1 is most frequent).
         ranks = [max(ranks)-r+1 for r in ranks]
 
         return list(zip(query, ranks))
@@ -98,24 +98,23 @@ class Text_Index(Elasticsearch):
             dict: The next document.
         """
 
-        query = (
-            Text.select()
-            .join(Citation)
-            .where(Citation.valid==True)
-        )
-
-        for row in query_bar(query):
+        for text, rank in progress.bar(cls.rank_texts()):
 
             yield dict(
-                _id         = row.id,
-                corpus      = row.corpus,
-                identifier  = row.identifier,
-                title       = row.pretty('title'),
-                authors     = row.pretty('authors'),
-                publisher   = row.pretty('publisher'),
-                date        = row.pretty('date'),
-                journal     = row.pretty('journal_title'),
-                url         = row.url,
+
+                _id         = text.id,
+                corpus      = text.corpus,
+                identifier  = text.identifier,
+                count       = text.count,
+                rank        = rank,
+
+                authors     = text.pretty('authors'),
+                title       = text.pretty('title'),
+                publisher   = text.pretty('publisher'),
+                date        = text.pretty('date'),
+                journal     = text.pretty('journal_title'),
+                url         = text.url,
+
             )
 
 
