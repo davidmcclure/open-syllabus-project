@@ -8,6 +8,7 @@ from osp.common.mixins.elasticsearch import Elasticsearch
 from osp.citations.models import Text, Citation
 
 from clint.textui import progress
+from peewee import fn
 
 
 class Text_Index(Elasticsearch):
@@ -54,6 +55,30 @@ class Text_Index(Elasticsearch):
             },
         }
     }
+
+
+    @classmethod
+    def rank_texts(cls):
+
+        """
+        Get total citation counts and ranks for texts.
+
+        Returns: list
+        """
+
+        count = fn.Count(Citation.id)
+
+        query = (
+            Text
+            .select(Text, count)
+            .join(Citation)
+            .where(Citation.valid==True)
+            .group_by(Text.id)
+            .order_by(Text.id)
+            .naive()
+        )
+
+        return list(query)
 
 
     @classmethod
