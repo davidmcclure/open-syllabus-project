@@ -107,9 +107,8 @@ class Text_Index(Elasticsearch):
 
         if query:
             conds.append({
-                'multi_match': {
+                'simple_query_string': {
                     'query': query,
-                    'type': 'phrase_prefix',
                     'fields': [
                         'title',
                         'authors',
