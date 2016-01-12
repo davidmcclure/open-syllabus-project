@@ -46,6 +46,12 @@ class Text_Index(Elasticsearch):
             'url': {
                 'type': 'string'
             },
+            'count': {
+                'type': 'float'
+            },
+            'rank': {
+                'type': 'float'
+            },
         }
     }
 
