@@ -47,28 +47,46 @@ def test_index_metadata(add_text, add_citation):
     assert doc['_source']['url']        == text.url
 
 
-def test_only_insert_texts_with_valid_citations(add_text, add_citation):
+def test_index_counts_and_ranks(add_text, add_citation):
 
     """
-    Skip texts that aren't referenced by valid citations.
+    Index total citation counts and ranks.
     """
 
-    # Valid citation.
     t1 = add_text()
-    add_citation(text=t1, valid=True)
-
-    # Invalid citation.
     t2 = add_text()
-    add_citation(text=t2, valid=False)
 
-    # Unvalidated citation.
     t3 = add_text()
-    add_citation(text=t3, valid=None)
-
-    # No citation.
     t4 = add_text()
+
+    t5 = add_text()
+    t6 = add_text()
+
+    for i in range(3):
+        add_citation(text=t1)
+        add_citation(text=t2)
+
+    for i in range(2):
+        add_citation(text=t3)
+        add_citation(text=t4)
+
+    for i in range(1):
+        add_citation(text=t5)
+        add_citation(text=t6)
 
     Text_Index.es_insert()
 
-    assert config.es.get(index='text', id=t1.id)
-    assert Text_Index.es_count() == 1
+    for t in [t1, t2]:
+        doc = config.es.get(index='text', id=t.id)
+        assert doc['_source']['rank'] == 1
+        assert doc['_source']['count'] == 3
+
+    for t in [t3, t4]:
+        doc = config.es.get(index='text', id=t.id)
+        assert doc['_source']['rank'] == 3
+        assert doc['_source']['count'] == 2
+
+    for t in [t5, t6]:
+        doc = config.es.get(index='text', id=t.id)
+        assert doc['_source']['rank'] == 5
+        assert doc['_source']['count'] == 1
