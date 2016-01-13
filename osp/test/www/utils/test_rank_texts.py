@@ -48,16 +48,20 @@ def test_metadata_filters(add_text, add_citation):
 
     t1 = add_text(corpus='corpus1')
     t2 = add_text(corpus='corpus2')
-    t3 = add_text(corpus='corpus2')
+    t3 = add_text(corpus='corpus1')
+    t4 = add_text(corpus='corpus2')
 
-    for i in range(3):
+    for i in range(4):
         add_citation(t1)
 
-    for i in range(2):
+    for i in range(3):
         add_citation(t2)
 
-    for i in range(1):
+    for i in range(2):
         add_citation(t3)
+
+    for i in range(1):
+        add_citation(t4)
 
     Citation_Index.es_insert()
     Text_Index.es_insert()
@@ -68,7 +72,7 @@ def test_metadata_filters(add_text, add_citation):
 
     assert len(texts['hits']) == 2
     assert texts['hits'][0]['_id'] == str(t2.id)
-    assert texts['hits'][1]['_id'] == str(t3.id)
+    assert texts['hits'][1]['_id'] == str(t4.id)
 
 
 def test_search_filter(add_text, add_citation):
