@@ -57,42 +57,42 @@ def test_index_counts_and_ranks(add_text, add_citation):
     """
 
     t1 = add_text()
+
     t2 = add_text()
-
     t3 = add_text()
-    t4 = add_text()
 
+    t4 = add_text()
     t5 = add_text()
     t6 = add_text()
 
-    for i in range(3):
+    for i in range(9):
         add_citation(text=t1)
-        add_citation(text=t2)
 
-    for i in range(2):
+    for i in range(3):
+        add_citation(text=t2)
         add_citation(text=t3)
-        add_citation(text=t4)
 
     for i in range(1):
+        add_citation(text=t4)
         add_citation(text=t5)
         add_citation(text=t6)
 
     Text_Index.es_insert()
 
-    for t in [t1, t2]:
+    for t in [t1]:
+        doc = config.es.get(index='text', id=t.id)
+        assert doc['_source']['count'] == 9
+        assert doc['_source']['rank'] == 1
+        assert doc['_source']['score'] == 3/3
+
+    for t in [t2, t3]:
         doc = config.es.get(index='text', id=t.id)
         assert doc['_source']['count'] == 3
-        assert doc['_source']['score'] == score(3, 3)
-        assert doc['_source']['rank'] == 1
+        assert doc['_source']['rank'] == 2
+        assert doc['_source']['score'] == 2/3
 
-    for t in [t3, t4]:
+    for t in [t4, t5, t6]:
         doc = config.es.get(index='text', id=t.id)
-        assert doc['_source']['rank'] == 3
-        assert doc['_source']['score'] == score(2, 3)
-        assert doc['_source']['count'] == 2
-
-    for t in [t5, t6]:
-        doc = config.es.get(index='text', id=t.id)
-        assert doc['_source']['rank'] == 5
-        assert doc['_source']['score'] == score(1, 3)
         assert doc['_source']['count'] == 1
+        assert doc['_source']['rank'] == 4
+        assert doc['_source']['score'] == 1/3

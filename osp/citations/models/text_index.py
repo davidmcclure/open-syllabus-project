@@ -88,17 +88,17 @@ class Text_Index(Elasticsearch):
             .naive()
         )
 
-        # Get counts and ranks.
         counts = [t.count for t in query]
-        ranks = rankdata(counts, 'max')
 
-        # Compute exponentially-scaled count ratios.
-        max_count = max(counts)
-        scores = [np.sqrt(c)/np.sqrt(max_count) for c in counts]
+        # Compute dense-rank ratios.
+        dense_ranks = rankdata(counts, 'dense')
+        top = max(dense_ranks)
+        scores = [r/top for r in dense_ranks]
 
-        # Flip the ranks (#1 is most frequent).
-        max_rank = max(ranks)
-        ranks = [int(max_rank-r+1) for r in ranks]
+        # Compute overall ranks (#1 is most frequent).
+        max_ranks = rankdata(counts, 'max')
+        top = max(max_ranks)
+        ranks = [int(top-r+1) for r in max_ranks]
 
         return [
             dict(zip(['text', 'rank', 'score'], t))
