@@ -21,6 +21,10 @@ export default class extends Component {
 
     this.hit = new Hit(this.props.hit);
 
+    let scoreStyle = {
+      color: this.hit.color
+    }
+
     return (
       <tr className="text-row">
 
@@ -32,7 +36,7 @@ export default class extends Component {
           {this.hit.count}
         </td>
 
-        <td className="count">
+        <td className="score" style={scoreStyle}>
           {this.hit.score}
         </td>
 

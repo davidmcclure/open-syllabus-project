@@ -1,6 +1,7 @@
 
 
 import _ from 'lodash';
+import chroma from 'chroma-js';
 
 
 export default class {
@@ -37,6 +38,21 @@ export default class {
 
 
   /**
+   * Build the text profile path.
+   *
+   * @return {String}
+   */
+  get path() {
+
+    let c = this.hit._source.corpus;
+    let i = this.hit._source.identifier;
+
+    return `text/${c}/${i}`;
+
+  }
+
+
+  /**
    * Get the citation count.
    *
    * @return {Number}
@@ -67,17 +83,13 @@ export default class {
 
 
   /**
-   * Build the text profile path.
+   * Get a green -> red scoring color.
    *
    * @return {String}
    */
-  get path() {
-
-    let c = this.hit._source.corpus;
-    let i = this.hit._source.identifier;
-
-    return `text/${c}/${i}`;
-
+  get color() {
+    let scale = chroma.scale(['#f02424', '#29b730']).mode('lab');
+    return scale(this.field('score')).hex()
   }
 
 
