@@ -1,5 +1,6 @@
 
 
+import numpy as np
 import random
 
 from osp.common import config
@@ -56,6 +57,9 @@ class Text_Index(Elasticsearch):
             'rank': {
                 'type': 'integer'
             },
+            'score': {
+                'type': 'float'
+            },
         }
     }
 
@@ -81,14 +85,22 @@ class Text_Index(Elasticsearch):
             .naive()
         )
 
-        # Rank in ascending order.
-        ranks = rankdata([t.count for t in query], 'max')
+        # Get counts and ranks.
+        counts = [t.count for t in query]
+        ranks = rankdata(counts, 'max')
+
+        # Compute exponentially-scaled count ratios.
+        max_count = max(counts)
+        scores = [np.sqrt(c)/np.sqrt(max_count) for c in counts]
 
         # Flip the ranks (#1 is most frequent).
         max_rank = max(ranks)
         ranks = [int(max_rank-r+1) for r in ranks]
 
-        return list(zip(query, ranks))
+        return [
+            dict(zip(['text', 'rank', 'score'], t))
+            for t in zip(query, ranks, scores)
+        ]
 
 
     @classmethod
@@ -101,7 +113,9 @@ class Text_Index(Elasticsearch):
             dict: The next document.
         """
 
-        for text, rank in progress.bar(cls.rank_texts()):
+        for t in progress.bar(cls.rank_texts()):
+
+            text = t.get('text')
 
             yield dict(
 
@@ -109,7 +123,8 @@ class Text_Index(Elasticsearch):
                 corpus      = text.corpus,
                 identifier  = text.identifier,
                 count       = text.count,
-                rank        = rank,
+                rank        = t['rank'],
+                score       = t['score'],
 
                 authors     = text.pretty('authors'),
                 title       = text.pretty('title'),

@@ -4,6 +4,8 @@ import pytest
 
 from osp.citations.models import Text_Index
 
+from .utils import score
+
 
 pytestmark = pytest.mark.usefixtures('db', 'es')
 
@@ -29,20 +31,20 @@ def test_join_citation_count(add_text, add_citation):
 
     texts = Text_Index.rank_texts()
 
-    assert texts[0][0] == t1
-    assert texts[0][0].count == 2
+    assert texts[0]['text'] == t1
+    assert texts[0]['text'].count == 2
 
-    assert texts[1][0] == t2
-    assert texts[1][0].count == 3
+    assert texts[1]['text'] == t2
+    assert texts[1]['text'].count == 3
 
-    assert texts[2][0] == t3
-    assert texts[2][0].count == 1
+    assert texts[2]['text'] == t3
+    assert texts[2]['text'].count == 1
 
 
-def test_compute_overall_ranking(add_text, add_citation):
+def test_compute_metrics(add_text, add_citation):
 
     """
-    Zip ranks with the texts.
+    Zip ranks and scores with the texts.
     """
 
     t1 = add_text()
@@ -69,12 +71,16 @@ def test_compute_overall_ranking(add_text, add_citation):
     texts = Text_Index.rank_texts()
 
     assert texts == [
-        (t1, 1),
-        (t2, 1),
-        (t3, 3),
-        (t4, 3),
-        (t5, 5),
-        (t6, 5),
+
+        dict(text=t1, rank=1, score=score(3, 3)),
+        dict(text=t2, rank=1, score=score(3, 3)),
+
+        dict(text=t3, rank=3, score=score(2, 3)),
+        dict(text=t4, rank=3, score=score(2, 3)),
+
+        dict(text=t5, rank=5, score=score(1, 3)),
+        dict(text=t6, rank=5, score=score(1, 3)),
+
     ]
 
 
@@ -97,7 +103,7 @@ def test_skip_invalid_citations(add_text, add_citation):
     texts = Text_Index.rank_texts()
 
     assert texts == [
-        (t1, 1),
+        dict(text=t1, rank=1, score=score(1, 1)),
         # Exclude t2.
     ]
 
@@ -116,6 +122,6 @@ def test_skip_uncited_texts(add_text, add_citation):
     texts = Text_Index.rank_texts()
 
     assert texts == [
-        (t1, 1),
+        dict(text=t1, rank=1, score=score(1, 1)),
         # Exclude t2.
     ]
