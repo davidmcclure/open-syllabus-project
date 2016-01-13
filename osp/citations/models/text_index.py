@@ -122,7 +122,7 @@ class Text_Index(Elasticsearch):
 
 
     @classmethod
-    def materialize_ranking(cls, ranks, query=None, size=1000):
+    def materialize_ranking(cls, ranks=None, query=None, size=1000):
 
         """
         Given a set of text counts, load texts sorted by count and apply a
@@ -137,15 +137,12 @@ class Text_Index(Elasticsearch):
             dict: The Elasticsearch hits.
         """
 
-        # Filter ids.
+        conds = []
 
-        conds = [{
-            'ids': {
-                'values': list(ranks.keys())
-            }
-        }]
+        # If a query is provided, search text metadata.
 
         if query:
+
             conds.append({
                 'simple_query_string': {
                     'query': query,
@@ -158,6 +155,38 @@ class Text_Index(Elasticsearch):
                 }
             })
 
+        # If a text -> count map is provided, only match filtered ids and sort
+        # the results on the filtered counts.
+
+        if ranks:
+
+            conds.append({
+                'ids': {
+                    'values': list(ranks.keys())
+                }
+            })
+
+            sort = {
+                '_script': {
+                    'order': 'desc',
+                    'type': 'number',
+                    'script': 'ranks.get(doc["_id"].value)',
+                    'params': {
+                        'ranks': ranks
+                    }
+                }
+            }
+
+        # If no ranks are provided, sort on the overall counts.
+
+        else:
+
+            sort = {
+                'count': {
+                    'order': 'desc'
+                }
+            }
+
         # Materialize the texts.
 
         result = config.es.search(
@@ -167,19 +196,10 @@ class Text_Index(Elasticsearch):
 
             body = {
                 'size': size,
+                'sort': sort,
                 'query': {
                     'bool': {
                         'must': conds
-                    }
-                },
-                'sort': {
-                    '_script': {
-                        'order': 'desc',
-                        'type': 'number',
-                        'script': 'ranks.get(doc["_id"].value)',
-                        'params': {
-                            'ranks': ranks
-                        }
                     }
                 },
                 'highlight': {
