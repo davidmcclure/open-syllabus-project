@@ -25,6 +25,7 @@ class Text_Index(Elasticsearch):
             'store': True,
         },
         'properties': {
+
             'corpus': {
                 'index': 'not_analyzed',
                 'type': 'string'
@@ -33,6 +34,16 @@ class Text_Index(Elasticsearch):
                 'index': 'not_analyzed',
                 'type': 'string'
             },
+            'count': {
+                'type': 'integer'
+            },
+            'rank': {
+                'type': 'integer'
+            },
+            'score': {
+                'type': 'float'
+            },
+
             'authors': {
                 'type': 'string'
             },
@@ -51,15 +62,7 @@ class Text_Index(Elasticsearch):
             'url': {
                 'type': 'string'
             },
-            'count': {
-                'type': 'integer'
-            },
-            'rank': {
-                'type': 'integer'
-            },
-            'score': {
-                'type': 'float'
-            },
+
         }
     }
 
@@ -115,7 +118,7 @@ class Text_Index(Elasticsearch):
 
         for t in progress.bar(cls.rank_texts()):
 
-            text = t.get('text')
+            text = t['text']
 
             yield dict(
 
