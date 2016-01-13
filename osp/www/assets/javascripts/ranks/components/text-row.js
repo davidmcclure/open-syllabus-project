@@ -25,11 +25,15 @@ export default class extends Component {
       <tr className="text-row">
 
         <td className="rank">
-          {this.hit.field('rank').toLocaleString()}
+          {this.hit.rank}
         </td>
 
         <td className="count">
           {this.hit.count}
+        </td>
+
+        <td className="count">
+          {this.hit.score}
         </td>
 
         <td className="text">

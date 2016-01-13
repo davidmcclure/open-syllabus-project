@@ -47,6 +47,26 @@ export default class {
 
 
   /**
+   * Get the overall rank.
+   *
+   * @return {Number}
+   */
+  get rank() {
+    return this.field('rank').toLocaleString();
+  }
+
+
+  /**
+   * Get the teaching score.
+   *
+   * @return {Number}
+   */
+  get score() {
+    return (this.field('score')*10).toFixed(1);
+  }
+
+
+  /**
    * Build the text profile path.
    *
    * @return {String}

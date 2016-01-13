@@ -41,6 +41,7 @@ export default class extends Component {
             <tr>
               <th>Rank</th>
               <th>Count</th>
+              <th>Score</th>
               <th>Text</th>
             </tr>
           </thead>
