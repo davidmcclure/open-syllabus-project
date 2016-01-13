@@ -8,21 +8,6 @@ from osp.www.cache import cache
 
 
 @cache.memoize(unless=config.is_test)
-def compute_ranking(filters={}):
-
-    """
-    Cache the intermediate {text_id -> count} ranking results.
-
-    Args:
-        filters (dict): Citation metadata filters.
-
-    Returns: dict
-    """
-
-    return Citation_Index.compute_ranking(filters)
-
-
-@cache.memoize(unless=config.is_test)
 def rank_texts(filters={}, query=None, size=1000):
 
     """
@@ -37,7 +22,7 @@ def rank_texts(filters={}, query=None, size=1000):
     """
 
     # Filter and rank the texts.
-    ranks = compute_ranking(filters)
+    ranks = Citation_Index.compute_ranking(filters)
 
     # Materialize the text metadata.
     texts = Text_Index.materialize_ranking(ranks, query, size)
