@@ -21,8 +21,12 @@ def rank_texts(filters={}, query=None, size=1000):
         dict: Elasticsearch hits.
     """
 
-    # Filter and rank the texts.
-    ranks = Citation_Index.compute_ranking(filters)
+    # Filter citation counts, if non-empty filters.
+    if any(filters.values()):
+        ranks = Citation_Index.compute_ranking(filters)
+
+    else:
+        ranks = None
 
     # Materialize the text metadata.
     texts = Text_Index.materialize_ranking(ranks, query, size)
