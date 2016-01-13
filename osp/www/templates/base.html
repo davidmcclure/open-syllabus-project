@@ -9,14 +9,9 @@
 
   {% block css %}{% endblock %}
 
-  <!-- Typekit. -->
-  <script src="https://use.typekit.net/yrw2pmj.js"></script>
-  <script>try{Typekit.load({ async: true });}catch(e){}</script>
-
-  <!-- Livereload. -->
-  {% if config.DEBUG %}
-    <script src="//localhost:35729/livereload.js"></script>
-  {% endif %}
+  {% include "livereload.html" %}
+  {% include "typekit.html" %}
+  {% include "analytics.html" %}
 
 </head>
 
