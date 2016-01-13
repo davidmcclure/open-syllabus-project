@@ -25,9 +25,11 @@ class Text_Index(Elasticsearch):
         },
         'properties': {
             'corpus': {
+                'index': 'not_analyzed',
                 'type': 'string'
             },
             'identifier': {
+                'index': 'not_analyzed',
                 'type': 'string'
             },
             'authors': {
@@ -232,3 +234,42 @@ class Text_Index(Elasticsearch):
             ))
 
         return facets
+
+
+    @classmethod
+    def get_text(cls, corpus, identifier):
+
+        """
+        Get an individual text document by corpus + identifier.
+
+        Args:
+            corpus (str)
+            identifier (str)
+
+        Returns: dict|None
+        """
+
+        result = config.es.search(
+
+            index = cls.es_index,
+            doc_type = cls.es_index,
+
+            body = {
+                'filter': {
+                    'bool': {
+                        'must': [
+                            {'term': {
+                                'corpus': corpus
+                            }},
+                            {'term': {
+                                'identifier': identifier
+                            }},
+                        ]
+                    }
+                }
+            }
+
+        )
+
+        if result['hits']['total'] > 0:
+            return result['hits']['hits'][0]
