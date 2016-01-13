@@ -51,10 +51,10 @@ class Text_Index(Elasticsearch):
                 'type': 'string'
             },
             'count': {
-                'type': 'float'
+                'type': 'integer'
             },
             'rank': {
-                'type': 'float'
+                'type': 'integer'
             },
         }
     }
@@ -86,7 +86,7 @@ class Text_Index(Elasticsearch):
 
         # Flip the ranks (#1 is most frequent).
         max_rank = max(ranks)
-        ranks = [max_rank-r+1 for r in ranks]
+        ranks = [int(max_rank-r+1) for r in ranks]
 
         return list(zip(query, ranks))
 
