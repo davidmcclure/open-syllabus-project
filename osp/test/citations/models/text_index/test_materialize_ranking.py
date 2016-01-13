@@ -37,6 +37,38 @@ def test_sort_on_total_count_by_default(add_text, add_citation):
     assert texts['hits'][2]['_id'] == str(t3.id)
 
 
+def test_sort_on_filtered_counts(add_text, add_citation):
+
+    """
+    If a text -> count map is passed, sort on the filtered counts.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+
+    for i in range(30):
+        add_citation(t1)
+
+    for i in range(20):
+        add_citation(t2)
+
+    for i in range(10):
+        add_citation(t3)
+
+    Text_Index.es_insert()
+
+    texts = Text_Index.materialize_ranking(ranks={
+        t1.id: 1,
+        t2.id: 2,
+        t3.id: 3,
+    })
+
+    assert texts['hits'][0]['_id'] == str(t3.id)
+    assert texts['hits'][1]['_id'] == str(t2.id)
+    assert texts['hits'][2]['_id'] == str(t1.id)
+
+
 # def test_sort_by_count(add_text, add_citation):
 
     # """
