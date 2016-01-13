@@ -146,6 +146,7 @@ class Text_Index(Elasticsearch):
             conds.append({
                 'simple_query_string': {
                     'query': query,
+                    'default_operator': 'and',
                     'fields': [
                         'title',
                         'authors',
