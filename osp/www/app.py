@@ -6,7 +6,7 @@ from flask import Flask, request, render_template, jsonify
 from webargs import fields
 from webargs.flaskparser import use_args
 
-from osp.citations.models import Text
+from osp.citations.models import Text_Index
 from osp.www import utils
 from osp.www.cache import cache
 from osp.www.hit import Hit
@@ -74,26 +74,16 @@ def text(corpus, identifier):
     Text profile pages.
     """
 
-    text = Text.get(
-        Text.corpus==corpus,
-        Text.identifier==identifier,
-    )
+    # Load the text.
+    text = Text_Index.get_text(corpus, identifier)
 
     # Assigned-with list.
-    siblings = utils.assigned_with(text.id)
-
-    # Text metrics.
-    count = utils.text_count(text.id)
-    score = utils.text_score(text.id)
-    color = utils.text_color(score)
+    siblings = utils.assigned_with(text['_id'])
 
     return render_template(
         'text.html',
-        text=text,
+        text=Hit(text),
         siblings=siblings,
-        count=count,
-        score=score,
-        color=color,
         Hit=Hit,
     )
 
