@@ -223,3 +223,18 @@ class Text(BaseModel):
 
         else:
             return prettify(value)
+
+
+    @property
+    def title_contains_author(self):
+
+        """
+        Does the title contain the surname tokens?
+
+        Returns: bool
+        """
+
+        a_tokens = set(self.author_tokens)
+        t_tokens = set(self.title_tokens)
+
+        return a_tokens.issubset(t_tokens)
