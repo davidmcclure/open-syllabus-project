@@ -9,6 +9,7 @@ from osp.citations.models import Text
 
     # Surname subset of title
     ('Tolstoy', 'Leo Tolstoy', True),
+    ('Tolstoy', 'Tolstoy, Leo', True),
 
     # Surname == title
     ('Tolstoy', 'Tolstoy', True),
