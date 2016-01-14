@@ -7,9 +7,10 @@ import hashlib
 import os
 
 from osp.common import config
+from osp.common.utils import prettify, query_bar
 from osp.common.models.base import BaseModel
-from osp.common.utils import prettify
 
+from osp.constants import redis_keys
 from osp.citations.utils import tokenize_field, is_toponym
 from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.hlom_record import HLOM_Record
@@ -48,6 +49,11 @@ class Text(BaseModel):
     issue_number        = TextField(null=True)
     issue_chronology    = TextField(null=True)
     pagination          = TextField(null=True)
+
+    # Deduping:
+
+    display             = BooleanField(null=True)
+    duplicate           = BooleanField(null=True)
 
 
     class Meta:
@@ -158,7 +164,48 @@ class Text(BaseModel):
         - display: Display this individual instance of the text.
         """
 
-        pass # TODO
+        for text in query_bar(cls.select_cited()):
+
+            # Has the hash already been reserved by another text?
+
+            tid = config.redis.hget(
+                redis_keys.OSP_DEDUP,
+                text.hash,
+            )
+
+            if tid:
+
+                # If so, don't display this text.
+
+                text.display = False
+                text.duplicate = True
+
+                # Mark the original text that initially made the reservation
+                # as a duplicate.
+
+                update = (
+                    cls.update(duplicate=True)
+                    .where(cls.id==int(tid))
+                )
+
+                update.execute()
+
+            else:
+
+                # If we haven't seen the hash before, display this text.
+
+                text.display = True
+                text.duplicate = False
+
+                # And block other texts with the same hash.
+
+                config.redis.hset(
+                    redis_keys.OSP_DEDUP,
+                    text.hash,
+                    text.id,
+                )
+
+            text.save()
 
 
     @property
