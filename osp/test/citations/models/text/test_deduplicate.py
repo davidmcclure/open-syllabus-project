@@ -8,10 +8,10 @@ from osp.citations.models import Text
 pytestmark = pytest.mark.usefixtures('db', 'redis')
 
 
-def test_dedup(add_text, add_citation):
+def test_deduplicate(add_text, add_citation):
 
     """
-    Text.dedup() should:
+    Text.deduplicate() should:
 
         - For texts that aren't duplicates, display=True and duplicate=False.
 
@@ -33,7 +33,7 @@ def test_dedup(add_text, add_citation):
     add_citation(text=t4)
     add_citation(text=t5)
 
-    Text.dedup()
+    Text.deduplicate()
 
     t1 = Text.get(Text.id==t1.id)
     t2 = Text.get(Text.id==t2.id)

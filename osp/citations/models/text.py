@@ -155,7 +155,7 @@ class Text(BaseModel):
 
 
     @classmethod
-    def dedup(cls):
+    def deduplicate(cls):
 
         """
         Set the deduping flags:
