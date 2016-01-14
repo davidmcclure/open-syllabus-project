@@ -2,6 +2,7 @@
 
 import pytest
 
+from osp.citations.utils import tokenize_field
 from osp.citations.models import Text
 
 
@@ -20,10 +21,10 @@ from osp.citations.models import Text
 ])
 def test_singular(title, blacklisted):
 
-    titles = [
+    titles = map(tokenize_field, [
         'letter',
         'the white house',
-    ]
+    ])
 
     text = Text(title=title)
 

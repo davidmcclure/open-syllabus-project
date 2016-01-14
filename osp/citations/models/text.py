@@ -251,4 +251,18 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        return self.title_tokens in map(tokenize_field, blacklist)
+        return self.title_tokens in blacklist
+
+
+    def surname_blacklisted(self, blacklist=[]):
+
+        """
+        Is the surname blacklisted?
+
+        Args:
+            blacklist (list)
+
+        Returns: bool
+        """
+
+        return self.surname_tokens in blacklist
