@@ -139,10 +139,10 @@ class Text(BaseModel):
 
 
     @property
-    def author_tokens(self):
+    def surname_tokens(self):
 
         """
-        Tokenize the author (surname).
+        Tokenize the surname.
 
         Returns: list
         """
@@ -162,7 +162,7 @@ class Text(BaseModel):
         """
 
         # Sort the surname names.
-        return sorted(self.author_tokens) + self.title_tokens
+        return sorted(self.surname_tokens) + self.title_tokens
 
 
     @property
@@ -194,10 +194,10 @@ class Text(BaseModel):
         return [
 
             # <author> <title>
-            self.author_tokens + self.title_tokens,
+            self.surname_tokens + self.title_tokens,
 
             # <title> <author>
-            self.title_tokens + self.author_tokens,
+            self.title_tokens + self.surname_tokens,
 
         ]
 
@@ -226,7 +226,7 @@ class Text(BaseModel):
 
 
     @property
-    def title_contains_author(self):
+    def title_contains_surname(self):
 
         """
         Does the title contain the surname tokens?
@@ -235,9 +235,9 @@ class Text(BaseModel):
         """
 
         title = set(self.title_tokens)
-        author = set(self.author_tokens)
+        surname = set(self.surname_tokens)
 
-        return author.issubset(title)
+        return surname.issubset(title)
 
 
     def title_blacklisted(self, blacklist=[]):

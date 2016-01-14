@@ -146,7 +146,7 @@ class Validator:
         Returns: bool
         """
 
-        return text.author_tokens == text.title_tokens
+        return text.surname_tokens == text.title_tokens
 
 
     def title_blacklisted(self, text):
@@ -177,7 +177,7 @@ class Validator:
         Returns: bool
         """
 
-        a = ' '.join(text.author_tokens)
+        a = ' '.join(text.surname_tokens)
         t = ' '.join(text.title_tokens)
 
         return (

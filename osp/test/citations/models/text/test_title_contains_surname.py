@@ -20,8 +20,8 @@ from osp.citations.models import Text
     ('Tolstoy', 'War and Peace', False),
 
 ])
-def test_title_contains_author(surname, title, result):
+def test_title_contains_surname(surname, title, result):
 
     text = Text(surname=surname, title=title)
 
-    assert text.title_contains_author == result
+    assert text.title_contains_surname == result
