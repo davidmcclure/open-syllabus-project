@@ -54,11 +54,6 @@ export default class extends Component {
           />
 
           <Field
-            label="publisher"
-            value={this.hit.field('publisher')}
-          />
-
-          <Field
             label="journal"
             value={this.hit.field('journal')}
           />

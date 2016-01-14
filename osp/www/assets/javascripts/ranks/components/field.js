@@ -23,8 +23,6 @@ export default class extends Component {
     else return (
       <div className="field">
 
-        <code>{this.props.label}</code>{' '}
-
         <span className="value" dangerouslySetInnerHTML={{
           __html: this.props.value
         }}></span>
