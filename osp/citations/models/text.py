@@ -16,8 +16,10 @@ from osp.citations.hlom_record import HLOM_Record
 from osp.citations.jstor_corpus import JSTOR_Corpus
 from osp.citations.jstor_record import JSTOR_Record
 
+from functools import reduce
 from peewee import TextField
 from playhouse.postgres_ext import ArrayField
+from wordfreq import word_frequency
 
 
 class Text(BaseModel):
@@ -223,6 +225,24 @@ class Text(BaseModel):
 
         else:
             return prettify(value)
+
+
+    @property
+    def fuzz(self):
+
+        """
+        Compute an arbitrarily-scaled "fuzziness" score for the query tokens,
+        where low is focused and high is fuzzy.
+
+        Returns: float
+        """
+
+        freqs = [
+            word_frequency(t, 'en', minimum=1e-6)
+            for t in self.hash_tokens
+        ]
+
+        return reduce(lambda x, y: x*y, freqs)*1e10
 
 
     @property
