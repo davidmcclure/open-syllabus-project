@@ -234,7 +234,21 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        a_tokens = set(self.author_tokens)
-        t_tokens = set(self.title_tokens)
+        title = set(self.title_tokens)
+        author = set(self.author_tokens)
 
-        return a_tokens.issubset(t_tokens)
+        return author.issubset(title)
+
+
+    def title_blacklisted(self, blacklist=[]):
+
+        """
+        Is the title blacklisted?
+
+        Args:
+            blacklist (list)
+
+        Returns: bool
+        """
+
+        return self.title_tokens in map(tokenize_field, blacklist)
