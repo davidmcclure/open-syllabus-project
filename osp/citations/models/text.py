@@ -17,7 +17,7 @@ from osp.citations.jstor_corpus import JSTOR_Corpus
 from osp.citations.jstor_record import JSTOR_Record
 
 from functools import reduce
-from peewee import TextField
+from peewee import TextField, BooleanField
 from playhouse.postgres_ext import ArrayField
 from wordfreq import word_frequency
 
@@ -126,6 +126,39 @@ class Text(BaseModel):
             i += 1
             sys.stdout.write('\r'+str(i))
             sys.stdout.flush()
+
+
+    @classmethod
+    def select_cited(cls):
+
+        """
+        Select texts with at least one citation.
+
+        Returns: peewee.SelectQuery
+        """
+
+        from . import Citation
+
+        return (
+            cls
+            .select()
+            .join(Citation)
+            .order_by(cls.id)
+            .group_by(cls.id)
+        )
+
+
+    @classmethod
+    def dedup(cls):
+
+        """
+        Set the deduping flags:
+
+        - duplicate: More than instance of the text exists in the catalog.
+        - display: Display this individual instance of the text.
+        """
+
+        pass # TODO
 
 
     @property
