@@ -1,41 +1,6 @@
 
 
-from osp.common import config
-from osp.constants import redis_keys
-
 from colour import Color
-
-
-def text_count(text_id):
-
-    """
-    Get the total citation count for a text.
-
-    Returns: int
-    """
-
-    count = config.redis.hget(
-        redis_keys.OSP_WWW_COUNTS,
-        text_id,
-    )
-
-    return int(count)
-
-
-def text_score(text_id):
-
-    """
-    Get the teaching score for a text.
-
-    Returns: float
-    """
-
-    pct = config.redis.hget(
-        redis_keys.OSP_WWW_SCORES,
-        text_id,
-    )
-
-    return round(float(pct)*100, 1)
 
 
 def text_color(score, steps=100):
