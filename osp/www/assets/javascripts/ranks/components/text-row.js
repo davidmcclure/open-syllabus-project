@@ -49,7 +49,7 @@ export default class extends Component {
           </a>
 
           <Field
-            label="authors"
+            label="author"
             value={this.hit.field('authors')}
           />
 
