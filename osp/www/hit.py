@@ -36,18 +36,6 @@ class Hit:
 
 
     @property
-    def count(self):
-
-        """
-        Get the citation count.
-
-        Returns: int
-        """
-
-        return int(self.hit['sort'][0])
-
-
-    @property
     def path(self):
 
         """
@@ -60,3 +48,15 @@ class Hit:
             self.field('corpus'),
             self.field('identifier'),
         )
+
+
+    @property
+    def sort(self):
+
+        """
+        Get the sort value.
+
+        Returns: int
+        """
+
+        return int(self.hit['sort'][0])
