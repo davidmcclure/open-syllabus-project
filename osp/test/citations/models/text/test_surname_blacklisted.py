@@ -19,7 +19,7 @@ from osp.citations.models import Text
     ('Weisman', False),
 
 ])
-def test_singular(surname, blacklisted):
+def test_surname_blacklisted(surname, blacklisted):
 
     surnames = map(tokenize_field, [
         'may',

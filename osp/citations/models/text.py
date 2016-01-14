@@ -10,11 +10,11 @@ from osp.common import config
 from osp.common.models.base import BaseModel
 from osp.common.utils import prettify
 
+from osp.citations.utils import tokenize_field, is_toponym
 from osp.citations.hlom_corpus import HLOM_Corpus
 from osp.citations.hlom_record import HLOM_Record
 from osp.citations.jstor_corpus import JSTOR_Corpus
 from osp.citations.jstor_record import JSTOR_Record
-from osp.citations.utils import tokenize_field
 
 from peewee import TextField
 from playhouse.postgres_ext import ArrayField
@@ -266,3 +266,29 @@ class Text(BaseModel):
         """
 
         return self.surname_tokens in blacklist
+
+
+    @property
+    def title_is_toponym(self):
+
+        """
+        Is the title the name of a country or US state?
+
+        Returns: bool
+        """
+
+        title = ' '.join(self.title_tokens)
+        return is_toponym(title)
+
+
+    @property
+    def surname_is_toponym(self):
+
+        """
+        Is the surname the name of a country or US state?
+
+        Returns: bool
+        """
+
+        surname = ' '.join(self.surname_tokens)
+        return is_toponym(surname)

@@ -19,7 +19,7 @@ from osp.citations.models import Text
     ('War and Peace', False),
 
 ])
-def test_singular(title, blacklisted):
+def test_title_blacklisted(title, blacklisted):
 
     titles = map(tokenize_field, [
         'letter',

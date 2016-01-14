@@ -1,6 +1,8 @@
 
 
 import regex
+import iso3166
+import us
 
 from wordfreq import word_frequency
 
@@ -87,3 +89,20 @@ def get_attr(tree, selector, attr):
 
     else:
         return None
+
+
+def is_toponym(value):
+
+    """
+    Is a string the name of a US state or country?
+
+    Args:
+        value (str)
+
+    Returns: bool
+    """
+
+    return bool(
+        iso3166.countries.get(value, None) or
+        us.states.lookup(value)
+    )
