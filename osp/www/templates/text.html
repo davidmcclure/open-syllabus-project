@@ -60,14 +60,24 @@
     <div class="row metrics">
       <div class="col col-md-12">
 
-        <div class="rank">
+        <div class="metric rank">
           <div class="val">{{ text.field('rank') }}</div>
           <div class="key">Overall Rank</div>
         </div>
 
-        <div class="count">
+        <div class="metric count">
           <div class="val">{{ text.field('count') }}</div>
           <div class="key">Assignment Count</div>
+        </div>
+
+        <div class="metric score">
+
+          <div class="val" style="color: {{ text.color }}">
+            {{ (text.field('score')*10) | round(1) }}
+          </div>
+
+          <div class="key">Teaching Score</div>
+
         </div>
 
       </div>

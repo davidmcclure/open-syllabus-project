@@ -1,5 +1,10 @@
 
 
+import math
+
+from colour import Color
+
+
 class Hit:
 
 
@@ -60,3 +65,25 @@ class Hit:
         """
 
         return int(self.hit['sort'][0])
+
+
+    @property
+    def color(self, steps=100):
+
+        """
+        Get a green -> red scoring color.
+
+        Args:
+            steps (int): The number of gradient steps.
+
+        Returns:
+            str: A hex color.
+        """
+
+        r = Color('#f02424')
+        g = Color('#29b730')
+
+        gradient = list(r.range_to(g, steps))
+        idx = round(self.field('score')*(steps-1))
+
+        return gradient[idx].get_hex()

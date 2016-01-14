@@ -27,18 +27,19 @@
 
     margin-top: 2em;
 
-    .count, .rank {
+    .metric {
       display: inline-block;
       margin-right: 3em;
     }
 
     .val {
-      font-size: 8em;
+      font-size: 5em;
       line-height: 1;
     }
 
     .key {
       margin-left: 5px;
+      font-size: 0.9em;
     }
 
   }
@@ -61,7 +62,8 @@
 @media (max-width: @screen-md-min) {
   #text {
 
-    .metrics .count {
+    .metrics .metric {
+      display: block;
       margin-bottom: 1em;
     }
 
