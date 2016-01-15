@@ -5,6 +5,7 @@ from osp.citations.models import Text, Citation
 from osp.corpus.models import Document
 
 import networkx as nx
+from itertools import combinations
 from peewee import fn
 
 
@@ -42,7 +43,17 @@ class Text_Graph:
         )
 
         for row in query_bar(docs):
-            print(row.text_ids)
+            for tid1, tid2 in combinations(row.text_ids, 2):
+
+                # If the edge exists, increment the weight.
+
+                if self.graph.has_edge(tid1, tid2):
+                    self.graph[tid1][tid2]['weight'] += 1
+
+                # Otherwise, initialize the edge.
+
+                else:
+                    self.graph.add_edge(tid1, tid2, weight=1)
 
 
     def hydrate_nodes(self):
