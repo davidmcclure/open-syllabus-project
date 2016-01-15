@@ -87,7 +87,7 @@ def test_compute_metrics(add_text, add_citation):
 def test_only_consider_valid_texts(add_text, add_citation):
 
     """
-    Ignore invalid texts.
+    Only rank texts that have passed validation.
     """
 
     t1 = add_text(valid=None)
@@ -100,7 +100,27 @@ def test_only_consider_valid_texts(add_text, add_citation):
 
     texts = Text_Index.rank_texts()
 
-    # Ignore missing / failed validations.
+    assert texts == [
+        dict(text=t3, rank=1, score=1),
+    ]
+
+
+def test_only_consider_displayed_texts(add_text, add_citation):
+
+    """
+    Only rank texts that have been marked for display.
+    """
+
+    t1 = add_text(display=None)
+    t2 = add_text(display=False)
+    t3 = add_text(display=True)
+
+    add_citation(text=t1)
+    add_citation(text=t2)
+    add_citation(text=t3)
+
+    texts = Text_Index.rank_texts()
+
     assert texts == [
         dict(text=t3, rank=1, score=1),
     ]

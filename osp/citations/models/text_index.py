@@ -83,6 +83,7 @@ class Text_Index(Elasticsearch):
             .select(Text, count)
             .join(Citation)
             .where(Text.valid==True)
+            .where(Text.display==True)
             .group_by(Text.id)
             .order_by(Text.id)
             .naive()
