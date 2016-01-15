@@ -102,3 +102,23 @@ def test_only_index_citations_with_valid_texts(add_text, add_citation):
 
     assert config.es.get(index='citation', id=c3.id)
     assert Citation_Index.es_count() == 1
+
+
+def test_only_index_citations_with_displayed_texts(add_text, add_citation):
+
+    """
+    Only index citations linked with texts marked for display.
+    """
+
+    t1 = add_text(display=None)
+    t2 = add_text(display=False)
+    t3 = add_text(display=True)
+
+    c1 = add_citation(text=t1)
+    c2 = add_citation(text=t2)
+    c3 = add_citation(text=t3)
+
+    Citation_Index.es_insert()
+
+    assert config.es.get(index='citation', id=c3.id)
+    assert Citation_Index.es_count() == 1

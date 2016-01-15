@@ -70,6 +70,7 @@ class Citation_Index(Elasticsearch):
         query = (
             Citation.select()
             .join(Text)
+            .where(Text.display==True)
             .where(Text.valid==True)
         )
 
