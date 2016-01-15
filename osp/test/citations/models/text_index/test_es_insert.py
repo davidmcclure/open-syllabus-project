@@ -103,3 +103,20 @@ def test_index_counts_and_ranks(add_text, add_citation):
         assert doc['_source']['count'] == 1
         assert doc['_source']['rank'] == 4
         assert doc['_source']['score'] == 1/3
+
+
+def test_omit_publisher_if_duplicate(add_text, add_citation):
+
+    """
+    If a text is a text is a duplicate, don't index the publisher.
+    """
+
+    text = add_text(publisher='publisher', duplicate=True)
+
+    add_citation(text=text)
+
+    Text_Index.es_insert()
+
+    doc = config.es.get(index='text', id=text.id)
+
+    assert doc['_source']['publisher'] == None
