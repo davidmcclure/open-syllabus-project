@@ -7,6 +7,7 @@ from osp.corpus.models import Document
 import networkx as nx
 from itertools import combinations
 from peewee import fn
+from clint.textui import progress
 
 
 class Text_Graph:
@@ -62,4 +63,9 @@ class Text_Graph:
         Load text metadata onto the nodes.
         """
 
-        pass
+        for tid in progress.bar(self.graph.nodes()):
+
+            text = Text.get(Text.id==tid)
+
+            self.graph.node[tid]['authors'] = text.pretty('authors')
+            self.graph.node[tid]['title'] = text.pretty('title')
