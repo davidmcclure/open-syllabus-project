@@ -51,10 +51,11 @@ class Text(BaseModel):
     issue_chronology    = TextField(null=True)
     pagination          = TextField(null=True)
 
-    # Deduping:
+    # Validation:
 
-    display             = BooleanField(null=True)
+    valid               = BooleanField(null=True)
     duplicate           = BooleanField(null=True)
+    display             = BooleanField(null=True)
 
 
     class Meta:
@@ -218,7 +219,14 @@ class Text(BaseModel):
         config = Validate_Config(*args, **kwargs)
 
         for text in query_bar(cls.select_cited()):
-            pass
+
+            text.valid = not (
+                text.title_contains_surname or
+                text.title_blacklisted(config.blacklisted_titles) or
+                text.surname_blacklisted(config.blacklisted_surnames)
+            )
+
+            text.save()
 
 
     @property

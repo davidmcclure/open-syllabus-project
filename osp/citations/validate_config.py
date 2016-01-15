@@ -2,6 +2,7 @@
 
 import inflect
 
+from osp.citations.utils import tokenize_field
 from osp.common.utils import read_yaml
 
 
@@ -30,7 +31,10 @@ class Validate_Config:
 
         singulars = self.config.get('blacklisted_titles', [])
 
-        return singulars + [p.plural(s) for s in singulars]
+        return map(
+            tokenize_field,
+            singulars + [p.plural(s) for s in singulars],
+        )
 
 
     @property
@@ -42,4 +46,7 @@ class Validate_Config:
         Returns: list
         """
 
-        return self.config.get('blacklisted_surnames', [])
+        return map(
+            tokenize_field,
+            self.config.get('blacklisted_surnames', [])
+        )
