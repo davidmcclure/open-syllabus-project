@@ -12,10 +12,11 @@ from osp.common.models.base import BaseModel
 
 from osp.constants import redis_keys
 from osp.citations.utils import tokenize_field, is_toponym
-from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.hlom_record import HLOM_Record
 from osp.citations.jstor_corpus import JSTOR_Corpus
 from osp.citations.jstor_record import JSTOR_Record
+from osp.citations.hlom_corpus import HLOM_Corpus
+from osp.citations.hlom_record import HLOM_Record
+from osp.citations.validate_config import Validate_Config
 
 from functools import reduce
 from peewee import TextField, BooleanField
@@ -158,7 +159,7 @@ class Text(BaseModel):
     def deduplicate(cls):
 
         """
-        Set the deduping flags:
+        Deduplicate cited texts:
 
         - duplicate: More than instance of the text exists in the catalog.
         - display: Display this individual instance of the text.
@@ -180,8 +181,7 @@ class Text(BaseModel):
                 text.display = False
                 text.duplicate = True
 
-                # Mark the original text that initially made the reservation
-                # as a duplicate.
+                # Mark the original text  as a duplicate.
 
                 update = (
                     cls.update(duplicate=True)
@@ -206,6 +206,19 @@ class Text(BaseModel):
                 )
 
             text.save()
+
+
+    @classmethod
+    def validate(cls, *args, **kwargs):
+
+        """
+        Validate all cited texts.
+        """
+
+        config = Validate_Config(*args, **kwargs)
+
+        for text in query_bar(cls.select_cited()):
+            pass
 
 
     @property

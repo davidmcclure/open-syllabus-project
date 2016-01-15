@@ -8,7 +8,6 @@ from osp.common.utils import query_bar
 from osp.common.models.base import BaseModel
 from osp.corpus.models import Document
 from osp.citations.models import Text
-from osp.citations.validator import Validator
 
 from osp.institutions.models import Institution
 from osp.institutions.models import Institution_Document
@@ -91,22 +90,3 @@ class Citation(BaseModel):
         ]
 
         return reduce(lambda x, y: x*y, freqs)*1e10
-
-
-    @classmethod
-    def validate(cls, limit=None, *args, **kwargs):
-
-        """
-        Validate all citations.
-        """
-
-        validator = Validator(*args, **kwargs)
-
-        for c in query_bar(cls.select().limit(limit)):
-
-            try:
-                c.valid = validator.validate(c)
-                c.save()
-
-            except Exception as e:
-                print(e)

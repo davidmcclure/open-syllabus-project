@@ -12,3 +12,6 @@ blacklisted_titles:
   - speech
   - writing
   - sonnet
+
+blacklisted_surnames:
+  - may
