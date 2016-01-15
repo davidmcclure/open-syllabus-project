@@ -84,15 +84,19 @@ def test_index_institution_refs(add_citation, add_institution):
     assert doc['_source']['country'] == 'US'
 
 
-def test_only_index_valid_citations(add_citation):
+def test_only_index_citations_with_valid_texts(add_text, add_citation):
 
     """
-    Only index citations that have been marked as valid.
+    Only index citations linked with validated texts.
     """
 
-    c1 = add_citation(valid=None)
-    c2 = add_citation(valid=False)
-    c3 = add_citation(valid=True)
+    t1 = add_text(valid=None)
+    t2 = add_text(valid=False)
+    t3 = add_text(valid=True)
+
+    c1 = add_citation(text=t1)
+    c2 = add_citation(text=t2)
+    c3 = add_citation(text=t3)
 
     Citation_Index.es_insert()
 

@@ -8,7 +8,7 @@ import iso3166
 from osp.common import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
-from osp.citations.models import Citation
+from osp.citations.models import Text, Citation
 
 from scipy.stats import rankdata
 from clint.textui import progress
@@ -69,7 +69,8 @@ class Citation_Index(Elasticsearch):
 
         query = (
             Citation.select()
-            .where(Citation.valid==True)
+            .join(Text)
+            .where(Text.valid==True)
         )
 
         for row in query_bar(query):

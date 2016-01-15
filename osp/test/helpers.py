@@ -54,6 +54,9 @@ def add_text():
         title='Title',
         surname='Surname',
         authors=['Author'],
+        valid=True,
+        duplicate=False,
+        display=True,
         **kwargs
     ):
 
@@ -66,6 +69,9 @@ def add_text():
             title=title,
             surname=surname,
             authors=authors,
+            valid=valid,
+            duplicate=duplicate,
+            display=display,
             **kwargs
         )
 
@@ -83,7 +89,6 @@ def add_citation(add_doc, add_text):
         text=None,
         document=None,
         tokens=['one', 'two'],
-        valid=True,
     ):
 
         if not text:
@@ -96,7 +101,6 @@ def add_citation(add_doc, add_text):
             text=text,
             document=document,
             tokens=tokens,
-            valid=valid,
         )
 
     return _citation

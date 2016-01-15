@@ -27,8 +27,6 @@ class Citation(BaseModel):
     document = ForeignKeyField(Document)
     tokens = ArrayField(CharField)
 
-    valid = BooleanField(null=True, index=True)
-
 
     class Meta:
         database = config.get_table_db('citation')

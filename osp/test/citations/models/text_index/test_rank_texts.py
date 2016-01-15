@@ -84,27 +84,25 @@ def test_compute_metrics(add_text, add_citation):
     ]
 
 
-def test_skip_invalid_citations(add_text, add_citation):
+def test_only_consider_valid_texts(add_text, add_citation):
 
     """
-    Ignore invalid ciatations.
+    Ignore invalid texts.
     """
 
-    t1 = add_text()
-    t2 = add_text()
+    t1 = add_text(valid=None)
+    t2 = add_text(valid=False)
+    t3 = add_text(valid=True)
 
-    # 1 valid citation.
-    add_citation(text=t1, valid=True)
-    add_citation(text=t1, valid=False)
-
-    # 0 valid citations.
-    add_citation(text=t2, valid=False)
+    add_citation(text=t1)
+    add_citation(text=t2)
+    add_citation(text=t3)
 
     texts = Text_Index.rank_texts()
 
+    # Ignore missing / failed validations.
     assert texts == [
-        dict(text=t1, rank=1, score=1),
-        # Exclude t2.
+        dict(text=t3, rank=1, score=1),
     ]
 
 
@@ -117,7 +115,7 @@ def test_skip_uncited_texts(add_text, add_citation):
     t1 = add_text()
     t2 = add_text()
 
-    add_citation(text=t1, valid=True)
+    add_citation(text=t1)
 
     texts = Text_Index.rank_texts()
 
