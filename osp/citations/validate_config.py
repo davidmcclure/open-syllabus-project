@@ -50,3 +50,15 @@ class Validate_Config:
             tokenize_field,
             self.config.get('blacklisted_surnames', [])
         )
+
+
+    @property
+    def max_fuzz(self):
+
+        """
+        Get the max fuzz value.
+
+        Returns: float
+        """
+
+        return self.config.get('max_fuzz', float('inf'))

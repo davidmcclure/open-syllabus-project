@@ -22,6 +22,15 @@ pytestmark = pytest.mark.usefixtures('db')
     # Blacklisted surname
     dict(title='War and Peace', surname='May'),
 
+    # Toponym title
+    dict(title='Texas', surname='McClure'),
+
+    # Toponym surname
+    dict(title='War and Peace', surname='Texas'),
+
+    # Unfocused
+    dict(title='Ideals', surname='Young'),
+
 ])
 def test_validate(fields, add_text, add_citation):
 

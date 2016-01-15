@@ -223,7 +223,10 @@ class Text(BaseModel):
             text.valid = not (
                 text.title_contains_surname or
                 text.title_blacklisted(config.blacklisted_titles) or
-                text.surname_blacklisted(config.blacklisted_surnames)
+                text.surname_blacklisted(config.blacklisted_surnames) or
+                text.title_is_toponym or
+                text.surname_is_toponym or
+                text.fuzz > config.max_fuzz
             )
 
             text.save()

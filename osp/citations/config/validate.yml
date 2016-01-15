@@ -1,5 +1,7 @@
 ---
 
+max_fuzz: 0.2344229
+
 blacklisted_titles:
   - letter
   - correspondence
