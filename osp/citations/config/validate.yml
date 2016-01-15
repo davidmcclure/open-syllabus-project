@@ -8,12 +8,15 @@ blacklisted_titles:
   - poem
   - introduction
   - report
-  - report
   - review
   - lecture
   - speech
   - writing
   - sonnet
+  - note
+  - work
+  - foreword
+  - essay
 
 blacklisted_surnames:
   - may

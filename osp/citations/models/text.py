@@ -436,4 +436,4 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        return self.fuzz > max_fuzz and not self.duplicate
+        return self.fuzz > max_fuzz
