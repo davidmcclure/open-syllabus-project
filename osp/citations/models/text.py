@@ -221,12 +221,16 @@ class Text(BaseModel):
         for text in query_bar(cls.select_cited()):
 
             text.valid = not (
+
                 text.title_contains_surname or
                 text.title_blacklisted(config.blacklisted_titles) or
-                text.surname_blacklisted(config.blacklisted_surnames) or
                 text.title_is_toponym or
+
+                text.surname_blacklisted(config.blacklisted_surnames) or
                 text.surname_is_toponym or
-                text.fuzz > config.max_fuzz
+
+                text.unfocused(config.max_fuzz)
+
             )
 
             text.save()
@@ -419,3 +423,17 @@ class Text(BaseModel):
 
         surname = ' '.join(self.surname_tokens)
         return is_toponym(surname)
+
+
+    def unfocused(self, max_fuzz=float('inf')):
+
+        """
+        Are the title / surname tokens too "fuzzy" for inclusion?
+
+        Args:
+            max_fuzz (float)
+
+        Returns: bool
+        """
+
+        return self.fuzz > max_fuzz and not self.duplicate
