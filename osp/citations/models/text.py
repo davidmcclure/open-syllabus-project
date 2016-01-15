@@ -53,9 +53,9 @@ class Text(BaseModel):
 
     # Validation:
 
-    valid               = BooleanField(null=True)
-    duplicate           = BooleanField(null=True)
-    display             = BooleanField(null=True)
+    valid               = BooleanField(null=True, index=True)
+    duplicate           = BooleanField(null=True, index=True)
+    display             = BooleanField(null=True, index=True)
 
 
     class Meta:
