@@ -21,6 +21,12 @@ pytestmark = pytest.mark.usefixtures('db')
         ('Anna Karenina', 'Tolstoy Nikolayevich'),
     ],
 
+    # Coalesce "and" / "&".
+    [
+        ('Romeo and Juliet', 'Shakespeare'),
+        ('Romeo & Juliet', 'Shakespeare'),
+    ],
+
 ])
 def test_coalesce(dupes, add_text):
 

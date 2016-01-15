@@ -268,7 +268,10 @@ class Text(BaseModel):
         """
 
         # Sort the surname names.
-        return sorted(self.surname_tokens) + self.title_tokens
+        tokens = sorted(self.surname_tokens) + self.title_tokens
+
+        # Coalesce "and" and "&".
+        return [t for t in tokens if t != 'and']
 
 
     @property
