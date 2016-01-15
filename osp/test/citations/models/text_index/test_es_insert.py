@@ -19,14 +19,19 @@ def test_index_metadata(add_text, add_citation):
     """
 
     text = add_text(
+
         corpus      = 'corpus',
         identifier  = 'identifier',
+        url         = 'url',
+
         title       = 'title',
         authors     = ['author1', 'author2'],
         publisher   = 'publisher',
         date        = 'date',
         journal     = 'journal',
-        url         = 'url',
+
+        duplicate   = False,
+
     )
 
     # Cite the text.
@@ -48,6 +53,8 @@ def test_index_metadata(add_text, add_citation):
     assert doc['_source']['publisher']  == text.pretty('publisher')
     assert doc['_source']['date']       == text.pretty('date')
     assert doc['_source']['journal']    == text.pretty('journal_title')
+
+    assert doc['_source']['duplicate']  == text.duplicate
 
 
 def test_index_counts_and_ranks(add_text, add_citation):

@@ -34,14 +34,8 @@ class Text_Index(Elasticsearch):
                 'index': 'not_analyzed',
                 'type': 'string'
             },
-            'count': {
-                'type': 'integer'
-            },
-            'rank': {
-                'type': 'integer'
-            },
-            'score': {
-                'type': 'float'
+            'url': {
+                'type': 'string'
             },
 
             'authors': {
@@ -59,8 +53,19 @@ class Text_Index(Elasticsearch):
             'journal': {
                 'type': 'string'
             },
-            'url': {
-                'type': 'string'
+
+            'count': {
+                'type': 'integer'
+            },
+            'rank': {
+                'type': 'integer'
+            },
+            'score': {
+                'type': 'float'
+            },
+
+            'duplicate': {
+                'type': 'boolean'
             },
 
         }
@@ -126,16 +131,19 @@ class Text_Index(Elasticsearch):
                 _id         = text.id,
                 corpus      = text.corpus,
                 identifier  = text.identifier,
-                count       = text.count,
-                rank        = t['rank'],
-                score       = t['score'],
+                url         = text.url,
 
                 authors     = text.pretty('authors'),
                 title       = text.pretty('title'),
                 publisher   = text.pretty('publisher'),
                 date        = text.pretty('date'),
                 journal     = text.pretty('journal_title'),
-                url         = text.url,
+
+                count       = text.count,
+                rank        = t['rank'],
+                score       = t['score'],
+
+                duplicate   = text.duplicate,
 
             )
 
