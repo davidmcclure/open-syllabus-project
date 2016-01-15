@@ -1,6 +1,5 @@
 
 
-from osp.constants import redis_keys
 from osp.common import config
 
 from osp.citations.models import Citation_Index
@@ -25,20 +24,3 @@ def index_elasticsearch():
     ]:
 
         index.es_insert()
-
-
-def index_redis():
-
-    """
-    Index text counts and percentiles.
-    """
-
-    config.redis.hmset(
-        redis_keys.OSP_WWW_COUNTS,
-        Citation_Index.compute_ranking(),
-    )
-
-    config.redis.hmset(
-        redis_keys.OSP_WWW_SCORES,
-        Citation_Index.compute_scores(),
-    )
