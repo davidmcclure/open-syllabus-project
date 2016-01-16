@@ -226,3 +226,29 @@ class JSTOR_Record:
             surname and
             len(tokenize_field(surname))
         )
+
+
+    @property
+    def text(self):
+
+        """
+        Assemble text fields.
+
+        Returns: dict
+        """
+
+        return dict(
+            corpus              = 'jstor',
+            identifier          = self.article_id,
+            url                 = self.url,
+            title               = self.article_title,
+            surname             = self.surname,
+            authors             = self.authors,
+            publisher           = self.publisher_name,
+            date                = self.pub_date,
+            journal_title       = self.journal_title,
+            journal_identifier  = self.journal_id,
+            issue_volume        = self.volume,
+            issue_number        = self.issue,
+            pagination          = self.pagination,
+        )

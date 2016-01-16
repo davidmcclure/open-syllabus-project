@@ -78,16 +78,7 @@ class Text(BaseModel):
                 record = HLOM_Record(marc)
 
                 if record.is_queryable:
-
-                    cls.create(
-                        corpus      = 'hlom',
-                        identifier  = record.control_number,
-                        title       = record.title,
-                        surname     = record.surname,
-                        authors     = record.authors,
-                        publisher   = record.publisher,
-                        date        = record.date,
-                    )
+                    cls.create(**record.text)
 
             except: pass
 
@@ -111,22 +102,7 @@ class Text(BaseModel):
                 article = JSTOR_Record(path)
 
                 if article.is_queryable:
-
-                    cls.create(
-                        corpus              = 'jstor',
-                        identifier          = article.article_id,
-                        url                 = article.url,
-                        title               = article.article_title,
-                        surname             = article.surname,
-                        authors             = article.authors,
-                        publisher           = article.publisher_name,
-                        date                = article.pub_date,
-                        journal_title       = article.journal_title,
-                        journal_identifier  = article.journal_id,
-                        issue_volume        = article.volume,
-                        issue_number        = article.issue,
-                        pagination          = article.pagination,
-                    )
+                    cls.create(**article.text)
 
             except: pass
 

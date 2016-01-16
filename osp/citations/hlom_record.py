@@ -110,3 +110,23 @@ class HLOM_Record:
             surname and
             len(tokenize_field(surname))
         )
+
+
+    @property
+    def text(self):
+
+        """
+        Assemble text fields.
+
+        Returns: dict
+        """
+
+        return dict(
+            corpus      = 'hlom',
+            identifier  = self.control_number,
+            title       = self.title,
+            surname     = self.surname,
+            authors     = self.authors,
+            publisher   = self.publisher,
+            date        = self.date,
+        )
