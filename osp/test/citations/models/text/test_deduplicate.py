@@ -11,12 +11,7 @@ pytestmark = pytest.mark.usefixtures('db', 'redis')
 def test_deduplicate(add_text, add_citation):
 
     """
-    Text.deduplicate() should:
-
-        - For texts that aren't duplicates, display=True and duplicate=False.
-
-        - For sets of duplicate texts, the _first_  text (in terms of id order)
-          should have display=True, and all should have duplicate=False.
+    Text.deduplicate() set `display` flags for all cited texts.
     """
 
     t1 = add_text(title='one', surname='two')
@@ -42,16 +37,9 @@ def test_deduplicate(add_text, add_citation):
     t5 = Text.get(Text.id==t5.id)
 
     assert t1.display == True
-    assert t1.duplicate == True
-
     assert t2.display == False
-    assert t2.duplicate == True
 
     assert t3.display == True
-    assert t3.duplicate == True
-
     assert t4.display == False
-    assert t4.duplicate == True
 
     assert t5.display == True
-    assert t5.duplicate == False

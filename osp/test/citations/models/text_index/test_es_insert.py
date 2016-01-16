@@ -30,8 +30,6 @@ def test_index_metadata(add_text, add_citation):
         date        = 'date',
         journal     = 'journal',
 
-        duplicate   = False,
-
     )
 
     # Cite the text.
@@ -53,8 +51,6 @@ def test_index_metadata(add_text, add_citation):
     assert doc['_source']['publisher']  == text.pretty('publisher')
     assert doc['_source']['date']       == text.pretty('date')
     assert doc['_source']['journal']    == text.pretty('journal_title')
-
-    assert doc['_source']['duplicate']  == text.duplicate
 
 
 def test_index_counts_and_ranks(add_text, add_citation):
@@ -103,20 +99,3 @@ def test_index_counts_and_ranks(add_text, add_citation):
         assert doc['_source']['count'] == 1
         assert doc['_source']['rank'] == 4
         assert doc['_source']['score'] == 1/3
-
-
-def test_omit_publisher_if_duplicate(add_text, add_citation):
-
-    """
-    If a text is a text is a duplicate, don't index the publisher.
-    """
-
-    text = add_text(publisher='publisher', duplicate=True)
-
-    add_citation(text=text)
-
-    Text_Index.es_insert()
-
-    doc = config.es.get(index='text', id=text.id)
-
-    assert doc['_source']['publisher'] == None

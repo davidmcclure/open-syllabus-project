@@ -55,7 +55,6 @@ def add_text():
         surname='Surname',
         authors=['Author'],
         valid=True,
-        duplicate=False,
         display=True,
         **kwargs
     ):
@@ -70,7 +69,6 @@ def add_text():
             surname=surname,
             authors=authors,
             valid=valid,
-            duplicate=duplicate,
             display=display,
             **kwargs
         )

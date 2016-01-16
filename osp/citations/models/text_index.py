@@ -64,9 +64,6 @@ class Text_Index(Elasticsearch):
                 'type': 'float'
             },
 
-            'duplicate': {
-                'type': 'boolean'
-            },
 
         }
     }
@@ -126,13 +123,6 @@ class Text_Index(Elasticsearch):
 
             text = t['text']
 
-            # Only index publishers for non-dups.
-
-            publisher = (
-                text.pretty('publisher') if not text.duplicate
-                else None
-            )
-
             yield dict(
 
                 _id         = text.id,
@@ -142,15 +132,13 @@ class Text_Index(Elasticsearch):
 
                 authors     = text.pretty('authors'),
                 title       = text.pretty('title'),
+                publisher   = text.pretty('publisher'),
                 date        = text.pretty('date'),
                 journal     = text.pretty('journal_title'),
-                publisher   = publisher,
 
                 count       = text.count,
                 rank        = t['rank'],
                 score       = t['score'],
-
-                duplicate   = text.duplicate,
 
             )
 

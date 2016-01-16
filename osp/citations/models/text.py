@@ -54,7 +54,6 @@ class Text(BaseModel):
     # Validation:
 
     valid               = BooleanField(null=True, index=True)
-    duplicate           = BooleanField(null=True, index=True)
     display             = BooleanField(null=True, index=True)
 
 
@@ -160,50 +159,30 @@ class Text(BaseModel):
     def deduplicate(cls):
 
         """
-        Deduplicate cited texts:
-
-        - duplicate: More than instance of the text exists in the catalog.
-        - display: Display this individual instance of the text.
+        Deduplicate cited texts.
         """
 
         for text in query_bar(cls.select_cited()):
 
-            # Has the hash already been reserved by another text?
-
-            tid = config.redis.hget(
+            # Has the hash been seen?
+            seen = config.redis.sismember(
                 redis_keys.OSP_DEDUP,
                 text.hash,
             )
 
-            if tid:
-
-                # If so, don't display this text.
-
+            # If so, don't display this text.
+            if seen:
                 text.display = False
-                text.duplicate = True
-
-                # Mark the original text  as a duplicate.
-
-                update = (
-                    cls.update(duplicate=True)
-                    .where(cls.id==int(tid))
-                )
-
-                update.execute()
 
             else:
 
-                # If we haven't seen the hash before, display this text.
-
+                # If not, display this text.
                 text.display = True
-                text.duplicate = False
 
-                # And block other texts with the same hash.
-
-                config.redis.hset(
+                # And reserve the hash.
+                config.redis.sadd(
                     redis_keys.OSP_DEDUP,
                     text.hash,
-                    text.id,
                 )
 
             text.save()
@@ -222,13 +201,16 @@ class Text(BaseModel):
 
             text.valid = not (
 
+                # Title
                 text.title_contains_surname or
                 text.title_blacklisted(config.blacklisted_titles) or
                 text.title_is_toponym or
 
+                # Surname
                 text.surname_blacklisted(config.blacklisted_surnames) or
                 text.surname_is_toponym or
 
+                # Focus
                 text.unfocused(config.max_fuzz)
 
             )
