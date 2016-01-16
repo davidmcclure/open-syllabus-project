@@ -27,6 +27,7 @@ def text_to_docs(text_id):
             timeout=90,
 
             body={
+                'fields': [],
                 'size': 1000000,
                 'filter': {
                     'query': {
