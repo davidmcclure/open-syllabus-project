@@ -24,7 +24,7 @@ def text_to_docs(text_id):
         results = config.es.search(
 
             index='document',
-            timeout=90,
+            request_timeout=90,
 
             body={
                 'fields': [],
@@ -42,6 +42,10 @@ def text_to_docs(text_id):
             }
 
         )
+
+        # Fail the job if the result is incomplete.
+        if results['timed_out']:
+            raise TimeoutError()
 
         # Register the doc ids.
         if results['hits']['total'] > 0:
