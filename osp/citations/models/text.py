@@ -253,11 +253,8 @@ class Text(BaseModel):
             list: The hashing tokens.
         """
 
-        # Sort the surname names.
-        tokens = sorted(self.surname_tokens) + self.title_tokens
-
-        # Coalesce "and" and "&".
-        return [t for t in tokens if t != 'and']
+        # Sort the surname tokens.
+        return sorted(self.surname_tokens) + self.title_tokens
 
 
     @property

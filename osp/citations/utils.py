@@ -38,7 +38,9 @@ def tokenize_field(value):
     tokens = regex.findall('\p{L}{2,}', value.lower())
 
     # Remove articles.
-    tokens = [t for t in tokens if t not in ['a', 'an', 'the']]
+    tokens = [t for t in tokens if t not in [
+        'a', 'an', 'the', 'and',
+    ]]
 
     return tokens
 

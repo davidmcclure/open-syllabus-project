@@ -47,7 +47,7 @@ from osp.citations.utils import tokenize_field
         ['leo', 'tolstoy']
     ),
 
-    # Ignore articles.
+    # Ignore articles and "and".
     (
         [
             'The War and Peace',
@@ -55,7 +55,7 @@ from osp.citations.utils import tokenize_field
             'An War and Peace',
 
         ],
-        ['war', 'and', 'peace']
+        ['war', 'peace']
     ),
 
     # Ignore single-character tokens (eg, initials).
