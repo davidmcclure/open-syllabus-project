@@ -71,16 +71,10 @@ class Text(BaseModel):
 
         corpus = HLOM_Corpus.from_env()
 
-        for i, marc in enumerate(corpus.records()):
+        for i, text in enumerate(corpus.texts()):
 
-            try:
-
-                record = HLOM_Record(marc)
-
-                if record.is_queryable:
-                    cls.create(**record.text)
-
-            except: pass
+            try: cls.create(**text)
+            except Exception as e: print(e)
 
             sys.stdout.write('\r'+str(i))
             sys.stdout.flush()
@@ -95,18 +89,11 @@ class Text(BaseModel):
 
         corpus = JSTOR_Corpus.from_env()
 
-        for i, path in enumerate(corpus.paths()):
+        for i, text in enumerate(corpus.texts()):
 
-            try:
+            try: cls.create(**text)
+            except Exception as e: print(e)
 
-                article = JSTOR_Record(path)
-
-                if article.is_queryable:
-                    cls.create(**article.text)
-
-            except: pass
-
-            i += 1
             sys.stdout.write('\r'+str(i))
             sys.stdout.flush()
 

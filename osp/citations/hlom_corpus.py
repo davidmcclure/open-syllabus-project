@@ -3,6 +3,8 @@
 import os
 
 from osp.common import config
+from osp.citations.hlom_record import HLOM_Record
+
 from pymarc import MARCReader
 
 
@@ -50,3 +52,22 @@ class HLOM_Corpus:
 
                 for record in reader:
                     yield record
+
+
+    def texts(self):
+
+        """
+        Generate text mappings.
+        """
+
+        for marc in self.records():
+
+            try:
+
+                record = HLOM_Record(marc)
+
+                if record.is_queryable:
+                    yield record.text
+
+            except Exception as e:
+                print(e)
