@@ -21,6 +21,8 @@ module.exports = {
 
       }],
 
+      'yamlify',
+
     ],
 
     watch: true,

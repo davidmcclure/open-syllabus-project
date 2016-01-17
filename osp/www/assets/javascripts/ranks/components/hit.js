@@ -3,6 +3,8 @@
 import _ from 'lodash';
 import chroma from 'chroma-js';
 
+import config from './hit.yml';
+
 
 export default class {
 
@@ -88,8 +90,14 @@ export default class {
    * @return {String}
    */
   get color() {
-    let scale = chroma.scale(['#f02424', '#29b730']).mode('lab');
+
+    let scale = chroma.scale([
+      config.colors.low,
+      config.colors.high,
+    ]).mode('lab');
+
     return scale(this.field('score')).hex()
+
   }
 
 
