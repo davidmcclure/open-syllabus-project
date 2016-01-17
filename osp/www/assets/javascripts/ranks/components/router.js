@@ -27,7 +27,6 @@ export default class extends Component {
 
     this.history.listen(loc => {
       // load results
-      console.log(loc);
     });
 
     this.setHash();

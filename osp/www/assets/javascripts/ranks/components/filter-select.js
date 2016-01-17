@@ -2,16 +2,20 @@
 
 import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+import { connect } from 'react-redux';
 import Select from 'react-select';
 import pluralize from 'pluralize';
 
+import * as actions from '../actions/filters';
 import FilterOption from './filter-option';
 
 
+@connect(null, actions)
 export default class extends Component {
 
 
   static propTypes = {
+    filter: PropTypes.string.isRequired,
     name: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
     value: PropTypes.array.isRequired,
@@ -60,8 +64,13 @@ export default class extends Component {
    * @param {Array} options
    */
   onChange(options) {
+
     let values = _.pluck(options, 'value')
-    this.props.publish(values);
+
+    this.props.changeFilters({
+      [this.props.filter]: values
+    });
+
   }
 
 

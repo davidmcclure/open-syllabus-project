@@ -67,9 +67,9 @@ const handlers = {
 
     return _.object(_.map(action.filters, function(val, key) {
 
-      // Map ids -> [Number, ...]
-      if (_.isArray(initialState[key])) {
-        val = _.map(val, Number);
+      // Array-ify bare values.
+      if (key != 'query' && !_.isArray(val)) {
+        val = [val];
       }
 
       return [key, val];

@@ -25,6 +25,7 @@ export default class extends Component {
       <div id="filters">
 
         <FilterSelect
+          filter="field_id"
           name="field"
           options={OSP.facets.field}
           value={this.props.filters.field_id}
@@ -32,6 +33,7 @@ export default class extends Component {
         />
 
         <FilterSelect
+          filter="institution_id"
           name="institution"
           options={OSP.facets.institution}
           value={this.props.filters.institution_id}
@@ -39,6 +41,7 @@ export default class extends Component {
         />
 
         <FilterSelect
+          filter="state"
           name="state"
           options={OSP.facets.state}
           value={this.props.filters.state}
@@ -46,6 +49,7 @@ export default class extends Component {
         />
 
         <FilterSelect
+          filter="country"
           name="country"
           options={OSP.facets.country}
           value={this.props.filters.country}
@@ -53,6 +57,7 @@ export default class extends Component {
         />
 
         <FilterSelect
+          filter="corpus"
           name="corpus"
           options={OSP.facets.corpus}
           value={this.props.filters.corpus}
