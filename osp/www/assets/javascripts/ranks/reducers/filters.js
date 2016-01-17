@@ -1,8 +1,10 @@
 
 
+import _ from 'lodash';
 import { createReducer } from '../utils';
 
 import {
+
   CHANGE_SEARCH_QUERY,
   CHANGE_CORPUS_FILTER,
   CHANGE_FIELD_FILTER,
@@ -10,7 +12,10 @@ import {
   CHANGE_INSTITUTION_FILTER,
   CHANGE_STATE_FILTER,
   CHANGE_COUNTRY_FILTER,
+
+  CHANGE_FILTERS,
   CLEAR_FILTERS,
+
 } from '../constants';
 
 
@@ -57,6 +62,21 @@ const handlers = {
   [CHANGE_COUNTRY_FILTER]: (state, action) => ({
     country: action.values
   }),
+
+  [CHANGE_FILTERS]: (state, action) => {
+
+    return _.object(_.map(action.filters, function(val, key) {
+
+      // Map ids -> [Number, ...]
+      if (_.isArray(initialState[key])) {
+        val = _.map(val, Number);
+      }
+
+      return [key, val];
+
+    }));
+
+  },
 
   [CLEAR_FILTERS]: () => (initialState),
 

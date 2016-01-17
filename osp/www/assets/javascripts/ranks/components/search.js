@@ -116,7 +116,9 @@ export default class extends Component {
    * Apply the current query.
    */
   search() {
-    this.props.changeSearchQuery(this.state.query);
+    this.props.changeFilters({
+      query: this.state.query
+    });
   }
 
 

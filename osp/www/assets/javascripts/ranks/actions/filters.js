@@ -1,6 +1,7 @@
 
 
 import {
+
   CHANGE_SEARCH_QUERY,
   CHANGE_CORPUS_FILTER,
   CHANGE_FIELD_FILTER,
@@ -8,7 +9,10 @@ import {
   CHANGE_INSTITUTION_FILTER,
   CHANGE_STATE_FILTER,
   CHANGE_COUNTRY_FILTER,
+
+  CHANGE_FILTERS,
   CLEAR_FILTERS,
+
 } from '../constants';
 
 
@@ -99,6 +103,19 @@ export function changeCountryFilter(values) {
   return {
     type: CHANGE_COUNTRY_FILTER,
     values,
+  };
+}
+
+
+/**
+ * Apply new values.
+ *
+ * @param {Object} filters
+ */
+export function changeFilters(filters) {
+  return {
+    type: CHANGE_FILTERS,
+    filters,
   };
 }
 
