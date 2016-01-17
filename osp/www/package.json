@@ -36,6 +36,7 @@
     "chroma-js": "^1.1.1",
     "classnames": "^2.2.1",
     "font-awesome": "^4.5.0",
+    "history": "^1.17.0",
     "jquery": "^2.1.4",
     "lesshat": "^3.0.2",
     "lodash": "^3.10.1",
