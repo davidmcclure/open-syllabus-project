@@ -78,7 +78,7 @@ export default class {
    * @return {Number}
    */
   get score() {
-    return (this.field('score')*10).toFixed(1);
+    return (this.field('score')*100).toFixed(1);
   }
 
 
