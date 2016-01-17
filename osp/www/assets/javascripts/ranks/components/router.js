@@ -1,10 +1,12 @@
 
 
-import { connect } from 'react-redux';
 import React, { Component } from 'react';
-import { createHistory } from 'history';
+import { connect } from 'react-redux';
+import { createHistory, useQueries } from 'history';
+import Qs from 'qs';
 
 import * as actions from '../actions/results';
+import { makeQueryString } from '../utils';
 
 
 @connect(
@@ -21,11 +23,11 @@ export default class extends Component {
    */
   componentDidMount() {
 
-    this.history = createHistory();
+    this.history = useQueries(createHistory)();
 
-    this.history.listen(function(loc) {
-      // parse QS, call loadResults()
-      console.log('change');
+    this.history.listen(loc => {
+      // load results
+      console.log(loc);
     });
 
     this.setHash();
@@ -42,7 +44,11 @@ export default class extends Component {
 
 
   setHash() {
-    console.log('set hash', this.props.filters);
+
+    this.history.push({
+      query: this.props.filters
+    })
+
   }
 
 
