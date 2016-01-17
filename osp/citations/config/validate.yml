@@ -17,6 +17,7 @@ blacklisted_titles:
   - work
   - foreword
   - essay
+  - book review
 
 blacklisted_surnames:
   - may
