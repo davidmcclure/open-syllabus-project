@@ -76,3 +76,17 @@ class OSP_Graph:
                 score   = t['score'],
 
             ))
+
+
+    def trim(self):
+
+        """
+        Remove all but the largest connected component.
+        """
+
+        subgraphs = sorted(
+            nx.connected_component_subgraphs(self.graph),
+            key=len, reverse=True
+        )
+
+        self.graph = subgraphs[0]
