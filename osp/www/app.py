@@ -6,6 +6,7 @@ from flask import Flask, request, render_template, jsonify
 from webargs import fields
 from webargs.flaskparser import use_args
 
+from osp.common import config
 from osp.citations.models import Text_Index
 from osp.www import utils
 from osp.www.cache import cache
@@ -67,18 +68,18 @@ def api_ranks(args):
     return jsonify(**results)
 
 
-@app.route('/text/<corpus>/<identifier>')
-def text(corpus, identifier):
+@app.route('/text/<text_id>')
+def text(text_id):
 
     """
     Text profile pages.
     """
 
     # Load the text.
-    text = Text_Index.get_text(corpus, identifier)
+    text = config.es.get('text', text_id)
 
     # Assigned-with list.
-    siblings = utils.assigned_with(text['_id'])
+    siblings = utils.assigned_with(text_id)
 
     return render_template(
         'text.html',

@@ -45,12 +45,7 @@ export default class {
    * @return {String}
    */
   get path() {
-
-    let c = this.hit._source.corpus;
-    let i = this.hit._source.identifier;
-
-    return `text/${c}/${i}`;
-
+    return `text/${this.hit._id}`;
   }
 
 
