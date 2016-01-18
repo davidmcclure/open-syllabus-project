@@ -55,17 +55,3 @@ class OSP_Graph:
 
                 else:
                     self.graph.add_edge(tid1, tid2, weight=1)
-
-
-    def hydrate_nodes(self):
-
-        """
-        Load text metadata onto the nodes.
-        """
-
-        for tid in progress.bar(self.graph.nodes()):
-
-            text = Text.get(Text.id==tid)
-
-            self.graph.node[tid]['authors'] = text.pretty('authors')
-            self.graph.node[tid]['title'] = text.pretty('title')
