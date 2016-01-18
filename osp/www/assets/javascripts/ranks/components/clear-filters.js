@@ -23,7 +23,7 @@ export default class extends Component {
   render() {
 
     // Are all filters empty?
-    let empty = _(this.props.filters).values().all(_.isEmpty);
+    let empty = _(this.props.filters).values().every(_.isEmpty);
 
     return (empty || this.props.loading) ? null : (
 

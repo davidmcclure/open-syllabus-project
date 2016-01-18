@@ -1,5 +1,6 @@
 
 
+import _ from 'lodash';
 import { createReducer } from '../utils';
 
 import {
@@ -23,7 +24,19 @@ const initialState = {
 
 const handlers = {
 
-  [CHANGE_FILTERS]: (state, action) => (action.filters),
+  [CHANGE_FILTERS]: (state, action) => {
+
+    return _.omitBy(action.filters, function(val) {
+
+      if (_.isString(val)) {
+        val = val.trim();
+      }
+
+      return _.isEmpty(val);
+
+    });
+
+  },
 
   [CLEAR_FILTERS]: () => (initialState),
 

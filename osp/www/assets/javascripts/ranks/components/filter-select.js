@@ -64,7 +64,7 @@ export default class extends Component {
    */
   onChange(options) {
 
-    let values = _.pluck(options, 'value')
+    let values = _.map(options, 'value');
 
     this.props.changeFilters({
       [this.props.filter]: values

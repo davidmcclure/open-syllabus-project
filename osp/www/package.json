@@ -39,7 +39,7 @@
     "history": "^1.17.0",
     "jquery": "^2.1.4",
     "lesshat": "^3.0.2",
-    "lodash": "^3.10.1",
+    "lodash": "^4.0.0",
     "pluralize": "^1.2.1",
     "query-string": "^3.0.0",
     "react": "^0.14.5",

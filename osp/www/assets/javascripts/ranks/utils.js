@@ -42,7 +42,7 @@ export function createReducer(initialState, handlers) {
 export function makeQueryString(params) {
 
   // Filter out empty values.
-  let pruned = _.pick(params, function(v) {
+  let pruned = _.pickBy(params, function(v) {
     return !_.isEmpty(v);
   });
 
