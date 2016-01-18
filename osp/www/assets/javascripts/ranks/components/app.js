@@ -16,7 +16,7 @@ export default class extends Component {
       <div className="container">
         <div className="row">
 
-          <div className="col-md-4">
+          <div className="col-md-4 hidden-xs hidden-sm">
             <Filters />
           </div>
 
