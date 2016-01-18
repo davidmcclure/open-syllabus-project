@@ -1,69 +1,67 @@
 
 
 #text {
-
   margin-top: 2em;
+}
 
-  .corpus {
+#corpus {
 
-    font-family: @font-family-monospace;
+  font-family: @font-family-monospace;
 
-    .sep {
-      opacity: 0.4;
+  .sep {
+    opacity: 0.4;
+  }
+
+}
+
+#citation {
+
+  h1.title {
+    font-weight: bolder;
+    font-size: 3.5em;
+  }
+
+}
+
+#metrics {
+
+  .col {
+    margin: 2em 0 3em;
+  }
+
+  .metric {
+    text-align: center;
+    display: inline-block;
+    margin-right: 3em;
+  }
+
+  .val {
+    font-size: 6em;
+    font-weight: bold;
+    line-height: 1;
+  }
+
+  .key {
+    font-size: 0.9em;
+  }
+
+}
+
+#siblings {
+
+  p.heading {
+
+    font-size: 1.5em;
+    font-weight: lighter;
+
+    strong {
+      font-weight: 600;
     }
 
   }
 
-  .citation {
-
-    h1.title {
-      font-weight: bolder;
-      font-size: 3.5em;
-    }
-
-  }
-
-  .metrics {
-
-    .col {
-      margin: 2em 0 3em;
-    }
-
-    .metric {
-      text-align: center;
-      display: inline-block;
-      margin-right: 3em;
-    }
-
-    .val {
-      font-size: 6em;
-      font-weight: bold;
-      line-height: 1;
-    }
-
-    .key {
-      font-size: 0.9em;
-    }
-
-  }
-
-  .siblings {
-
-    p.heading {
-
-      font-size: 1.5em;
-      font-weight: lighter;
-
-      strong {
-        font-weight: 600;
-      }
-
-    }
-
-    td.count {
-      font-size: 2em;
-    }
-
+  td.count {
+    font-size: 2em;
   }
 
 }
@@ -71,20 +69,16 @@
 
 // Vertical:
 @media (max-width: @screen-md-min) {
-  #text {
+  #metrics {
 
-    .metrics {
+    .col {
+      margin: 1em 0 2em;
+    }
 
-      .col {
-        margin: 1em 0 2em;
-      }
-
-      .metric {
-        display: block;
-        margin-bottom: 2em;
-        text-align: left;
-      }
-
+    .metric {
+      display: block;
+      margin-bottom: 2em;
+      text-align: left;
     }
 
   }

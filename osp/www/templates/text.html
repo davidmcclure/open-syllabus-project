@@ -36,7 +36,7 @@
   <div class="container">
 
     <!-- Corpus. -->
-    <div class="row corpus">
+    <div id="corpus" class="row">
       <div class="col col-md-12">
         <span>{{ text.field('corpus') }}</span>
         <span class="sep">/</span>
@@ -45,7 +45,7 @@
     </div>
 
     <!-- Citation. -->
-    <div class="row citation">
+    <div id="citation" class="row">
       <div class="col col-md-12">
         <h1 class="title">{{ text.field('title') }}</h1>
         <h3 class="title">{{ text.field('authors') }}</h3>
@@ -53,7 +53,7 @@
     </div>
 
     <!-- Metrics. -->
-    <div class="row metrics">
+    <div id="metrics" class="row">
       <div class="col col-md-12">
 
         <div class="metric rank">
@@ -82,7 +82,7 @@
     {% if siblings['total'] > 0 %}
 
     <!-- Siblings. -->
-    <div class="row siblings">
+    <div id="siblings" class="row">
       <div class="col col-md-12">
 
         <p class="heading">Texts assigned with
