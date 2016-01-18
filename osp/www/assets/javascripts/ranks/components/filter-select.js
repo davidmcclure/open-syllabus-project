@@ -34,7 +34,7 @@ export default class extends Component {
     return (
       <div className="filter-control">
 
-        <h5>Filter by {this.props.name}</h5>
+        <h4>Filter by {this.props.name}</h4>
 
         <Select
 
