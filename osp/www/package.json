@@ -41,7 +41,7 @@
     "lesshat": "^3.0.2",
     "lodash": "^3.10.1",
     "pluralize": "^1.2.1",
-    "qs": "^5.2.0",
+    "query-string": "^3.0.0",
     "react": "^0.14.5",
     "react-dom": "^0.14.5",
     "react-redux": "^4.0.6",

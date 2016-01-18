@@ -1,7 +1,7 @@
 
 
 import _ from 'lodash';
-import Qs from 'qs';
+import queryString from 'query-string';
 
 
 /**
@@ -46,9 +46,6 @@ export function makeQueryString(params) {
     return !_.isEmpty(v);
   });
 
-  // Encode arrays without indices.
-  return Qs.stringify(pruned, {
-    indices: false
-  });
+  return queryString.stringify(pruned);
 
 }
