@@ -19,7 +19,6 @@ export default class extends Component {
     name: PropTypes.string.isRequired,
     options: PropTypes.array.isRequired,
     value: PropTypes.array.isRequired,
-    publish: PropTypes.func.isRequired,
   };
 
 
