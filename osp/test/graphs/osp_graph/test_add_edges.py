@@ -2,7 +2,7 @@
 
 import pytest
 
-from osp.graphs.text_graph import Text_Graph
+from osp.graphs.osp_graph import OSP_Graph
 
 
 pytestmark = pytest.mark.usefixtures('db', 'redis')
@@ -11,7 +11,7 @@ pytestmark = pytest.mark.usefixtures('db', 'redis')
 def test_add_edges(add_text, add_doc, add_citation):
 
     """
-    Text_Graph#add_edges() should register edges from the citation table.
+    OSP_Graph#add_edges() should register edges from the citation table.
     """
 
     t1 = add_text()
@@ -43,7 +43,7 @@ def test_add_edges(add_text, add_doc, add_citation):
     add_citation(document=d3, text=t5)
     add_citation(document=d3, text=t6)
 
-    g = Text_Graph()
+    g = OSP_Graph()
 
     g.add_edges()
 

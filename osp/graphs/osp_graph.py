@@ -10,7 +10,7 @@ from peewee import fn
 from clint.textui import progress
 
 
-class Text_Graph:
+class OSP_Graph:
 
 
     def __init__(self):
