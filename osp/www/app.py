@@ -89,6 +89,16 @@ def text(text_id):
     )
 
 
+@app.route('/graph')
+def graph():
+
+    """
+    Graph viewer.
+    """
+
+    return render_template('graph.html')
+
+
 if __name__ == '__main__':
 
     app.run(
