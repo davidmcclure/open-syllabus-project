@@ -29,16 +29,12 @@
     margin: 0;
     padding: 0;
 
+    display: flex;
+    .justify-content(center);
+
     li {
-
       display: inline;
-
-      &:not(:last-child):after {
-        content: '•';
-        margin: 0 10px;
-        opacity: 0.5;
-      }
-
+      margin: 0 10px;
     }
 
     a {
@@ -50,6 +46,10 @@
     a.icon:hover {
       text-decoration: none;
       color: @brand-warning;
+    }
+
+    i {
+      font-size: 1.6em;
     }
 
   }
