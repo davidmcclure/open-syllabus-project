@@ -36,6 +36,7 @@
       &:not(:last-child):after {
         content: '•';
         margin: 0 10px;
+        opacity: 0.5;
       }
 
     }
@@ -44,6 +45,11 @@
       font-size: 18px;
       font-weight: lighter;
       color: whitesmoke;
+    }
+
+    a.icon:hover {
+      text-decoration: none;
+      color: @brand-warning;
     }
 
   }
