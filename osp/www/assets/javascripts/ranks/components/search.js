@@ -73,7 +73,10 @@ export default class extends Component {
           <button
             className={btnCx}
             onClick={this.search.bind(this)}>
+
+            <i className="fa fa-search"></i>{' '}
             {'Search'}
+
           </button>
 
         </span>
