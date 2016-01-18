@@ -52,3 +52,57 @@ def test_add_edges(add_text, add_doc, add_citation):
     assert g.graph.edge[t3.id][t4.id]['weight'] == 3
     assert g.graph.edge[t4.id][t5.id]['weight'] == 2
     assert g.graph.edge[t5.id][t6.id]['weight'] == 1
+
+
+def test_ignore_invalid_texts(add_text, add_doc, add_citation):
+
+    """
+    Ignore citations for invalid texts.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text(valid=False)
+
+    d1 = add_doc()
+
+    add_citation(document=d1, text=t1)
+    add_citation(document=d1, text=t2)
+    add_citation(document=d1, text=t3)
+
+    g = OSP_Graph()
+
+    g.add_edges()
+
+    assert g.graph.has_node(t1.id)
+    assert g.graph.has_node(t2.id)
+
+    # Ignore invalid t3.
+    assert not g.graph.has_node(t3.id)
+
+
+def test_ignore_hidden_texts(add_text, add_doc, add_citation):
+
+    """
+    Ignore citations for un-displayed texts.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text(display=False)
+
+    d1 = add_doc()
+
+    add_citation(document=d1, text=t1)
+    add_citation(document=d1, text=t2)
+    add_citation(document=d1, text=t3)
+
+    g = OSP_Graph()
+
+    g.add_edges()
+
+    assert g.graph.has_node(t1.id)
+    assert g.graph.has_node(t2.id)
+
+    # Ignore hidden t3.
+    assert not g.graph.has_node(t3.id)
