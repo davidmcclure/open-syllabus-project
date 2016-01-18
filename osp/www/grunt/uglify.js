@@ -2,9 +2,13 @@
 
 module.exports = {
 
-  ranks: {
-    src: '<%= browserify.ranks.dest %>',
-    dest: '<%= browserify.ranks.dest %>'
-  }
+  dist: {
+    files: [{
+      expand: true,
+      cwd: '<%= dist %>',
+      dest: '<%= dist %>',
+      src: '*.js',
+    }]
+  },
 
 };
