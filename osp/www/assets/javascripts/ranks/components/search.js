@@ -57,6 +57,8 @@ export default class extends Component {
 
         <input
 
+          ref="search"
+
           className="form-control input-lg"
           placeholder="Search for a text"
           onKeyPress={this.onKeyPress.bind(this)}
@@ -113,9 +115,14 @@ export default class extends Component {
    * Apply the current query.
    */
   search() {
+
     this.props.changeFilters({
       query: this.state.query
     });
+
+    // Close keyboard on mobile.
+    this.refs.search.blur();
+
   }
 
 
