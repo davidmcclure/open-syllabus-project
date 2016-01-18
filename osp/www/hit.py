@@ -49,10 +49,7 @@ class Hit:
         Returns: str
         """
 
-        return '/text/{0}/{1}'.format(
-            self.field('corpus'),
-            self.field('identifier'),
-        )
+        return '/text/{0}'.format(self.hit['_id'])
 
 
     @property
