@@ -58,7 +58,7 @@ export default class extends Component {
         <input
 
           className="form-control input-lg"
-          placeholder="Filter by title, author, journal, etc."
+          placeholder="Search for a text"
           onKeyPress={this.onKeyPress.bind(this)}
 
           valueLink={{
@@ -69,12 +69,6 @@ export default class extends Component {
         />
 
         <span className="input-group-btn">
-
-          <button
-            className={btnCx}
-            onClick={this.clear.bind(this)}>
-            <i className="fa fa-times"></i>
-          </button>
 
           <button
             className={btnCx}
@@ -118,16 +112,6 @@ export default class extends Component {
   search() {
     this.props.changeFilters({
       query: this.state.query
-    });
-  }
-
-
-  /**
-   * Clear the query.
-   */
-  clear() {
-    this.setState({ query: '' }, () => {
-      this.search();
     });
   }
 
