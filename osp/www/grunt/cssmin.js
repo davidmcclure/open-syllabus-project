@@ -2,9 +2,13 @@
 
 module.exports = {
 
-  ranks: {
-    src: '<%= less.ranks.dest %>',
-    dest: '<%= less.ranks.dest %>'
-  }
+  dist: {
+    files: [{
+      expand: true,
+      cwd: '<%= dist %>',
+      dest: '<%= dist %>',
+      src: '*.css',
+    }]
+  },
 
 };

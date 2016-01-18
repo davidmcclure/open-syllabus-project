@@ -16,4 +16,9 @@ module.exports = {
     dest: '<%= dist %>/text.css',
   },
 
+  graph: {
+    src: '<%= src.css %>/graph/index.less',
+    dest: '<%= dist %>/graph.css',
+  },
+
 };
