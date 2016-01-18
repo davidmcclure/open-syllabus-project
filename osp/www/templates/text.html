@@ -57,12 +57,12 @@
       <div class="col col-md-12">
 
         <div class="metric rank">
-          <div class="val">{{ text.field('rank') }}</div>
+          <div class="val">{{ '{:,}'.format(text.field('rank')) }}</div>
           <div class="key">Overall Rank</div>
         </div>
 
         <div class="metric count">
-          <div class="val">{{ text.field('count') }}</div>
+          <div class="val">{{ '{:,}'.format(text.field('count')) }}</div>
           <div class="key">Assignment Count</div>
         </div>
 
