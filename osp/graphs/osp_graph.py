@@ -90,3 +90,15 @@ class OSP_Graph:
         )
 
         self.graph = subgraphs[0]
+
+
+    def write_gexf(self, path):
+
+        """
+        Serialize the graph as .gexf.
+
+        Args:
+            path (str)
+        """
+
+        nx.write_gexf(self.graph, path)
