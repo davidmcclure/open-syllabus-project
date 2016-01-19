@@ -13,13 +13,13 @@ class Gephi_Graph:
     def __init__(self, path):
 
         """
-        Read the Gephi .gexf file.
+        Read the Gephi .gml file.
 
         Args:
             path (str)
         """
 
-        self.graph = nx.read_gexf(os.path.abspath(path))
+        self.graph = nx.read_gml(os.path.abspath(path))
 
 
     def xs(self):
@@ -42,7 +42,7 @@ class Gephi_Graph:
             yield node['viz']['position']['y']
 
 
-    @cached_property()
+    @cached_property
     def min_x(self):
 
         """
@@ -52,7 +52,7 @@ class Gephi_Graph:
         return min(list(self.xs()))
 
 
-    @cached_property()
+    @cached_property
     def max_x(self):
 
         """
@@ -62,7 +62,7 @@ class Gephi_Graph:
         return max(list(self.xs()))
 
 
-    @cached_property()
+    @cached_property
     def min_y(self):
 
         """
@@ -72,7 +72,7 @@ class Gephi_Graph:
         return min(list(self.ys()))
 
 
-    @cached_property()
+    @cached_property
     def max_y(self):
 
         """
@@ -82,7 +82,7 @@ class Gephi_Graph:
         return max(list(self.ys()))
 
 
-    @cached_property()
+    @cached_property
     def height(self):
 
         """
@@ -92,7 +92,7 @@ class Gephi_Graph:
         return math.ceil(self.max_y - self.min_y)
 
 
-    @cached_property()
+    @cached_property
     def width(self):
 
         """
