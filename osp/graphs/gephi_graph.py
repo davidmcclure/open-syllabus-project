@@ -6,20 +6,10 @@ import math
 
 from cached_property import cached_property
 
+from osp.graphs.graph import Graph
 
-class Gephi_Graph:
 
-
-    def __init__(self, path):
-
-        """
-        Read the Gephi .graphml file.
-
-        Args:
-            path (str)
-        """
-
-        self.graph = nx.read_graphml(os.path.abspath(path))
+class Gephi_Graph(Graph):
 
 
     def xs(self):

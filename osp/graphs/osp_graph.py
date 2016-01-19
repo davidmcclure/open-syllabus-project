@@ -1,25 +1,18 @@
 
 
+import networkx as nx
+
 from osp.common.utils import query_bar
+from osp.graphs.graph import Graph
 from osp.citations.models import Text, Citation, Text_Index
 from osp.corpus.models import Document
 
-import networkx as nx
 from itertools import combinations
 from peewee import fn
 from clint.textui import progress
 
 
-class OSP_Graph:
-
-
-    def __init__(self):
-
-        """
-        Initialize the graph instance.
-        """
-
-        self.graph = nx.Graph()
+class OSP_Graph(Graph):
 
 
     def add_edges(self, text_cap=20):
