@@ -131,19 +131,22 @@ class Gephi_Graph(Graph):
             )
 
             # Draw the node.
-            node = pgm.DrawableList()
-            node.append(pgm.DrawableFillColor(color))
-            node.append(pgm.DrawableStrokeColor('black'))
-            node.append(pgm.DrawableStrokeWidth(r/15))
-            node.append(pgm.DrawableStrokeOpacity(0.9))
-            node.append(pgm.DrawableCircle(x, y, x+r, y+r))
-            image.draw(node)
+            dl = pgm.DrawableList()
+            dl.append(pgm.DrawableFillColor(color))
+            dl.append(pgm.DrawableStrokeColor('black'))
+            dl.append(pgm.DrawableStrokeWidth(r/15))
+            dl.append(pgm.DrawableStrokeOpacity(0.9))
+            dl.append(pgm.DrawableCircle(x, y, x+r, y+r))
+            image.draw(dl)
 
             # ** Label **
 
-            label = ', '.join(n['title'], n['author'])
+            label = ', '.join([
+                n['title'],
+                n['author'],
+            ])
 
-            # TODO|dev
+            # TODO: scale
             image.fontPointsize(n['size'])
 
             # Measure the width of the label.
@@ -151,11 +154,13 @@ class Gephi_Graph(Graph):
             image.fontTypeMetrics(label, tm)
             tw = tm.textWidth()
 
+            print(x-(tw/2), y, label)
+
             # Draw the label.
-            label = pgm.DrawableList()
-            label.append(pgm.DrawablePointSize(n['size']))
-            label.append(pgm.DrawableFillColor('white'))
-            label.append(pgm.DrawableText(x-(tw/2), y, label))
-            image.draw(label)
+            dl = pgm.DrawableList()
+            dl.append(pgm.DrawablePointSize(n['size']))
+            dl.append(pgm.DrawableFillColor('white'))
+            dl.append(pgm.DrawableText(x-(tw/2), y, label))
+            image.draw(dl)
 
         image.write(os.path.abspath(out_path))
