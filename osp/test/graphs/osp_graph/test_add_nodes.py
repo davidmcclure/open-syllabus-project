@@ -33,8 +33,8 @@ def test_add_nodes(add_text, add_citation):
     assert n1['title'] == t1.pretty('title')
     assert n2['title'] == t2.pretty('title')
 
-    assert n1['authors'] == t1.pretty('authors')
-    assert n2['authors'] == t2.pretty('authors')
+    assert n1['authors'] == t1.pretty('authors')[0]
+    assert n2['authors'] == t2.pretty('authors')[0]
 
     assert n1['count'] == 3
     assert n2['count'] == 1
