@@ -96,13 +96,13 @@ class OSP_Graph:
         self.graph = subgraphs[0]
 
 
-    def write_gexf(self, path):
+    def write_gml(self, path):
 
         """
-        Serialize the graph as .gexf.
+        Serialize the graph as .gml.
 
         Args:
             path (str)
         """
 
-        nx.write_gexf(self.graph, path)
+        nx.write_gml(self.graph, path)
