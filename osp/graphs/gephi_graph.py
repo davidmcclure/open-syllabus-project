@@ -133,8 +133,6 @@ class Gephi_Graph(Graph):
             node.append(pgm.DrawableCircle(x, y, x+r, y+r))
             image.draw(node)
 
-            label = ', '.join(n['title'], n['author'])
-
             # TODO: label
 
         image.write(os.path.abspath(out_path))
