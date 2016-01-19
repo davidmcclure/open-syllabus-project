@@ -97,13 +97,13 @@ class OSP_Graph:
         self.graph = subgraphs[0]
 
 
-    def write_gml(self, path):
+    def write_graphml(self, path):
 
         """
-        Serialize the graph as .gml.
+        Serialize the graph as .graphml.
 
         Args:
             path (str)
         """
 
-        nx.write_gml(self.graph, path)
+        nx.write_graphml(self.graph, path)

@@ -13,13 +13,13 @@ class Gephi_Graph:
     def __init__(self, path):
 
         """
-        Read the Gephi .gml file.
+        Read the Gephi .graphml file.
 
         Args:
             path (str)
         """
 
-        self.graph = nx.read_gml(os.path.abspath(path))
+        self.graph = nx.read_graphml(os.path.abspath(path))
 
 
     def xs(self):
