@@ -75,6 +75,7 @@ class OSP_Graph:
 
                 title   = text.pretty('title'),
                 authors = text.pretty('authors'),
+                label   = text.pretty('title'),
 
                 count   = text.count,
                 score   = t['score'],
