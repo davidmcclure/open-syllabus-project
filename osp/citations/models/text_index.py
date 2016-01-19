@@ -96,7 +96,7 @@ class Text_Index(Elasticsearch):
         # Compute dense-rank ratios.
         dense_ranks = rankdata(counts, 'dense')
         top = max(dense_ranks)
-        scores = [r/top for r in dense_ranks]
+        scores = [float(r/top) for r in dense_ranks]
 
         # Compute overall ranks (#1 is most frequent).
         max_ranks = rankdata(counts, 'max')
