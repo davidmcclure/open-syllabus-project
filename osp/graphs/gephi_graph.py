@@ -146,15 +146,11 @@ class Gephi_Graph(Graph):
                 n['author'],
             ])
 
-            # TODO: scale
-            image.fontPointsize(n['size'])
-
             # Measure the width of the label.
+            image.fontPointsize(n['size'])
             tm = pgm.TypeMetric()
             image.fontTypeMetrics(label, tm)
             tw = tm.textWidth()
-
-            print(x-(tw/2), y, label)
 
             # Draw the label.
             dl = pgm.DrawableList()
