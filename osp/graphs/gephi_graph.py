@@ -121,6 +121,8 @@ class Gephi_Graph(Graph):
             self.graph.node[tid]['pixel_y'] = y
             self.graph.node[tid]['pixel_r'] = r
 
+            # ** Node **
+
             # Hex-ify color.
             color = '#%02x%02x%02x' % (
                 n['r'],
@@ -137,6 +139,23 @@ class Gephi_Graph(Graph):
             node.append(pgm.DrawableCircle(x, y, x+r, y+r))
             image.draw(node)
 
-            # TODO: label
+            # ** Label **
+
+            label = ', '.join(n['title'], n['author'])
+
+            # TODO|dev
+            image.fontPointsize(n['size'])
+
+            # Measure the width of the label.
+            tm = pgm.TypeMetric()
+            image.fontTypeMetrics(label, tm)
+            tw = tm.textWidth()
+
+            # Draw the label.
+            label = pgm.DrawableList()
+            label.append(pgm.DrawablePointSize(n['size']))
+            label.append(pgm.DrawableFillColor('white'))
+            label.append(pgm.DrawableText(x-(tw/2), y, label))
+            image.draw(label)
 
         image.write(os.path.abspath(out_path))
