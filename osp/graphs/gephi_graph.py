@@ -121,11 +121,16 @@ class Gephi_Graph(Graph):
             self.graph.node[tid]['pixel_y'] = y
             self.graph.node[tid]['pixel_r'] = r
 
-            # TODO: node color
+            # Hex-ify color.
+            color = '#%02x%02x%02x' % (
+                n['r'],
+                n['g'],
+                n['b']
+            )
 
             # Draw the node.
             node = pgm.DrawableList()
-            node.append(pgm.DrawableFillColor('gray'))
+            node.append(pgm.DrawableFillColor(color))
             node.append(pgm.DrawableStrokeColor('black'))
             node.append(pgm.DrawableStrokeWidth(r/15))
             node.append(pgm.DrawableStrokeOpacity(0.9))
