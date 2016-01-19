@@ -93,7 +93,6 @@ class Gephi_Graph(Graph):
         return math.ceil(self.max_x - self.min_x)
 
 
-    @cached_property
     def render(self, out_path, size=10000, scale=5, bg_color='#003059'):
 
         """
@@ -115,7 +114,7 @@ class Gephi_Graph(Graph):
             # Get X/Y, radius.
             x =  (n['x']*scale) + (size/2)
             y = -(n['y']*scale) + (size/2)
-            r =  (n['radius']*scale) / 2
+            r =  (n['size']*scale) / 2
 
             # Index the coordinates.
             self.graph.node[tid]['pixel_x'] = x
