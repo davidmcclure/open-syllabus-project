@@ -29,7 +29,7 @@ class Gephi_Graph:
         """
 
         for cn, node in self.graph.nodes_iter(data=True):
-            yield node['viz']['position']['x']
+            yield node['x']
 
 
     def ys(self):
@@ -39,7 +39,7 @@ class Gephi_Graph:
         """
 
         for cn, node in self.graph.nodes_iter(data=True):
-            yield node['viz']['position']['y']
+            yield node['y']
 
 
     @cached_property
