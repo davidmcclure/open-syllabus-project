@@ -3,10 +3,13 @@
 max_fuzz: 3.02
 
 blacklisted_titles:
+
   - letter
   - correspondence
   - poem
+  - poetry
   - introduction
+  - publication
   - report
   - review
   - lecture
@@ -20,6 +23,22 @@ blacklisted_titles:
   - book review
   - proceeding
   - play
+  - journal
+  - novel
+  - study
+  - title
+  - story
+  - selection
+  - preface
+  - handout
+
+  - concerto
+  - symphony
+  - sonata
+  - cantata
+  - solo
 
 blacklisted_surnames:
   - may
+  - lippincott
+  - page
