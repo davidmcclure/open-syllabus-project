@@ -18,6 +18,8 @@ blacklisted_titles:
   - foreword
   - essay
   - book review
+  - proceeding
+  - play
 
 blacklisted_surnames:
   - may
