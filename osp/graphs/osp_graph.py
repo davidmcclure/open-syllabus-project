@@ -15,13 +15,13 @@ from clint.textui import progress
 class OSP_Graph(Graph):
 
 
-    def add_edges(self, text_cap=20):
+    def add_edges(self, max_texts=20):
 
         """
         For each syllabus, register citation pairs as edges.
 
         Args:
-            max_texts (int): Consider docs with less than N citations.
+            max_texts (int): Ignore docs with > than N citations.
         """
 
         text_ids = (
@@ -34,7 +34,7 @@ class OSP_Graph(Graph):
             Citation
             .select(Citation.document, text_ids)
             .join(Text)
-            .having(fn.count(Text.id) < text_cap)
+            .having(fn.count(Text.id) <= max_texts)
             .where(Text.display==True)
             .where(Text.valid==True)
             .group_by(Citation.document)
