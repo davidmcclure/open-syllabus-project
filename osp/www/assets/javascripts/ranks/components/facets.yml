@@ -1,0 +1,11 @@
+---
+
+country_whitelist:
+  - United States
+  - United Kingdom
+  - Canada
+  - Australia
+  - New Zealand
+
+field_blacklist:
+  - Agriculture

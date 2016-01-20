@@ -1,9 +1,11 @@
 
 
+import _ from 'lodash';
 import React, { Component } from 'react';
 import { connect } from 'react-redux';
 
 import FilterSelect from './filter-select';
+import * as facets from './facets.yml';
 
 
 @connect(
@@ -24,7 +26,7 @@ export default class extends Component {
         <FilterSelect
           filter="field_id"
           name="field"
-          options={OSP.facets.field}
+          options={filterFields()}
           value={this.props.filters.field_id}
         />
 
@@ -45,7 +47,7 @@ export default class extends Component {
         <FilterSelect
           filter="country"
           name="country"
-          options={OSP.facets.country}
+          options={filterCountries()}
           value={this.props.filters.country}
         />
 
@@ -61,4 +63,28 @@ export default class extends Component {
   }
 
 
+}
+
+
+/**
+ * Filter out blacklisted fields.
+ *
+ * @return {Object}
+ */
+function filterFields() {
+  return _.reject(OSP.facets.field, function(f) {
+    return _.includes(facets.field_blacklist, f.label);
+  });
+}
+
+
+/**
+ * Filter out non-whitelisted countries.
+ *
+ * @return {Object}
+ */
+function filterCountries() {
+  return _.filter(OSP.facets.country, function(c) {
+    return _.includes(facets.country_whitelist, c.label);
+  });
 }
