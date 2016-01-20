@@ -12,7 +12,10 @@ export default class extends Component {
   render() {
     return (
       <div id="leader">
-        <h4>leader</h4>
+        <h1>
+          <a href="/">Open Syllabus Explorer</a>
+          <code>beta</code>
+        </h1>
       </div>
     );
   }
