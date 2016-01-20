@@ -19,6 +19,18 @@ class Validate_Config:
 
 
     @property
+    def max_fuzz(self):
+
+        """
+        Get the max fuzz value.
+
+        Returns: float
+        """
+
+        return self.config.get('max_fuzz', float('inf'))
+
+
+    @property
     def blacklisted_titles(self):
 
         """
@@ -53,12 +65,12 @@ class Validate_Config:
 
 
     @property
-    def max_fuzz(self):
+    def whitelist(self):
 
         """
-        Get the max fuzz value.
+        Get the set of whitelisted ids.
 
-        Returns: float
+        Returns: list
         """
 
-        return self.config.get('max_fuzz', float('inf'))
+        return self.config.get('whitelist', [])

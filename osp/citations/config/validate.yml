@@ -1,6 +1,8 @@
 ---
 
+
 max_fuzz: 3.02
+
 
 blacklisted_titles:
 
@@ -42,9 +44,15 @@ blacklisted_titles:
   - symphony
   - solo
 
+
 blacklisted_surnames:
 
   - may
   - lippincott
   - page
   - east
+
+
+whitelist:
+
+  - 3224679

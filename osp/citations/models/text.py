@@ -174,7 +174,7 @@ class Text(BaseModel):
                 text.surname_is_toponym or
 
                 # Focus
-                text.unfocused(config.max_fuzz)
+                text.unfocused(config.max_fuzz, config.whitelist)
 
             )
 
@@ -379,15 +379,16 @@ class Text(BaseModel):
         return is_toponym(surname)
 
 
-    def unfocused(self, max_fuzz=float('inf')):
+    def unfocused(self, max_fuzz=float('inf'), whitelist=[]):
 
         """
         Are the title / surname tokens too "fuzzy" for inclusion?
 
         Args:
             max_fuzz (float)
+            whitelisted_ids (list)
 
         Returns: bool
         """
 
-        return self.fuzz > max_fuzz
+        return self.fuzz > max_fuzz and self.id not in whitelist

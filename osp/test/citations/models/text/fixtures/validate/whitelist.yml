@@ -1,0 +1,7 @@
+---
+
+max_fuzz: 0.1
+
+whitelist:
+  - 1
+  - 2

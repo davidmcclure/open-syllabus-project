@@ -1,6 +1,6 @@
 ---
 
-max_fuzz: 0.2
+max_fuzz: 0.1
 
 blacklisted_titles:
   - letter

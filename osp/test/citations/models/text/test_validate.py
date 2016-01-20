@@ -46,3 +46,31 @@ def test_validate(fields, add_text, add_citation):
     text = Text.get(Text.id==text.id)
 
     assert text.valid == False
+
+
+def test_whitelist(add_text, add_citation):
+
+    """
+    Whitelisted texts should be exempt from the fuzziness cutoff.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+
+    add_citation(text=t1)
+    add_citation(text=t2)
+    add_citation(text=t3)
+
+    Text.validate(
+        package='osp.test.citations.models.text',
+        path='fixtures/validate/whitelist.yml',
+    )
+
+    t1 = Text.get(Text.id==t1.id)
+    t2 = Text.get(Text.id==t2.id)
+    t3 = Text.get(Text.id==t3.id)
+
+    assert t1.valid == True
+    assert t2.valid == True
+    assert t3.valid == False
