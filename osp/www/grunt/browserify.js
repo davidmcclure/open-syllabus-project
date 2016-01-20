@@ -38,9 +38,4 @@ module.exports = {
     dest: '<%= dist %>/ranks.js',
   },
 
-  graph: {
-    src: '<%= src.js %>/graph/index.js',
-    dest: '<%= dist %>/graph.js',
-  }
-
 };
