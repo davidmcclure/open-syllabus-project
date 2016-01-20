@@ -31,11 +31,15 @@ blacklisted_titles:
   - selection
   - preface
   - handout
+  - conversation
+  - assignment
+  - book
+  - project
 
-  - concerto
-  - symphony
   - sonata
+  - concerto
   - cantata
+  - symphony
   - solo
 
 blacklisted_surnames:
@@ -43,3 +47,4 @@ blacklisted_surnames:
   - may
   - lippincott
   - page
+  - east
