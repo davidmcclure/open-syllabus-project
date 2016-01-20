@@ -8,10 +8,11 @@ from osp.graphs.osp_graph import OSP_Graph
 pytestmark = pytest.mark.usefixtures('db', 'redis')
 
 
-def test_trim(add_text, add_doc, add_citation):
+def test_trim_unconnected_components(add_text, add_doc, add_citation):
 
     """
-    OSP_Graph#trim() should remove all but the largest component.
+    OSP_Graph#trim_unconnected_components() should remove all subgraphs that
+    aren't connected to the largest subgraph.
     """
 
     t1 = add_text()
@@ -37,7 +38,7 @@ def test_trim(add_text, add_doc, add_citation):
 
     g.add_edges()
 
-    g.trim()
+    g.trim_unconnected_components()
 
     # Keep largest component.
     assert g.graph.has_node(t1.id)

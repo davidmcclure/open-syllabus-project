@@ -76,7 +76,7 @@ class OSP_Graph(Graph):
             ))
 
 
-    def trim(self):
+    def trim_unconnected_components(self):
 
         """
         Remove all but the largest connected component.
@@ -90,13 +90,13 @@ class OSP_Graph(Graph):
         self.graph = subgraphs[0]
 
 
-    def write_graphml(self, path):
+    def trim_texts_by_count(self, min_count=100):
 
         """
-        Serialize the graph as .graphml.
+        Remove all texts with counts below a threshold.
 
         Args:
-            path (str)
+            min_count (int)
         """
 
-        nx.write_graphml(self.graph, path)
+        pass
