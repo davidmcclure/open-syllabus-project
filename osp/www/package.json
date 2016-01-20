@@ -50,5 +50,8 @@
     "redux": "^3.0.5",
     "redux-thunk": "^1.0.3",
     "spinkit": "^1.2.5"
+  },
+  "browser": {
+    "leaflet.Zoomify": "./bower_components/Leaflet.Zoomify/L.TileLayer.Zoomify.js"
   }
 }

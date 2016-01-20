@@ -1,8 +1,10 @@
 
 
 import React, { Component } from 'react';
-import Leaflet from 'leaflet';
+import L from 'leaflet';
 import { findDOMNode } from 'react-dom';
+
+import 'leaflet.Zoomify';
 
 
 export default class extends Component {
@@ -15,7 +17,7 @@ export default class extends Component {
 
     let el = findDOMNode(this.refs.image);
 
-    this.map = Leaflet.map(el, {
+    this.map = L.map(el, {
       zoomControl: false,
     });
 
