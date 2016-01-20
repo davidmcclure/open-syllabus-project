@@ -165,7 +165,7 @@ class Text(BaseModel):
             text.valid = not (
 
                 # Title
-                text.title_contains_surname or
+                text.title_and_author_overlap or
                 text.title_blacklisted(config.blacklisted_titles) or
                 text.title_is_toponym or
 
@@ -191,6 +191,18 @@ class Text(BaseModel):
         """
 
         return tokenize_field(self.title)
+
+
+    @property
+    def first_author_tokens(self):
+
+        """
+        Tokenize the first author.
+
+        Returns: list
+        """
+
+        return tokenize_field(self.authors[0])
 
 
     @property
@@ -299,18 +311,18 @@ class Text(BaseModel):
 
 
     @property
-    def title_contains_surname(self):
+    def title_and_author_overlap(self):
 
         """
-        Does the title contain the surname tokens?
+        Do the title and first author have any tokens in common?
 
         Returns: bool
         """
 
-        title = set(self.title_tokens)
-        surname = set(self.surname_tokens)
+        title   = set(self.title_tokens)
+        author  = set(self.first_author_tokens)
 
-        return surname.issubset(title)
+        return bool(title.intersection(author))
 
 
     def title_blacklisted(self, blacklist=[]):

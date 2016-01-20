@@ -10,26 +10,26 @@ pytestmark = pytest.mark.usefixtures('db')
 
 @pytest.mark.parametrize('fields', [
 
-    # Title in surname
-    dict(title='Bill Clinton', surname='Clinton'),
+    # Title and author overlap
+    dict(title='Elvis', authors=['Presley, Elvis']),
 
     # Blacklisted title (singular)
-    dict(title='Letter', surname='Tolstoy'),
+    dict(title='Letter'),
 
     # Blacklisted title (plural)
-    dict(title='Letters', surname='Tolstoy'),
+    dict(title='Letters'),
 
     # Blacklisted surname
-    dict(title='War and Peace', surname='May'),
+    dict(surname='May'),
 
     # Toponym title
-    dict(title='Texas', surname='McClure'),
+    dict(title='Texas'),
 
     # Toponym surname
-    dict(title='War and Peace', surname='Texas'),
+    dict(surname='Texas'),
 
     # Unfocused
-    dict(title='Ideals', surname='Young'),
+    dict(title='Ideas', surname='Young'),
 
 ])
 def test_validate(fields, add_text, add_citation):
