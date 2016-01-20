@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import Leader from './leader';
+import Search from './search';
 import Image from './image';
 
 
@@ -13,8 +15,15 @@ export default class extends Component {
    */
   render() {
     return (
-      <div className="graph">
+      <div className="wrapper">
+
+        <div id="header">
+          <Leader />
+          <Search />
+        </div>
+
         <Image />
+
       </div>
     );
   }
