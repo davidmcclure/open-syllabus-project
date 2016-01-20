@@ -99,4 +99,6 @@ class OSP_Graph(Graph):
             min_count (int)
         """
 
-        pass
+        for tid, text in self.graph.nodes(data=True):
+            if text['count'] < min_count:
+                self.graph.remove_node(tid)
