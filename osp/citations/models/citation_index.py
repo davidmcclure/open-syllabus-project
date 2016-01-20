@@ -8,7 +8,11 @@ import iso3166
 from osp.common import config
 from osp.common.utils import query_bar
 from osp.common.mixins.elasticsearch import Elasticsearch
+
 from osp.citations.models import Text, Citation
+from osp.corpus.models import Document
+from osp.institutions.models import Institution, Institution_Document
+from osp.fields.models import Subfield, Subfield_Document
 
 from scipy.stats import rankdata
 from clint.textui import progress
@@ -58,6 +62,35 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
+    def citations(cls):
+
+        return (
+
+            Citation
+            .select(Citation, Text, Subfield, Subfield_Document)
+
+            # Ignore duplicate / invalid texts.
+            .join(Text)
+            .where(Text.display==True)
+            .where(Text.valid==True)
+
+            # Join on the first subfield match in the document.
+            .switch(Citation)
+            .join(Document)
+            .join(Subfield_Document)
+            .order_by(Subfield_Document.offset.asc())
+            .distinct(Subfield_Document.id)
+            .join(Subfield)
+
+            # Join on the institution.
+            .switch(Document)
+            .join(Institution_Document)
+            .join(Institution)
+
+        )
+
+
+    @classmethod
     def es_stream_docs(cls):
 
         """
@@ -67,14 +100,14 @@ class Citation_Index(Elasticsearch):
             dict: The next document.
         """
 
-        query = (
-            Citation.select()
-            .join(Text)
-            .where(Text.display==True)
-            .where(Text.valid==True)
-        )
+        # query = (
+            # Citation.select()
+            # .join(Text)
+            # .where(Text.display==True)
+            # .where(Text.valid==True)
+        # )
 
-        for row in query_bar(query):
+        for row in query_bar(cls.citations()):
 
             doc = {}
 
@@ -85,19 +118,29 @@ class Citation_Index(Elasticsearch):
             doc['document_id'] = row.document_id
             doc['corpus'] = row.text.corpus
 
-            # Field references:
+            # Field reference:
 
-            subfield = row.subfield
+            if row.document.subfield_document_set:
 
-            if subfield:
+                subfield = (
+                    row.document
+                    .subfield_document_set[0]
+                    .subfield
+                )
+
                 doc['subfield_id'] = subfield.id
                 doc['field_id'] = subfield.field_id
 
             # Institution reference:
 
-            inst = row.institution
+            if row.document.institution_document_set:
 
-            if inst:
+                inst = (
+                    row.document
+                    .institution_document_set[0]
+                    .institution
+                )
+
                 doc['institution_id'] = inst.id
                 doc['state'] = inst.state
                 doc['country'] = inst.country
