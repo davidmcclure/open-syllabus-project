@@ -80,7 +80,7 @@ def ranks(out_file, depth):
     ranks = Text_Index.rank_texts()
     ranks = sorted(ranks, key=lambda x: x['rank'])
 
-    for r in ranks:
+    for r in ranks[:depth]:
 
         text = r['text']
 

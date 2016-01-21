@@ -51,6 +51,7 @@ blacklisted_surnames:
   - lippincott
   - page
   - east
+  - hall
 
 
 whitelist:
