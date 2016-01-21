@@ -3,7 +3,7 @@
 import click
 import csv
 
-from osp.citations.models import Text, Citation
+from osp.citations.models import Text, Citation, Text_Index
 
 from peewee import fn
 
@@ -56,4 +56,36 @@ def fuzz(out_file, min_count):
             fuzz=t.fuzz,
             surname=t.surname,
             title=t.title,
+        ))
+
+
+@cli.command()
+@click.argument('out_file', type=click.File('w'))
+@click.option('--depth', default=1000)
+def fuzz(out_file, depth):
+
+    """
+    Write the top N text ranks.
+    """
+
+    cols = [
+        'count',
+        'title',
+        'author',
+    ]
+
+    writer = csv.DictWriter(out_file, cols)
+    writer.writeheader()
+
+    ranks = Text_Index.rank_texts()
+    ranks = sorted(ranks, key=lambda x: x['rank'])
+
+    for r in ranks:
+
+        text = r['text']
+
+        writer.writerow(dict(
+            count=text.count,
+            title=text.title,
+            author=text.authors[0],
         ))
