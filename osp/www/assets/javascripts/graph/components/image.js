@@ -36,8 +36,8 @@ export default class extends Component {
       hwight: size,
     });
 
-    this.map.setView([0, 0], 0);
     this.map.addLayer(layer);
+    console.log(this.map);
 
   }
 
