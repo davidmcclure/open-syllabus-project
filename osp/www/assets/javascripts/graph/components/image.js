@@ -16,9 +16,18 @@ export default class extends Component {
 
 
   /**
-   * Spin up the leaflet instance.
+   * Render the image, bind events.
    */
   componentDidMount() {
+    this._initLeaflet();
+    this._bindEvents();
+  }
+
+
+  /**
+   * Spin up the leaflet instance.
+   */
+  _initLeaflet() {
 
     let el = findDOMNode(this.refs.image);
 
@@ -52,6 +61,25 @@ export default class extends Component {
     this.map.addLayer(layer);
     this.map.addControl(miniMap);
 
+  }
+
+
+  /**
+   * Listen for map events.
+   */
+  _bindEvents() {
+
+    // When the map is moved.
+    this.map.on('moveend', _.bind(this.onMove, this));
+
+  }
+
+
+  /**
+   * Update the route when the map is moved.
+   */
+  onMove() {
+    console.log('move');
   }
 
 
