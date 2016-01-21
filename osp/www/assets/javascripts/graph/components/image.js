@@ -4,12 +4,9 @@ import React, { Component } from 'react';
 import L from 'leaflet';
 import { findDOMNode } from 'react-dom';
 import MiniMap from 'leaflet-minimap';
-
 import 'leaflet.Zoomify';
 
-
-const size = 35000;
-const tiles = '/static/dist/tiles/';
+import config from './image.yml';
 
 
 export default class extends Component {
@@ -43,15 +40,15 @@ export default class extends Component {
     });
 
     // Image layer.
-    let layer = L.tileLayer.zoomify(tiles, {
-      width: size,
-      height: size,
+    let layer = L.tileLayer.zoomify(config.tiles, {
+      width:  config.size,
+      height: config.size,
     });
 
     // Mini map layer.
-    let miniLayer = L.tileLayer.zoomify(tiles, {
-      width: size,
-      height: size,
+    let miniLayer = L.tileLayer.zoomify(config.tiles, {
+      width:  config.size,
+      height: config.size,
     });
 
     let miniMap = new MiniMap(miniLayer);
@@ -79,7 +76,15 @@ export default class extends Component {
    * Update the route when the map is moved.
    */
   onMove() {
-    console.log('move');
+
+    let c = this.map.getCenter();
+    let z = this.map.getZoom();
+
+    var x = c.lng.toFixed(4);
+    var y = c.lat.toFixed(4);
+
+    console.log(x, y, z);
+
   }
 
 
