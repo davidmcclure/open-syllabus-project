@@ -4,7 +4,7 @@
 
   .header();
 
-  padding: 6em 2em;
+  padding: 4em 2em;
   text-align: center;
 
   .leader {
@@ -57,4 +57,18 @@
 
   }
 
+}
+
+
+// Mobile
+
+@media (max-width: @screen-sm-min) {
+  #header {
+
+    // Hide the ranks button.
+    .action.ranks {
+      display: none;
+    }
+
+  }
 }
