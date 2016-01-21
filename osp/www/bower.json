@@ -8,6 +8,6 @@
   "homepage": "https://github.com/davidmcclure/osp",
   "dependencies": {
     "leaflet.Zoomify": "https://github.com/davidmcclure/Leaflet.Zoomify.git#osp",
-    "Leaflet.MousePosition": "https://github.com/ardhi/Leaflet.MousePosition.git"
+    "leaflet.MousePosition": "https://github.com/ardhi/Leaflet.MousePosition.git"
   }
 }
