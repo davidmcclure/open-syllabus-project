@@ -1,6 +1,7 @@
 
 
 import networkx as nx
+import random
 
 from osp.common.utils import query_bar
 from osp.graphs.graph import Graph
