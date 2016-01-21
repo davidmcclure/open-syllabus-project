@@ -62,7 +62,7 @@ def fuzz(out_file, min_count):
 @cli.command()
 @click.argument('out_file', type=click.File('w'))
 @click.option('--depth', default=1000)
-def fuzz(out_file, depth):
+def ranks(out_file, depth):
 
     """
     Write the top N text ranks.
