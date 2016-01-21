@@ -7,6 +7,7 @@ import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
 
 import config from './image.yml';
+import Fields from './fields';
 
 
 export default class extends Component {
@@ -28,6 +29,22 @@ export default class extends Component {
 
 
   /**
+   * Set the initial state.
+   *
+   * @param {Object} props
+   */
+  constructor(props) {
+
+    super(props);
+
+    this.state = {
+      mounted: false
+    };
+
+  }
+
+
+  /**
    * Render the image, bind events.
    */
   componentDidMount() {
@@ -35,7 +52,9 @@ export default class extends Component {
     this._initLeaflet();
     this._bindEvents();
 
-    this.mounted = true;
+    this.setState({
+      mounted: true
+    });
 
   }
 
@@ -102,7 +121,7 @@ export default class extends Component {
     var x = c.lng.toFixed(4);
     var y = c.lat.toFixed(4);
 
-    console.log(x, y, z);
+    // TODO: update route
 
   }
 
@@ -112,9 +131,8 @@ export default class extends Component {
    */
   render() {
 
-    // TODO
-    let children = !this.mounted ? null : (
-      null
+    let children = !this.state.mounted ? null : (
+      <Fields />
     );
 
     return (
