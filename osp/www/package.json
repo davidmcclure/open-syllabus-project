@@ -54,6 +54,7 @@
     "spinkit": "^1.2.5"
   },
   "browser": {
-    "leaflet.Zoomify": "./bower_components/Leaflet.Zoomify/L.TileLayer.Zoomify.js"
+    "leaflet.Zoomify": "./bower_components/Leaflet.Zoomify/L.TileLayer.Zoomify.js",
+    "leaflet.MousePosition": "./bower_components/Leaflet.MousePosition/src/L.Control.MousePosition.js"
   }
 }

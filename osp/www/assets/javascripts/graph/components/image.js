@@ -5,6 +5,7 @@ import { findDOMNode } from 'react-dom';
 import React, { Component, PropTypes } from 'react';
 import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
+import 'leaflet.MousePosition';
 
 import config from './image.yml';
 import Fields from './fields';
@@ -72,6 +73,9 @@ export default class extends Component {
       zoomControl: false,
     });
 
+    // Cursor position.
+    let position = L.control.mousePosition();
+
     // Zoom buttons.
     let zoomControl = L.control.zoom({
       position: 'topright',
@@ -89,9 +93,11 @@ export default class extends Component {
       height: config.size,
     });
 
+    // Mini map.
     let miniMap = new MiniMap(miniLayer);
 
     this.map.setView([0, 0], 1);
+    this.map.addControl(position);
     this.map.addControl(zoomControl);
     this.map.addLayer(layer);
     this.map.addControl(miniMap);
