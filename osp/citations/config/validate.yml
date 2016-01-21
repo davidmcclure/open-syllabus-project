@@ -1,7 +1,7 @@
 ---
 
 
-max_fuzz: 3.02
+max_fuzz: 0.24
 
 
 blacklisted_titles:
