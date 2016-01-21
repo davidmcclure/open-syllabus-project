@@ -102,3 +102,17 @@ class OSP_Graph(Graph):
         for tid, text in self.graph.nodes(data=True):
             if text['count'] < min_count:
                 self.graph.remove_node(tid)
+
+
+    def trim_edges(self, keep=0.5):
+
+        """
+        Randomly prune a certain percentage of edges.
+
+        Args:
+            keey (float)
+        """
+
+        for tid1, tid2 in self.graph.edges():
+            if random.random() > keep:
+                self.graph.remove_edge(tid1, tid2)
