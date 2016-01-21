@@ -31,13 +31,13 @@ export default class extends Component {
 
     this.map.addControl(zoomControl);
 
-    let layer = L.tileLayer.zoomify('/static/tiles/', {
+    let layer = L.tileLayer.zoomify('/static/dist/tiles/', {
       width: size,
-      hwight: size,
+      height: size,
     });
 
+    this.map.setView([0, 0], 1);
     this.map.addLayer(layer);
-    console.log(this.map);
 
   }
 
