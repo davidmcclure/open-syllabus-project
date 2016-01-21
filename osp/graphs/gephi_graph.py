@@ -93,7 +93,7 @@ class Gephi_Graph(Graph):
         return math.ceil(self.max_x - self.min_x)
 
 
-    def render(self, out_path, size=10000, scale=5, bg_color='#20384C'):
+    def render(self, out_path, size=10000, scale=5, bg_color='#0b131a'):
 
         """
         Render a PNG.
