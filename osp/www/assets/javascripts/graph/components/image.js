@@ -2,23 +2,43 @@
 
 import L from 'leaflet';
 import { findDOMNode } from 'react-dom';
-import React, { Component } from 'react';
+import React, { Component, PropTypes } from 'react';
 import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
 
 import history from '../history';
+import Focus from './focus';
 import config from './image.yml';
 
 
 export default class extends Component {
 
 
+  static childContextTypes = {
+    map: PropTypes.object,
+  };
+
+
+  /**
+   * Expose shared context.
+   */
+  getChildContext() {
+    return {
+      map: this.map
+    };
+  }
+
+
   /**
    * Render the image, bind events.
    */
   componentDidMount() {
+
     this._initLeaflet();
     this._bindEvents();
+
+    this.mounted = true;
+
   }
 
 
@@ -95,7 +115,17 @@ export default class extends Component {
    * Render the image container.
    */
   render() {
-    return <div id="image" ref="image"></div>;
+
+    let children = !this.mounted ? null : (
+      <Focus />
+    );
+
+    return (
+      <div id="image" ref="image">
+        {children}
+      </div>
+    );
+
   }
 
 
