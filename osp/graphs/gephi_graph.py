@@ -142,7 +142,7 @@ class Gephi_Graph(Graph):
             # ** Label **
 
             label = ', '.join([
-                n['title'],
+                n['label'],
                 n['author'],
             ])
 

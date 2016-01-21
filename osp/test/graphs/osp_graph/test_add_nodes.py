@@ -14,8 +14,8 @@ def test_add_nodes(add_text, add_citation):
     OSP_Graph#add_nodes() should register nodes for all texts.
     """
 
-    t1 = add_text(title='title1', authors=['author1'])
-    t2 = add_text(title='title2', authors=['author2'])
+    t1 = add_text(title='title1', surname='surname1')
+    t2 = add_text(title='title2', surname='surname2')
 
     for i in range(3):
         add_citation(text=t1)
@@ -30,11 +30,11 @@ def test_add_nodes(add_text, add_citation):
     n1 = g.graph.node[t1.id]
     n2 = g.graph.node[t2.id]
 
-    assert n1['title'] == t1.pretty('title')
-    assert n2['title'] == t2.pretty('title')
+    assert n1['label'] == t1.pretty('title')
+    assert n2['label'] == t2.pretty('title')
 
-    assert n1['author'] == t1.pretty('authors')[0]
-    assert n2['author'] == t2.pretty('authors')[0]
+    assert n1['author'] == t1.pretty('surname')
+    assert n2['author'] == t2.pretty('surname')
 
     assert n1['count'] == 3
     assert n2['count'] == 1

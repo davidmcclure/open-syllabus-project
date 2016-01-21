@@ -67,9 +67,8 @@ class OSP_Graph(Graph):
 
             self.graph.add_node(text.id, dict(
 
-                title   = text.pretty('title'),
-                author  = text.pretty('authors')[0],
                 label   = text.pretty('title'),
+                author  = text.pretty('surname'),
 
                 count   = text.count,
                 score   = t['score'],
