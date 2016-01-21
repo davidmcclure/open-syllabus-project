@@ -1,0 +1,13 @@
+
+
+.leaflet-control-minimap {
+  background: @color-bg;
+  border: 1px solid gray;
+}
+
+// Hide on mobile.
+@media (max-width: @screen-sm-min) {
+  .leaflet-control-minimap {
+    display: none;
+  }
+}
