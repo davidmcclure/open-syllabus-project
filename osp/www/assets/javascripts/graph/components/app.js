@@ -2,6 +2,8 @@
 
 import React, { Component } from 'react';
 
+import Image from './image';
+
 
 export default class extends Component {
 
@@ -12,7 +14,7 @@ export default class extends Component {
   render() {
     return (
       <div className="wrapper">
-        <h1>graph</h1>
+        <Image />
       </div>
     );
   }
