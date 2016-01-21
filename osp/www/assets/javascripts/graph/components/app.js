@@ -3,6 +3,7 @@
 import React, { Component } from 'react';
 
 import Image from './image';
+import Header from './header';
 
 
 export default class extends Component {
@@ -15,6 +16,7 @@ export default class extends Component {
     return (
       <div className="wrapper">
         <Image />
+        <Header />
       </div>
     );
   }
