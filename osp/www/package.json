@@ -35,6 +35,7 @@
     "bootstrap": "^3.3.6",
     "chroma-js": "^1.1.1",
     "classnames": "^2.2.1",
+    "director": "^1.2.8",
     "font-awesome": "^4.5.0",
     "history": "^1.17.0",
     "jquery": "^2.1.4",

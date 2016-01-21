@@ -2,9 +2,9 @@
 
 import { combineReducers } from 'redux';
 
-import image from './image';
+import route from './route';
 
 
 export default combineReducers({
-  image,
+  route,
 });
