@@ -39,6 +39,7 @@
     "history": "^1.17.0",
     "jquery": "^2.1.4",
     "leaflet": "^0.7.7",
+    "leaflet-minimap": "^3.0.0",
     "lesshat": "^3.0.2",
     "lodash": "^4.0.0",
     "pluralize": "^1.2.1",

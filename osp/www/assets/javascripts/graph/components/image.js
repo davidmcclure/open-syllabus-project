@@ -3,11 +3,13 @@
 import React, { Component } from 'react';
 import L from 'leaflet';
 import { findDOMNode } from 'react-dom';
+import MiniMap from 'leaflet-minimap';
 
 import 'leaflet.Zoomify';
 
 
 const size = 35000;
+const tiles = '/static/dist/tiles/';
 
 
 export default class extends Component {
@@ -22,22 +24,33 @@ export default class extends Component {
 
     this.map = L.map(el, {
       crs: L.CRS.Simple,
+      attributionControl: false,
       zoomControl: false,
     });
 
+    // Zoom buttons.
     let zoomControl = L.control.zoom({
       position: 'topright',
     });
 
-    this.map.addControl(zoomControl);
-
-    let layer = L.tileLayer.zoomify('/static/dist/tiles/', {
+    // Image layer.
+    let layer = L.tileLayer.zoomify(tiles, {
       width: size,
       height: size,
     });
 
+    // Mini map layer.
+    let miniLayer = L.tileLayer.zoomify(tiles, {
+      width: size,
+      height: size,
+    });
+
+    let miniMap = new MiniMap(miniLayer);
+
     this.map.setView([0, 0], 1);
+    this.map.addControl(zoomControl);
     this.map.addLayer(layer);
+    this.map.addControl(miniMap);
 
   }
 
