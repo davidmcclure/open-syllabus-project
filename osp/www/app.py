@@ -34,7 +34,7 @@ def home():
 @use_args(dict(
 
     query           = fields.Str(missing=None),
-    size            = fields.Int(missing=200),
+    size            = fields.Int(missing=500),
 
     corpus          = fields.List(fields.Str(), missing=None),
     field_id        = fields.List(fields.Int(), missing=None),
