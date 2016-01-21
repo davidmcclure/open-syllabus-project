@@ -6,7 +6,6 @@ import React, { Component, PropTypes } from 'react';
 import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
 
-import history from '../history';
 import Focus from './focus';
 import config from './image.yml';
 
@@ -104,9 +103,7 @@ export default class extends Component {
     var x = c.lng.toFixed(4);
     var y = c.lat.toFixed(4);
 
-    history.replace({
-      pathname: `${x}/${y}/${z}`
-    });
+    console.log(x, y, z);
 
   }
 

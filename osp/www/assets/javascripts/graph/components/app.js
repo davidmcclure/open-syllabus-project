@@ -3,7 +3,6 @@
 import React, { Component } from 'react';
 
 import Image from './image';
-import Router from './router';
 
 
 export default class extends Component {
@@ -16,7 +15,6 @@ export default class extends Component {
     return (
       <div className="wrapper">
         <Image />
-        <Router />
       </div>
     );
   }
