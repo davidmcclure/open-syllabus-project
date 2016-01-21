@@ -6,7 +6,6 @@ import React, { Component, PropTypes } from 'react';
 import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
 
-import Focus from './focus';
 import config from './image.yml';
 
 
@@ -113,8 +112,9 @@ export default class extends Component {
    */
   render() {
 
+    // TODO
     let children = !this.mounted ? null : (
-      <Focus />
+      null
     );
 
     return (
