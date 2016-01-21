@@ -7,6 +7,9 @@ import { findDOMNode } from 'react-dom';
 import 'leaflet.Zoomify';
 
 
+const size = 35000;
+
+
 export default class extends Component {
 
 
@@ -18,6 +21,7 @@ export default class extends Component {
     let el = findDOMNode(this.refs.image);
 
     this.map = L.map(el, {
+      crs: L.CRS.Simple,
       zoomControl: false,
     });
 
@@ -26,6 +30,14 @@ export default class extends Component {
     });
 
     this.map.addControl(zoomControl);
+
+    let layer = L.tileLayer.zoomify('/static/tiles/', {
+      width: size,
+      hwight: size,
+    });
+
+    this.map.setView([0, 0], 0);
+    this.map.addLayer(layer);
 
   }
 
