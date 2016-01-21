@@ -1,11 +1,12 @@
 
 
-import React, { Component } from 'react';
 import L from 'leaflet';
 import { findDOMNode } from 'react-dom';
+import React, { Component } from 'react';
 import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
 
+import history from '../history';
 import config from './image.yml';
 
 
@@ -73,7 +74,7 @@ export default class extends Component {
 
 
   /**
-   * Update the route when the map is moved.
+   * Set the route on move.
    */
   onMove() {
 
@@ -83,7 +84,9 @@ export default class extends Component {
     var x = c.lng.toFixed(4);
     var y = c.lat.toFixed(4);
 
-    console.log(x, y, z);
+    history.replace({
+      pathname: `${x}/${y}/${z}`
+    });
 
   }
 
