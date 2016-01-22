@@ -8,6 +8,7 @@ import HitCount from './hit-count';
 import ClearFilters from './clear-filters';
 import Search from './search';
 import TextList from './text-list';
+import LoadMore from './load-more';
 
 import * as actions from '../actions/results';
 
@@ -47,6 +48,7 @@ export default class extends Component {
         <ClearFilters />
         <Search />
         <TextList />
+        <LoadMore />
       </div>
     );
   }
