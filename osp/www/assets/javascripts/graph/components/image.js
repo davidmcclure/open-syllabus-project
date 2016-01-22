@@ -3,7 +3,6 @@
 import L from 'leaflet';
 import { findDOMNode } from 'react-dom';
 import React, { Component, PropTypes } from 'react';
-import MiniMap from 'leaflet-minimap';
 import 'leaflet.Zoomify';
 
 import config from './image.yml';
@@ -83,23 +82,7 @@ export default class extends Component {
       height: config.size,
     });
 
-    // Mini map layer.
-    let miniLayer = L.tileLayer.zoomify(config.tiles, {
-      width:  config.size,
-      height: config.size,
-    });
-
-    // Mini map.
-    let miniMap = new MiniMap(miniLayer, {
-      aimingRectOptions: {
-        fillOpacity: 0,
-        color: '#ffc600',
-        weight: 1,
-      }
-    });
-
     this.map.setView([0, 0], 1);
-    this.map.addControl(miniMap);
     this.map.addControl(zoomControl);
     this.map.addLayer(layer);
 
