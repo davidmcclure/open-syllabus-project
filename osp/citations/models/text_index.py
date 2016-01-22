@@ -220,6 +220,7 @@ class Text_Index(Elasticsearch):
 
             body = {
                 'size': size,
+                'from': (page-1)*size,
                 'sort': sort,
                 'query': {
                     'bool': {
