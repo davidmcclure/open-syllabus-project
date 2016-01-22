@@ -8,7 +8,7 @@ from osp.www.cache import cache
 
 
 @cache.memoize(unless=config.is_test)
-def rank_texts(filters={}, query=None, size=1000):
+def rank_texts(filters={}, query=None, size=1000, page=1):
 
     """
     Filter and rank texts.
@@ -16,6 +16,8 @@ def rank_texts(filters={}, query=None, size=1000):
     Args:
         filters (dict): Citation metadata filters.
         query (str): A text metadata search query.
+        size (str): Return N results.
+        page (str): 1-indexed page offset.
 
     Returns:
         dict: Elasticsearch hits.
@@ -29,7 +31,7 @@ def rank_texts(filters={}, query=None, size=1000):
         ranks = None
 
     # Materialize the text metadata.
-    texts = Text_Index.materialize_ranking(ranks, query, size)
+    texts = Text_Index.materialize_ranking(ranks, query, size, page)
 
     return texts
 

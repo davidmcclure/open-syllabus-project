@@ -135,3 +135,42 @@ def test_size(add_text, add_citation):
     assert len(texts['hits']) == 2
     assert texts['hits'][0]['_id'] == str(t1.id)
     assert texts['hits'][1]['_id'] == str(t2.id)
+
+
+def test_size(add_text, add_citation):
+
+    """
+    The 'page' argument should control the page offset.
+    """
+
+    t1 = add_text()
+    t2 = add_text()
+    t3 = add_text()
+    t4 = add_text()
+
+    for i in range(4):
+        add_citation(t1)
+
+    for i in range(3):
+        add_citation(t2)
+
+    for i in range(2):
+        add_citation(t3)
+
+    for i in range(1):
+        add_citation(t4)
+
+    Citation_Index.es_insert()
+    Text_Index.es_insert()
+
+    p1 = rank_texts(size=2, page=1)
+
+    assert len(texts['hits']) == 2
+    assert p1['hits'][0]['_id'] == str(t1.id)
+    assert p1['hits'][1]['_id'] == str(t2.id)
+
+    p2 = rank_texts(size=2, page=2)
+
+    assert len(texts['hits']) == 2
+    assert p2['hits'][0]['_id'] == str(t3.id)
+    assert p2['hits'][1]['_id'] == str(t4.id)
