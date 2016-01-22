@@ -165,12 +165,12 @@ def test_size(add_text, add_citation):
 
     p1 = rank_texts(size=2, page=1)
 
-    assert len(texts['hits']) == 2
+    assert len(p1['hits']) == 2
     assert p1['hits'][0]['_id'] == str(t1.id)
     assert p1['hits'][1]['_id'] == str(t2.id)
 
     p2 = rank_texts(size=2, page=2)
 
-    assert len(texts['hits']) == 2
+    assert len(p2['hits']) == 2
     assert p2['hits'][0]['_id'] == str(t3.id)
     assert p2['hits'][1]['_id'] == str(t4.id)

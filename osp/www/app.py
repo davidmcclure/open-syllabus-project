@@ -35,6 +35,7 @@ def home():
 
     query           = fields.Str(missing=None),
     size            = fields.Int(missing=500),
+    page            = fields.Int(missing=1),
 
     corpus          = fields.List(fields.Str(), missing=None),
     field_id        = fields.List(fields.Int(), missing=None),
@@ -63,6 +64,7 @@ def api_ranks(args):
         filters=filters,
         query=args['query'],
         size=args['size'],
+        page=args['page'],
     )
 
     return jsonify(**results)
