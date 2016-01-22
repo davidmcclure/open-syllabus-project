@@ -90,7 +90,13 @@ export default class extends Component {
     });
 
     // Mini map.
-    let miniMap = new MiniMap(miniLayer);
+    let miniMap = new MiniMap(miniLayer, {
+      aimingRectOptions: {
+        fillOpacity: 0,
+        color: '#ffc600',
+        weight: 1,
+      }
+    });
 
     this.map.setView([0, 0], 1);
     this.map.addControl(zoomControl);
