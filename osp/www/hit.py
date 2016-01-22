@@ -77,10 +77,10 @@ class Hit:
             str: A hex color.
         """
 
-        r = Color('#f02424')
-        g = Color('#29b730')
+        low  = Color('#000000')
+        high = Color('#29b730')
 
-        gradient = list(r.range_to(g, steps))
+        gradient = list(low.range_to(high, steps))
         idx = round(self.field('score')*(steps-1))
 
         return gradient[idx].get_hex()
