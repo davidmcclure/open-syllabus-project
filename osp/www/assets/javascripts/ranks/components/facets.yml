@@ -10,3 +10,11 @@ country_whitelist:
 field_blacklist:
   - Agriculture
   - Religious Studies
+  - Medicine
+  - Civil Engineering
+  - Health Administration
+  - Writing and Composition
+  - Maritime Professions
+  - Parks and Recreation
+  - Family and Consumer Sciences
+  - Transportation Technologies
