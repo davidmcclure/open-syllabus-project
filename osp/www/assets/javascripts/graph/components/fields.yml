@@ -1,7 +1,97 @@
 ---
 
 - label: Computer Science
-  tlx: 84
-  tly: -120
-  brx: 99
-  bry: -137
+  tlx: 142
+  tly: -119
+  brx: 166
+  bry: -135
+
+- label: Physics
+  tlx: 147
+  tly: -137
+  brx: 156
+  bry: -145
+
+- label: Medicine
+  tlx: 130
+  tly: -127
+  brx: 140
+  bry: -143
+
+- label: Social Science Research Methods
+  tlx: 115
+  tly: -98
+  brx: 138
+  bry: -117
+
+- label: Music
+  tlx: 30
+  tly: -125
+  brx: 49
+  bry: -150
+
+- label: Political Science
+  tlx: 95
+  tly: -50
+  brx: 122
+  bry: -79
+
+- label: Economics
+  tlx: 125
+  tly: -70
+  brx: 149
+  bry: -87
+
+- label: Finance
+  tlx: 147
+  tly: -90
+  brx: 159
+  bry: -100
+
+- label: Philosophy
+  tlx: 67
+  tly: -91
+  brx: 85
+  bry: -111
+
+- label: British Literature / Classics
+  tlx: 42
+  tly: -90
+  brx: 65
+  bry: -109
+
+- label: American Literature
+  tlx: 44
+  tly: -72
+  brx: 66
+  bry: -87
+
+- label: History
+  tlx: 70
+  tly: -45
+  brx: 89
+  bry: -83
+
+- label: Social Sciences (?)
+  tlx: 92
+  tly: -86
+  brx: 111
+  bry: -119
+
+- label: Statistics
+  tlx: 148
+  tly: -103
+  brx: 165
+  bry: -116
+
+- label: Linguistics
+  tlx: 92
+  tly: -125
+  brx: 114
+  bry: -140
+
+- label: Film
+  tlx: 72
+  tly: -115
+  brx: 88
+  bry: -132

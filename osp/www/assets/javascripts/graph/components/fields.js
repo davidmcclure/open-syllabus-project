@@ -32,7 +32,7 @@ export default class extends Component {
       let opts = {
         color: '#ffc600',
         opacity: 1,
-        weight: 0.8,
+        weight: 0.7,
       };
 
       let box = L.polyline(pts, opts);
