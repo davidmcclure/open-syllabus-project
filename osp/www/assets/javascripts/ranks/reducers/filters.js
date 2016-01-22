@@ -26,15 +26,18 @@ const initialState = {
 
 const handlers = {
 
-  [CHANGE_FILTERS]: (state, action) => {
-    return action.filters;
-  },
+  [CHANGE_FILTERS]: (state, action) => ({
 
-  [LOAD_NEXT_PAGE]: (state) => {
-    return {
+    ...action.filters,
+
+    // Reset the page offset when the filters change.
+    page: 1,
+
+  }),
+
+  [LOAD_NEXT_PAGE]: (state) => ({
       page: state.page + 1
-    };
-  },
+  }),
 
   [CLEAR_FILTERS]: () => (initialState),
 
