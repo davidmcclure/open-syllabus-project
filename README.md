@@ -1,7 +1,5 @@
 # Open Syllabus Project
 
-![Open Syllabus Project](graph.jpg)
-
 Welcome! The Open Syllabus Project is an effort to see what can be learned by analyzing the contents of a corpus of over 1 million college course syllabi.  Here you'll find:
 
 - The source code for the Open Syllabus Explorer web application.
