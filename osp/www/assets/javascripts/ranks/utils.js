@@ -43,7 +43,7 @@ export function makeQueryString(params) {
 
   // Filter out empty values.
   let pruned = _.pickBy(params, function(v) {
-    return !_.isEmpty(v);
+    return !_.includes([[], null, ''], v);
   });
 
   return queryString.stringify(pruned);

@@ -18,6 +18,8 @@ const initialState = {
   state: [],
   country: [],
 
+  page: 1,
+
 };
 
 
