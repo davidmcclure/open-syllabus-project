@@ -11,6 +11,7 @@ export default class extends Component {
 
   static propTypes = {
     hit: PropTypes.object.isRequired,
+    rank: PropTypes.number.isRequired,
   };
 
 
@@ -29,7 +30,7 @@ export default class extends Component {
       <tr className="text-row">
 
         <td className="rank">
-          {this.hit.rank}
+          {this.props.rank}
         </td>
 
         <td className="count">
