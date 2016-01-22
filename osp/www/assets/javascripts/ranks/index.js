@@ -8,6 +8,8 @@ import createStore from './store';
 import reducers from './reducers';
 import App from './components/app';
 
+import './page';
+
 
 const store = createStore(reducers);
 
