@@ -36,21 +36,32 @@
       margin: 0 0.5em 0 0;
     }
 
+    path {
+      fill: whitesmoke;
+    }
+
     .btn {
 
       display: flex;
       .align-items(center);
       padding: 1em;
+      color: whitesmoke;
 
-      background: rgba(220, 230, 240, 0.5);
-      border: none;
+      background: rgba(220, 230, 240, 0.1);
+      border: 1px solid rgba(240, 240, 240, 0.8);
       .border-radius(4px);
 
       font-weight: 600;
-      color: @gray-dark;
 
       &:hover {
+
         background: rgba(220, 230, 240, 0.9);
+        color: @gray-dark;
+
+        path {
+          fill: @gray-dark;
+        }
+
       }
 
     }
