@@ -35,7 +35,7 @@ def rank_texts(filters={}, query=None, size=1000):
 
 
 @cache.memoize(unless=config.is_test)
-def assigned_with(text_id, size=1000):
+def assigned_with(text_id, size=200):
 
     """
     Given a "seed" text, rank other texts assigned on the same syllabi.
