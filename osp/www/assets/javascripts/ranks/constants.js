@@ -1,6 +1,7 @@
 
 
 export const CHANGE_FILTERS = 'CHANGE_FILTERS';
+export const LOAD_NEXT_PAGE = 'LOAD_NEXT_PAGE';
 export const CLEAR_FILTERS = 'CLEAR_FILTERS';
 
 export const REQUEST_RESULTS = 'REQUEST_RESULTS';

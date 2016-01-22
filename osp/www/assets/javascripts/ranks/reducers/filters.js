@@ -4,6 +4,7 @@ import { createReducer } from '../utils';
 
 import {
   CHANGE_FILTERS,
+  LOAD_NEXT_PAGE,
   CLEAR_FILTERS,
 } from '../constants';
 
@@ -26,10 +27,13 @@ const initialState = {
 const handlers = {
 
   [CHANGE_FILTERS]: (state, action) => {
-
-    // TODO: Clean.
     return action.filters;
+  },
 
+  [LOAD_NEXT_PAGE]: (state) => {
+    return {
+      page: state.page + 1
+    };
   },
 
   [CLEAR_FILTERS]: () => (initialState),
