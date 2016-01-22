@@ -173,7 +173,6 @@ class Text_Index(Elasticsearch):
                     'fields': [
                         'title',
                         'authors',
-                        'publisher',
                         'journal',
                     ],
                 }
@@ -234,10 +233,6 @@ class Text_Index(Elasticsearch):
                             'fragment_size': 1000
                         },
                         'authors': {
-                            'number_of_fragments': 1,
-                            'fragment_size': 1000
-                        },
-                        'publisher': {
                             'number_of_fragments': 1,
                             'fragment_size': 1000
                         },

@@ -72,7 +72,6 @@ def test_sort_on_filtered_counts(add_text, add_citation):
 @pytest.mark.parametrize('params', [
     lambda x: dict(title=x),
     lambda x: dict(authors=[x]),
-    lambda x: dict(publisher=x),
     lambda x: dict(journal_title=x),
 ])
 def test_search_on_total_counts(params, add_text, add_citation):
