@@ -3,8 +3,6 @@
 import { Router } from 'director';
 import React, { Component, PropTypes } from 'react';
 
-import history from '../history';
-
 
 export default class extends Component {
 
@@ -53,9 +51,11 @@ export default class extends Component {
 
     this.lock = true;
 
-    history.replace({
-      pathname: `${x}/${y}/${z}`
-    });
+    window.history.replaceState(
+      undefined,
+      undefined,
+      `#${x}/${y}/${z}`,
+    );
 
   }
 
