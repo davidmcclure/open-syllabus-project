@@ -99,9 +99,9 @@ export default class extends Component {
     });
 
     this.map.setView([0, 0], 1);
+    this.map.addControl(miniMap);
     this.map.addControl(zoomControl);
     this.map.addLayer(layer);
-    this.map.addControl(miniMap);
 
   }
 
