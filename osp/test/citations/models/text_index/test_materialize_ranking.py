@@ -107,7 +107,7 @@ def test_search_on_total_counts(params, add_text, add_citation):
     assert texts['hits'][1]['_id'] == str(t3.id)
 
 
-def test_paginate(add_text, add_citation):
+def test_paginate_results(add_text, add_citation):
 
     """
     When a page is provided, return the 1-indexed page.
