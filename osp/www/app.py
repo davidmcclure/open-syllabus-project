@@ -34,7 +34,7 @@ def home():
 @use_args(dict(
 
     query           = fields.Str(missing=None),
-    size            = fields.Int(missing=500),
+    size            = fields.Int(missing=200),
     page            = fields.Int(missing=1),
 
     corpus          = fields.List(fields.Str(), missing=None),
