@@ -4,7 +4,9 @@ import $ from 'jquery';
 
 
 $('.action.ranks').click(function() {
-  $('body').animate({
+
+  $('body, html').animate({
     scrollTop: $('#ranks').offset().top
   });
+
 });

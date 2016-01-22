@@ -105,3 +105,12 @@ def test_search_on_total_counts(params, add_text, add_citation):
     assert len(texts['hits']) == 2
     assert texts['hits'][0]['_id'] == str(t1.id)
     assert texts['hits'][1]['_id'] == str(t3.id)
+
+
+def test_paginate(add_text, add_citation):
+
+    """
+    When a page is provided, return the 1-indexed page.
+    """
+
+    pass

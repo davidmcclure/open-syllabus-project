@@ -144,7 +144,7 @@ class Text_Index(Elasticsearch):
 
 
     @classmethod
-    def materialize_ranking(cls, ranks=None, query=None, size=1000):
+    def materialize_ranking(cls, ranks=None, query=None, size=1000, page=1):
 
         """
         Given a set of text counts, load texts sorted by count and apply a
@@ -154,6 +154,7 @@ class Text_Index(Elasticsearch):
             ranks (dict): {'text_id' -> count}
             query (str): A free-text search query.
             size (int): The page length.
+            page (int): The 1-indexed page.
 
         Returns:
             dict: The Elasticsearch hits.
