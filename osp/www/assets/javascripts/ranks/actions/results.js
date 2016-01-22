@@ -27,7 +27,7 @@ export function loadResults(params) {
     dispatch(requestResults());
 
     $.getJSON('/api/ranks', qs, function(json) {
-      dispatch(receiveResults(json));
+      dispatch(receiveResults(json, params));
     });
 
   };
@@ -49,10 +49,12 @@ function requestResults() {
  * When results are loaded.
  *
  * @param {Object} json
+ * @param {Object} params
  */
-function receiveResults(results) {
+function receiveResults(results, params) {
   return {
     type: RECEIVE_RESULTS,
     results,
+    params,
   };
 }

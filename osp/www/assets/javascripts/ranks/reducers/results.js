@@ -1,5 +1,6 @@
 
 
+import _ from 'lodash';
 import { createReducer } from '../utils';
 
 import {
@@ -21,11 +22,20 @@ const handlers = {
     loading: true,
   }),
 
-  [RECEIVE_RESULTS]: (state, action) => ({
-    loading: false,
-    hitCount: action.results.total,
-    hits: action.results.hits,
-  }),
+  [RECEIVE_RESULTS]: (state, action) => {
+
+    // If page > 1, add new hits to existing hits.
+    let hits = action.params.page > 1 ?
+      _.concat(state.hits, action.results.hits) :
+      action.results.hits
+
+    return {
+      loading: false,
+      hitCount: action.results.total,
+      hits,
+    }
+
+  },
 
 };
 
