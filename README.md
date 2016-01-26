@@ -4,7 +4,7 @@
 
 <a href="http://explorer.opensyllabusproject.org/graph">![Assignment Graph](graph.jpg)</a>
 
-<small>A force-directed layout of the co-assignment network for the top ~10,000 texts.</small>
+<sup>A force-directed layout of the co-assignment network for the top ~10,000 texts.</sup>
 
 Welcome! The Open Syllabus Project is an effort to see what can be learned by analyzing the contents of a corpus of over 1 million college course syllabi.  Here you'll find:
 
