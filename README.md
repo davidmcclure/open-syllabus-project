@@ -18,4 +18,6 @@ Welcome! The Open Syllabus Project is an effort to see what can be learned by an
 
 - Tools for analyzing the structure of the citation graph.
 
+Head over to [osp-deploy](https://github.com/davidmcclure/osp-deploy) for a set of Ansible playbooks for configuring a development environment and deploying servers to EC2.
+
 Unfortunately, we're unable publish the raw syllabi for copyright reasons. But, if you're interested in contributing to the project or working with the corpus, drop us a line at syllabusopen@gmail.com. We're actively looking to develop research collaborations around this data, and would love to hear about what you're working on.
