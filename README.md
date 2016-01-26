@@ -1,6 +1,6 @@
 # Open Syllabus Project
 
-### [explorer.opensyllabusproject.org](http://explorer.opensyllabusproject.org)
+> #### [explorer.opensyllabusproject.org](http://explorer.opensyllabusproject.org)
 
 <a href="http://explorer.opensyllabusproject.org/graph">![Assignment Graph](graph.jpg)</a>
 
