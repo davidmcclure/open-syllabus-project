@@ -208,8 +208,7 @@ $,Law,Law,22,22.0101,"Law, L.L.M., Legal Professions and Studies.",LAW
 $,Library and Information Science,Library and Information Science,25,25.0101,"Library Science, Librarianship, Information Studies","IRL, MLIS"
 $,Linguistics,Linguistics,16,16.0102,"Linguistics, Phonetics, Semantics, Philology","LING, LIN, WLAN"
 $,Maritime Professions,Maritime Professions,,,"Maritime Professions, Transport, Marine Administration","MART, MARA"
-,Mathematics,"Mathematics
-",27,27.0101,Mathematics,"MATH, MASC"
+$,Mathematics,Mathematics,27,27.0101,Mathematics,"MATH, MASC"
 ,Mathematics,Applied Mathematics,27,27.0301,Applied Mathematics,AMATH
 ,Mathematics,Statistics,27,27.0501,Statistics,STAT
 $,"Media, Communications, Journalism","Media, Communications, and Journalism
