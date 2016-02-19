@@ -84,3 +84,31 @@ class Hit:
         idx = round(self.field('score')*(steps-1))
 
         return gradient[idx].get_hex()
+
+
+    @property
+    def csv_row(self):
+
+        """
+        Package the hit for a CSV file.
+
+        Returns: dict
+        """
+
+        return dict(
+
+            id              = self.hit['_id'],
+            identifier      = self.hit['_source']['identifier'],
+            type            = self.hit['_type'],
+
+            title           = self.hit['_source']['title'],
+            author          = self.hit['_source']['authors'][0],
+            date            = self.hit['_source']['date'],
+            journal         = self.hit['_source']['journal'],
+
+            overall_rank    = self.hit['_source']['rank'],
+            teaching_score  = self.hit['_source']['score'],
+            overall_count   = self.hit['_source']['count'],
+            filtered_count  = self.hit['sort'][0],
+
+        )
