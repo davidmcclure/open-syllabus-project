@@ -7,6 +7,7 @@ import json
 from osp.www import utils
 from osp.www.hit import Hit
 
+from clint.textui import progress
 from slugify import slugify
 
 
@@ -44,6 +45,20 @@ def dump(path, size):
         size,
     )
 
+    dump_facets(
+        utils.institution_facets(),
+        'institution_id',
+        os.path.join(path, 'institutions'),
+        size,
+    )
+
+    dump_facets(
+        utils.state_facets(),
+        'state',
+        os.path.join(path, 'states'),
+        size,
+    )
+
 
 def dump_facets(facets, key, path, size):
 
@@ -54,7 +69,7 @@ def dump_facets(facets, key, path, size):
     if not os.path.exists(path):
         os.makedirs(path)
 
-    for f in facets:
+    for f in progress.bar(facets):
 
         ranks = utils.rank_texts.uncached(
             filters={ key: f['value'] },
