@@ -37,12 +37,21 @@ def fields(path, n):
     Write overall rankings.
     """
 
+    dump_facets(utils.field_facets(), 'field_id', path, n)
+
+
+def dump_facets(facets, key, path, n):
+
+    """
+    Write overall rankings.
+    """
+
     fields = utils.field_facets()
 
-    for f in fields:
+    for f in facets:
 
         ranks = utils.rank_texts.uncached(
-            filters=dict(field_id=f['value']),
+            filters={ key: f['value'] },
             size=n,
         )
 
