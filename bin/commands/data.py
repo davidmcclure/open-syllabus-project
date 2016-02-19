@@ -29,30 +29,36 @@ def overall(out_file, n):
 
 
 @cli.command()
-@click.argument('path', type=click.Path(exists=True))
-@click.option('--n', default=10000)
-def fields(path, n):
+@click.argument('path', type=click.Path())
+@click.option('--size', default=10000)
+def dump(path, size):
 
     """
     Write overall rankings.
     """
 
-    dump_facets(utils.field_facets(), 'field_id', path, n)
+    dump_facets(
+        utils.field_facets(),
+        'field_id',
+        os.path.join(path, 'fields'),
+        size,
+    )
 
 
-def dump_facets(facets, key, path, n):
+def dump_facets(facets, key, path, size):
 
     """
     Write overall rankings.
     """
 
-    fields = utils.field_facets()
+    if not os.path.exists(path):
+        os.makedirs(path)
 
     for f in facets:
 
         ranks = utils.rank_texts.uncached(
             filters={ key: f['value'] },
-            size=n,
+            size=size,
         )
 
         fname = '{0}.json'.format(slugify(f['label']))
