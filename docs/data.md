@@ -22,3 +22,15 @@ The extraction database includes these tables:
   Generally, when querying against this table - take texts for which both `valid` and `display` are true. (This is baked into APIs used to index the public-facing interface - eg, the `Text_Index.rank_texts()` method.)
 
 - **`citation`** (~27M rows) - The raw results of the citation extraction job. Each row represents an individual text assignment - a link between a `document` and a `text`. This table is big, but a large majority of the rows are actually false-positives that get produced by a minority of texts that have extremely common words in both the author and title fields. These can be filtered out by joining on the text table and filtering out texts with `valid=false`, which produces a set of ~5M "good" citations.
+
+- **`institution`** (~12k rows) - A set of institutions, loaded from public datasets included in the `institutions` module.
+
+- **`institution_document`** (~1M rows) - The results of the syllabus -> institution maching routine. Each row links a document and an institution.
+
+- **`field`** (49 rows) - A collection of top-level fields, as defined by our work-in-progress spreadsheet.
+
+- **`subfield`** (261 rows) - More granular fields, each linked to a parent `field` row.
+
+- **`subfield_document`** (700k rows) - The results of the syllabis -> fields matching routine - each row links a syllabus with a field. This is done by looking for "course code" numbers like `MATH 101`, `HIST 400`, etc.
+
+- **`document_text`** (~1.4M rows) - The plain text extracted from the documents. For copyright / privacy reasons, this table is excluded from the public data dump.
