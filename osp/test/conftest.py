@@ -138,7 +138,7 @@ def mock_osp(config):
     osp = Mock_OSP()
 
     # Point config -> mock.
-    config.config.update_w_merge({
+    config.config.update({
         'osp': {
             'corpus': osp.path
         }
@@ -162,7 +162,7 @@ def mock_hlom(config):
     hlom = Mock_HLOM()
 
     # Point config -> mock.
-    config.config.update_w_merge({
+    config.config.update({
         'hlom': {
             'corpus': hlom.path
         }
@@ -186,7 +186,7 @@ def mock_jstor(config):
     jstor = Mock_JSTOR()
 
     # Point config -> mock.
-    config.config.update_w_merge({
+    config.config.update({
         'jstor': {
             'corpus': jstor.path
         }

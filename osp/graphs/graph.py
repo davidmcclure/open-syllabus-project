@@ -2,7 +2,6 @@
 
 import os
 import networkx as nx
-import path
 
 
 class Graph:
