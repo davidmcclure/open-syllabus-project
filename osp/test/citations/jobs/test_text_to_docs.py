@@ -61,25 +61,32 @@ def test_no_matches(add_doc, add_text):
 
 @pytest.mark.parametrize('title,surname,content', [
 
-    # Title, author.
+    # Title, author
     (
         'War and Peace',
         'Tolstoy',
         'War and Peace, Leo Tolstoy',
     ),
 
-    # Author, title.
+    # Author, title
     (
         'War and Peace',
         'Tolstoy',
         'Leo Tolstoy, War and Peace',
     ),
 
-    # Incomplete name.
+    # Incomplete name
     (
         'War and Peace',
         'Tolstoy',
         'War and Peace, Tolstoy',
+    ),
+
+    # Non-adjacent
+    (
+        'War and Peace',
+        'Tolstoy',
+        'War and Peace, by Leo Tolstoy',
     ),
 
 ])
