@@ -1,7 +1,8 @@
 
 
+import os
+import shutil
 import click
-import csv
 
 from osp.corpus.models import Document
 
@@ -23,5 +24,16 @@ def pull_docs(in_file, out_path):
     ids = [int(i.strip()) for i in in_file.readlines()]
 
     for id in ids:
+
         row = Document.get(Document.id==id)
-        print(row.path)
+
+        path = os.path.join(out_path, row.path)
+        dirname = os.path.dirname(path)
+
+        if not os.path.exists(dirname):
+            os.makedirs(dirname)
+
+        shutil.copyfile(row.syllabus.path, path)
+        shutil.copyfile(row.syllabus.path+'.log', path+'.log')
+
+        print(path)
