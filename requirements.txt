@@ -46,5 +46,6 @@ inflect
 titlecase
 colour
 sqlalchemy
+inflection
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
