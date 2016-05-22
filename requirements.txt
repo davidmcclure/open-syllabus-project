@@ -45,5 +45,6 @@ cached-property
 inflect
 titlecase
 colour
+sqlalchemy
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
