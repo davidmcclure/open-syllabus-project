@@ -33,7 +33,7 @@ tika:
 
 network:
 
-  # The file path for a font to usefor labels in the network.
+  # The location of a font to use for labels in the network.
   font: XXX
 
 ec2:
