@@ -17,7 +17,7 @@ class Document(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('document')
+        database = config.build_table_db('document')
 
 
     @classmethod

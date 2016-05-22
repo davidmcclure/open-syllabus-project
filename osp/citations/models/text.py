@@ -58,7 +58,7 @@ class Text(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('text')
+        database = config.build_table_db('text')
         indexes = ((('corpus', 'identifier'), True),)
 
 

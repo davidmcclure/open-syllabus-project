@@ -21,7 +21,7 @@ class Institution(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('institution')
+        database = config.build_table_db('institution')
 
 
     @classmethod

@@ -68,12 +68,12 @@ class Config:
 
         self.config = anyconfig.load(self.paths, ignore_missing=True)
 
-        self.es     = self.get_es()
-        self.redis  = self.get_redis()
-        self.rq     = self.get_rq()
+        self.es     = self.build_es()
+        self.redis  = self.build_redis()
+        self.rq     = self.build_rq()
 
 
-    def get_db(self, name='default'):
+    def build_db(self, name='default'):
 
         """
         Get a Postgres database object.
@@ -105,7 +105,7 @@ class Config:
         )
 
 
-    def get_table_db(self, table):
+    def build_table_db(self, table):
 
         """
         Get a Postgres database object for a table name.
@@ -124,10 +124,10 @@ class Config:
             if table in db.get('tables', {}):
                 name = key
 
-        return self.get_db(name)
+        return self.build_db(name)
 
 
-    def get_es(self):
+    def build_es(self):
 
         """
         Get an Elasticsearch connection.
@@ -140,7 +140,7 @@ class Config:
             return Elasticsearch([self['elasticsearch']])
 
 
-    def get_redis(self):
+    def build_redis(self):
 
         """
         Get a Redis connection.
@@ -153,7 +153,7 @@ class Config:
             return StrictRedis(**self['redis'])
 
 
-    def get_rq(self):
+    def build_rq(self):
 
         """
         Get an RQ instance.
@@ -162,7 +162,7 @@ class Config:
             rq.Queue
         """
 
-        redis = self.get_redis()
+        redis = self.build_redis()
 
         if redis:
             return Queue(connection=redis)

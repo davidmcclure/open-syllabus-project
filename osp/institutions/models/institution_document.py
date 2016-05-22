@@ -16,4 +16,4 @@ class Institution_Document(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('institution_document')
+        database = config.build_table_db('institution_document')

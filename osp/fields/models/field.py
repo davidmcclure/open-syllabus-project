@@ -13,4 +13,4 @@ class Field(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('field')
+        database = config.build_table_db('field')

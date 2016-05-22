@@ -23,7 +23,7 @@ class Citation(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('citation')
+        database = config.build_table_db('citation')
         indexes = ((('document', 'text'), True),)
 
 

@@ -6,11 +6,11 @@ from .conftest import get_config
 def test_default_to_default():
 
     """
-    When no name is passed to Config#get_db(), use the default connection.
+    When no name is passed to Config#build_db(), use the default connection.
     """
 
-    config = get_config('get_db/default')
-    db = config.get_db()
+    config = get_config('build_db/default')
+    db = config.build_db()
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'host'
@@ -26,8 +26,8 @@ def test_fall_back_to_default():
     back on the default connection.
     """
 
-    config = get_config('get_db/default')
-    db = config.get_db('test')
+    config = get_config('build_db/default')
+    db = config.build_db('test')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'host'
@@ -39,11 +39,11 @@ def test_fall_back_to_default():
 def test_get_non_default():
 
     """
-    Config#get_db() should return a database object for the requested key.
+    Config#build_db() should return a database object for the requested key.
     """
 
-    config = get_config('get_db/non-default')
-    db = config.get_db('test')
+    config = get_config('build_db/non-default')
+    db = config.build_db('test')
 
     assert db.database                      == 'test-database'
     assert db.connect_kwargs['host']        == 'test-host'
@@ -60,8 +60,8 @@ def test_merge_default_values():
     are different in the custom host.)
     """
 
-    config = get_config('get_db/merge')
-    db = config.get_db('test')
+    config = get_config('build_db/merge')
+    db = config.build_db('test')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'test-host' # overridden

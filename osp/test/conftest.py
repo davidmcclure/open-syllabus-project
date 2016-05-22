@@ -67,7 +67,7 @@ def db():
         Subfield_Document,
     ]
 
-    with test_database(_config.get_db(), tables):
+    with test_database(_config.build_db(), tables):
         yield
 
 

@@ -10,8 +10,8 @@ def test_get_non_default():
     connection to the custom database.
     """
 
-    config = get_config('get_table_db/non-default')
-    db = config.get_table_db('remote_table')
+    config = get_config('build_table_db/non-default')
+    db = config.build_table_db('remote_table')
 
     assert db.database                      == 'remote-database'
     assert db.connect_kwargs['host']        == 'remote-host'
@@ -27,8 +27,8 @@ def test_fall_back_to_default():
     connection to the default database.
     """
 
-    config = get_config('get_table_db/default')
-    db = config.get_table_db('remote_table')
+    config = get_config('build_table_db/default')
+    db = config.build_table_db('remote_table')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'host'
@@ -44,8 +44,8 @@ def test_merge_default_values():
     parameters with the default values.
     """
 
-    config = get_config('get_table_db/merge')
-    db = config.get_table_db('remote_table')
+    config = get_config('build_table_db/merge')
+    db = config.build_table_db('remote_table')
 
     assert db.database                      == 'database'
     assert db.connect_kwargs['host']        == 'remote-host' # overridden

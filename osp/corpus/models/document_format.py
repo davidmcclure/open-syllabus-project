@@ -15,7 +15,7 @@ class Document_Format(BaseModel):
 
 
     class Meta:
-        database = config.get_table_db('document_format')
+        database = config.build_table_db('document_format')
 
 
     @classmethod
