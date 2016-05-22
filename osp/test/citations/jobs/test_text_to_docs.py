@@ -105,8 +105,6 @@ def test_citation_formats(title, surname, content, add_doc, add_text):
     text = add_text(title=title, surname=surname)
     text_to_docs(text.id)
 
-    # tokens = tokenize_field(content)
-
     assert Citation.select().where(
         Citation.text==text,
         Citation.document==doc,
