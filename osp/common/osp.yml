@@ -50,6 +50,13 @@ postgres:
       port: 5432
       user: postgres
 
+sqlalchemy:
+  drivername: postgres
+  host: localhost
+  port: 5432
+  username: osp
+  database: osp
+
 redis:
   host: localhost
   port: 6379

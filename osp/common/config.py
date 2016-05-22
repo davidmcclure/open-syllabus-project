@@ -10,6 +10,10 @@ from rq import Queue
 from elasticsearch import Elasticsearch
 from redis import StrictRedis
 
+from sqlalchemy.orm import sessionmaker
+from sqlalchemy import create_engine
+from sqlalchemy.engine.url import URL
+
 
 # Throttle logging.
 logging.getLogger('elasticsearch.trace').propagate = False
@@ -68,9 +72,14 @@ class Config:
 
         self.config = anyconfig.load(self.paths, ignore_missing=True)
 
-        self.es     = self.build_es()
-        self.redis  = self.build_redis()
-        self.rq     = self.build_rq()
+        # Elasticsearch
+        self.es = self.build_es()
+
+        # Redis
+        self.redis = self.build_redis()
+
+        # Queue
+        self.rq = self.build_rq()
 
 
     def build_db(self, name='default'):
@@ -166,6 +175,28 @@ class Config:
 
         if redis:
             return Queue(connection=redis)
+
+
+    def build_engine(self):
+
+        """
+        Build an SQLAlchemy engine.
+
+        Returns: Engine
+        """
+
+        return create_engine(URL(**self['sqlalchemy']))
+
+
+    def build_sessionmaker(self):
+
+        """
+        Build an SQLAlchemy session class.
+
+        Returns: Session
+        """
+
+        return sessionmaker(bind=self.build_engine())
 
 
     def is_test(self):
