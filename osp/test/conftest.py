@@ -121,6 +121,7 @@ def config():
     """
 
     yield _config
+
     _config.read()
 
 
@@ -128,8 +129,7 @@ def config():
 def mock_osp(config):
 
     """
-    Provide a Mock_OSP instance, and automatically point the configuration
-    object at the path of the mock corpus.
+    Provide a Mock_OSP instance.
 
     Yields:
         Mock_OSP
@@ -137,7 +137,6 @@ def mock_osp(config):
 
     osp = Mock_OSP()
 
-    # Point config -> mock.
     config.config.update({
         'osp': {
             'corpus': osp.path
@@ -145,6 +144,7 @@ def mock_osp(config):
     })
 
     yield osp
+
     osp.teardown()
 
 
@@ -152,16 +152,13 @@ def mock_osp(config):
 def mock_hlom(config):
 
     """
-    Provide a Mock_HLOM instance, and automatically point the configuration
-    object at the path of the mock corpus.
+    Provide a Mock_HLOM instance.
 
-    Yields:
-        Mock_HLOM
+    Yields: Mock_HLOM
     """
 
     hlom = Mock_HLOM()
 
-    # Point config -> mock.
     config.config.update({
         'hlom': {
             'corpus': hlom.path
@@ -169,6 +166,7 @@ def mock_hlom(config):
     })
 
     yield hlom
+
     hlom.teardown()
 
 
@@ -176,16 +174,13 @@ def mock_hlom(config):
 def mock_jstor(config):
 
     """
-    Provide a Mock_JSTOR instance, and automatically point the configuration
-    object at the path of the mock corpus.
+    Provide a Mock_JSTOR instance.
 
-    Yields:
-        Mock_JSTOR
+    Yields: Mock_JSTOR
     """
 
     jstor = Mock_JSTOR()
 
-    # Point config -> mock.
     config.config.update({
         'jstor': {
             'corpus': jstor.path
@@ -193,6 +188,7 @@ def mock_jstor(config):
     })
 
     yield jstor
+
     jstor.teardown()
 
 
@@ -202,9 +198,9 @@ def api_client():
     """
     Get a test client for the worker API.
 
-    Yields:
-        The test client.
+    Yields: The test client.
     """
 
     app.testing = True
+
     yield app.test_client()
