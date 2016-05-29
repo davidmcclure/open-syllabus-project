@@ -9,7 +9,7 @@ from osp.models import BaseModel
 class Document(BaseModel):
 
 
-    path = Column(String, nullable=False)
+    path = Column(String, nullable=False, index=True)
 
 
     @classmethod
