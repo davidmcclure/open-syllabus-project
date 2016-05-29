@@ -14,7 +14,7 @@ class Document(BaseModel):
 
 
     @classmethod
-    def insert_documents(cls):
+    def ingest(cls):
 
         """
         Insert a row for each syllabus in the corpus.

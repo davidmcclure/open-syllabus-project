@@ -20,20 +20,19 @@ def test_insert_documents(mock_osp, config):
         for i in range(10):
             mock_osp.add_file(segment=s, name=s+'-'+str(i))
 
-    Document.insert_documents()
+    Document.ingest()
 
     with config.transaction() as session:
 
         # Should create 100 rows.
         assert session.query(Document).count() == 100
 
-        # All docs should have rows.
         for s in segment_range(10):
             for i in range(10):
 
                 path = s+'/'+s+'-'+str(i)
 
-                # Query for the document path.
+                # Should create a row for each document.
                 query = session.query(Document).filter(Document.path==path)
                 assert query.count() == 1
 
@@ -45,22 +44,22 @@ def test_merge_new_documents(mock_osp, config):
     be registered in the database.
     """
 
-    # 10 files in `000`.
+    # 10 files in 000.
     for i in range(10):
         mock_osp.add_file(segment='000', name='000-'+str(i))
 
-    Document.insert_documents()
+    Document.ingest()
 
     with config.transaction() as session:
 
-        # Should add 10 docs.
+        # Should add 10 initial docs.
         assert session.query(Document).count() == 10
 
-        # 10 new files in `001`.
+        # 10 new files in 001.
         for i in range(10):
             mock_osp.add_file(segment='001', name='001-'+str(i))
 
-        Document.insert_documents()
+        Document.ingest()
 
         # Should merge 10 new docs.
         assert session.query(Document).count() == 20
