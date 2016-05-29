@@ -9,7 +9,6 @@ from osp.test.utils import segment_range
 pytestmark = pytest.mark.usefixtures('db2')
 
 
-# @pytest.mark.skip
 def test_insert_documents(mock_osp, config):
 
     """
@@ -21,7 +20,6 @@ def test_insert_documents(mock_osp, config):
         for i in range(10):
             mock_osp.add_file(segment=s, name=s+'-'+str(i))
 
-    # Insert document rows.
     Document.insert_documents()
 
     with config.transaction() as session:
@@ -33,19 +31,14 @@ def test_insert_documents(mock_osp, config):
         for s in segment_range(10):
             for i in range(10):
 
-                # [segment]/[file]
                 path = s+'/'+s+'-'+str(i)
 
                 # Query for the document path.
-                assert (
-                    session
-                    .query(Document)
-                    .filter(Document.path==path).count()
-                ) == 1
+                query = session.query(Document).filter(Document.path==path)
+                assert query.count() == 1
 
 
-@pytest.mark.skip
-def test_insert_new_documents(mock_osp):
+def test_merge_new_documents(mock_osp, config):
 
     """
     When new documents are added to the corpus, just the new documents should
@@ -56,14 +49,18 @@ def test_insert_new_documents(mock_osp):
     for i in range(10):
         mock_osp.add_file(segment='000', name='000-'+str(i))
 
-    # Should add 10 docs.
     Document.insert_documents()
-    assert Document.select().count() == 10
 
-    # 10 new files in `001`.
-    for i in range(10):
-        mock_osp.add_file(segment='001', name='001-'+str(i))
+    with config.transaction() as session:
 
-    # Should add 10 docs.
-    Document.insert_documents()
-    assert Document.select().count() == 20
+        # Should add 10 docs.
+        assert session.query(Document).count() == 10
+
+        # 10 new files in `001`.
+        for i in range(10):
+            mock_osp.add_file(segment='001', name='001-'+str(i))
+
+        Document.insert_documents()
+
+        # Should merge 10 new docs.
+        assert session.query(Document).count() == 20

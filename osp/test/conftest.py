@@ -36,7 +36,7 @@ from osp.test.helpers import *
 
 
 @pytest.fixture(scope='session', autouse=True)
-def test_env():
+def patch_config():
 
     """
     Merge the testing parameters into the configuration.
@@ -78,9 +78,7 @@ def db():
 def db2(config):
 
     """
-    Provide a SQLAlchemy session.
-
-    Yields: Session
+    Reset the database.
     """
 
     engine = config.build_engine()

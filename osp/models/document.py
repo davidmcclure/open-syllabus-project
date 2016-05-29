@@ -10,19 +10,25 @@ from osp.models import BaseModel
 class Document(BaseModel):
 
 
-    path = Column(String, nullable=False, index=True)
+    path = Column(String, nullable=False, unique=True)
 
 
     @classmethod
     def insert_documents(cls):
 
         """
-        Load a row for each syllabus in the corpus.
+        Insert a row for each syllabus in the corpus.
         """
 
         corpus = Corpus.from_env()
 
-        with config.transaction() as session:
+        for syllabus in corpus.syllabi_bar():
 
-            for syllabus in corpus.syllabi_bar():
-                session.add(cls(path=syllabus.relative_path))
+            session = config.build_session()
+            session.add(cls(path=syllabus.relative_path))
+
+            try:
+                session.commit()
+
+            except:
+                pass
