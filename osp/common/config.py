@@ -194,14 +194,27 @@ class Config:
         """
         Build an SQLAlchemy session class.
 
-        Returns: Session
+        Returns: sessionmaker
         """
 
         return sessionmaker(bind=self.build_engine())
 
 
+    def build_session(self):
+
+        """
+        Get a database session.
+
+        Returns: Session
+        """
+
+        Session = self.build_sessionmaker()
+
+        return Session()
+
+
     @contextmanager
-    def get_session(self):
+    def transaction(self):
 
         """
         Provide a transactional scope around a query.
@@ -209,7 +222,7 @@ class Config:
         Yields: Session
         """
 
-        session = self.Session()
+        session = self.build_session()
 
         try:
             yield session
