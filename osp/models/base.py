@@ -18,9 +18,7 @@ class _BaseModel:
         Returns: str
         """
 
-        # TODO: "_" prefix during migration.
-
-        return '_'+inflection.underscore(cls.__name__)
+        return inflection.underscore(cls.__name__)
 
 
     id = Column(Integer, primary_key=True)
