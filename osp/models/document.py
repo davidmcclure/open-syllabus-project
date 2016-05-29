@@ -3,6 +3,7 @@
 from sqlalchemy import Column, String
 
 from osp.common import config
+from osp.corpus.corpus import Corpus
 from osp.models import BaseModel
 
 

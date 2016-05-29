@@ -24,6 +24,9 @@ from osp.fields.models import Subfield
 from osp.fields.models import Subfield_Index
 from osp.fields.models import Subfield_Document
 
+# SQLAlchemy
+from osp.models import BaseModel
+
 # Helpers
 from playhouse.test_utils import test_database
 from osp.test.mock_osp import Mock_OSP
@@ -69,6 +72,22 @@ def db():
 
     with test_database(_config.build_db(), tables):
         yield
+
+
+@pytest.fixture()
+def db2(config):
+
+    """
+    Provide a SQLAlchemy session.
+
+    Yields: Session
+    """
+
+    engine = config.build_engine()
+
+    # Rebuild tables.
+    BaseModel.metadata.drop_all(engine)
+    BaseModel.metadata.create_all(engine)
 
 
 @pytest.fixture
