@@ -9,6 +9,7 @@ from playhouse.postgres_ext import PostgresqlExtDatabase
 from rq import Queue
 from elasticsearch import Elasticsearch
 from redis import StrictRedis
+from contextlib import contextmanager
 
 from sqlalchemy.orm import sessionmaker
 from sqlalchemy import create_engine
@@ -197,6 +198,29 @@ class Config:
         """
 
         return sessionmaker(bind=self.build_engine())
+
+
+    @contextmanager
+    def get_session(self):
+
+        """
+        Provide a transactional scope around a query.
+
+        Yields: Session
+        """
+
+        session = self.Session()
+
+        try:
+            yield session
+            session.commit()
+
+        except:
+            session.rollback()
+            raise
+
+        finally:
+            session.close()
 
 
     def is_test(self):
