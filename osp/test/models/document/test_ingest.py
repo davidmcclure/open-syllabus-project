@@ -3,6 +3,7 @@
 import pytest
 
 from osp.models import Document
+from osp.corpus.syllabus import Syllabus
 from osp.test.utils import segment_range
 
 
@@ -15,10 +16,12 @@ def test_insert_documents(mock_osp, config):
     Corpus.insert_documents() should create a row for each syllabus.
     """
 
-    # 10 segments x 10 files.
-    for s in segment_range(10):
-        for i in range(10):
-            mock_osp.add_file(segment=s, name=s+'-'+str(i))
+    # 10 segments X 10 files.
+    paths = [
+        mock_osp.add_file(segment=s, name=str(i))
+        for s in segment_range(10)
+        for i in range(10)
+    ]
 
     Document.ingest()
 
@@ -27,14 +30,15 @@ def test_insert_documents(mock_osp, config):
         # Should create 100 rows.
         assert session.query(Document).count() == 100
 
-        for s in segment_range(10):
-            for i in range(10):
+        for path in paths:
 
-                path = s+'/'+s+'-'+str(i)
+            s = Syllabus(path)
 
-                # Should create a row for each document.
-                query = session.query(Document).filter(Document.path==path)
-                assert query.count() == 1
+            assert (
+                session.query(Document)
+                .filter(Document.path==s.relative_path)
+                .count()
+            ) == 1
 
 
 def test_merge_new_documents(mock_osp, config):
@@ -45,21 +49,32 @@ def test_merge_new_documents(mock_osp, config):
     """
 
     # 10 files in 000.
-    for i in range(10):
-        mock_osp.add_file(segment='000', name='000-'+str(i))
+    paths000 = [
+        mock_osp.add_file(segment='000', name=str(i))
+        for i in range(10)
+    ]
+
+    Document.ingest()
+
+    # 10 new files in 001.
+    paths001 = [
+        mock_osp.add_file(segment='001', name=str(i))
+        for i in range(10)
+    ]
 
     Document.ingest()
 
     with config.transaction() as session:
 
-        # Should add 10 initial docs.
-        assert session.query(Document).count() == 10
-
-        # 10 new files in 001.
-        for i in range(10):
-            mock_osp.add_file(segment='001', name='001-'+str(i))
-
-        Document.ingest()
-
-        # Should merge 10 new docs.
+        # Just 20 total documents.
         assert session.query(Document).count() == 20
+
+        for path in paths000 + paths001:
+
+            s = Syllabus(path)
+
+            assert (
+                session.query(Document)
+                .filter(Document.path==s.relative_path)
+                .count()
+            ) == 1
