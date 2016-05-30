@@ -2,9 +2,10 @@
 
 from sqlalchemy import Column, String
 
-from osp.common import config
-from osp.corpus.corpus import Corpus
 from osp.models import BaseModel
+from osp.common import config
+from osp.corpus.syllabus import Syllabus
+from osp.corpus.corpus import Corpus
 
 
 class Document(BaseModel):
@@ -32,3 +33,13 @@ class Document(BaseModel):
 
             except:
                 pass
+
+
+    @property
+    def syllabus(self):
+
+        """
+        Make a Syllabus instance.
+        """
+
+        return Syllabus.from_env(self.path)
