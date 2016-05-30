@@ -88,6 +88,17 @@ def db2(config):
     BaseModel.metadata.create_all(engine)
 
 
+@pytest.yield_fixture()
+def session(db2, config):
+
+    """
+    Yield a database session.
+    """
+
+    with config.transaction() as session:
+        yield session
+
+
 @pytest.fixture
 def es():
 

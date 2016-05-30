@@ -10,7 +10,7 @@ from osp.test.utils import segment_range
 pytestmark = pytest.mark.usefixtures('db2')
 
 
-def test_insert_documents(mock_osp, config):
+def test_insert_documents(mock_osp, session):
 
     """
     Corpus.insert_documents() should create a row for each syllabus.
@@ -25,23 +25,21 @@ def test_insert_documents(mock_osp, config):
 
     Document.ingest()
 
-    with config.transaction() as session:
+    # Should create 100 rows.
+    assert session.query(Document).count() == 100
 
-        # Should create 100 rows.
-        assert session.query(Document).count() == 100
+    for path in paths:
 
-        for path in paths:
+        s = Syllabus(path)
 
-            s = Syllabus(path)
-
-            assert (
-                session.query(Document)
-                .filter(Document.path==s.relative_path)
-                .count()
-            ) == 1
+        assert (
+            session.query(Document)
+            .filter(Document.path==s.relative_path)
+            .count()
+        ) == 1
 
 
-def test_merge_new_documents(mock_osp, config):
+def test_merge_new_documents(mock_osp, session):
 
     """
     When new documents are added to the corpus, just the new documents should
@@ -64,17 +62,15 @@ def test_merge_new_documents(mock_osp, config):
 
     Document.ingest()
 
-    with config.transaction() as session:
+    # Just 20 total documents.
+    assert session.query(Document).count() == 20
 
-        # Just 20 total documents.
-        assert session.query(Document).count() == 20
+    for path in paths000 + paths001:
 
-        for path in paths000 + paths001:
+        s = Syllabus(path)
 
-            s = Syllabus(path)
-
-            assert (
-                session.query(Document)
-                .filter(Document.path==s.relative_path)
-                .count()
-            ) == 1
+        assert (
+            session.query(Document)
+            .filter(Document.path==s.relative_path)
+            .count()
+        ) == 1
