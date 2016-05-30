@@ -31,7 +31,10 @@ class Mock_OSP(Mock_Corpus):
         """
 
         path = os.path.join(self.path, name)
-        if not os.path.exists(path): os.makedirs(path)
+
+        if not os.path.exists(path):
+            os.makedirs(path)
+
         return path
 
 
@@ -49,23 +52,18 @@ class Mock_OSP(Mock_Corpus):
             self.add_segment(int_to_dir(i))
 
 
-    def add_file(self,
-        segment='000',
-        content=None,
-        name=None,
-        ftype='plain',
-        log={},
-    ):
+    def add_file(self, segment='000', content=None, name=None,
+            ftype='plain', log=None):
 
         """
         Add a file to the corpus.
 
         Args:
-            segment (str): The segment name.
-            name (str): The file name.
-            content (str): The file content.
-            ftype (str): The file type.
-            log (dict): Custom log data.
+            segment (str)
+            name (str)
+            content (str)
+            ftype (str)
+            log (dict)
 
         Returns:
             str: The path of the new file.
@@ -73,6 +71,7 @@ class Mock_OSP(Mock_Corpus):
 
         self.add_segment(segment)
 
+        # Random content, if none provided.
         if content is None:
             content = str(uuid.uuid4())
 
@@ -80,7 +79,6 @@ class Mock_OSP(Mock_Corpus):
         if name is None:
             name = sha1(content)
 
-        # Get the complete path.
         path = os.path.join(self.path, segment+'/'+name)
 
         # Write the file and log.
@@ -91,27 +89,17 @@ class Mock_OSP(Mock_Corpus):
         return path
 
 
-    def write_log(self, path, log={}):
+    def write_log(self, path, log=None):
 
         """
         Write a .log file.
 
         Args:
             path (str): The file path.
-            log (dict): Log overrides.
+            log (dict): Custom log metadata.
         """
 
-        metadata = {
-            'url':          'url',
-            'provenance':   'provenance',
-            'date':         'date',
-            'checksum':     'checksum',
-            'format':       'format'
-        }
-
-        metadata.update(log)
-
-        order = [
+        fields = [
             'url',
             'provenance',
             'date',
@@ -119,9 +107,13 @@ class Mock_OSP(Mock_Corpus):
             'format'
         ]
 
+        metadata = { key: key for key in fields }
+
+        metadata.update(log or {})
+
         # Write the log.
         with open(path+'.log', 'w+') as fh:
-            for key in order:
+            for key in fields:
                 print(metadata[key], file=fh)
 
 
@@ -131,8 +123,8 @@ class Mock_OSP(Mock_Corpus):
         Write a plaintext file.
 
         Args:
-            path (str): The file path.
-            content (str): The file content.
+            path (str)
+            content (str)
         """
 
         with open(path, 'w+') as fh:
@@ -145,8 +137,8 @@ class Mock_OSP(Mock_Corpus):
         Write an HTML file.
 
         Args:
-            path (str): The file path.
-            content (str): The file content.
+            path (str)
+            content (str)
         """
 
         with open(path, 'w+') as fh:
@@ -159,11 +151,12 @@ class Mock_OSP(Mock_Corpus):
         Write a .pdf file.
 
         Args:
-            path (str): The file path.
-            content (str): The file content.
+            path (str)
+            content (str)
         """
 
         canvas = Canvas(path)
+
         canvas.drawString(12, 720, content)
         canvas.save()
 
@@ -174,11 +167,12 @@ class Mock_OSP(Mock_Corpus):
         Write a .docx file.
 
         Args:
-            path (str): The file path.
-            content (str): The file content.
+            path (str)
+            content (str)
         """
 
         docx = Document()
+
         docx.add_paragraph(content)
         docx.core_properties.created = datetime.now()
         docx.save(path)
