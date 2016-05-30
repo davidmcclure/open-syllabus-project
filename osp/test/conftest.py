@@ -8,7 +8,6 @@ from osp.common import config as _config
 
 # Models
 from osp.corpus.models import Document
-from osp.corpus.models import Document_Format
 from osp.corpus.models import Document_Text
 from osp.corpus.models import Document_Index
 from osp.citations.models import Text
@@ -59,7 +58,6 @@ def db():
 
     tables = [
         Document,
-        Document_Format,
         Document_Text,
         Text,
         Citation,
