@@ -22,4 +22,4 @@ Head over to [osp-deploy](https://github.com/davidmcclure/osp-deploy) for a set 
 
 ## How do I get the data?
 
-Unfortunately, we're unable publish the raw syllabi for copyright reasons. But, if you're interested in contributing to the project or working with the corpus, drop us a line at syllabusopen@gmail.com. We're actively looking to develop research collaborations around this corpus, and would love to hear about what you're working on.
+If you're interested in contributing to the project or working with the corpus, drop us a line at syllabusopen@gmail.com. We're actively looking to develop research collaborations around this corpus, and would love to hear about what you're working on.
