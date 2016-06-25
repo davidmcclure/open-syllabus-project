@@ -50,7 +50,7 @@ class Client:
 
         return self.filter_ips({
             'tag:osp': 'worker',
-            'tag:user': config['ec2']['namespace'],
+            'tag:context': config['ec2']['context'],
         })
 
 
