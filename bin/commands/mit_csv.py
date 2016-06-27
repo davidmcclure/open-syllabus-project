@@ -31,6 +31,6 @@ def urls(out_file):
     for row in query_bar(Document_Text.select()):
 
         writer.writerow({
-            'id': row.path,
+            'id': row.document.path,
             'url': row.document.syllabus.url,
         })
