@@ -221,7 +221,7 @@ class Syllabus:
             str: The libmagic-parsed file type.
         """
 
-        return magic.from_file(self.path, mime=True).decode('utf-8')
+        return magic.from_file(self.path, mime=True)
 
 
     @property
