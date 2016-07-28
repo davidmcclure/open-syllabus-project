@@ -17,3 +17,20 @@ class Institution_Document(BaseModel):
 
     class Meta:
         database = config.get_table_db('institution_document')
+
+
+    @classmethod
+    def link(cls):
+
+        """
+        Try to link each document with an institution.
+        """
+
+        # TODO: multiprocessing?
+
+        # get (regex, inst id) list
+        # loop through docs
+        # check each doc against each regex
+        # on match, write link row
+
+        pass
