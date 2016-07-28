@@ -49,3 +49,27 @@ export function makeQueryString(params) {
   return queryString.stringify(pruned);
 
 }
+
+
+/**
+ * Parse the search string on the URL.
+ *
+ * @return {String}
+ */
+export function parseWindowSearch() {
+
+  let params = queryString.parse(window.location.search);
+
+  return _.mapValues(params, function(v) {
+
+    // Cast numerics -> numbers.
+    if (!isNaN(v)) {
+      v = Number(v);
+    }
+
+    // Ensure values are arrays.
+    return !_.isArray(v) ? [v] : v;
+
+  });
+
+}

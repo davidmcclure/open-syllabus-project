@@ -1,6 +1,6 @@
 
 
-import { createReducer } from '../utils';
+import { createReducer, parseWindowSearch } from '../utils';
 
 import {
   CHANGE_FILTERS,
@@ -20,6 +20,8 @@ const initialState = {
   country: [],
 
   page: 1,
+
+  ...parseWindowSearch()
 
 };
 
