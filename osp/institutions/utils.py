@@ -25,7 +25,7 @@ def seed_to_regex(seed):
 
     # 2 -- If the seed has a non-www subdomain, require a matching subdomain.
 
-    subdomain = '[^\/]*'
+    subdomain = '.*'
 
     tld = tldextract.extract(seed)
 

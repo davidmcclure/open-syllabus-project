@@ -110,15 +110,22 @@ from osp.institutions.utils import seed_to_regex
         True,
     ),
 
-    # Block "embedded" URLs.
+    # Match embedded child URLs.
     (
         'http://yale.edu',
-        'http://facebook.com/share/http://yale.edu/page',
-        False,
+        'http://web.archive.org/123/http:/yale.edu/syllabus.pdf',
+        True,
     ),
     (
         'http://yale.edu',
-        'http://facebook.com/share/yale.edu/page',
+        'http://web.archive.org/123/yale.edu/syllabus.pdf',
+        True,
+    ),
+
+    # Block embedded non-child URLs.
+    (
+        'http://yale.edu/root1',
+        'http://web.archive.org/123/http:/yale.edu/root2',
         False,
     ),
 
