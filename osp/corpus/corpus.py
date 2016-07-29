@@ -124,5 +124,6 @@ class Corpus:
         """
 
         size = self.file_count
+
         for syllabus in bar(self.syllabi(), expected_size=size):
             yield syllabus

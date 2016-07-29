@@ -1,11 +1,14 @@
 
 
+from peewee import ForeignKeyField
+from playhouse.postgres_ext import ServerSide
+
 from osp.common import config
 from osp.common.models.base import BaseModel
 from osp.institutions.models import Institution
+from osp.institutions.utils import seed_to_regex
 from osp.corpus.models import Document
-
-from peewee import ForeignKeyField
+from osp.corpus.corpus import Corpus
 
 
 class Institution_Document(BaseModel):
@@ -33,4 +36,19 @@ class Institution_Document(BaseModel):
         # check each doc against each regex
         # on match, write link row
 
-        pass
+        regex_to_id = [
+            (seed_to_regex(i.url), i.id)
+            for i in ServerSide(Institution.select())
+            if i.url
+        ]
+
+        corpus = Corpus.from_env()
+
+        for i, syllabus in enumerate(corpus.syllabi()):
+
+            for pattern, id in regex_to_id:
+                if pattern.search(syllabus.url):
+                    break
+
+            if i%1000 == 0:
+                print(i)
