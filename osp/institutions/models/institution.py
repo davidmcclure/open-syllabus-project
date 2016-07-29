@@ -14,6 +14,7 @@ class Institution(BaseModel):
 
 
     # TODO: Require name, url.
+    # TODO: Use Carenegie data.
 
     name = CharField()
     url = CharField(unique=True)
