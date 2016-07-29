@@ -5,10 +5,10 @@ from playhouse.postgres_ext import ServerSide
 
 from osp.common import config
 from osp.common.models.base import BaseModel
+from osp.common.utils import query_bar
 from osp.institutions.models import Institution
 from osp.institutions.utils import seed_to_regex
 from osp.corpus.models import Document
-from osp.corpus.corpus import Corpus
 
 
 class Institution_Document(BaseModel):
@@ -31,24 +31,21 @@ class Institution_Document(BaseModel):
 
         # TODO: multiprocessing?
 
-        # get (regex, inst id) list
-        # loop through docs
-        # check each doc against each regex
-        # on match, write link row
-
-        regex_to_id = [
-            (seed_to_regex(i.url), i.id)
-            for i in ServerSide(Institution.select())
-            if i.url
+        # Map URL regex -> institution.
+        regex_to_inst = [
+            (seed_to_regex(inst.url), inst)
+            for inst in ServerSide(Institution.select())
+            if inst.url
         ]
 
-        corpus = Corpus.from_env()
+        docs = query_bar(Document.select())
 
-        for i, syllabus in enumerate(corpus.syllabi()):
+        # Walk documents.
+        for i, doc in enumerate(docs):
 
-            for pattern, id in regex_to_id:
-                if pattern.search(syllabus.url):
-                    break
+            # Probe for a matching institution.
+            for regex, inst in regex_to_inst:
+                if regex.search(doc.syllabus.url):
 
-            if i%1000 == 0:
-                print(i)
+                    # Write the link row.
+                    cls.create(institution=inst, document=doc)
