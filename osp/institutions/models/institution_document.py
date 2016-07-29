@@ -43,9 +43,16 @@ class Institution_Document(BaseModel):
         # Walk documents.
         for i, doc in enumerate(docs):
 
-            # Probe for a matching institution.
-            for regex, inst in regex_to_inst:
-                if regex.search(doc.syllabus.url):
+            try:
 
-                    # Write the link row.
-                    cls.create(institution=inst, document=doc)
+                url = doc.syllabus.url
+
+                # Probe for a matching institution.
+                for regex, inst in regex_to_inst:
+                    if regex.search(url):
+
+                        # Write the link row.
+                        cls.create(institution=inst, document=doc)
+
+            except Exception as e:
+                print(e)
