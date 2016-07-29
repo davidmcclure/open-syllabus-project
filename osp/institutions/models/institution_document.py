@@ -26,7 +26,7 @@ class Institution_Document(BaseModel):
     def link(cls):
 
         """
-        Try to link each document with an institution.
+        Link each document with an institution.
         """
 
         # TODO: multiprocessing?
