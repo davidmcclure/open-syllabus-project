@@ -13,6 +13,8 @@ from bs4 import BeautifulSoup
 class Institution(BaseModel):
 
 
+    # TODO: Require name, url.
+
     name = CharField()
     url = CharField(unique=True)
     domain = CharField(unique=True)
