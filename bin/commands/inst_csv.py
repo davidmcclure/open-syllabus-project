@@ -13,7 +13,7 @@ def cli():
 
 @cli.command()
 @click.argument('out_file', type=click.File('w'))
-@click.option('--n', default=None)
+@click.option('--n', default=1000)
 def doc_to_inst(out_file, n):
 
     """
