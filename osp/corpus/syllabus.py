@@ -13,6 +13,9 @@ from contextlib import contextmanager
 from cached_property import cached_property
 
 
+# TODO: Don't use @property for the log methods.
+
+
 class Syllabus:
 
 

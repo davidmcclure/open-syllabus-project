@@ -17,7 +17,7 @@ class DocToInst:
         Create the pool, map docs.
         """
 
-        docs = Document.select()
+        docs = ServerSide(Document.select())
 
         with Pool() as pool:
             pool.map(cls(), docs)
