@@ -19,24 +19,20 @@ def seed_to_regex(seed):
 
     parsed = urlparse(seed)
 
-    # 1 -- http(s)://
+    # 1 -- If the seed has a non-www subdomain, require a matching subdomain.
 
-    protocol = '^https?{0}'.format(re.escape('://'))
-
-    # 2 -- If the seed has a non-www subdomain, require a matching subdomain.
-
-    subdomain = '.*'
+    subdomain = '/.*'
 
     tld = tldextract.extract(seed)
 
     if tld.subdomain and tld.subdomain != 'www':
-        subdomain = re.escape(tld.subdomain+'.')
+        subdomain = '/'+tld.subdomain
 
     # 3 -- yale.edu
 
-    netloc = re.escape('.'.join([tld.domain, tld.suffix]))
+    netloc = '[./]{0}.{1}'.format(tld.domain, tld.suffix)
 
-    # 4 -- If a path is present, require a sub-path.
+    # 3 -- If a path is present, require a sub-path.
 
     path = '.*'
 
@@ -47,6 +43,6 @@ def seed_to_regex(seed):
 
     # Join the parts.
 
-    pattern = ''.join([protocol, subdomain, netloc, path])
+    pattern = ''.join([subdomain, netloc, path])
 
     return re.compile(pattern, re.I)

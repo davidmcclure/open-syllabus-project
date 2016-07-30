@@ -8,7 +8,7 @@ from osp.institutions.utils import seed_to_regex
 
 @pytest.mark.parametrize('seed,url,result', [
 
-    # Allow URLs that are "below" the seed path.
+    # Match URLs that are "below" the seed path.
     (
         'http://yale.edu',
         'http://yale.edu/page',
@@ -25,7 +25,7 @@ from osp.institutions.utils import seed_to_regex
         True,
     ),
 
-    # Block URLs that are adjacent to or above the seed path.
+    # Don't match URLs that are adjacent to or above the seed path.
     (
         'http://yale.edu/root1',
         'http://yale.edu/root2',
@@ -42,7 +42,7 @@ from osp.institutions.utils import seed_to_regex
         False,
     ),
 
-    # When the seed has no subdomain (or just www), allow any subdomain.
+    # When the seed has no subdomain (or just www), match any subdomain.
     (
         'http://yale.edu',
         'http://sub.yale.edu',
@@ -79,14 +79,14 @@ from osp.institutions.utils import seed_to_regex
         True,
     ),
 
-    # Block URLs with different hosts.
+    # Don't match URLs with different hosts.
     (
         'http://yale.edu',
         'http://harvard.edu',
         False,
     ),
 
-    # Allow different protocols.
+    # Match different protocols.
     (
         'http://yale.edu',
         'https://yale.edu',
@@ -122,10 +122,18 @@ from osp.institutions.utils import seed_to_regex
         True,
     ),
 
-    # Block embedded non-child URLs.
+    # Don't match embedded non-child URLs.
     (
         'http://yale.edu/root1',
         'http://web.archive.org/123/http:/yale.edu/root2',
+        False,
+    ),
+
+    # Don't match "superset" netlocs, where the document netloc ends with the
+    # seed neloc but isn't the same.
+    (
+        'http://su.edu/',
+        'http://wsu.edu/syllabus.pdf',
         False,
     ),
 
