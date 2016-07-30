@@ -64,19 +64,6 @@ def queue_ext_text():
 
 
 @cli.command()
-def queue_doc_to_inst():
-
-    """
-    Queue document -> institution matching.
-    """
-
-    Client().queue(
-        'osp.corpus.models.Document',
-        'osp.institutions.jobs.doc_to_inst',
-    )
-
-
-@cli.command()
 def queue_doc_to_fields():
 
     """

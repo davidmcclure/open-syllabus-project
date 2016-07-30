@@ -2,8 +2,8 @@
 
 import pytest
 
-from osp.institutions.models import Institution, Institution_Document
-from osp.institutions.jobs import doc_to_inst
+from osp.institutions.models import Institution_Document
+from osp.institutions.jobs import DocToInst
 
 
 pytestmark = pytest.mark.usefixtures('db')
@@ -12,51 +12,26 @@ pytestmark = pytest.mark.usefixtures('db')
 def test_match(add_doc, add_institution):
 
     """
-    When a doc URL matches an institution domain, write a link.
+    When a document URL matches an institution URL, write a link.
     """
 
-    doc = add_doc(log={
-        'url': 'http://yale.edu/syllabus.pdf'
-    })
+    i1 = add_institution(url='http://d1.edu')
+    i2 = add_institution(url='http://d2.edu')
+    i3 = add_institution(url='http://d3.edu')
 
-    yale = add_institution(
-        name='Yale University',
-        domain='yale.edu',
-    )
+    d1 = add_doc(log=dict(url='http://d1.edu/syllabus.pdf'))
+    d2 = add_doc(log=dict(url='http://d2.edu/syllabus.pdf'))
+    d3 = add_doc(log=dict(url='http://d3.edu/syllabus.pdf'))
 
-    harvard = add_institution(
-        name='Harvard University',
-        domain='harvard.edu',
-    )
+    DocToInst.run()
 
-    doc_to_inst(doc.id)
+    for i, d in [
+        (i1, d1),
+        (i2, d2),
+        (i3, d3),
+    ]:
 
-    # Should write a link.
-    assert Institution_Document.select().count() == 1
-
-    # Should link the right rows.
-    assert Institution_Document.select().where(
-        Institution_Document.institution==yale,
-        Institution_Document.document==doc,
-    )
-
-
-def test_no_match(add_doc, add_institution):
-
-    """
-    When the URL doesn't match an institution, don't write a row.
-    """
-
-    doc = add_doc(log={
-        'url': 'http://yale.edu/syllabus.pdf'
-    })
-
-    harvard = add_institution(
-        name='Harvard University',
-        domain='harvard.edu',
-    )
-
-    doc_to_inst(doc.id)
-
-    # Shouldn't write a link.
-    assert Institution_Document.select().count() == 0
+        assert Institution_Document.select().where(
+            Institution_Document.document==d,
+            Institution_Document.institution==i,
+        )
