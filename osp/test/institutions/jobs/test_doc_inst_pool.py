@@ -3,15 +3,16 @@
 import pytest
 
 from osp.institutions.models import Institution_Document
+from osp.institutions.jobs.doc_inst_pool import DocInstPool
 
 
 pytestmark = pytest.mark.usefixtures('db')
 
 
-def test_link(add_doc, add_institution):
+def test_doc_inst_pool(add_doc, add_institution):
 
     """
-    .link() should link documents -> institutions.
+    DocInstPool should link documents -> institutions.
     """
 
     i1 = add_institution(url='http://d1.edu')
@@ -22,7 +23,7 @@ def test_link(add_doc, add_institution):
     d2 = add_doc(log=dict(url='http://d2.edu/syllabus.pdf'))
     d3 = add_doc(log=dict(url='http://d3.edu/syllabus.pdf'))
 
-    Institution_Document.link()
+    DocInstPool.run()
 
     for i, d in [
         (i1, d1),

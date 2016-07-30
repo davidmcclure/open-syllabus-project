@@ -2,8 +2,7 @@
 
 import pytest
 
-from osp.institutions.models import Institution
-from osp.institutions.models import Institution_Document
+from osp.institutions.models import Institution, Institution_Document
 from osp.institutions.jobs import doc_to_inst
 
 
