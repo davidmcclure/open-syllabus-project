@@ -129,11 +129,16 @@ from osp.institutions.utils import seed_to_regex
         False,
     ),
 
-    # Don't match "superset" netlocs, where the document netloc ends with the
-    # seed neloc but isn't the same.
+    # Don't match "superset" netlocs or subdomains, where the document value
+    # ends with the seed value but isn't the same.
     (
         'http://su.edu/',
         'http://wsu.edu/syllabus.pdf',
+        False,
+    ),
+    (
+        'http://lit.yale.edu/',
+        'http://complit.yale.edu/syllabus.pdf',
         False,
     ),
 
