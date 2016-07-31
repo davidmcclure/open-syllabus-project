@@ -129,12 +129,7 @@ def parse_domain(url):
 
     tld = tldextract.extract(url)
 
-    # Keep non-www subdomains.
-    if tld.subdomain and tld.subdomain != 'www':
-        return tld.subdomain+'.'+tld.registered_domain
-
-    else:
-        return tld.registered_domain
+    return tld.registered_domain
 
 
 def prettify(value):

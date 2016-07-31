@@ -23,20 +23,14 @@ from osp.common.utils import parse_domain
         'test.edu',
     ),
 
-    # Stip www subdomain
+    # Stip subdomains
     (
         'www.test.edu',
         'test.edu',
     ),
-
-    # Keep non-www subdomain
     (
         'sub.test.edu',
-        'sub.test.edu',
-    ),
-    (
-        'sub1.sub2.test.edu',
-        'sub1.sub2.test.edu',
+        'test.edu',
     ),
 
     # Strip path
