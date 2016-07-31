@@ -38,13 +38,14 @@ class Institution_Document(BaseModel):
 
             try:
 
+                # Parse syllabus domain.
                 domain = parse_domain(doc.syllabus.url)
 
-                # Write the link row.
-                cls.create(
-                    institution=domain_to_inst[domain],
-                    document=doc,
-                )
+                # Link with institution.
+                inst = domain_to_inst.get(domain)
+
+                if inst:
+                    cls.create(institution=inst, document=doc)
 
             except Exception as e:
                 print(e)
