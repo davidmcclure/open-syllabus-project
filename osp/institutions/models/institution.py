@@ -6,15 +6,12 @@ from osp.common import config
 from osp.common.utils import read_csv, parse_domain
 from osp.common.models import BaseModel
 
-from peewee import CharField, IntegrityError
+from peewee import CharField
 from bs4 import BeautifulSoup
 
 
 class Institution(BaseModel):
 
-
-    # TODO: Require name, url.
-    # TODO: Use Carenegie data.
 
     name = CharField()
     url = CharField(unique=True)
@@ -56,8 +53,8 @@ class Institution(BaseModel):
                         country='US',
                     )
 
-                except IntegrityError:
-                    pass
+                except Exception as e:
+                    print(e)
 
 
     @classmethod
@@ -90,5 +87,5 @@ class Institution(BaseModel):
                         country=country,
                     )
 
-                except IntegrityError:
-                    pass
+                except Exception as e:
+                    print(e)
