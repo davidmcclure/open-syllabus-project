@@ -36,10 +36,7 @@ class Institution(BaseModel):
 
         reader = read_csv(package, path)
 
-        for row in reader:
-
-            row = strip_csv_row(row)
-
+        for row in map(strip_csv_row, reader):
             if row['e_country'] == 'USA':
 
                 try:
@@ -66,17 +63,13 @@ class Institution(BaseModel):
 
         reader = read_csv(package, path)
 
-        for row in reader:
-
-            row = strip_csv_row(row)
-
+        for row in map(strip_csv_row, reader):
             if row['country'] != 'US':
 
                 try:
                     cls.create(
                         name=row['name'],
                         url=row['url'],
-                        state=None,
                         country=row['country'],
                     )
 
