@@ -66,3 +66,19 @@ def test_strip_values():
         Institution.state=='ST',
         Institution.country=='US',
     )
+
+
+def test_block_empty_urls():
+
+    """
+    Don't ingest rows with empty URLs.
+    """
+
+    Institution.ingest_usa(
+        'osp.test.institutions.models.institution',
+        'fixtures/ingest_usa/empty_urls.csv',
+    )
+
+    assert Institution.select().count() == 1
+
+    assert Institution.select().where(Institution.name=='inst1')

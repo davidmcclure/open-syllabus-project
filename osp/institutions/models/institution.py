@@ -2,12 +2,13 @@
 
 import pkgutil
 
+from peewee import CharField
+from bs4 import BeautifulSoup
+
 from osp.common import config
 from osp.common.utils import read_csv, parse_domain
 from osp.common.models import BaseModel
-
-from peewee import CharField
-from bs4 import BeautifulSoup
+from osp.institutions.utils import strip_csv_row
 
 
 class Institution(BaseModel):
@@ -36,20 +37,16 @@ class Institution(BaseModel):
         reader = read_csv(package, path)
 
         for row in reader:
+
+            row = strip_csv_row(row)
+
             if row['e_country'] == 'USA':
-
-                # Normalize the URL.
-                url = row['web_url'].strip()
-
-                # Clean the fields.
-                name = row['biz_name'].strip()
-                state = row['e_state'].strip()
 
                 try:
                     cls.create(
-                        name=name,
-                        url=url,
-                        state=state,
+                        name=row['biz_name'],
+                        url=row['web_url'],
+                        state=row['e_state'],
                         country='US',
                     )
 
@@ -70,21 +67,17 @@ class Institution(BaseModel):
         reader = read_csv(package, path)
 
         for row in reader:
+
+            row = strip_csv_row(row)
+
             if row['country'] != 'US':
-
-                # Normalize the URL.
-                url = row['url'].strip()
-
-                # Clean the fields.
-                name = row['name'].strip()
-                country = row['country'].strip()
 
                 try:
                     cls.create(
-                        name=name,
-                        url=url,
+                        name=row['name'],
+                        url=row['url'],
                         state=None,
-                        country=country,
+                        country=row['country'],
                     )
 
                 except Exception as e:

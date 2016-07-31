@@ -46,3 +46,15 @@ def seed_to_regex(seed):
     pattern = ''.join([subdomain, netloc, path])
 
     return re.compile(pattern, re.I)
+
+
+def strip_csv_row(row):
+
+    """
+    Strip values in a CSV row, casing '' -> None.
+    """
+
+    return {
+        key: val.strip() or None
+        for key, val in row.items()
+    }
