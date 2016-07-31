@@ -36,3 +36,13 @@ def ingest():
 
     Institution.ingest_usa()
     Institution.ingest_world()
+
+
+@cli.command()
+def doc_to_inst():
+
+    """
+    Link document -> institution.
+    """
+
+    Institution_Document.link()
