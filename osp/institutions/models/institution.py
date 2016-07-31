@@ -18,7 +18,6 @@ class Institution(BaseModel):
 
     name = CharField()
     url = CharField(unique=True)
-    domain = CharField(unique=True)
     state = CharField(null=True)
     country = CharField()
 
@@ -44,7 +43,6 @@ class Institution(BaseModel):
 
                 # Normalize the URL.
                 url = row['web_url'].strip()
-                domain = parse_domain(url)
 
                 # Clean the fields.
                 name = row['biz_name'].strip()
@@ -54,7 +52,6 @@ class Institution(BaseModel):
                     cls.create(
                         name=name,
                         url=url,
-                        domain=domain,
                         state=state,
                         country='US',
                     )
@@ -80,7 +77,6 @@ class Institution(BaseModel):
 
                 # Normalize the URL.
                 url = row['url'].strip()
-                domain = parse_domain(url)
 
                 # Clean the fields.
                 name = row['name'].strip()
@@ -90,7 +86,6 @@ class Institution(BaseModel):
                     cls.create(
                         name=name,
                         url=url,
-                        domain=domain,
                         state=None,
                         country=country,
                     )
