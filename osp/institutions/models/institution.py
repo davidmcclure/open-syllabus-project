@@ -4,7 +4,7 @@ import pkgutil
 
 from osp.common import config
 from osp.common.utils import read_csv, parse_domain
-from osp.common.models.base import BaseModel
+from osp.common.models import BaseModel
 
 from peewee import CharField, IntegrityError
 from bs4 import BeautifulSoup

@@ -1,7 +1,7 @@
 
 
 from osp.common import config
-from osp.common.models.base import BaseModel
+from osp.common.models import BaseModel
 from osp.corpus.models import Document
 
 from peewee import ForeignKeyField, CharField, fn

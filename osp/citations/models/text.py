@@ -8,7 +8,7 @@ import os
 
 from osp.common import config
 from osp.common.utils import prettify, query_bar
-from osp.common.models.base import BaseModel
+from osp.common.models import BaseModel
 
 from osp.constants import redis_keys
 from osp.citations.utils import tokenize_field, is_toponym

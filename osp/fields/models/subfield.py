@@ -3,7 +3,7 @@
 import re
 
 from osp.common import config
-from osp.common.models.base import BaseModel
+from osp.common.models import BaseModel
 from osp.common.utils import read_csv
 from osp.fields.utils import clean_field_name, parse_abbrs, filter_abbrs
 from osp.fields.models import Field

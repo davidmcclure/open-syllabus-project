@@ -1,7 +1,7 @@
 
 
 from osp.common import config
-from osp.common.models.base import BaseModel
+from osp.common.models import BaseModel
 from osp.corpus.corpus import Corpus
 from osp.corpus.syllabus import Syllabus
 
