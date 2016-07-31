@@ -19,6 +19,7 @@ class Institution_Document(BaseModel):
 
     class Meta:
         database = config.get_table_db('institution_document')
+        indexes = ((('institution', 'document'), True),)
 
 
     @classmethod
