@@ -90,6 +90,7 @@ def read_csv(package, path):
     """
 
     data = pkgutil.get_data(package, path).decode('utf8')
+
     return csv.DictReader(StringIO(data))
 
 
@@ -106,6 +107,7 @@ def read_yaml(package, path):
     """
 
     data = pkgutil.get_data(package, path).decode('utf8')
+
     return yaml.load(data)
 
 
@@ -120,13 +122,19 @@ def parse_domain(url):
     Returns: str
     """
 
+    url = url.lower().strip()
+
     # Get the last `http://...` sequence.
     url = re.compile('http[s]?:/{1,2}').split(url)[-1]
 
-    # Parse the top-level domain.
-    domain = tldextract.extract(url).registered_domain
+    tld = tldextract.extract(url)
 
-    return domain.lower().strip()
+    # Keep non-www subdomains.
+    if tld.subdomain and tld.subdomain != 'www':
+        return tld.subdomain+'.'+tld.registered_domain
+
+    else:
+        return tld.registered_domain
 
 
 def prettify(value):

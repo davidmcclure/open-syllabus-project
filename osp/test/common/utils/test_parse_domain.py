@@ -23,17 +23,23 @@ from osp.common.utils import parse_domain
         'test.edu',
     ),
 
-    # Strip subdomain
+    # Stip www subdomain
     (
         'www.test.edu',
         'test.edu',
     ),
+
+    # Keep non-www subdomain
     (
-        'www.sub.test.edu',
-        'test.edu',
+        'sub.test.edu',
+        'sub.test.edu',
+    ),
+    (
+        'sub1.sub2.test.edu',
+        'sub1.sub2.test.edu',
     ),
 
-    # Strip suffix
+    # Strip path
     (
         'http://test.edu/syllabus.pdf',
         'test.edu',
@@ -51,7 +57,7 @@ from osp.common.utils import parse_domain
         'test.edu',
     ),
 
-    # Parse archive URLs
+    # Take second domain in embedded URLs
     (
         'https://web.archive.org/123/http:/test.edu/syllabus.pdf',
         'test.edu',
