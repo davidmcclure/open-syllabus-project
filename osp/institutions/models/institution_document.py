@@ -16,6 +16,8 @@ class Institution_Document(BaseModel):
 
 
     institution = ForeignKeyField(Institution)
+
+    # TODO: unique?
     document = ForeignKeyField(Document)
 
 
@@ -31,24 +33,45 @@ class Institution_Document(BaseModel):
         Link documents -> institutions.
         """
 
-        domain_to_inst = {
-            parse_domain(inst.url): inst
-            for inst in ServerSide(Institution.select())
-            if inst.url
-        }
+        # map domain -> list of (regex, inst)
+        # for each doc, look up domain
+        # step through pairs, look for match
+        # take longest match
+
+        domain_to_inst = defaultdict(list)
+
+        # Map domain -> [(regex, inst), ...]
+        for inst in ServerSide(Institution.select()):
+
+            domain = parse_domain(inst.url)
+
+            regex = seed_to_regex(inst.url)
+
+            domain_to_inst[domain].append((regex, inst))
 
         for doc in query_bar(Document.select()):
 
             try:
 
-                # Parse syllabus domain.
-                domain = parse_domain(doc.syllabus.url)
+                url = doc.syllabus.url
 
-                # Link with institution.
-                inst = domain_to_inst.get(domain)
+                domain = parse_domain(url)
 
-                if inst:
-                    cls.create(institution=inst, document=doc)
+                matches = []
+                for pattern, inst in domain_to_inst[domain]:
+                    match = pattern.search(url)
+                    if match:
+                        matches.append((match.group(), inst))
+
+                if matches:
+
+                    matches = sorted(
+                        matches,
+                        key=lambda x: len(x[0]),
+                        reverse=True,
+                    )
+
+                    cls.create(institution=matches[0][1], document=doc)
 
             except Exception as e:
                 print(e)
