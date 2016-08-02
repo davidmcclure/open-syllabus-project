@@ -16,8 +16,6 @@ class Institution_Document(BaseModel):
 
 
     institution = ForeignKeyField(Institution)
-
-    # TODO: unique?
     document = ForeignKeyField(Document)
 
 
