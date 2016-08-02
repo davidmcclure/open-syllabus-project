@@ -23,7 +23,6 @@ def doc_to_inst(out_file, n):
     Dump N institution -> document matches.
     """
 
-    # CSV writer.
     cols = ['inst_url', 'doc_url']
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
@@ -41,30 +40,30 @@ def doc_to_inst(out_file, n):
 
 @cli.command()
 @click.argument('out_file', type=click.File('w'))
-def usa_doc_counts(out_file):
+def counts(out_file):
 
     """
     Update the institutions CSV with the number of docs in the OSP corpus.
     """
 
-    reader = read_csv('osp.institutions', 'data/usa.csv')
-
-    cols = reader.fieldnames + ['osp_doc_count']
-
+    cols = ['name', 'url', 'count']
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    for row in reader:
+    count = fn.count(Institution_Document.id)
 
-        count = fn.count(Institution_Document.id)
+    query = (
+        Institution
+        .select(Institution, count)
+        .join(Institution_Document)
+        .group_by(Institution.id)
+        .order_by(count.desc())
+    )
 
-        query = (
-            Institution_Document
-            .select(count)
-            .join(Institution)
-            .where(Institution.url == row['web_url'])
-        )
+    for row in query:
 
-        row['osp_doc_count'] = query.scalar()
-
-        writer.writerow(row)
+        writer.writerow(dict(
+            name=row.name,
+            url=row.url,
+            count=row.count,
+        ))
