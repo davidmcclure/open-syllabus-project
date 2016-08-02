@@ -214,13 +214,15 @@ class Citation_Index(Elasticsearch):
 
 
     @classmethod
-    def count_facets(cls, field, depth=100):
+    def count_facets(cls, field, depth=100, include=None):
 
         """
         Given a field, return a set of facet counts.
 
         Args:
             field (str)
+            depth (int)
+            include (list)
 
         Returns:
             list: (value, count)
@@ -238,6 +240,7 @@ class Citation_Index(Elasticsearch):
                         'terms': {
                             'field': field,
                             'size': depth,
+                            'include': include or [],
                         }
                     }
                 }
