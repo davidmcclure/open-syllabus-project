@@ -9,7 +9,7 @@ import {
 } from '../constants';
 
 
-const initialState = {
+const emptyState = {
 
   query: '',
 
@@ -21,8 +21,12 @@ const initialState = {
 
   page: 1,
 
-  ...parseWindowSearch()
+};
 
+
+const initialState = {
+  ...emptyState,
+  ...parseWindowSearch(),
 };
 
 
@@ -41,7 +45,7 @@ const handlers = {
       page: state.page + 1
   }),
 
-  [CLEAR_FILTERS]: () => (initialState),
+  [CLEAR_FILTERS]: () => (emptyState),
 
 };
 
