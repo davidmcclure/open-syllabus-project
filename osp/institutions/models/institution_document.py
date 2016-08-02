@@ -33,11 +33,6 @@ class Institution_Document(BaseModel):
         Link documents -> institutions.
         """
 
-        # map domain -> list of (regex, inst)
-        # for each doc, look up domain
-        # step through pairs, look for match
-        # take longest match
-
         domain_to_inst = defaultdict(list)
 
         # Map domain -> [(regex, inst), ...]
@@ -53,25 +48,34 @@ class Institution_Document(BaseModel):
 
             try:
 
+                # TODO: Get rid of @property.
                 url = doc.syllabus.url
 
                 domain = parse_domain(url)
 
+                # Find institutions with matching URLs.
                 matches = []
                 for pattern, inst in domain_to_inst[domain]:
+
                     match = pattern.search(url)
+
                     if match:
                         matches.append((match.group(), inst))
 
                 if matches:
 
+                    # Sort by length of match, descending.
                     matches = sorted(
                         matches,
                         key=lambda x: len(x[0]),
                         reverse=True,
                     )
 
-                    cls.create(institution=matches[0][1], document=doc)
+                    # Link to the institution with the longest match.
+                    cls.create(
+                        institution=matches[0][1],
+                        document=doc,
+                    )
 
             except Exception as e:
                 print(e)
