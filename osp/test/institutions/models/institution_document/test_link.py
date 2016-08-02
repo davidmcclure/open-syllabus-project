@@ -68,29 +68,33 @@ def test_match_subdomains(add_doc, add_institution):
         )
 
 
-# simple linking
+def test_match_paths(add_doc, add_institution):
 
-# if the doc has a subdomain, it should be matched "greedily" against the
-# available institutions. Eg, if we have institutions:
+    """
+    If the document has a path, it should be matched "greedily" against
+    the institutions - find the institution with the longest shared path.
+    """
 
-# yale.edu
-# sub1.yale.edu
-# sub2.sub1.yale.edu
-# sub3.sub2.sub1.yale.edu
+    i1 = add_institution(url='http://yale.edu')
+    i2 = add_institution(url='http://yale.edu/p1')
+    i3 = add_institution(url='http://yale.edu/p1/p2')
+    i4 = add_institution(url='http://yale.edu/p1/p2/p3')
 
-# yale.edu/file -> yale.edu
-# sub1.yale.edu/file -> sub1.yale.edu
-# sub2.sub1.yale.edu/file -> sub2.sub1.yale.edu
-# sub3.sub2.sub1.yale.edu/file -> sub3.sub2.sub1.yale.edu
+    d1 = add_doc(log=dict(url='http://yale.edu/syllabus.pdf'))
+    d2 = add_doc(log=dict(url='http://yale.edu/p1/syllabus.pdf'))
+    d3 = add_doc(log=dict(url='http://yale.edu/p1/p2/syllabus.pdf'))
+    d4 = add_doc(log=dict(url='http://yale.edu/p1/p2/p3/syllabus.pdf'))
 
-# likewise with paths
+    Institution_Document.link()
 
-# yale.edu
-# yale.edu/path1
-# yale.edu/path1/path2
-# yale.edu/path1/path2/path3
+    for i, d in [
+        (i1, d1),
+        (i2, d2),
+        (i3, d3),
+        (i4, d4),
+    ]:
 
-# yale.edu/file -> yale.edu
-# yale.edu/path1/file -> yale.edu/path1
-# yale.edu/path1/path2/file -> yale.edu/path1/path2
-# yale.edu/path1/path2/path3/file -> yale.edu/path1/path2/path3
+        assert Institution_Document.select().where(
+            Institution_Document.institution==i,
+            Institution_Document.document==d,
+        )
