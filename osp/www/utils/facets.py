@@ -49,17 +49,39 @@ def field_facets():
     return Field_Index.materialize_facets(counts)
 
 
-def institution_facets():
+def institution_facets(depth=200, include=None):
 
     """
     Materialize institution facets with counts.
+
+    Args:
+        depth (int)
+        include (list)
 
     Returns:
         dict: {label, value, count}
     """
 
-    counts = Citation_Index.count_facets('institution_id')
-    return Institution_Index.materialize_institution_facets(counts)
+    counts1 = Citation_Index.count_facets('institution_id', depth=depth)
+
+    facets1 = Institution_Index.materialize_institution_facets(counts1)
+
+    counts2 = Citation_Index.count_facets('institution_id', include=include)
+
+    facets2 = Institution_Index.materialize_institution_facets(counts2)
+
+    ids = set([f['value'] for f in facets1])
+    for f in facets2:
+        if f['value'] not in ids:
+            facets1.append(f)
+
+    facets = sorted(
+        facets1,
+        key=lambda x: x['count'],
+        reverse=True,
+    )
+
+    return facets
 
 
 def state_facets():

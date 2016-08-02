@@ -55,7 +55,7 @@ def test_include_institutions_outside_of_page(add_institution, add_citation):
     i1 = add_institution(name='Institution 1')
     i2 = add_institution(name='Institution 2')
     i3 = add_institution(name='Institution 3')
-    i4 = add_institution(name='Institution 3')
+    i4 = add_institution(name='Institution 4')
 
     for i in range(4):
         c = add_citation()
@@ -85,6 +85,6 @@ def test_include_institutions_outside_of_page(add_institution, add_citation):
 
         # Include 3 and 4.
         dict(label='Institution 3', value=i3.id, count=2),
-        dict(label='Institution 4', value=i3.id, count=1),
+        dict(label='Institution 4', value=i4.id, count=1),
 
     ]
