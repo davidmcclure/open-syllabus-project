@@ -2,11 +2,13 @@
 
 from peewee import ForeignKeyField
 from playhouse.postgres_ext import ServerSide
+from collections import defaultdict
 
 from osp.common import config
 from osp.common.utils import parse_domain, query_bar
 from osp.common.models import BaseModel
 from osp.institutions.models import Institution
+from osp.institutions.utils import seed_to_regex
 from osp.corpus.models import Document
 
 

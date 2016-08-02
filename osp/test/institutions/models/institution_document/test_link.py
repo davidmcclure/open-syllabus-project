@@ -31,6 +31,6 @@ def test_link(add_doc, add_institution):
     ]:
 
         assert Institution_Document.select().where(
-            Institution_Document.document==d,
             Institution_Document.institution==i,
+            Institution_Document.document==d,
         )

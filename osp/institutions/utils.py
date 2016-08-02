@@ -26,7 +26,7 @@ def seed_to_regex(seed):
     tld = tldextract.extract(seed)
 
     if tld.subdomain and tld.subdomain != 'www':
-        subdomain = '/'+tld.subdomain
+        subdomain = '[./]'+tld.subdomain
 
     # 3 -- yale.edu
 

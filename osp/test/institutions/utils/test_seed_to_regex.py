@@ -66,10 +66,12 @@ from osp.institutions.utils import seed_to_regex
         'http://sub2.yale.edu',
         False,
     ),
+
+    # Match URLs with the same subdomain with additional subdomains.
     (
         'http://sub1.yale.edu',
         'http://sub2.sub1.yale.edu',
-        False,
+        True,
     ),
 
     # Ignore casing.
