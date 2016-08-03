@@ -236,23 +236,36 @@ class Citation_Index(Elasticsearch):
 
             body = {
                 'aggs': {
-                    'texts': {
+                    'ranking': {
                         'terms': {
                             'field': field,
                             'size': depth,
+                        }
+                    },
+                    'include': {
+                        'terms': {
+                            'field': field,
                             'include': include or [],
                         }
-                    }
+                    },
                 }
             }
 
         )
 
-        counts = []
-        for b in result['aggregations']['texts']['buckets']:
-            counts.append((b['key'], b['doc_count']))
+        counts = {}
 
-        return counts
+        # Merge the raw rankings + include list.
+        for agg in ['ranking', 'include']:
+            for b in result['aggregations'][agg]['buckets']:
+                counts[b['key']] = (b['key'], b['doc_count'])
+
+        # Sort by count descending.
+        return sorted(
+            list(counts.values()),
+            key=lambda x: x[1],
+            reverse=True,
+        )
 
 
     @classmethod
