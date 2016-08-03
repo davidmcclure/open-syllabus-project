@@ -62,7 +62,12 @@ def institution_facets(depth=200, include=None):
         dict: {label, value, count}
     """
 
-    counts = Citation_Index.count_facets('institution_id')
+    counts = Citation_Index.count_facets(
+        'institution_id',
+        depth=depth,
+        include=include,
+    )
+
     return Institution_Index.materialize_institution_facets(counts)
 
 
