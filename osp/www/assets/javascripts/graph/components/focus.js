@@ -1,7 +1,8 @@
 
 
-import { Router } from 'director';
+import _ from 'lodash';
 import React, { Component, PropTypes } from 'react';
+import { Router } from 'director';
 
 
 export default class extends Component {
