@@ -62,41 +62,8 @@ def institution_facets(depth=200, include=None):
         dict: {label, value, count}
     """
 
-    counts = Citation_Index.count_facets('institution_id', depth=depth)
-
-    facets = Institution_Index.materialize_institution_facets(counts)
-
-    if include:
-
-        # Materialize extra facets.
-
-        inc_counts = Citation_Index.count_facets(
-            'institution_id',
-            include=include,
-        )
-
-        inc_facets = (
-            Institution_Index
-            .materialize_institution_facets(inc_counts)
-        )
-
-        # Merge the extras into the default page.
-
-        values = set([f['value'] for f in facets])
-
-        for f in inc_facets:
-            if f['value'] not in values:
-                facets.append(f)
-
-        # Sort by count descending.
-
-        facets = sorted(
-            facets,
-            key=lambda x: x['count'],
-            reverse=True,
-        )
-
-    return facets
+    counts = Citation_Index.count_facets('institution_id')
+    return Institution_Index.materialize_institution_facets(counts)
 
 
 def state_facets():
