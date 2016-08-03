@@ -3,8 +3,8 @@
 import os
 
 from flask import Flask, request, render_template, jsonify
-from webargs import fields
 from webargs.flaskparser import use_args
+from webargs.fields import List, Str, Int
 
 from osp.common import config
 from osp.citations.models import Text_Index
@@ -18,31 +18,36 @@ cache.init_app(app)
 
 
 @app.route('/')
-def home():
+@use_args(dict(institution_id = List(Int(), missing=None)))
+def home(args):
 
     """
     Home page + ranking interface.
     """
 
-    return render_template(
-        'home.html',
-        facets=utils.bootstrap_facets(),
+    facets = utils.bootstrap_facets()
+
+    # Bootstrap URL institution(s).
+    facets['institution'] = utils.institution_facets(
+        include=args['institution_id']
     )
+
+    return render_template('home.html', facets=facets)
 
 
 @app.route('/api/ranks')
 @use_args(dict(
 
-    query           = fields.Str(missing=None),
-    size            = fields.Int(missing=200),
-    page            = fields.Int(missing=1),
+    query           = Str(missing=None),
+    size            = Int(missing=200),
+    page            = Int(missing=1),
 
-    corpus          = fields.List(fields.Str(), missing=None),
-    field_id        = fields.List(fields.Int(), missing=None),
-    subfield_id     = fields.List(fields.Int(), missing=None),
-    institution_id  = fields.List(fields.Int(), missing=None),
-    state           = fields.List(fields.Str(), missing=None),
-    country         = fields.List(fields.Str(), missing=None),
+    corpus          = List(Str(), missing=None),
+    field_id        = List(Int(), missing=None),
+    subfield_id     = List(Int(), missing=None),
+    institution_id  = List(Int(), missing=None),
+    state           = List(Str(), missing=None),
+    country         = List(Str(), missing=None),
 
 ))
 def api_ranks(args):

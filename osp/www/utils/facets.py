@@ -108,7 +108,6 @@ def bootstrap_facets():
         corpus      = corpus_facets(),
         subfield    = subfield_facets(),
         field       = field_facets(),
-        institution = institution_facets(),
         state       = state_facets(),
         country     = country_facets(),
     )
