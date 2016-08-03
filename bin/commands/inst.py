@@ -3,8 +3,8 @@
 import click
 
 from osp.common.utils import query_bar
-from osp.institutions.models import Institution, Institution_Document
-from osp.corpus.models import Document
+from osp.institutions.models import Institution
+from osp.institutions.models import Institution_Document
 
 from peewee import create_model_tables
 

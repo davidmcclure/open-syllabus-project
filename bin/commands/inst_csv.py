@@ -6,7 +6,8 @@ import csv
 from peewee import fn
 
 from osp.common.utils import read_csv
-from osp.institutions.models import Institution, Institution_Document
+from osp.institutions.models import Institution
+from osp.institutions.models import Institution_Document
 
 
 @click.group()

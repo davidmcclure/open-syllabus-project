@@ -2,13 +2,14 @@
 
 import us
 
-from osp.common import config
-from osp.common.utils import query_bar
-from osp.common.mixins.elasticsearch import Elasticsearch
-from osp.institutions.models import Institution
-
 from iso3166 import countries
 from clint.textui import progress
+from peewee import fn
+
+from osp.common import config
+from osp.common.mixins.elasticsearch import Elasticsearch
+from osp.common.utils import query_bar
+
 
 
 class Institution_Index(Elasticsearch):
@@ -26,6 +27,9 @@ class Institution_Index(Elasticsearch):
             'name': {
                 'type': 'string'
             },
+            'count': {
+                'type': 'integer'
+            },
         }
     }
 
@@ -40,11 +44,29 @@ class Institution_Index(Elasticsearch):
             dict: The next document.
         """
 
-        for row in query_bar(Institution.select()):
+        # TODO: fix
+        from osp.institutions.models import Institution
+        from osp.institutions.models import Institution_Document
+        from osp.citations.models import Citation
+
+        count = fn.count(Citation.id)
+
+        query = (
+            Institution
+            .select(Institution, count)
+            .join(Institution_Document)
+            .join(Citation, on=(
+                Citation.document==Institution_Document.document
+            ))
+            .group_by(Institution)
+        )
+
+        for row in query_bar(query):
 
             yield dict(
                 _id = row.id,
                 name = row.name,
+                count = row.count,
             )
 
 
