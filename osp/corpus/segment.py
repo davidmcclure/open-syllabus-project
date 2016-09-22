@@ -8,7 +8,6 @@ from cached_property import cached_property
 
 class Segment:
 
-
     def __init__(self, path):
 
         """
@@ -19,7 +18,6 @@ class Segment:
         """
 
         self.path = os.path.abspath(path)
-
 
     def file_names(self):
 
@@ -36,7 +34,6 @@ class Segment:
             if os.path.splitext(name)[1] != '.log':
                 yield name
 
-
     @cached_property
     def file_count(self):
 
@@ -49,7 +46,6 @@ class Segment:
 
         return sum(1 for _ in self.file_names())
 
-
     def file_paths(self):
 
         """
@@ -61,7 +57,6 @@ class Segment:
 
         for name in self.file_names():
             yield os.path.join(self.path, name)
-
 
     def syllabi(self):
 

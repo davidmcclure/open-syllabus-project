@@ -16,9 +16,7 @@ from clint.textui import progress
 
 class Citation_Index(Elasticsearch):
 
-
     es_index = 'citation'
-
 
     es_mapping = {
         '_id': {
@@ -55,7 +53,6 @@ class Citation_Index(Elasticsearch):
             },
         }
     }
-
 
     @classmethod
     def es_stream_docs(cls):
@@ -103,7 +100,6 @@ class Citation_Index(Elasticsearch):
                 doc['country'] = inst.country
 
             yield doc
-
 
     @classmethod
     def compute_ranking(cls, filters={}, depth=1e5):
@@ -168,7 +164,6 @@ class Citation_Index(Elasticsearch):
 
         return counts
 
-
     @classmethod
     def docs_with_text(cls, text_id, depth=1000):
 
@@ -211,7 +206,6 @@ class Citation_Index(Elasticsearch):
             doc_ids.append(b['key'])
 
         return doc_ids
-
 
     @classmethod
     def count_facets(cls, field, depth=100, include=None):
@@ -266,7 +260,6 @@ class Citation_Index(Elasticsearch):
             key=lambda x: x[1],
             reverse=True,
         )
-
 
     @classmethod
     def compute_scores(cls, *args, **kwargs):

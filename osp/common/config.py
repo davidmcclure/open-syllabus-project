@@ -18,7 +18,6 @@ anyconfig.set_loglevel('WARNING')
 
 class Config:
 
-
     @classmethod
     def from_env(cls):
 
@@ -31,7 +30,6 @@ class Config:
             '/etc/osp/osp.yml',
         ])
 
-
     def __init__(self, paths):
 
         """
@@ -43,7 +41,6 @@ class Config:
 
         self.paths = paths
         self.read()
-
 
     def __getitem__(self, key):
 
@@ -59,7 +56,6 @@ class Config:
 
         return self.config.get(key)
 
-
     def read(self):
 
         """
@@ -71,7 +67,6 @@ class Config:
         self.es     = self.get_es()
         self.redis  = self.get_redis()
         self.rq     = self.get_rq()
-
 
     def get_db(self, name='default'):
 
@@ -104,7 +99,6 @@ class Config:
             **args
         )
 
-
     def get_table_db(self, table):
 
         """
@@ -126,7 +120,6 @@ class Config:
 
         return self.get_db(name)
 
-
     def get_es(self):
 
         """
@@ -139,7 +132,6 @@ class Config:
         if 'elasticsearch' in self.config:
             return Elasticsearch([self['elasticsearch']])
 
-
     def get_redis(self):
 
         """
@@ -151,7 +143,6 @@ class Config:
 
         if 'redis' in self.config:
             return StrictRedis(**self['redis'])
-
 
     def get_rq(self):
 
@@ -166,7 +157,6 @@ class Config:
 
         if redis:
             return Queue(connection=redis)
-
 
     def is_test(self):
 

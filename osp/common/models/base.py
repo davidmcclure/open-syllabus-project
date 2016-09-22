@@ -9,9 +9,7 @@ from datetime import datetime
 
 class BaseModel(Model):
 
-
     created = DateTimeField(default=datetime.now)
-
 
     @classmethod
     def max_id(cls):
@@ -23,7 +21,6 @@ class BaseModel(Model):
         """
 
         return cls.select(fn.Max(cls.id)).scalar()
-
 
     @classmethod
     def page_cursor(cls, page_count, offset):
@@ -51,7 +48,6 @@ class BaseModel(Model):
 
         for row in ServerSide(query):
             yield row
-
 
     @classmethod
     def stream(cls, page_size=10000):

@@ -7,7 +7,6 @@ from colour import Color
 
 class Hit:
 
-
     def __init__(self, hit):
 
         """
@@ -18,7 +17,6 @@ class Hit:
         """
 
         self.hit = hit
-
 
     def field(self, key, delimiter=', '):
 
@@ -39,7 +37,6 @@ class Hit:
         else:
             return value
 
-
     @property
     def path(self):
 
@@ -51,7 +48,6 @@ class Hit:
 
         return '/text/{0}'.format(self.hit['_id'])
 
-
     @property
     def sort(self):
 
@@ -62,7 +58,6 @@ class Hit:
         """
 
         return int(self.hit['sort'][0])
-
 
     @property
     def color(self, steps=100):

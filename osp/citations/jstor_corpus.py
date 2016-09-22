@@ -9,7 +9,6 @@ from osp.citations.jstor_record import JSTOR_Record
 
 class JSTOR_Corpus:
 
-
     @classmethod
     def from_env(cls):
 
@@ -18,7 +17,6 @@ class JSTOR_Corpus:
         """
 
         return cls(config['jstor']['corpus'])
-
 
     def __init__(self, path):
 
@@ -30,7 +28,6 @@ class JSTOR_Corpus:
         """
 
         self.path = os.path.abspath(path)
-
 
     def paths(self):
 
@@ -48,7 +45,6 @@ class JSTOR_Corpus:
 
             for name in xmls:
                 yield os.path.join(root, name)
-
 
     def texts(self):
 

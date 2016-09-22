@@ -11,16 +11,13 @@ from peewee import CharField
 
 class Document(BaseModel):
 
-
     # TODO: Include manifest data.
 
     path = CharField(unique=True)
     metadata = BinaryJSONField(default={})
 
-
     class Meta:
         database = config.get_table_db('document')
-
 
     @classmethod
     def insert_documents(cls):
@@ -32,7 +29,6 @@ class Document(BaseModel):
         for syllabus in Corpus.from_env().syllabi_bar():
             try:cls.create(path=syllabus.relative_path)
             except: pass
-
 
     @property
     def syllabus(self):

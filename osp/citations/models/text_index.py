@@ -15,9 +15,7 @@ from scipy.stats import rankdata
 
 class Text_Index(Elasticsearch):
 
-
     es_index = 'text'
-
 
     es_mapping = {
         '_id': {
@@ -64,10 +62,8 @@ class Text_Index(Elasticsearch):
                 'type': 'float'
             },
 
-
         }
     }
-
 
     @classmethod
     def rank_texts(cls):
@@ -110,7 +106,6 @@ class Text_Index(Elasticsearch):
             for t in zip(query, ranks, scores)
         ]
 
-
     @classmethod
     def es_stream_docs(cls):
 
@@ -143,7 +138,6 @@ class Text_Index(Elasticsearch):
                 score       = t['score'],
 
             )
-
 
     @classmethod
     def materialize_ranking(cls, ranks=None, query=None, size=1000, page=1):
@@ -249,7 +243,6 @@ class Text_Index(Elasticsearch):
         )
 
         return result['hits']
-
 
     @classmethod
     def materialize_corpus_facets(cls, counts):

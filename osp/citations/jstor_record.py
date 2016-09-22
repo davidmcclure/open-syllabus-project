@@ -8,7 +8,6 @@ from osp.citations.utils import tokenize_field, get_text, get_attr
 
 class JSTOR_Record:
 
-
     def __init__(self, path):
 
         """
@@ -21,7 +20,6 @@ class JSTOR_Record:
         with open(path, 'rb') as fh:
             self.xml = BeautifulSoup(fh, 'lxml')
 
-
     @property
     def article_id(self):
 
@@ -32,7 +30,6 @@ class JSTOR_Record:
         """
 
         return get_text(self.xml, 'article-id')
-
 
     @property
     def article_title(self):
@@ -45,7 +42,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'article-title')
 
-
     @property
     def journal_id(self):
 
@@ -56,7 +52,6 @@ class JSTOR_Record:
         """
 
         return get_text(self.xml, 'journal-id')
-
 
     @property
     def journal_title(self):
@@ -69,7 +64,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'journal-title')
 
-
     @property
     def publisher_name(self):
 
@@ -80,7 +74,6 @@ class JSTOR_Record:
         """
 
         return get_text(self.xml, 'publisher-name')
-
 
     @property
     def volume(self):
@@ -93,7 +86,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'volume')
 
-
     @property
     def issue(self):
 
@@ -105,7 +97,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'issue')
 
-
     @property
     def url(self):
 
@@ -116,7 +107,6 @@ class JSTOR_Record:
         """
 
         return get_attr(self.xml, 'self-uri', 'xlink:href')
-
 
     @property
     def pub_date(self):
@@ -139,7 +129,6 @@ class JSTOR_Record:
 
         except:
             return None
-
 
     @property
     def authors(self):
@@ -167,7 +156,6 @@ class JSTOR_Record:
 
         return author
 
-
     @property
     def surname(self):
 
@@ -181,7 +169,6 @@ class JSTOR_Record:
 
         if authors:
             return get_text(authors[0], 'surname')
-
 
     @property
     def pagination(self):
@@ -207,7 +194,6 @@ class JSTOR_Record:
         else:
             return None
 
-
     @property
     def is_queryable(self):
 
@@ -226,7 +212,6 @@ class JSTOR_Record:
             surname and
             len(tokenize_field(surname))
         )
-
 
     @property
     def text(self):

@@ -12,7 +12,6 @@ from clint.textui import progress
 
 class Gephi_Graph(Graph):
 
-
     def xs(self):
 
         """
@@ -21,7 +20,6 @@ class Gephi_Graph(Graph):
 
         for cn, node in self.graph.nodes_iter(data=True):
             yield node['x']
-
 
     def ys(self):
 
@@ -32,7 +30,6 @@ class Gephi_Graph(Graph):
         for cn, node in self.graph.nodes_iter(data=True):
             yield node['y']
 
-
     @cached_property
     def min_x(self):
 
@@ -41,7 +38,6 @@ class Gephi_Graph(Graph):
         """
 
         return min(list(self.xs()))
-
 
     @cached_property
     def max_x(self):
@@ -52,7 +48,6 @@ class Gephi_Graph(Graph):
 
         return max(list(self.xs()))
 
-
     @cached_property
     def min_y(self):
 
@@ -61,7 +56,6 @@ class Gephi_Graph(Graph):
         """
 
         return min(list(self.ys()))
-
 
     @cached_property
     def max_y(self):
@@ -72,7 +66,6 @@ class Gephi_Graph(Graph):
 
         return max(list(self.ys()))
 
-
     @cached_property
     def height(self):
 
@@ -82,7 +75,6 @@ class Gephi_Graph(Graph):
 
         return math.ceil(self.max_y - self.min_y)
 
-
     @cached_property
     def width(self):
 
@@ -91,7 +83,6 @@ class Gephi_Graph(Graph):
         """
 
         return math.ceil(self.max_x - self.min_x)
-
 
     def render(self, out_path, size=10000, scale=5, bg_color='#0b131a'):
 

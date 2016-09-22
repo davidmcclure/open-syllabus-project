@@ -7,9 +7,7 @@ from osp.corpus.models import Document_Text
 
 class Document_Index(Elasticsearch):
 
-
     es_index = 'document'
-
 
     es_mapping = {
         '_id': {
@@ -22,7 +20,6 @@ class Document_Index(Elasticsearch):
             },
         }
     }
-
 
     @classmethod
     def es_stream_docs(cls):

@@ -14,15 +14,12 @@ from playhouse.postgres_ext import ArrayField
 
 class Subfield(BaseModel):
 
-
     name = CharField(index=True)
     abbreviations = ArrayField(CharField, null=True)
     field = ForeignKeyField(Field)
 
-
     class Meta:
         database = config.get_table_db('subfield')
-
 
     @classmethod
     def ingest(cls, package='osp.fields', path='data/fields.csv'):
@@ -62,7 +59,6 @@ class Subfield(BaseModel):
                     field=field,
                 )
 
-
     def make_regex(self, pattern):
 
         """
@@ -88,7 +84,6 @@ class Subfield(BaseModel):
         names = '({:s})'.format('|'.join(names))
 
         return pattern.format(names)
-
 
     def search(self, text):
 

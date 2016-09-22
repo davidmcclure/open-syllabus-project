@@ -11,7 +11,6 @@ from clint.textui.progress import bar
 
 class Corpus:
 
-
     @classmethod
     def from_env(cls, **kwargs):
 
@@ -20,7 +19,6 @@ class Corpus:
         """
 
         return cls(config['osp']['corpus'], **kwargs)
-
 
     def __init__(self, path, s1=0, s2=4095):
 
@@ -36,7 +34,6 @@ class Corpus:
         self.path = os.path.abspath(path)
         self.s1 = s1
         self.s2 = s2
-
 
     def segments(self):
 
@@ -55,7 +52,6 @@ class Corpus:
             # Only yield segment if the path exists.
             if os.path.exists(path): yield Segment(path)
 
-
     @cached_property
     def file_count(self):
 
@@ -72,7 +68,6 @@ class Corpus:
 
         return count
 
-
     def file_paths(self):
 
         """
@@ -85,7 +80,6 @@ class Corpus:
         for segment in self.segments():
             for path in segment.file_paths():
                 yield path
-
 
     def syllabi(self):
 
@@ -100,7 +94,6 @@ class Corpus:
             for syllabus in segment.syllabi():
                 yield syllabus
 
-
     def segments_bar(self):
 
         """
@@ -112,7 +105,6 @@ class Corpus:
 
         for segment in bar(self.segments(), expected_size=self.s2):
             yield segment
-
 
     def syllabi_bar(self):
 

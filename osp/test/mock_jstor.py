@@ -11,7 +11,6 @@ from osp.test.mock_corpus import Mock_Corpus
 
 class Mock_JSTOR(Mock_Corpus):
 
-
     def __init__(self):
 
         """
@@ -23,8 +22,9 @@ class Mock_JSTOR(Mock_Corpus):
         tpl = pkgutil.get_data('osp.test', 'templates/jstor.j2')
         self.template = Template(tpl.decode('utf8'))
 
-
     def add_article(self,
+
+        # TODO: Use FactoryBoy?
 
         article_id=None,
         journal_id='journal',

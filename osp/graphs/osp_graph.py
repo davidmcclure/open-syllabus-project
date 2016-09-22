@@ -15,7 +15,6 @@ from clint.textui import progress
 
 class OSP_Graph(Graph):
 
-
     def add_edges(self, max_texts=20):
 
         """
@@ -54,7 +53,6 @@ class OSP_Graph(Graph):
                 else:
                     self.graph.add_edge(tid1, tid2, weight=1)
 
-
     def add_nodes(self):
 
         """
@@ -75,7 +73,6 @@ class OSP_Graph(Graph):
 
             ))
 
-
     def trim_unconnected_components(self):
 
         """
@@ -89,7 +86,6 @@ class OSP_Graph(Graph):
 
         self.graph = subgraphs[0]
 
-
     def trim_texts_by_count(self, min_count=100):
 
         """
@@ -102,7 +98,6 @@ class OSP_Graph(Graph):
         for tid, text in self.graph.nodes(data=True):
             if text['count'] < min_count:
                 self.graph.remove_node(tid)
-
 
     def trim_edges(self, keep=0.5):
 

@@ -8,7 +8,6 @@ from osp.common.utils import read_yaml
 
 class Validate_Config:
 
-
     def __init__(self, package='osp.citations', path='config/validate.yml'):
 
         """
@@ -16,7 +15,6 @@ class Validate_Config:
         """
 
         self.config = read_yaml(package, path)
-
 
     @property
     def max_fuzz(self):
@@ -28,7 +26,6 @@ class Validate_Config:
         """
 
         return self.config.get('max_fuzz', float('inf'))
-
 
     @property
     def blacklisted_titles(self):
@@ -48,7 +45,6 @@ class Validate_Config:
             singulars + [p.plural(s) for s in singulars],
         )
 
-
     @property
     def blacklisted_surnames(self):
 
@@ -62,7 +58,6 @@ class Validate_Config:
             tokenize_field,
             self.config.get('blacklisted_surnames', [])
         )
-
 
     @property
     def whitelist(self):

@@ -16,16 +16,13 @@ from peewee import ForeignKeyField, CharField
 
 class Citation(BaseModel):
 
-
     text = ForeignKeyField(Text)
     document = ForeignKeyField(Document)
     tokens = ArrayField(CharField)
 
-
     class Meta:
         database = config.get_table_db('citation')
         indexes = ((('document', 'text'), True),)
-
 
     @property
     def subfield(self):
@@ -45,7 +42,6 @@ class Citation(BaseModel):
             .order_by(Subfield_Document.offset.asc())
             .first()
         )
-
 
     @property
     def institution(self):

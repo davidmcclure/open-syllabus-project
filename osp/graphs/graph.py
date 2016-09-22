@@ -6,7 +6,6 @@ import networkx as nx
 
 class Graph:
 
-
     @classmethod
     def from_graphml(cls, path):
 
@@ -21,7 +20,6 @@ class Graph:
 
         return cls(graph)
 
-
     def __init__(self, graph=None):
 
         """
@@ -32,7 +30,6 @@ class Graph:
         """
 
         self.graph = graph or nx.Graph()
-
 
     def write_graphml(self, path):
 

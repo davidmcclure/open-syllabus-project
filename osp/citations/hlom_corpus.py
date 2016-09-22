@@ -10,7 +10,6 @@ from pymarc import MARCReader
 
 class HLOM_Corpus:
 
-
     @classmethod
     def from_env(cls):
 
@@ -19,7 +18,6 @@ class HLOM_Corpus:
         """
 
         return cls(config['hlom']['corpus'])
-
 
     def __init__(self, path):
 
@@ -31,7 +29,6 @@ class HLOM_Corpus:
         """
 
         self.path = os.path.abspath(path)
-
 
     def records(self):
 
@@ -52,7 +49,6 @@ class HLOM_Corpus:
 
                 for record in reader:
                     yield record
-
 
     def texts(self):
 

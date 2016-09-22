@@ -18,7 +18,6 @@ from cached_property import cached_property
 
 class Syllabus:
 
-
     @classmethod
     def from_env(cls, relative_path):
 
@@ -35,7 +34,6 @@ class Syllabus:
         path = os.path.join(config['osp']['corpus'], relative_path)
         return cls(path)
 
-
     def __init__(self, path):
 
         """
@@ -47,7 +45,6 @@ class Syllabus:
 
         self.path = os.path.abspath(path)
 
-
     @property
     def file_name(self):
 
@@ -57,7 +54,6 @@ class Syllabus:
         """
 
         return os.path.basename(self.path)
-
 
     @property
     def segment_name(self):
@@ -69,7 +65,6 @@ class Syllabus:
 
         return os.path.split(os.path.dirname(self.path))[-1]
 
-
     @property
     def relative_path(self):
 
@@ -80,7 +75,6 @@ class Syllabus:
 
         return self.segment_name+'/'+self.file_name
 
-
     @property
     def log_path(self):
 
@@ -90,7 +84,6 @@ class Syllabus:
         """
 
         return self.path+'.log'
-
 
     @property
     def log_exists(self):
@@ -103,7 +96,6 @@ class Syllabus:
         """
 
         return os.path.isfile(self.log_path)
-
 
     @cached_property
     def log(self):
@@ -120,7 +112,6 @@ class Syllabus:
                 return log.read().splitlines()
 
         else: return []
-
 
     def metadata(self, offset):
 
@@ -139,7 +130,6 @@ class Syllabus:
 
         else: return None
 
-
     @property
     def url(self):
 
@@ -149,7 +139,6 @@ class Syllabus:
         """
 
         return self.metadata(0)
-
 
     @property
     def provenance(self):
@@ -161,7 +150,6 @@ class Syllabus:
 
         return self.metadata(1)
 
-
     @property
     def retrieved_date(self):
 
@@ -171,7 +159,6 @@ class Syllabus:
         """
 
         return self.metadata(2)
-
 
     @property
     def checksum(self):
@@ -183,7 +170,6 @@ class Syllabus:
 
         return self.metadata(3)
 
-
     @property
     def file_type(self):
 
@@ -193,7 +179,6 @@ class Syllabus:
         """
 
         return self.metadata(4)
-
 
     @property
     def created_date(self):
@@ -215,7 +200,6 @@ class Syllabus:
             try: return utils.docx_date(self.path)
             except: pass
 
-
     @cached_property
     def libmagic_file_type(self):
 
@@ -225,7 +209,6 @@ class Syllabus:
         """
 
         return magic.from_file(self.path, mime=True)
-
 
     @property
     @utils.requires_attr('url')
@@ -239,7 +222,6 @@ class Syllabus:
         """
 
         return parse_domain(self.url)
-
 
     @cached_property
     def text(self):
@@ -273,7 +255,6 @@ class Syllabus:
         # Everything else:
         else:
             return utils.docx_text(self.path)
-
 
     @cached_property
     @utils.requires_attr('text')

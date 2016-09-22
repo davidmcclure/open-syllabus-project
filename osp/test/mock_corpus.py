@@ -6,7 +6,6 @@ import shutil
 
 class Mock_Corpus:
 
-
     def __init__(self):
 
         """
@@ -14,7 +13,6 @@ class Mock_Corpus:
         """
 
         self.path = tempfile.mkdtemp()
-
 
     def teardown(self):
 

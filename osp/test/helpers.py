@@ -17,6 +17,9 @@ from osp.citations.models import Citation
 from osp.institutions.models import Institution
 
 
+# TODO: Use FactoryBoy?
+
+
 @pytest.fixture()
 def add_doc(mock_osp):
 

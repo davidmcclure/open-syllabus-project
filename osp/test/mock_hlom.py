@@ -14,7 +14,6 @@ from osp.test.mock_corpus import Mock_Corpus
 
 class Mock_MARC(Record):
 
-
     def control_number(self):
 
         """
@@ -25,7 +24,6 @@ class Mock_MARC(Record):
         """
 
         return self['001'].format_field()
-
 
     def set_control_number(self, control_number):
 
@@ -38,7 +36,6 @@ class Mock_MARC(Record):
 
         field = Field(tag='001', data=control_number)
         self.add_field(field)
-
 
     def set_author(self, author):
 
@@ -57,7 +54,6 @@ class Mock_MARC(Record):
 
         self.add_field(field)
 
-
     def set_title(self, title):
 
         """
@@ -74,7 +70,6 @@ class Mock_MARC(Record):
         )
 
         self.add_field(field)
-
 
     def set_publisher(self, publisher, pubyear):
 
@@ -97,7 +92,6 @@ class Mock_MARC(Record):
 
         self.add_field(field)
 
-
     def set_pubyear(self, pubyear):
 
         """
@@ -118,7 +112,6 @@ class Mock_MARC(Record):
 
 class Mock_HLOM(Mock_Corpus):
 
-
     @contextmanager
     def writer(self, data_file):
 
@@ -133,7 +126,6 @@ class Mock_HLOM(Mock_Corpus):
 
         with open(path, 'ab') as fh:
             yield MARCWriter(fh)
-
 
     def add_marc(self,
         data_file='hlom',

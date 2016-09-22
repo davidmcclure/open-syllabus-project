@@ -7,26 +7,21 @@ from elasticsearch.helpers import bulk
 
 class Elasticsearch:
 
-
     @property
     def es_mapping(self):
         raise NotImplementedError
-
 
     @classmethod
     def es_stream_docs(cls):
         raise NotImplementedError
 
-
     @classmethod
     def es_stream_mock_docs(cls):
         raise NotImplementedError
 
-
     @property
     def es_index(self):
         raise NotImplementedError
-
 
     @classmethod
     def es_create(cls):
@@ -46,7 +41,6 @@ class Elasticsearch:
             body=cls.es_mapping,
         )
 
-
     @classmethod
     def es_delete(cls):
 
@@ -56,7 +50,6 @@ class Elasticsearch:
 
         try: config.es.indices.delete(cls.es_index)
         except: pass
-
 
     @classmethod
     def es_insert(cls, mock=False):
@@ -90,7 +83,6 @@ class Elasticsearch:
         # Commit the index.
         config.es.indices.flush(cls.es_index)
 
-
     @classmethod
     def es_count(cls):
 
@@ -107,7 +99,6 @@ class Elasticsearch:
         )
 
         return r['count']
-
 
     @classmethod
     def es_reset(cls):

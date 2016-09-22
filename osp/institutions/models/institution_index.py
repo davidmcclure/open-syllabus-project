@@ -13,9 +13,7 @@ from clint.textui import progress
 
 class Institution_Index(Elasticsearch):
 
-
     es_index = 'institution'
-
 
     es_mapping = {
         '_id': {
@@ -28,7 +26,6 @@ class Institution_Index(Elasticsearch):
             },
         }
     }
-
 
     @classmethod
     def es_stream_docs(cls):
@@ -46,7 +43,6 @@ class Institution_Index(Elasticsearch):
                 _id = row.id,
                 name = row.name,
             )
-
 
     @classmethod
     def materialize_institution_facets(cls, counts):
@@ -77,7 +73,6 @@ class Institution_Index(Elasticsearch):
 
         return facets
 
-
     @classmethod
     def materialize_state_facets(cls, counts):
 
@@ -101,7 +96,6 @@ class Institution_Index(Elasticsearch):
                 ))
 
         return facets
-
 
     @classmethod
     def materialize_country_facets(cls, counts):

@@ -13,7 +13,6 @@ from blessings import Terminal
 
 class Client:
 
-
     def __init__(self):
 
         """
@@ -21,7 +20,6 @@ class Client:
         """
 
         self.conn = ec2.connect_to_region(config['ec2']['region'])
-
 
     def filter_ips(self, filters):
 
@@ -40,7 +38,6 @@ class Client:
 
         return ips
 
-
     @property
     def worker_ips(self):
 
@@ -53,7 +50,6 @@ class Client:
             'tag:context': config['ec2']['context'],
         })
 
-
     @property
     def worker_urls(self):
 
@@ -62,7 +58,6 @@ class Client:
         """
 
         return ['http://'+ip for ip in self.worker_ips]
-
 
     def ping(self):
 
@@ -76,7 +71,6 @@ class Client:
 
             click.echo(url)
             print_code(r.status_code)
-
 
     def queue(self, model_import, job_import):
 
@@ -102,7 +96,6 @@ class Client:
             click.echo(url)
             print_code(r.status_code)
 
-
     def clear(self):
 
         """
@@ -120,7 +113,6 @@ class Client:
             # Failed:
             r1 = requests.post(url+'/rq/queue/failed/empty')
             print_code(r1.status_code)
-
 
     def status(self):
 
@@ -146,7 +138,6 @@ class Client:
                 # Failed jobs:
                 if queue['name'] == 'failed':
                     click.echo(term.red(str(queue['count'])))
-
 
     def requeue(self):
 

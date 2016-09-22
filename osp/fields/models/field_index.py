@@ -10,9 +10,7 @@ from clint.textui import progress
 
 class Field_Index(Elasticsearch):
 
-
     es_index = 'field'
-
 
     es_mapping = {
         '_id': {
@@ -25,7 +23,6 @@ class Field_Index(Elasticsearch):
             },
         }
     }
-
 
     @classmethod
     def es_stream_docs(cls):
@@ -43,7 +40,6 @@ class Field_Index(Elasticsearch):
                 _id = row.id,
                 name = row.name,
             )
-
 
     @classmethod
     def materialize_facets(cls, counts):

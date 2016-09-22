@@ -17,7 +17,6 @@ from osp.corpus.utils import int_to_dir
 
 class Mock_OSP(Mock_Corpus):
 
-
     def add_segment(self, name):
 
         """
@@ -34,7 +33,6 @@ class Mock_OSP(Mock_Corpus):
         if not os.path.exists(path): os.makedirs(path)
         return path
 
-
     def add_segments(self, s1=0, s2=4095):
 
         """
@@ -47,7 +45,6 @@ class Mock_OSP(Mock_Corpus):
 
         for i in range(s1, s2):
             self.add_segment(int_to_dir(i))
-
 
     def add_file(self,
         segment='000',
@@ -90,7 +87,6 @@ class Mock_OSP(Mock_Corpus):
 
         return path
 
-
     def write_log(self, path, log={}):
 
         """
@@ -124,7 +120,6 @@ class Mock_OSP(Mock_Corpus):
             for key in order:
                 print(metadata[key], file=fh)
 
-
     def _write_plain(self, path, content):
 
         """
@@ -137,7 +132,6 @@ class Mock_OSP(Mock_Corpus):
 
         with open(path, 'w+') as fh:
             fh.write(content)
-
 
     def _write_html(self, path, content):
 
@@ -152,7 +146,6 @@ class Mock_OSP(Mock_Corpus):
         with open(path, 'w+') as fh:
             fh.write('<html>'+content+'</html>')
 
-
     def _write_pdf(self, path, content):
 
         """
@@ -166,7 +159,6 @@ class Mock_OSP(Mock_Corpus):
         canvas = Canvas(path)
         canvas.drawString(12, 720, content)
         canvas.save()
-
 
     def _write_docx(self, path, content):
 

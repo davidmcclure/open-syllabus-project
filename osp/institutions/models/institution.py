@@ -13,16 +13,13 @@ from osp.institutions.utils import strip_csv_row
 
 class Institution(BaseModel):
 
-
     name = CharField()
     url = CharField(unique=True)
     state = CharField(null=True)
     country = CharField()
 
-
     class Meta:
         database = config.get_table_db('institution')
-
 
     @classmethod
     def ingest_usa(cls,
@@ -49,7 +46,6 @@ class Institution(BaseModel):
 
                 except Exception as e:
                     print(e)
-
 
     @classmethod
     def ingest_world(cls,

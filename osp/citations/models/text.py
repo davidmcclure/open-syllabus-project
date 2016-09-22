@@ -26,9 +26,7 @@ from wordfreq import word_frequency
 
 class Text(BaseModel):
 
-
     # http://dublincore.org/usage/meetings/2002/05/citdcsv.html
-
 
     corpus              = TextField(index=True)
     identifier          = TextField(index=True)
@@ -56,11 +54,9 @@ class Text(BaseModel):
     valid               = BooleanField(null=True, index=True)
     display             = BooleanField(null=True, index=True)
 
-
     class Meta:
         database = config.get_table_db('text')
         indexes = ((('corpus', 'identifier'), True),)
-
 
     @classmethod
     def ingest_hlom(cls):
@@ -79,7 +75,6 @@ class Text(BaseModel):
             sys.stdout.write('\r'+str(i))
             sys.stdout.flush()
 
-
     @classmethod
     def ingest_jstor(cls):
 
@@ -96,7 +91,6 @@ class Text(BaseModel):
 
             sys.stdout.write('\r'+str(i))
             sys.stdout.flush()
-
 
     @classmethod
     def select_cited(cls):
@@ -116,7 +110,6 @@ class Text(BaseModel):
             .order_by(cls.id)
             .group_by(cls.id)
         )
-
 
     @classmethod
     def deduplicate(cls):
@@ -150,7 +143,6 @@ class Text(BaseModel):
 
             text.save()
 
-
     @classmethod
     def validate(cls, *args, **kwargs):
 
@@ -180,7 +172,6 @@ class Text(BaseModel):
 
             text.save()
 
-
     @property
     def title_tokens(self):
 
@@ -191,7 +182,6 @@ class Text(BaseModel):
         """
 
         return tokenize_field(self.title)
-
 
     @property
     def first_author_tokens(self):
@@ -204,7 +194,6 @@ class Text(BaseModel):
 
         return tokenize_field(self.authors[0])
 
-
     @property
     def surname_tokens(self):
 
@@ -215,7 +204,6 @@ class Text(BaseModel):
         """
 
         return tokenize_field(self.surname)
-
 
     @property
     def hash_tokens(self):
@@ -231,7 +219,6 @@ class Text(BaseModel):
         # Sort the surname tokens.
         return sorted(self.surname_tokens) + self.title_tokens
 
-
     @property
     def hash(self):
 
@@ -246,7 +233,6 @@ class Text(BaseModel):
         sha1 = hashlib.sha1()
         sha1.update(' '.join(self.hash_tokens).encode('ascii', 'ignore'))
         return sha1.hexdigest()
-
 
     @property
     def queries(self):
@@ -267,7 +253,6 @@ class Text(BaseModel):
             self.title_tokens + self.surname_tokens,
 
         ]
-
 
     def pretty(self, field):
 
@@ -291,7 +276,6 @@ class Text(BaseModel):
         else:
             return prettify(value)
 
-
     @property
     def fuzz(self):
 
@@ -309,7 +293,6 @@ class Text(BaseModel):
 
         return reduce(lambda x, y: x*y, freqs)*1e10
 
-
     @property
     def title_and_author_overlap(self):
 
@@ -324,7 +307,6 @@ class Text(BaseModel):
 
         return bool(title.intersection(author))
 
-
     def title_blacklisted(self, blacklist=[]):
 
         """
@@ -337,7 +319,6 @@ class Text(BaseModel):
         """
 
         return self.title_tokens in blacklist
-
 
     def surname_blacklisted(self, blacklist=[]):
 
@@ -352,7 +333,6 @@ class Text(BaseModel):
 
         return self.surname_tokens in blacklist
 
-
     @property
     def title_is_toponym(self):
 
@@ -365,7 +345,6 @@ class Text(BaseModel):
         title = ' '.join(self.title_tokens)
         return is_toponym(title)
 
-
     @property
     def surname_is_toponym(self):
 
@@ -377,7 +356,6 @@ class Text(BaseModel):
 
         surname = ' '.join(self.surname_tokens)
         return is_toponym(surname)
-
 
     def unfocused(self, max_fuzz=float('inf'), whitelist=[]):
 

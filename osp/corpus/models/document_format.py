@@ -9,14 +9,11 @@ from peewee import ForeignKeyField, CharField, fn
 
 class Document_Format(BaseModel):
 
-
     document = ForeignKeyField(Document, unique=True)
     format = CharField(index=True)
 
-
     class Meta:
         database = config.get_table_db('document_format')
-
 
     @classmethod
     def format_counts(cls):

@@ -14,15 +14,12 @@ from osp.corpus.models import Document
 
 class Institution_Document(BaseModel):
 
-
     institution = ForeignKeyField(Institution)
     document = ForeignKeyField(Document)
-
 
     class Meta:
         database = config.get_table_db('institution_document')
         indexes = ((('institution', 'document'), True),)
-
 
     @classmethod
     def link(cls):
