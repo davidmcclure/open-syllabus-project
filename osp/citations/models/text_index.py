@@ -78,6 +78,8 @@ class Text_Index(Elasticsearch):
         Returns: list
         """
 
+        # TODO: Does this belong on the index manager?
+
         count = fn.Count(Citation.id)
 
         query = (
