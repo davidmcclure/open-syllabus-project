@@ -25,12 +25,17 @@ def control_to_isbn(out_file):
     isbns = {}
     for i, marc in enumerate(corpus.records()):
 
-        record = HLOM_Record(marc)
+        try:
 
-        isbn = marc.isbn()
+            record = HLOM_Record(marc)
 
-        if isbn:
-            isbns[record.control_number] = isbn
+            isbn = marc.isbn()
+
+            if isbn:
+                isbns[record.control_number] = isbn
+
+        except Exception as e:
+            print(e)
 
         if i%1000 == 0:
             print(i)
