@@ -60,7 +60,16 @@ def isbn_to_text(in_file, out_file):
     writer = csv.DictWriter(out_file, cols)
     writer.writeheader()
 
-    for i, text in enumerate(Text_Index.rank_texts()):
+    ranks = Text_Index.rank_texts()
+
+    # Sort count DESC.
+    ranks = sorted(
+        ranks,
+        key=lambda r: r['text'].count,
+        reverse=True,
+    )
+
+    for i, text in enumerate(ranks):
 
         isbn = isbns.get(text['text'].identifier)
 
@@ -71,5 +80,5 @@ def isbn_to_text(in_file, out_file):
             count   = text['text'].count,
         ))
 
-        if i%1000 == 0:
+        if i%10000 == 0:
             print(i)
