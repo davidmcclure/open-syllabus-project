@@ -1,17 +1,11 @@
 
 
 import click
-import numpy as np
-import csv
 
-from osp.common import config
+from peewee import create_model_tables
+
 from osp.citations.models import Text
 from osp.citations.models import Citation
-from osp.citations.hlom_corpus import HLOM_Corpus
-from osp.citations.jobs import text_to_docs
-from peewee import create_model_tables
-from playhouse.postgres_ext import ServerSide
-from clint.textui.progress import bar
 
 
 @click.group()
