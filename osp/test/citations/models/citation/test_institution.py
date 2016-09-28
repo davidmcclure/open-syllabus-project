@@ -11,7 +11,7 @@ pytestmark = pytest.mark.usefixtures('db')
 def test_institution(add_doc, add_institution, add_citation):
 
     """
-    Citation#institution should provide the document's institution.
+    Citation#institution() should provide the document's institution.
     """
 
     document = add_doc()
@@ -26,7 +26,7 @@ def test_institution(add_doc, add_institution, add_citation):
 
     citation = add_citation(document=document)
 
-    assert citation.institution.id == institution.id
+    assert citation.institution().id == institution.id
 
 
 def test_no_institution(add_citation):
@@ -37,4 +37,4 @@ def test_no_institution(add_citation):
 
     citation = add_citation()
 
-    assert citation.institution == None
+    assert citation.institution() == None

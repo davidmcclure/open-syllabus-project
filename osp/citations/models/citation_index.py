@@ -64,6 +64,8 @@ class Citation_Index(Elasticsearch):
             dict: The next document.
         """
 
+        # TODO: Join subfield / institution.
+
         query = (
             Citation.select()
             .join(Text)
@@ -84,7 +86,7 @@ class Citation_Index(Elasticsearch):
 
             # Field references:
 
-            subfield = row.subfield
+            subfield = row.subfield()
 
             if subfield:
                 doc['subfield_id'] = subfield.id
@@ -92,7 +94,7 @@ class Citation_Index(Elasticsearch):
 
             # Institution reference:
 
-            inst = row.institution
+            inst = row.institution()
 
             if inst:
                 doc['institution_id'] = inst.id

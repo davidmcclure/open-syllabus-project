@@ -14,7 +14,7 @@ def test_subfield(
 ):
 
     """
-    Citation#subfield should provide the document's subfield.
+    Citation#subfield() should provide the document's subfield.
     """
 
     document = add_doc()
@@ -31,7 +31,7 @@ def test_subfield(
     citation = add_citation(document=document)
 
     # Return subfield with first offset.
-    assert citation.subfield.id == sf1.id
+    assert citation.subfield().id == sf1.id
 
 
 def test_no_subfield(add_citation):
@@ -42,4 +42,4 @@ def test_no_subfield(add_citation):
 
     citation = add_citation()
 
-    assert citation.subfield == None
+    assert citation.subfield() == None

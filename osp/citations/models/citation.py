@@ -24,7 +24,6 @@ class Citation(BaseModel):
         database = config.get_table_db('citation')
         indexes = ((('document', 'text'), True),)
 
-    @property
     def subfield(self):
 
         """
@@ -43,7 +42,6 @@ class Citation(BaseModel):
             .first()
         )
 
-    @property
     def institution(self):
 
         """
