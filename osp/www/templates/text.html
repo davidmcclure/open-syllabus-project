@@ -67,7 +67,7 @@
 
         <div class="metric score">
 
-          <div class="val" style="color: {{ text.color }}">
+          <div class="val" style="color: {{ text.color() }}">
             {{ (text.field('score')*100) | round(1) }}
           </div>
 
@@ -102,12 +102,12 @@
             <tr>
 
               <td class="count">
-                {{ hit.sort }}
+                {{ hit.sort() }}
               </td>
 
               <td class="text">
 
-                <a href="{{ hit.path }}" class="title">
+                <a href="{{ hit.path() }}" class="title">
                   {{ hit.field('title') }}
                 </a>
 

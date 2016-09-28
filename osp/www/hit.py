@@ -37,7 +37,6 @@ class Hit:
         else:
             return value
 
-    @property
     def path(self):
 
         """
@@ -48,7 +47,6 @@ class Hit:
 
         return '/text/{0}'.format(self.hit['_id'])
 
-    @property
     def sort(self):
 
         """
@@ -59,7 +57,6 @@ class Hit:
 
         return int(self.hit['sort'][0])
 
-    @property
     def color(self, steps=100):
 
         """
