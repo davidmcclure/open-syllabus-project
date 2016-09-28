@@ -158,15 +158,15 @@ class Text(BaseModel):
 
                 # Title
                 text.title_and_author_overlap() or
-                text.title_blacklisted(config.blacklisted_titles) or
+                text.title_blacklisted(config.blacklisted_titles()) or
                 text.title_is_toponym() or
 
                 # Surname
-                text.surname_blacklisted(config.blacklisted_surnames) or
+                text.surname_blacklisted(config.blacklisted_surnames()) or
                 text.surname_is_toponym() or
 
                 # Focus
-                text.unfocused(config.max_fuzz, config.whitelist)
+                text.unfocused(config.max_fuzz(), config.whitelist())
 
             )
 
