@@ -15,7 +15,9 @@ def ext_format(doc_id):
 
     doc = Document.get(Document.id==doc_id)
 
+    syllabus = doc.syllabus()
+
     return Document_Format.create(
-        format=doc.syllabus.libmagic_file_type,
-        document=doc
+        format=syllabus.libmagic_file_type,
+        document=doc,
     )

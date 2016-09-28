@@ -30,7 +30,6 @@ class Document(BaseModel):
             try:cls.create(path=syllabus.relative_path)
             except: pass
 
-    @property
     def syllabus(self):
 
         """
