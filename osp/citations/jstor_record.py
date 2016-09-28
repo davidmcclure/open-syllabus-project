@@ -20,7 +20,6 @@ class JSTOR_Record:
         with open(path, 'rb') as fh:
             self.xml = BeautifulSoup(fh, 'lxml')
 
-    @property
     def article_id(self):
 
         """
@@ -31,7 +30,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'article-id')
 
-    @property
     def article_title(self):
 
         """
@@ -42,7 +40,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'article-title')
 
-    @property
     def journal_id(self):
 
         """
@@ -53,7 +50,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'journal-id')
 
-    @property
     def journal_title(self):
 
         """
@@ -64,7 +60,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'journal-title')
 
-    @property
     def publisher_name(self):
 
         """
@@ -75,7 +70,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'publisher-name')
 
-    @property
     def volume(self):
 
         """
@@ -86,7 +80,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'volume')
 
-    @property
     def issue(self):
 
         """
@@ -97,7 +90,6 @@ class JSTOR_Record:
 
         return get_text(self.xml, 'issue')
 
-    @property
     def url(self):
 
         """
@@ -108,7 +100,6 @@ class JSTOR_Record:
 
         return get_attr(self.xml, 'self-uri', 'xlink:href')
 
-    @property
     def pub_date(self):
 
         """
@@ -130,7 +121,6 @@ class JSTOR_Record:
         except:
             return None
 
-    @property
     def authors(self):
 
         """
@@ -156,7 +146,6 @@ class JSTOR_Record:
 
         return author
 
-    @property
     def surname(self):
 
         """
@@ -170,7 +159,6 @@ class JSTOR_Record:
         if authors:
             return get_text(authors[0], 'surname')
 
-    @property
     def pagination(self):
 
         """
@@ -194,7 +182,6 @@ class JSTOR_Record:
         else:
             return None
 
-    @property
     def is_queryable(self):
 
         """
@@ -203,8 +190,8 @@ class JSTOR_Record:
         Returns: bool
         """
 
-        title = self.article_title
-        surname = self.surname
+        title = self.article_title()
+        surname = self.surname()
 
         return bool(
             title and
@@ -213,7 +200,6 @@ class JSTOR_Record:
             len(tokenize_field(surname))
         )
 
-    @property
     def text(self):
 
         """
@@ -224,16 +210,16 @@ class JSTOR_Record:
 
         return dict(
             corpus              = 'jstor',
-            identifier          = self.article_id,
-            url                 = self.url,
-            title               = self.article_title,
-            surname             = self.surname,
-            authors             = self.authors,
-            publisher           = self.publisher_name,
-            date                = self.pub_date,
-            journal_title       = self.journal_title,
-            journal_identifier  = self.journal_id,
-            issue_volume        = self.volume,
-            issue_number        = self.issue,
-            pagination          = self.pagination,
+            identifier          = self.article_id(),
+            url                 = self.url(),
+            title               = self.article_title(),
+            surname             = self.surname(),
+            authors             = self.authors(),
+            publisher           = self.publisher_name(),
+            date                = self.pub_date(),
+            journal_title       = self.journal_title(),
+            journal_identifier  = self.journal_id(),
+            issue_volume        = self.volume(),
+            issue_number        = self.issue(),
+            pagination          = self.pagination(),
         )

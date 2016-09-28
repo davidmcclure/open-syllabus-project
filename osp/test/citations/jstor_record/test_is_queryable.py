@@ -34,4 +34,4 @@ def test_is_queryable(title, author, queryable, mock_jstor):
 
     path = mock_jstor.add_article(article_title=title, author=author)
 
-    assert JSTOR_Record(path).is_queryable == queryable
+    assert JSTOR_Record(path).is_queryable() == queryable

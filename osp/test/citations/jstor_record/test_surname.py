@@ -36,4 +36,4 @@ def test_surname(inputs, surname, mock_jstor):
 
     path = mock_jstor.add_article(author=inputs)
 
-    assert JSTOR_Record(path).surname == surname
+    assert JSTOR_Record(path).surname() == surname

@@ -29,4 +29,4 @@ def test_pub_date(year, month, day, date, mock_jstor):
         pub_day=day,
     )
 
-    assert JSTOR_Record(path).pub_date == date
+    assert JSTOR_Record(path).pub_date() == date

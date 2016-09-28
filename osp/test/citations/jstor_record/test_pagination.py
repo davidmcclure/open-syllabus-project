@@ -24,4 +24,4 @@ def test_pagination(fpage, lpage, pagination, mock_jstor):
 
     path = mock_jstor.add_article(fpage=fpage, lpage=lpage)
 
-    assert JSTOR_Record(path).pagination == pagination
+    assert JSTOR_Record(path).pagination() == pagination

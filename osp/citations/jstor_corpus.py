@@ -58,8 +58,8 @@ class JSTOR_Corpus:
 
                 record = JSTOR_Record(path)
 
-                if record.is_queryable:
-                    yield record.text
+                if record.is_queryable():
+                    yield record.text()
 
             except Exception as e:
                 print(e)
