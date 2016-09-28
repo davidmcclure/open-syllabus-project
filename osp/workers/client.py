@@ -38,7 +38,6 @@ class Client:
 
         return ips
 
-    @property
     def worker_ips(self):
 
         """
@@ -50,14 +49,13 @@ class Client:
             'tag:context': config['ec2']['context'],
         })
 
-    @property
     def worker_urls(self):
 
         """
         Get a list of worker URLs.
         """
 
-        return ['http://'+ip for ip in self.worker_ips]
+        return ['http://'+ip for ip in self.worker_ips()]
 
     def ping(self):
 
@@ -65,7 +63,7 @@ class Client:
         Ping the workers.
         """
 
-        for url in self.worker_urls:
+        for url in self.worker_urls():
 
             r = requests.get(url+'/ping')
 
@@ -82,9 +80,9 @@ class Client:
             job_import (str): Job import path.
         """
 
-        worker_count = len(self.worker_urls)
+        worker_count = len(self.worker_urls())
 
-        for i, url in enumerate(self.worker_urls):
+        for i, url in enumerate(self.worker_urls()):
 
             r = requests.post(url+'/queue', data=dict(
                 model_import    = model_import,
@@ -102,7 +100,7 @@ class Client:
         Clear all queues in all workers.
         """
 
-        for url in self.worker_urls:
+        for url in self.worker_urls():
 
             click.echo(url)
 
@@ -122,7 +120,7 @@ class Client:
 
         term = Terminal()
 
-        for url in self.worker_urls:
+        for url in self.worker_urls():
 
             click.echo(url)
 
@@ -145,7 +143,7 @@ class Client:
         Requeue all tasks in all workers.
         """
 
-        for url in self.worker_urls:
+        for url in self.worker_urls():
 
             click.echo(url)
 
