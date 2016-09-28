@@ -39,7 +39,7 @@
     "font-awesome": "^4.5.0",
     "history": "^4.2.0",
     "jquery": "^3.1.1",
-    "leaflet": "^1.0.0",
+    "leaflet": "^0.7.7",
     "leaflet-minimap": "^3.0.0",
     "lesshat": "^4.1.0",
     "lodash": "^4.0.0",
