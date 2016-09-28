@@ -62,8 +62,8 @@ class HLOM_Corpus:
 
                 record = HLOM_Record(marc)
 
-                if record.is_queryable:
-                    yield record.text
+                if record.is_queryable():
+                    yield record.text()
 
             except Exception as e:
                 print(e)

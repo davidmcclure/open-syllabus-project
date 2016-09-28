@@ -30,4 +30,4 @@ def test_is_queryable(title, author, queryable, mock_hlom):
 
     record = mock_hlom.add_marc(title=title, author=author)
 
-    assert HLOM_Record(record).is_queryable == queryable
+    assert HLOM_Record(record).is_queryable() == queryable

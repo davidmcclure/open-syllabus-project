@@ -16,7 +16,6 @@ class HLOM_Record:
 
         self.record = record
 
-    @property
     def control_number(self):
 
         """
@@ -27,7 +26,6 @@ class HLOM_Record:
 
         return clean_field(self.record['001'].format_field())
 
-    @property
     def title(self):
 
         """
@@ -38,7 +36,6 @@ class HLOM_Record:
 
         return clean_field(self.record.title())
 
-    @property
     def authors(self):
 
         """
@@ -50,7 +47,6 @@ class HLOM_Record:
         author = clean_field(self.record.author())
         return [author] if author else []
 
-    @property
     def surname(self):
 
         """
@@ -62,7 +58,6 @@ class HLOM_Record:
         author = clean_field(self.record.author())
         return author.split(',')[0] if author else None
 
-    @property
     def publisher(self):
 
         """
@@ -73,7 +68,6 @@ class HLOM_Record:
 
         return clean_field(self.record.publisher())
 
-    @property
     def date(self):
 
         """
@@ -84,7 +78,6 @@ class HLOM_Record:
 
         return clean_field(self.record.pubyear())
 
-    @property
     def is_queryable(self):
 
         """
@@ -93,8 +86,8 @@ class HLOM_Record:
         Returns: bool
         """
 
-        title = self.title
-        surname = self.surname
+        title = self.title()
+        surname = self.surname()
 
         return bool(
             title and
@@ -103,7 +96,6 @@ class HLOM_Record:
             len(tokenize_field(surname))
         )
 
-    @property
     def text(self):
 
         """
@@ -114,10 +106,10 @@ class HLOM_Record:
 
         return dict(
             corpus      = 'hlom',
-            identifier  = self.control_number,
-            title       = self.title,
-            surname     = self.surname,
-            authors     = self.authors,
-            publisher   = self.publisher,
-            date        = self.date,
+            identifier  = self.control_number(),
+            title       = self.title(),
+            surname     = self.surname(),
+            authors     = self.authors(),
+            publisher   = self.publisher(),
+            date        = self.date(),
         )

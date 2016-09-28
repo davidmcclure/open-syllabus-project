@@ -24,4 +24,4 @@ def test_author(author, surname, mock_hlom):
 
     record = mock_hlom.add_marc(author=author)
 
-    assert HLOM_Record(record).surname == surname
+    assert HLOM_Record(record).surname() == surname
