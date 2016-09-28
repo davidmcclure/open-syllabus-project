@@ -73,7 +73,10 @@ class Syllabus:
             str: The file path, relative to the corpus.
         """
 
-        return self.segment_name+'/'+self.file_name
+        return os.path.join(
+            self.segment_name,
+            self.file_name,
+        )
 
     @property
     def log_path(self):
