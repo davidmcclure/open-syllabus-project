@@ -19,7 +19,7 @@ def test_queries(add_text):
         surname='Tolstoy'
     )
 
-    queries = text.queries
+    queries = text.queries()
 
     for tokens in [
         ['tolstoy', 'anna', 'karenina'],

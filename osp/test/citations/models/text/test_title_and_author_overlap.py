@@ -22,4 +22,4 @@ def test_title_and_author_overlap(title, author, result):
 
     text = Text(title=title, authors=[author])
 
-    assert text.title_and_author_overlap == result
+    assert text.title_and_author_overlap() == result

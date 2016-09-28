@@ -33,6 +33,7 @@ def test_coalesce(dupes, add_text):
     hashes = set()
 
     for title, surname in dupes:
-        hashes.add(add_text(title=title, surname=surname).hash)
+        text = add_text(title=title, surname=surname)
+        hashes.add(text.hash())
 
     assert len(hashes) == 1

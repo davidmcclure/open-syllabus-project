@@ -123,7 +123,7 @@ class Text(BaseModel):
             # Has the hash been seen?
             seen = config.redis.sismember(
                 redis_keys.OSP_DEDUP,
-                text.hash,
+                text.hash(),
             )
 
             # If so, don't display this text.
@@ -138,7 +138,7 @@ class Text(BaseModel):
                 # And reserve the hash.
                 config.redis.sadd(
                     redis_keys.OSP_DEDUP,
-                    text.hash,
+                    text.hash(),
                 )
 
             text.save()
@@ -157,13 +157,13 @@ class Text(BaseModel):
             text.valid = not (
 
                 # Title
-                text.title_and_author_overlap or
+                text.title_and_author_overlap() or
                 text.title_blacklisted(config.blacklisted_titles) or
-                text.title_is_toponym or
+                text.title_is_toponym() or
 
                 # Surname
                 text.surname_blacklisted(config.blacklisted_surnames) or
-                text.surname_is_toponym or
+                text.surname_is_toponym() or
 
                 # Focus
                 text.unfocused(config.max_fuzz, config.whitelist)
@@ -172,7 +172,6 @@ class Text(BaseModel):
 
             text.save()
 
-    @property
     def title_tokens(self):
 
         """
@@ -183,7 +182,6 @@ class Text(BaseModel):
 
         return tokenize_field(self.title)
 
-    @property
     def first_author_tokens(self):
 
         """
@@ -194,7 +192,6 @@ class Text(BaseModel):
 
         return tokenize_field(self.authors[0])
 
-    @property
     def surname_tokens(self):
 
         """
@@ -205,7 +202,6 @@ class Text(BaseModel):
 
         return tokenize_field(self.surname)
 
-    @property
     def hash_tokens(self):
 
         """
@@ -217,9 +213,8 @@ class Text(BaseModel):
         """
 
         # Sort the surname tokens.
-        return sorted(self.surname_tokens) + self.title_tokens
+        return sorted(self.surname_tokens()) + self.title_tokens()
 
-    @property
     def hash(self):
 
         """
@@ -229,12 +224,10 @@ class Text(BaseModel):
             str: The deduping hash.
         """
 
-        # Hash the tokens.
         sha1 = hashlib.sha1()
-        sha1.update(' '.join(self.hash_tokens).encode('ascii', 'ignore'))
+        sha1.update(' '.join(self.hash_tokens()).encode('ascii', 'ignore'))
         return sha1.hexdigest()
 
-    @property
     def queries(self):
 
         """
@@ -247,10 +240,10 @@ class Text(BaseModel):
         return [
 
             # <author> <title>
-            self.surname_tokens + self.title_tokens,
+            self.surname_tokens() + self.title_tokens(),
 
             # <title> <author>
-            self.title_tokens + self.surname_tokens,
+            self.title_tokens() + self.surname_tokens(),
 
         ]
 
@@ -276,7 +269,6 @@ class Text(BaseModel):
         else:
             return prettify(value)
 
-    @property
     def fuzz(self):
 
         """
@@ -288,12 +280,11 @@ class Text(BaseModel):
 
         freqs = [
             word_frequency(t, 'en', minimum=1e-6)
-            for t in self.hash_tokens
+            for t in self.hash_tokens()
         ]
 
         return reduce(lambda x, y: x*y, freqs)*1e10
 
-    @property
     def title_and_author_overlap(self):
 
         """
@@ -302,8 +293,8 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        title   = set(self.title_tokens)
-        author  = set(self.first_author_tokens)
+        title   = set(self.title_tokens())
+        author  = set(self.first_author_tokens())
 
         return bool(title.intersection(author))
 
@@ -318,7 +309,7 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        return self.title_tokens in blacklist
+        return self.title_tokens() in blacklist
 
     def surname_blacklisted(self, blacklist=[]):
 
@@ -331,9 +322,8 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        return self.surname_tokens in blacklist
+        return self.surname_tokens() in blacklist
 
-    @property
     def title_is_toponym(self):
 
         """
@@ -342,10 +332,10 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        title = ' '.join(self.title_tokens)
+        title = ' '.join(self.title_tokens())
+
         return is_toponym(title)
 
-    @property
     def surname_is_toponym(self):
 
         """
@@ -354,7 +344,8 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        surname = ' '.join(self.surname_tokens)
+        surname = ' '.join(self.surname_tokens())
+
         return is_toponym(surname)
 
     def unfocused(self, max_fuzz=float('inf'), whitelist=[]):
@@ -369,4 +360,4 @@ class Text(BaseModel):
         Returns: bool
         """
 
-        return self.fuzz > max_fuzz and self.id not in whitelist
+        return self.fuzz() > max_fuzz and self.id not in whitelist

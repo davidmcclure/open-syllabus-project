@@ -15,4 +15,4 @@ def test_title_is_toponym(title, is_toponym):
 
     text = Text(title=title)
 
-    assert text.title_is_toponym == is_toponym
+    assert text.title_is_toponym() == is_toponym

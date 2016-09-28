@@ -39,7 +39,7 @@ def test_matches(add_doc, add_text):
         assert Citation.select().where(
             Citation.text==text,
             Citation.document==doc,
-            Citation.tokens.contains(text.hash_tokens),
+            Citation.tokens.contains(text.hash_tokens()),
         )
 
 
@@ -108,5 +108,5 @@ def test_citation_formats(title, surname, content, add_doc, add_text):
     assert Citation.select().where(
         Citation.text==text,
         Citation.document==doc,
-        Citation.tokens.contains(text.hash_tokens),
+        Citation.tokens.contains(text.hash_tokens()),
     )

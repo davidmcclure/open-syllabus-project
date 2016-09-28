@@ -15,4 +15,4 @@ def test_surname_is_toponym(surname, is_toponym):
 
     text = Text(surname=surname)
 
-    assert text.surname_is_toponym == is_toponym
+    assert text.surname_is_toponym() == is_toponym

@@ -18,7 +18,7 @@ def text_to_docs(text_id):
 
 
     doc_ids = set()
-    for tokens in row.queries:
+    for tokens in row.queries():
 
         # Execute the query.
         results = config.es.search(
@@ -60,7 +60,7 @@ def text_to_docs(text_id):
         citations.append({
             'document': doc_id,
             'text': row.id,
-            'tokens': row.hash_tokens,
+            'tokens': row.hash_tokens(),
         })
 
     # Bulk-insert the results.
