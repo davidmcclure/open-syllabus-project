@@ -1,6 +1,7 @@
 
 
 import click
+import pickle
 
 from osp.corpus.models import Document
 
@@ -22,4 +23,4 @@ def doc_to_url(out_file):
     for doc in Document.select():
         urls[doc.id] = doc.syllabus.url
 
-    print(urls)
+    pickle.dump(urls, out_file)
