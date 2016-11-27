@@ -12,4 +12,4 @@ def test_file_name(mock_osp):
     path = mock_osp.add_file(name='name')
     syllabus = Syllabus(path)
 
-    assert syllabus.file_name == 'name'
+    assert syllabus.file_name() == 'name'

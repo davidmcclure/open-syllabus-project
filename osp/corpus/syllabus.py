@@ -45,7 +45,6 @@ class Syllabus:
 
         self.path = os.path.abspath(path)
 
-    @property
     def file_name(self):
 
         """
@@ -55,7 +54,6 @@ class Syllabus:
 
         return os.path.basename(self.path)
 
-    @property
     def segment_name(self):
 
         """
@@ -73,7 +71,10 @@ class Syllabus:
             str: The file path, relative to the corpus.
         """
 
-        return self.segment_name+'/'+self.file_name
+        return '/'.join([
+            self.segment_name(),
+            self.file_name(),
+        ])
 
     @property
     def log_path(self):

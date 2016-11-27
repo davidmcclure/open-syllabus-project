@@ -12,4 +12,4 @@ def test_segment_name(mock_osp):
     path = mock_osp.add_file(segment='001')
     syllabus = Syllabus(path)
 
-    assert syllabus.segment_name == '001'
+    assert syllabus.segment_name() == '001'
