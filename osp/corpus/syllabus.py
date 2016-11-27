@@ -108,7 +108,7 @@ class Syllabus:
         """
 
         if self.log_exists:
-            with open(self.log_path, 'r') as log:
+            with open(self.log_path, 'r', errors='ignore') as log:
                 return log.read().splitlines()
 
         else: return []
