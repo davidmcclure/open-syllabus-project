@@ -29,10 +29,11 @@ def doc_to_url(out_file):
 
 
 @cli.command()
-@click.argument('query', type=str)
+@click.argument('query')
 @click.argument('urls_file', type=click.File('rb'))
 @click.argument('csv_file', type=click.File('w'))
-def query_urls(query, urls_file, csv_file):
+@click.option('--size', default=1000)
+def query_urls(query, urls_file, csv_file, size):
 
     """
     Query docs for a keyword, join URLs, write to CSV.
@@ -48,7 +49,7 @@ def query_urls(query, urls_file, csv_file):
 
         body={
             'fields': [],
-            'size': 10,
+            'size': size,
             'query': {
                 'match': {
                     'body': query
