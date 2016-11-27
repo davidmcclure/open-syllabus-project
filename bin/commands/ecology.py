@@ -55,6 +55,16 @@ def query_urls(query, urls_file, csv_file, size):
                     'body': query
                 }
             },
+            'highlight': {
+                'pre_tags': ['***'],
+                'post_tags': ['***'],
+                'fields': {
+                    'body': {
+                        'number_of_fragments': 10,
+                        'fragment_size': 100,
+                    },
+                }
+            }
         },
 
     )
@@ -63,6 +73,7 @@ def query_urls(query, urls_file, csv_file, size):
         'id',
         'score',
         'url',
+        'snippets',
     ])
 
     writer.writeheader()
@@ -72,8 +83,15 @@ def query_urls(query, urls_file, csv_file, size):
 
             url = urls.get(int(hit['_id']))
 
+            # Strip newlines, join highlights.
+            snippets = '\n------\n'.join([
+                hl.replace('\n', ' ')
+                for hl in hit['highlight']['body']
+            ])
+
             writer.writerow(dict(
                 id=hit['_id'],
                 score=hit['_score'],
                 url=url,
+                snippets=snippets,
             ))
