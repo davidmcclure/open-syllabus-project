@@ -27,7 +27,7 @@ class Document(BaseModel):
         """
 
         for syllabus in Corpus.from_env().syllabi_bar():
-            try:cls.create(path=syllabus.relative_path)
+            try: cls.create(path=syllabus.relative_path())
             except: pass
 
     @property

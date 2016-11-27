@@ -12,4 +12,4 @@ def test_relative_path(mock_osp):
     path = mock_osp.add_file(segment='segment', name='name')
     syllabus = Syllabus(path)
 
-    assert syllabus.relative_path == 'segment/name'
+    assert syllabus.relative_path() == 'segment/name'

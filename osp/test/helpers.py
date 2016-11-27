@@ -34,7 +34,7 @@ def add_doc(mock_osp):
         syllabus = Syllabus(path)
 
         # Insert the document row.
-        document = Document.create(path=syllabus.relative_path)
+        document = Document.create(path=syllabus.relative_path())
 
         # Extract text.
         text = ext_text(document.id)

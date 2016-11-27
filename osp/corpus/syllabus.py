@@ -63,7 +63,6 @@ class Syllabus:
 
         return os.path.split(os.path.dirname(self.path))[-1]
 
-    @property
     def relative_path(self):
 
         """
