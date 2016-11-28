@@ -175,7 +175,6 @@ class Syllabus:
 
         return self.metadata(4)
 
-    @property
     def created_date(self):
 
         """
