@@ -23,7 +23,7 @@ def doc_to_url(out_file):
 
     urls = {}
     for doc in Document.select():
-        urls[doc.id] = doc.syllabus.url
+        urls[doc.id] = doc.syllabus.url()
 
     pickle.dump(urls, out_file)
 

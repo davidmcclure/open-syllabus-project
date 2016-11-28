@@ -43,8 +43,7 @@ class Institution_Document(BaseModel):
 
             try:
 
-                # TODO: Get rid of @property.
-                url = doc.syllabus.url
+                url = doc.syllabus.url()
 
                 domain = parse_domain(url)
 

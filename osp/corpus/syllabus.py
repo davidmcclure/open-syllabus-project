@@ -130,7 +130,6 @@ class Syllabus:
 
         else: return None
 
-    @property
     def url(self):
 
         """
@@ -140,7 +139,6 @@ class Syllabus:
 
         return self.metadata(0)
 
-    @property
     def provenance(self):
 
         """
@@ -150,7 +148,6 @@ class Syllabus:
 
         return self.metadata(1)
 
-    @property
     def retrieved_date(self):
 
         """
@@ -160,7 +157,6 @@ class Syllabus:
 
         return self.metadata(2)
 
-    @property
     def checksum(self):
 
         """
@@ -170,7 +166,6 @@ class Syllabus:
 
         return self.metadata(3)
 
-    @property
     def file_type(self):
 
         """
@@ -221,7 +216,7 @@ class Syllabus:
             str: The top-level domain.
         """
 
-        return parse_domain(self.url)
+        return parse_domain(self.url())
 
     @cached_property
     def text(self):

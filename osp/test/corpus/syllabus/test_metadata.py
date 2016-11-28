@@ -39,7 +39,7 @@ def test_url(mock_osp):
     path = mock_osp.add_file(log={'url': 'osp.org'})
     syllabus = Syllabus(path)
 
-    assert syllabus.url == 'osp.org'
+    assert syllabus.url() == 'osp.org'
 
 
 def test_provenance(mock_osp):
@@ -51,7 +51,7 @@ def test_provenance(mock_osp):
     path = mock_osp.add_file(log={'provenance': 'pytest'})
     syllabus = Syllabus(path)
 
-    assert syllabus.provenance == 'pytest'
+    assert syllabus.provenance() == 'pytest'
 
 
 def test_retrieved_date(mock_osp):
@@ -63,7 +63,7 @@ def test_retrieved_date(mock_osp):
     path = mock_osp.add_file(log={'date': 'now'})
     syllabus = Syllabus(path)
 
-    assert syllabus.retrieved_date == 'now'
+    assert syllabus.retrieved_date() == 'now'
 
 
 def test_checksum(mock_osp):
@@ -75,7 +75,7 @@ def test_checksum(mock_osp):
     path = mock_osp.add_file(log={'checksum': '123'})
     syllabus = Syllabus(path)
 
-    assert syllabus.checksum == '123'
+    assert syllabus.checksum() == '123'
 
 
 def test_file_type(mock_osp):
@@ -87,4 +87,4 @@ def test_file_type(mock_osp):
     path = mock_osp.add_file(log={'format': 'text/plain'})
     syllabus = Syllabus(path)
 
-    assert syllabus.file_type == 'text/plain'
+    assert syllabus.file_type() == 'text/plain'
