@@ -5,6 +5,7 @@ import pickle
 import csv
 
 from osp.corpus.models import Document
+from osp.common.utils import query_bar
 from osp.common import config
 
 
@@ -22,7 +23,7 @@ def doc_to_url(out_file):
     """
 
     urls = {}
-    for doc in Document.select():
+    for doc in query_bar(Document.select()):
         urls[doc.id] = doc.syllabus.url()
 
     pickle.dump(urls, out_file)
