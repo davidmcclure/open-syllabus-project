@@ -175,6 +175,15 @@ class Syllabus:
 
         return self.metadata(4)
 
+    def libmagic_file_type(self):
+
+        """
+        Returns:
+            str: The libmagic-parsed file type.
+        """
+
+        return magic.from_file(self.path, mime=True)
+
     def created_date(self):
 
         """
@@ -185,7 +194,7 @@ class Syllabus:
             datetime|None: The created date.
         """
 
-        ft = self.libmagic_file_type
+        ft = self.libmagic_file_type()
 
         if ft == 'application/pdf':
             return utils.pdf_date(self.path)
@@ -193,16 +202,6 @@ class Syllabus:
         else:
             try: return utils.docx_date(self.path)
             except: pass
-
-    @cached_property
-    def libmagic_file_type(self):
-
-        """
-        Returns:
-            str: The libmagic-parsed file type.
-        """
-
-        return magic.from_file(self.path, mime=True)
 
     @property
     @utils.requires_attr('url')
@@ -227,7 +226,7 @@ class Syllabus:
             str: The text content.
         """
 
-        ft = self.libmagic_file_type
+        ft = self.libmagic_file_type()
 
         # Empty:
         if ft == 'inode/x-empty':
