@@ -8,13 +8,13 @@ from osp.corpus.syllabus import Syllabus
 def test_log_exists(mock_osp):
 
     """
-    Syllabus#log_exists should return True when a log is present.
+    Syllabus#log_exists() should return True when a log is present.
     """
 
     path = mock_osp.add_file()
     syllabus = Syllabus(path)
 
-    assert syllabus.log_exists == True
+    assert syllabus.log_exists() == True
 
 
 def test_log_missing(mock_osp):
@@ -27,4 +27,4 @@ def test_log_missing(mock_osp):
     syllabus = Syllabus(path)
 
     os.remove(path+'.log')
-    assert syllabus.log_exists == False
+    assert syllabus.log_exists() == False

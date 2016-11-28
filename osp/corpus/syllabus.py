@@ -84,7 +84,6 @@ class Syllabus:
 
         return self.path+'.log'
 
-    @property
     def log_exists(self):
 
         """
@@ -106,7 +105,7 @@ class Syllabus:
             list: Log elements.
         """
 
-        if self.log_exists:
+        if self.log_exists():
             with open(self.log_path(), 'r', errors='ignore') as log:
                 return log.read().splitlines()
 
