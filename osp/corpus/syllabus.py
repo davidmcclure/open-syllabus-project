@@ -201,7 +201,6 @@ class Syllabus:
             try: return utils.docx_date(self.path)
             except: pass
 
-    @property
     def domain(self):
 
         """

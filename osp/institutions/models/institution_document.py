@@ -45,7 +45,7 @@ class Institution_Document(BaseModel):
 
                 url = doc.syllabus.url()
 
-                domain = parse_domain(url)
+                domain = doc.syllabus.domain()
 
                 # Find institutions with matching URLs.
                 matches = []
