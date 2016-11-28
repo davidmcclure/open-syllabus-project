@@ -75,7 +75,6 @@ class Syllabus:
             self.file_name(),
         ])
 
-    @property
     def log_path(self):
 
         """
@@ -95,7 +94,7 @@ class Syllabus:
             bool: True if the file exists.
         """
 
-        return os.path.isfile(self.log_path)
+        return os.path.isfile(self.log_path())
 
     @cached_property
     def log(self):
@@ -108,7 +107,7 @@ class Syllabus:
         """
 
         if self.log_exists:
-            with open(self.log_path, 'r', errors='ignore') as log:
+            with open(self.log_path(), 'r', errors='ignore') as log:
                 return log.read().splitlines()
 
         else: return []
