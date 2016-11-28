@@ -16,7 +16,7 @@ def test_collapse_whitespace(mock_osp):
     path = mock_osp.add_file(content=text, ftype='plain')
     syllabus = Syllabus(path)
 
-    assert syllabus.unbroken_text == 'w1 w2 w3'
+    assert syllabus.unbroken_text() == 'w1 w2 w3'
 
 
 def test_trim(mock_osp):
@@ -30,4 +30,4 @@ def test_trim(mock_osp):
     path = mock_osp.add_file(content=text, ftype='plain')
     syllabus = Syllabus(path)
 
-    assert syllabus.unbroken_text == 'word'
+    assert syllabus.unbroken_text() == 'word'

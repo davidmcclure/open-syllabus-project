@@ -6,14 +6,14 @@ import re
 import magic
 import re
 
-from osp.corpus import utils
-from osp.common import config
-from osp.common.utils import parse_domain
 from contextlib import contextmanager
 from cached_property import cached_property
+from functools import lru_cache
 
+from osp.corpus import utils
+from osp.common.utils import parse_domain
+from osp.common import config
 
-# TODO: Don't use @property for the log methods.
 
 
 class Syllabus:
@@ -212,7 +212,7 @@ class Syllabus:
 
         return parse_domain(self.url())
 
-    @cached_property
+    @lru_cache()
     def text(self):
 
         """
@@ -245,7 +245,7 @@ class Syllabus:
         else:
             return utils.docx_text(self.path)
 
-    @cached_property
+    @lru_cache()
     def unbroken_text(self):
 
         """
@@ -255,4 +255,4 @@ class Syllabus:
             str: The compressed text.
         """
 
-        return re.sub('\s{2,}', ' ', self.text).strip()
+        return re.sub('\s{2,}', ' ', self.text()).strip()

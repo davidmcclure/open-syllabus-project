@@ -13,7 +13,7 @@ def test_empty(mock_osp):
     path = mock_osp.add_file(content='', ftype='plain')
     syllabus = Syllabus(path)
 
-    assert syllabus.text == None
+    assert syllabus.text() == None
 
 
 def test_plaintext(mock_osp):
@@ -25,7 +25,7 @@ def test_plaintext(mock_osp):
     path = mock_osp.add_file(content='text', ftype='plain')
     syllabus = Syllabus(path)
 
-    assert syllabus.text == 'text'
+    assert syllabus.text() == 'text'
 
 
 def test_html(mock_osp):
@@ -37,7 +37,7 @@ def test_html(mock_osp):
     path = mock_osp.add_file(content='<p>text</p>', ftype='html')
     syllabus = Syllabus(path)
 
-    assert syllabus.text == 'text'
+    assert syllabus.text() == 'text'
 
 
 def test_pdf(mock_osp):
@@ -49,7 +49,7 @@ def test_pdf(mock_osp):
     path = mock_osp.add_file(content='text', ftype='pdf')
     syllabus = Syllabus(path)
 
-    assert syllabus.text.strip() == 'text'
+    assert syllabus.text().strip() == 'text'
 
 
 @requires_tika
@@ -62,4 +62,4 @@ def test_office(mock_osp):
     path = mock_osp.add_file(content='text', ftype='docx')
     syllabus = Syllabus(path)
 
-    assert syllabus.text.strip() == 'text'
+    assert syllabus.text().strip() == 'text'

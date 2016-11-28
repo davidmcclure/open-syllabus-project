@@ -15,9 +15,11 @@ def ext_text(doc_id):
 
     doc = Document.get(Document.id==doc_id)
 
-    if doc.syllabus.text:
+    text = doc.syllabus.text()
+
+    if text:
 
         return Document_Text.create(
-            text=doc.syllabus.text,
-            document=doc
+            text=text,
+            document=doc,
         )
