@@ -204,7 +204,6 @@ class Syllabus:
             except: pass
 
     @property
-    @utils.requires_attr('url')
     def domain(self):
 
         """
@@ -250,7 +249,6 @@ class Syllabus:
             return utils.docx_text(self.path)
 
     @cached_property
-    @utils.requires_attr('text')
     def unbroken_text(self):
 
         """

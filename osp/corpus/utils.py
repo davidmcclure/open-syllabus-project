@@ -25,11 +25,15 @@ def requires_attr(attr):
     """
 
     def decorator(func):
+
         def wrapper(self, *args, **kwargs):
             if getattr(self, attr, None):
                 return func(self, *args, **kwargs)
-            else: return None
+            else:
+                return None
+
         return wrapper
+
     return decorator
 
 
