@@ -53,8 +53,10 @@ def query_urls(query, urls_file, csv_file, size):
             'size': size,
             'query': {
                 'match': {
-                    'body': query,
-                    'operator': 'and',
+                    'body': {
+                        'query': query,
+                        'operator': 'and',
+                    }
                 }
             },
             'highlight': {
