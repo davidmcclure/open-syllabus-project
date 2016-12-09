@@ -46,7 +46,7 @@ def query_urls(query, urls_file, csv_file, size):
     results = config.es.search(
 
         index='document',
-        request_timeout=90,
+        request_timeout=300,
 
         body={
             'fields': [],
