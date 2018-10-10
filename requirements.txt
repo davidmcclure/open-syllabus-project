@@ -44,7 +44,10 @@ colour
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
 
+# Doesn't exist anymore?
 #jsonstream
+
+# Heavy packages not needed for www.
 #numpy
 #scipy
 #pgmagick
