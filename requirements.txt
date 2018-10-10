@@ -7,7 +7,7 @@ rq
 rq-dashboard==0.3.4
 click
 psycopg2-binary
-peewee
+peewee==2.8.0
 python-magic
 requests
 clint
@@ -18,7 +18,7 @@ ijson
 pypdf2
 elasticsearch
 blessings
-anyconfig
+anyconfig==0.5.0
 PyYAML
 uwsgi
 flask
