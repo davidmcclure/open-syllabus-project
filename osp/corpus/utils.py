@@ -63,7 +63,7 @@ def html_text(path, exclude=['script', 'style']):
 
     with open(path, 'rb') as fh:
 
-        soup = BeautifulSoup(fh)
+        soup = BeautifulSoup(fh, 'lxml')
         for script in soup(exclude): script.extract()
         return soup.get_text()
 
