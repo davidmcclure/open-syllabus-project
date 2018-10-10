@@ -6,7 +6,7 @@ redis
 rq
 rq-dashboard==0.3.4
 click
-psycopg2
+psycopg2-binary
 peewee
 python-magic
 requests
@@ -14,7 +14,6 @@ clint
 prettytable
 circus
 beautifulsoup4
-#jsonstream
 ijson
 pypdf2
 elasticsearch
@@ -25,14 +24,11 @@ uwsgi
 flask
 Flask-Cache
 boto
-#numpy
-#scipy
 reportlab
 python-docx
 pdfminer3k
 pytest
 networkx
-#pgmagick
 nltk
 wheel
 wordfreq
@@ -47,3 +43,8 @@ titlecase
 colour
 
 -e git+https://github.com/davidmcclure/pymarc.git@ascii#egg=pymarc
+
+#jsonstream
+#numpy
+#scipy
+#pgmagick
