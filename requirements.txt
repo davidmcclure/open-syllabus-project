@@ -14,6 +14,7 @@ clint
 prettytable
 circus
 beautifulsoup4
+#jsonstream
 ijson
 pypdf2
 elasticsearch
@@ -24,14 +25,14 @@ uwsgi
 flask
 Flask-Cache
 boto
-numpy
-scipy
+#numpy
+#scipy
 reportlab
 python-docx
 pdfminer3k
 pytest
 networkx
-pgmagick
+#pgmagick
 nltk
 wheel
 wordfreq
