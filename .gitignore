@@ -2,7 +2,6 @@
 .cache
 *.egg-info
 *.pyc
-*.csv
 *.p
 
 /wheelhouse
