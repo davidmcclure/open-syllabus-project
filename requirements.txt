@@ -16,19 +16,19 @@ circus
 beautifulsoup4
 ijson
 pypdf2
-elasticsearch
+elasticsearch==2.3.0
 blessings
 anyconfig==0.5.0
 PyYAML
 uwsgi
-flask
+flask==0.11
 Flask-Cache
 boto
 reportlab
 python-docx
 pdfminer3k
 pytest
-networkx
+networkx==1.11
 nltk
 wheel
 wordfreq
@@ -47,7 +47,7 @@ colour
 # Doesn't exist anymore?
 #jsonstream
 
-# Heavy packages not needed for www.
+# Not needed for www.
 #numpy
 #scipy
 #pgmagick
