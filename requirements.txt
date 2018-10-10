@@ -14,7 +14,6 @@ clint
 prettytable
 circus
 beautifulsoup4
-jsonstream
 ijson
 pypdf2
 elasticsearch
