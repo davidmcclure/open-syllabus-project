@@ -1,5 +1,7 @@
 
 ipython
+numpy
+scipy
 tldextract
 geopy
 redis
@@ -48,6 +50,4 @@ colour
 #jsonstream
 
 # Not needed for www.
-#numpy
-#scipy
 #pgmagick
