@@ -1,3 +1,8 @@
+
+🚨🚨
+NOTE: This repository is an old, beta version of Open Syllabus that was online circa 2016. The code here isn't what's powering the current [Explorer](https://opensyllabus.org/) or [Galaxy](https://galaxy.opensyllabus.org/) websites.
+🚨🚨
+
 # Open Syllabus Project
 
 #### [explorer.opensyllabusproject.org](http://explorer.opensyllabusproject.org)
