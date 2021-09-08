@@ -42,7 +42,7 @@
     "leaflet": "^0.7.7",
     "leaflet-minimap": "^3.0.0",
     "lesshat": "^4.1.0",
-    "lodash": "^4.0.0",
+    "lodash": "^4.17.21",
     "pluralize": "^3.0.0",
     "query-string": "^4.2.3",
     "react": "^15.3.2",
